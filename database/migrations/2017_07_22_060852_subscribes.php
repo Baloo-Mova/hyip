@@ -20,7 +20,7 @@ class Subscribes extends Migration
             $table->integer('price');
             $table->integer('term');
             $table->text('description');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

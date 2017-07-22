@@ -19,7 +19,7 @@ class PeymentsRequest extends Migration
             $table->integer('wallet_id');
             $table->integer('summ');
             $table->integer('status');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

@@ -17,10 +17,10 @@ class Messages extends Migration
             $table->increments('id');
             $table->integer('from_user');
             $table->integer('to_user');
-            $table->boolean('is_read');
+            $table->boolean('is_read')->default(0);
             $table->text('message');
-            $table->boolean('from_delete');
-            $table->boolean('to_delete');
+            $table->boolean('from_delete')->default(0);
+            $table->boolean('to_delete')->default(0);
             $table->timestamps();
         });
     }

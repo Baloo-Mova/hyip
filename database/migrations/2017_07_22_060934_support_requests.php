@@ -17,7 +17,7 @@ class SupportRequests extends Migration
             $table->increments('id');
             $table->text('text');
             $table->integer('user_id');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

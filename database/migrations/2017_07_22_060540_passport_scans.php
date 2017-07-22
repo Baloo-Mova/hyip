@@ -17,7 +17,7 @@ class PassportScans extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('path');
-            $table->boolean('is_confirm');
+            $table->boolean('is_confirm')->default(0);
             $table->timestamps();
         });
     }
