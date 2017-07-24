@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-use Validator, Auth;
+use Validator, Auth, Hash;
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -28,6 +29,11 @@ class AuthController extends Controller
         return redirect()->back()->withInput($request->all())->withErrors(['password' => ['Incorrect password']]);
     }
 
+    public function registerForm()
+    {
+        return view('guest.register');
+    }
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), with(new RegisterRequest())->rules());
@@ -37,8 +43,13 @@ class AuthController extends Controller
         }
 
         User::create([
-            'email'     => $request->get('email'),
-            'password'  => Hash::make($request->get('password')),
+            'login'         => $request->get('login'),
+            'email'         => $request->get('email'),
+            'password'      => Hash::make($request->get('password')),
+            'role'          => 1,
+            'balance'       => 0,
+            'ref_link'      => str_replace(' ','',md5(uniqid()) . microtime()),
+            'last_activity' => Carbon::now(),
         ]);
 
 
@@ -47,6 +58,6 @@ class AuthController extends Controller
             'password'  => $request->get('password')
         ]);
 
-        return redirect('/cabinet');
+        return redirect('/');
     }
 }
