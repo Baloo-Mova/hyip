@@ -28,6 +28,7 @@
         }
     </style>
     {!! Form::open(['url' => 'register', 'class' => 'form-signin']) !!}
+            {!! Form::hidden ('token', $token) !!}
         <h2 class="form-signin-heading">Please sign in</h2>
         <div class="form-group has-feedback {{ $errors->has('login') ? 'has-error' : false }}">
             {!! Form::label('login', 'Login', ['class' => 'control-label']) !!}

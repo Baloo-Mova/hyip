@@ -20,11 +20,14 @@ Route::get('/logout', 'AuthController@logout');
 Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/register', 'AuthController@registerForm');
+    Route::get('/register/{token}', 'AuthController@registerForm');
     Route::post('/register', 'AuthController@register');
 
     Route::get('/login', 'AuthController@loginForm');
     Route::post('/login', 'AuthController@login');
 });
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/cabinet', 'CabinetController@index');
+
     Route::get('/cabinet', 'CabinetController@index');
 });

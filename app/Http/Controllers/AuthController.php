@@ -35,9 +35,9 @@ class AuthController extends Controller
         return redirect()->back()->withInput($request->all())->withErrors(['password' => ['Incorrect password']]);
     }
 
-    public function registerForm()
+    public function registerForm($token = null)
     {
-        return view('guest.register');
+        return view('guest.register', ['token' => $token]);
     }
 
     public function register(Request $request)
@@ -48,6 +48,14 @@ class AuthController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
+        $refferal_id = null;
+        if ($request->get('token')) {
+            $ref = User::where('ref_link', $request->get('token'))->first();
+            if (!empty($ref->id)) {
+                $refferal_id = $ref->id;
+            }
+        }
+
         User::create([
             'login'         => $request->get('login'),
             'email'         => $request->get('email'),
@@ -55,6 +63,7 @@ class AuthController extends Controller
             'role'          => 1,
             'balance'       => 0,
             'ref_link'      => str_replace(' ','',md5(uniqid()) . microtime()),
+            'refferal_id'   => $refferal_id,
             'last_activity' => Carbon::now(),
         ]);
 
