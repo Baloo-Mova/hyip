@@ -27,12 +27,8 @@
             font-size: 16px;
         }
     </style>
-    {!! Form::open(['url' => 'register', 'class' => 'form-signin']) !!}
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <div class="form-group has-feedback {{ $errors->has('login') ? 'has-error' : false }}">
-            {!! Form::label('login', 'Login', ['class' => 'control-label']) !!}
-            {!! Form::text('login', '', ['class' => 'form-control', 'id' => 'login', 'placeholder' => 'Login', 'required', 'autofocus']) !!}
-        </div>
+    {!! Form::open(['url' => 'login', 'class' => 'form-signin']) !!}
+        <h2 class="form-signin-heading">Login</h2>
         <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : false }}">
             {!! Form::label('email', 'E-Mail Address', ['class' => 'control-label']) !!}
             {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Email address', 'required']) !!}
@@ -41,11 +37,7 @@
             {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
             {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => 'Password', 'required']) !!}
         </div>
-        <div class="form-group has-feedback {{ $errors->has('confirm_password') ? 'has-error' : false }}">
-            {!! Form::label('confirm-password', 'Confirm password', ['class' => 'control-label']) !!}
-            {!! Form::password('confirm_password', ['class' => 'form-control', 'id' => 'confirm-password', 'placeholder' => 'Confirm password', 'required']) !!}
-        </div>
-        {!! Form::submit('Register', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
+        {!! Form::submit('Login', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
     {!! Form::close() !!}
 
 @endsection

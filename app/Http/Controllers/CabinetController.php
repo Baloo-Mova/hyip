@@ -13,7 +13,7 @@ class CabinetController extends Controller
     {
         $user = Auth::user();
 
-        return view('cabinet.index', compact($user));
+        return view('user.cabinet.index', compact($user));
     }
 
     public function userUpdate(Request $request)

@@ -12,11 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/logout', 'AuthController@logout');
 
 Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/register', 'AuthController@registerForm');
     Route::post('/register', 'AuthController@register');
+
+    Route::get('/login', 'AuthController@loginForm');
+    Route::post('/login', 'AuthController@login');
+});
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/cabinet', 'CabinetController@index');
 });

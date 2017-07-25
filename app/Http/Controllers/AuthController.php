@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 use Validator, Auth, Hash;
 class AuthController extends Controller
 {
+    public function loginForm()
+    {
+        return view('guest.login');
+    }
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), with(new LoginRequest())->rules());
@@ -19,10 +24,11 @@ class AuthController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if (Auth::attempt([
+        if (Auth::guard('users')->attempt([
             'email'     => $request->get('email'),
             'password'  => $request->get('password')
         ])) {
+            $request->session()->regenerate();
             return redirect('/cabinet');
         }
 
@@ -53,11 +59,25 @@ class AuthController extends Controller
         ]);
 
 
-        Auth::attempt([
+        Auth::guard('users')->attempt([
             'email'     => $request->get('email'),
             'password'  => $request->get('password')
         ]);
 
+        return redirect('/cabinet');
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
         return redirect('/');
+    }
+
+    protected function guard()
+    {
+        return Auth::guard();
     }
 }
