@@ -29,5 +29,5 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/cabinet', 'CabinetController@index');
 
-    Route::get('/cabinet', 'CabinetController@index');
+    Route::get('/referrals', 'ReferralController@index');
 });

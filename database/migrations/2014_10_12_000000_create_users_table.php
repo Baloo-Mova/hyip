@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->integer('subscribe_id')->nullable();
             $table->timestamp('subscribedFor')->nullable();
-            $table->integer('refferal_id')->nullable();
+            $table->integer('referral_id')->nullable();
             $table->string('ref_link');
             $table->timestamp('last_activity');
             $table->boolean('is_banned')->default(0);

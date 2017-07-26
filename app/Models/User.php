@@ -21,7 +21,7 @@ class User extends Authenticatable
         'role',
         'balance',
         'ref_link',
-        'refferal_id',
+        'referral_id',
         'last_activity',
     ];
 

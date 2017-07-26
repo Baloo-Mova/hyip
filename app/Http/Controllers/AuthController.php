@@ -48,11 +48,11 @@ class AuthController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        $refferal_id = null;
+        $referral_id = null;
         if ($request->get('token')) {
             $ref = User::where('ref_link', $request->get('token'))->first();
             if (!empty($ref->id)) {
-                $refferal_id = $ref->id;
+                $referral_id = $ref->id;
             }
         }
 
@@ -63,7 +63,7 @@ class AuthController extends Controller
             'role'          => 1,
             'balance'       => 0,
             'ref_link'      => str_replace(' ','',md5(uniqid()) . microtime()),
-            'refferal_id'   => $refferal_id,
+            'referral_id'   => $referral_id,
             'last_activity' => Carbon::now(),
         ]);
 
