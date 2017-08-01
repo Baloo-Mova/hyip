@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
 use Auth;
-class ReferralController
+class ReferralController extends Controller
 {
     public function index()
     {
         $referrals = $this->getReferrals(Auth::id(), User::all());
 
-        return view('user.referrals.index', compact('referrals'));
+        return view('cabinet.referrals.index', compact('referrals'));
     }
 
     private function getReferrals($ref_id, $users)

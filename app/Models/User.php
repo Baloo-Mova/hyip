@@ -33,4 +33,50 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    static function dialogs(){
+
+        $id = \Auth::id();
+        $key = md5( 'Dialogs_for_user_' . $id );
+        \Cache::forget($key);
+        return \Cache::rememberForever( $key, function() use($id) {
+            $query = Message::select( \DB::raw('max(id) as id, from_user, to_user') )
+                ->where(function($query) use ($id){
+
+                    $query->where('from_user', $id)
+                        ->where('from_delete', 0);
+
+                })
+                ->orWhere(function($query) use ($id){
+
+                    $query->where('to_user', $id)
+                        ->where('to_delete', 0);
+
+                })
+                ->groupBy('from_user', 'to_user')
+                ->orderBy( 'id', 'desc' )
+                ->get();
+
+            $dialogs = [];
+            $exist_dialogs = [];
+            $messages_id = [];
+
+            foreach( $query as $dialog ){
+                if( isset($exist_dialogs[$dialog->from_user]) && in_array( $dialog->to_user, $exist_dialogs[$dialog->from_user] )
+                    || isset($exist_dialogs[$dialog->to_user]) && in_array( $dialog->from_user, $exist_dialogs[$dialog->to_user] )
+                ){
+                    continue;
+
+                } else {
+                    $exist_dialogs[$dialog->from_user][] = $dialog->to_user;
+                    $dialogs[] = $dialog;
+                    $messages_id[] = $dialog->id;
+                }
+            }
+
+            return Message::whereIn('id', $messages_id)
+                ->orderBy('id', 'desc')
+                ->get();
+        });
+    }
 }

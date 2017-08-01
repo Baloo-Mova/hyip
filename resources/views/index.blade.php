@@ -40,7 +40,8 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ url('/cabinet') }}">Cabinet</a></li>
-                                        <li><a href="{{ url('/referrals') }}">Referrals</a></li>
+                                        <li><a href="{{ url('/cabinet/referrals') }}">Referrals</a></li>
+                                        <li><a href="{{ url('/cabinet/dialogs') }}">Dialogs</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{{ url('/logout') }}">Logout</a></li>
                                     </ul>
@@ -84,9 +85,8 @@
             </nav>
         @endif
 
-        <div class="container">
-            @yield('content')
-        </div>
+        @yield('content')
+
         <script
                 src="https://code.jquery.com/jquery-3.2.1.min.js"
                 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
