@@ -18,13 +18,20 @@ Route::get('/', function () {
 Route::get('/logout', 'AuthController@logout');
 
 Route::group(['middleware' => 'guest'], function () {
+    Route::group(['prefix' => 'register'], function () {
 
-    Route::get('/register', 'AuthController@registerForm');
-    Route::get('/register/{token}', 'AuthController@registerForm');
-    Route::post('/register', 'AuthController@register');
+        Route::get('/', 'AuthController@registerForm');
+        Route::get('{token}', 'AuthController@registerForm');
+        Route::post('/', 'AuthController@register');
 
-    Route::get('/login', 'AuthController@loginForm');
-    Route::post('/login', 'AuthController@login');
+    });
+
+    Route::group(['prefix' => 'login'], function () {
+
+        Route::get('/', 'AuthController@loginForm');
+        Route::post('/', 'AuthController@login');
+
+    });
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -38,6 +45,27 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('{id}', 'MessageController@show');
             Route::post('/create', 'MessageController@create');
         });
+    });
+
+});
+
+Route::group([
+    'middleware' => 'admin',
+    'prefix'     => 'admin'
+], function () {
+
+    Route::get('/', function(){
+        return view('Admin::index');
+    });
+
+    Route::group(['prefix' => 'blog'], function () {
+        Route::get('/', 'Admin\BlogController@index');
+        Route::post('add', 'Admin\BlogController@postAdd');
+        Route::get('add', 'Admin\BlogController@getAdd');
+        Route::get('{id}', 'Admin\BlogController@getEdit');
+        Route::post('{id}', 'Admin\BlogController@postEdit');
+        Route::get('delete/{id}', 'Admin\BlogController@delete');
+        Route::get('image-delete/{id}', 'Admin\BlogController@imageDelete');
     });
 
 });

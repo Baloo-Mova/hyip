@@ -63,6 +63,12 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        'blog' => [
+            'driver'     => 'local',
+            'root'       => public_path('/media/uploads/blog'),
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];
