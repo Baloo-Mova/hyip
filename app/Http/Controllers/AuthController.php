@@ -8,7 +8,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-use Validator, Auth, Hash;
 class AuthController extends Controller
 {
     public function loginForm()
@@ -18,18 +17,34 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), with(new LoginRequest())->rules());
+        $validator = \Validator::make($request->all(), with(new LoginRequest())->rules());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if (Auth::guard('users')->attempt([
+        $user  = User::where('email', $request->get('email'))->first();
+
+        switch ($user->role) {
+            case 1:
+                $guard      = 'users';
+                $redirect   = '/cabinet';
+                break;
+            case 2:
+                $guard      = 'admin';
+                $redirect   = '/admin';
+                break;
+            default:
+                $guard      = 'users';
+                $redirect   = '/cabinet';
+        }
+
+        if (\Auth::guard($guard)->attempt([
             'email'     => $request->get('email'),
             'password'  => $request->get('password')
         ])) {
             $request->session()->regenerate();
-            return redirect('/cabinet');
+            return redirect($redirect);
         }
 
         return redirect()->back()->withInput($request->all())->withErrors(['password' => ['Incorrect password']]);
@@ -42,7 +57,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), with(new RegisterRequest())->rules());
+        $validator = \Validator::make($request->all(), with(new RegisterRequest())->rules());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
@@ -59,7 +74,7 @@ class AuthController extends Controller
         User::create([
             'login'         => $request->get('login'),
             'email'         => $request->get('email'),
-            'password'      => Hash::make($request->get('password')),
+            'password'      => \Hash::make($request->get('password')),
             'role'          => 1,
             'balance'       => 0,
             'ref_link'      => str_replace(' ','',md5(uniqid()) . microtime()),
@@ -68,7 +83,7 @@ class AuthController extends Controller
         ]);
 
 
-        Auth::guard('users')->attempt([
+        \Auth::guard('users')->attempt([
             'email'     => $request->get('email'),
             'password'  => $request->get('password')
         ]);
@@ -87,6 +102,6 @@ class AuthController extends Controller
 
     protected function guard()
     {
-        return Auth::guard();
+        return \Auth::guard();
     }
 }
