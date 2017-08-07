@@ -85,28 +85,24 @@
                     </div>
                 </div>
             </div>
-            <div class="navbar-fixed-bottom send-form">
-                <div class="container">
-                    {!! Form::open(['url' => '/cabinet/dialogs/create']) !!}
-                    {!! Form::hidden('to_user', $to_user->id) !!}
-                    <div class="form-group {{ $errors->has('message') ? 'has-error' : false }}">
-                        {!! Form::textarea('message', '', ['class' => 'form-control', 'rows' => '3', 'style' => 'resize: none;']) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
-
-
         @else
             <div class="container">
                 <div class="cab__title">No messages</div>
             </div>
         @endif
-
-
+    <div class="navbar-fixed-bottom send-form">
+        <div class="container">
+            {!! Form::open(['url' => '/cabinet/dialogs/create']) !!}
+            {!! Form::hidden('to_user', $to_user->id) !!}
+            <div class="form-group {{ $errors->has('message') ? 'has-error' : false }}">
+                {!! Form::textarea('message', '', ['class' => 'form-control', 'rows' => '3', 'style' => 'resize: none;']) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
