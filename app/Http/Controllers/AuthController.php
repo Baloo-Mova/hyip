@@ -23,20 +23,25 @@ class AuthController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        $user  = User::where('email', $request->get('email'))->first();
+        if($user = User::where('email', $request->get('email'))->first()) {
 
-        switch ($user->role) {
-            case 1:
-                $guard      = 'users';
-                $redirect   = '/cabinet';
-                break;
-            case 2:
-                $guard      = 'admin';
-                $redirect   = '/admin';
-                break;
-            default:
-                $guard      = 'users';
-                $redirect   = '/cabinet';
+            if ($user->is_banned) {
+                return redirect()->back()->withInput($request->all())->withErrors(['user' => ['User is banned']]);
+            }
+
+            switch ($user->role) {
+                case 1:
+                    $guard = 'users';
+                    $redirect = route('cabinet');
+                    break;
+                case 2:
+                    $guard = 'admin';
+                    $redirect = route('admin-dashboard');
+                    break;
+                default:
+                    $guard = 'users';
+                    $redirect = route('cabinet');
+            }
         }
 
         if (\Auth::guard($guard)->attempt([
@@ -88,7 +93,7 @@ class AuthController extends Controller
             'password'  => $request->get('password')
         ]);
 
-        return redirect('/cabinet');
+        return redirect()->route('cabinet');
     }
 
     public function logout(Request $request)

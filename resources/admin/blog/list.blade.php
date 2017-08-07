@@ -23,9 +23,9 @@
     @endif
 
     <div>
-    <a href="/admin/blog/add" class="btn-sm btn-primary pull-right">
+    <a href='{{ route('admin-get-add-article') }}' class="btn-sm btn-primary pull-right">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
-        Добавить
+        Add
     </a>
     <h1 class="sub-header">Blog</h1>
     </div>
@@ -50,7 +50,7 @@
                             <td>{{ $item->published ? 'yes' : 'no' }}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>
-                                <a href="/admin/blog/{{ $item->id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href='{{ route('admin-get-single-article', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;
                                 <a onclick="deleteEducation('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>

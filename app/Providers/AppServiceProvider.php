@@ -23,6 +23,16 @@ class AppServiceProvider extends ServiceProvider
             'user'           => ( \Auth::check() ) ? \Auth::user() : false,
             'current_uri'    => \Request::path(),
         ]);
+
+
+        \Form::macro('customButton', function($text, $buttonClass, $faClass)
+        {
+            return '<button type="submit" class="' . $buttonClass . '">
+                    <i class="fa ' . $faClass . '" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    ' . $text . '
+                </button>';
+        });
     }
 
     /**

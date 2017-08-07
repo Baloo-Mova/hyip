@@ -12,10 +12,8 @@
         </div>
     @endif
 
-    {{--<div class="box box-primary">--}}
-
         <div>
-            <a href="/admin/blog" class="btn-sm btn-primary pull-right">
+            <a href="{{ route('admin-blog-list') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
                 Назад к списку
@@ -35,40 +33,38 @@
 
             <div class="col-md-6">
                 <div class="form-group @if( is_error('title') )has-error @endif">
-                    <label>* Title</label>
-                    <input name="title" value="@if( !empty($old_input['title']) ){{ $old_input['title'] }}@else{{ $article->title }}@endif" class="form-control" id="edication-edit-form-title" maxlength="255" required="required" />
+                    {!! Form::label('edit-form-title', '* Title') !!}
+                    {!! Form::text('title', !empty($old_input['title']) ? $old_input['title'] : $article->title, ['id' => 'edit-form-title', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
                     @if( is_error('title') )
-                    <span class="help-block">{{ $errors->first('title') }}</span>
+                        <span class="help-block">{{ $errors->first('title') }}</span>
                     @endif
                 </div>
 
                 <div class="form-group @if( is_error('category_id') ) has-error @endif" id="article-edit-image">
-                    <label>Image</label>
+                    {!! Form::label('image', 'Image') !!}
                     @if( !empty($article->photo) )
                         <div style="width: 110px;">
                             <div style="width: 100px; margin: 0 auto; padding: 0;">
                                 <img src="/media/uploads/blog/{{ $article->photo }}" width="100px" />
                             </div>
-                            <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteArticleImage()">Удалить</button>
+                            <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteArticleImage()">Delete</button>
                         </div>
                     @else
-                        <input type="file" name="image" value="" />
+                        {!! Form::file('image', '') !!}
                     @endif
                 </div>
-
-                <div class="checkbox">
-                    <label>
-                          <input type="checkbox" name="published" value="1"@if( !empty($old_input['published']) || !empty($article->published) ) checked="checked"@endif /> Published
-                    </label>
+                <div class="form-group">
+                    {!! Form::checkbox('published', 1, !empty($old_input['published']) || !empty($article->published) ? true : false) !!}
+                    {!! Form::label('published', 'Published') !!}
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group @if( is_error('uri') ) has-error @endif">
-                    <label>* URI</label>
-                    <input name="uri" value="@if( !empty($old_input['uri']) ){{ $old_input['uri'] }}@else{{ $article->uri }}@endif" class="form-control" id="edication-edit-form-uri" maxlength="255"@if( !empty($article->id) ) readonly="readonly"@endif required="required" />
+                    {!! Form::label('edit-form-uri', '* URI') !!}
+                    {!! Form::text('uri', !empty($old_input['uri']) ? $old_input['uri'] : $article->uri, ['id' => 'edit-form-uri', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required', !empty($article->id) ? 'readonly="readonly"' : '']) !!}
                     @if( is_error('uri') )
-                    <span class="help-block">{{ $errors->first('uri') }}</span>
+                        <span class="help-block">{{ $errors->first('uri') }}</span>
                     @endif
                 </div>
             </div>
@@ -76,21 +72,16 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Content</label>
-                    <textarea cols="8" rows="5" name="content" class="form-control" id="edication-edit-form-content">@if( !empty($old_input['content']) ){!! $old_input['content'] !!}@else{!! $article->content !!}@endif</textarea>
+                    <textarea cols="8" rows="5" name="content" class="form-control" id="edit-form-content">@if( !empty($old_input['content']) ){!! $old_input['content'] !!}@else{!! $article->content !!}@endif</textarea>
                 </div>
             </div>
 
             <div class="col-md-12" style="margin-top: 25px;">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                    &nbsp;&nbsp;
-                    Сохранить
-                </button>
+                {!! Form::customButton('Save', 'btn btn-primary', 'fa-floppy-o') !!}
             </div>
 
         {!! Form::close() !!}
     </div>
-    {{--</div>--}}
 
 @endsection
 
@@ -100,7 +91,7 @@
 <script type="text/javascript">
 
 @if( empty($article->id) )
-var edication_str_slug = function(s, opt) {
+var str_slug = function(s, opt) {
     s   = String(s);
     opt = Object(opt);
 
@@ -231,15 +222,15 @@ var deleteArticleImage = function() {
 $(function() {
 
     @if( empty($article->id) )
-    $('#edication-edit-form-title').on('keyup keypress', function() {
-        $('#edication-edit-form-uri').val(
-                edication_str_slug( $(this).val() )
+    $('#edit-form-title').on('keyup keypress', function() {
+        $('#edit-form-uri').val(
+                str_slug( $(this).val() )
         );
     });
     @endif
 
-    //    CKEDITOR.replace('edication-edit-form-announcement');
-    CKEDITOR.replace('edication-edit-form-content', {contentsCss: "{{ url( elixir('css/ts_main.css') ) }}"});
+    //    CKEDITOR.replace('edit-form-announcement');
+    CKEDITOR.replace('edit-form-content', {contentsCss: "{{ url( elixir('css/ts_main.css') ) }}"});
 
 });
 

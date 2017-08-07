@@ -74,7 +74,7 @@ class BlogController extends Controller
 
         $article->save();
 
-        return redirect('/admin/blog/' . $article->id)->with('messages', ['Created successful']);
+        return redirect()->route('admin-get-single-article', ['id' => $article->id])->with('messages', ['Created successful']);
     }
 
     public function imageDelete( $article_id = null )

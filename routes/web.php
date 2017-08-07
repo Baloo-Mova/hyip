@@ -37,7 +37,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'cabinet'], function () {
-        Route::get('/', 'CabinetController@index');
+        Route::get('/', 'CabinetController@index')->name('cabinet');
         Route::get('/referrals', 'ReferralController@index');
 
         Route::group(['prefix' => 'dialogs'], function () {
@@ -54,15 +54,17 @@ Route::group([
     'prefix'     => 'admin'
 ], function () {
 
+
     Route::get('/', function(){
-        return view('Admin::index');
+        return Redirect()->route('admin-dashboard');
     });
+    Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin-dashboard');
 
     Route::group(['prefix' => 'blog'], function () {
-        Route::get('/', 'Admin\BlogController@index');
+        Route::get('/', 'Admin\BlogController@index')->name('admin-blog-list');
         Route::post('add', 'Admin\BlogController@postAdd');
-        Route::get('add', 'Admin\BlogController@getAdd');
-        Route::get('{id}', 'Admin\BlogController@getEdit');
+        Route::get('add', 'Admin\BlogController@getAdd')->name('admin-get-add-article');
+        Route::get('{id}', 'Admin\BlogController@getEdit')->name('admin-get-single-article');
         Route::post('{id}', 'Admin\BlogController@postEdit');
         Route::get('delete/{id}', 'Admin\BlogController@delete');
         Route::get('image-delete/{id}', 'Admin\BlogController@imageDelete');

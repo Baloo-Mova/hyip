@@ -34,6 +34,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function scopeActive()
+    {
+        return $this->where('is_banned', 0);
+    }
+
+
     static function dialogs(){
 
         $id = \Auth::id();

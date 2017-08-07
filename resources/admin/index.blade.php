@@ -51,8 +51,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="@if( $current_uri == 'admin' ) active @endif"><a href="/admin">Dashboard</a></li>
-                <li class="@if( preg_match('/^admin\/blog/i', $current_uri) ) active @endif"><a href="/admin/blog">Blog</a></li>
+                <li class="@if( $current_uri == 'admin/dashboard' ) active @endif"><a href='{{ route('admin-dashboard') }}'>Dashboard</a></li>
+                <li class="@if( preg_match('/^admin\/blog/i', $current_uri) ) active @endif"><a href='{{ route('admin-blog-list') }}'>Blog</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
