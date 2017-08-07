@@ -1,22 +1,13 @@
 @extends('Admin::index')
 
 @section('content')
-    @if (session()->has('messages'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <ul>
-                @foreach (session()->get('messages') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @include('Admin::alerts')
 
         <div>
             <a href="{{ route('admin-blog-list') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
-                Назад к списку
+                back to list
             </a>
 
             <h3 class="sub-header">
@@ -40,7 +31,7 @@
                     @endif
                 </div>
 
-                <div class="form-group @if( is_error('category_id') ) has-error @endif" id="article-edit-image">
+                <div class="form-group @if( is_error('image') ) has-error @endif" id="article-edit-image">
                     {!! Form::label('image', 'Image') !!}
                     @if( !empty($article->photo) )
                         <div style="width: 110px;">

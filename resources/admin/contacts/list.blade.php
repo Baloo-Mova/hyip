@@ -4,11 +4,11 @@
     @include('Admin::alerts')
 
     <div>
-    <a href='{{ route('admin-get-add-article') }}' class="btn-sm btn-primary pull-right">
-        <i class="fa fa-plus-square" aria-hidden="true"></i>
-        Add
-    </a>
-    <h1 class="sub-header">Blog</h1>
+        <a href='{{ route('admin-add-contact') }}' class="btn-sm btn-primary pull-right">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>
+            Add
+        </a>
+        <h1 class="sub-header">Contacts</h1>
     </div>
 
     @if (count($items))
@@ -17,8 +17,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Title</th>
-                        <th>Published</th>
+                        <th>Name</th>
+                        <th>Value</th>
                         <th>Date</th>
                         <th></th>
                     </tr>
@@ -27,13 +27,13 @@
                     @foreach($items as $item)
                         <tr class="item-{{ $item->id }}">
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->title }}</td>
-                            <td>{{ $item->published ? 'yes' : 'no' }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->value }}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>
-                                <a href='{{ route('admin-get-single-article', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href='{{ route('admin-get-contact', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;
-                                <a onclick="deleteNews('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <a onclick="deleteContacts('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -41,14 +41,14 @@
             </table>
         </div>
     @else
-        <div>No articles</div>
+        <div>No contacts</div>
     @endif
 
 @push('footer-scripts')
     <script type="text/javascript">
-        var deleteNews = function( id ) {
-            if( typeof(id) != 'undefined' && id != '' && confirm('Delete a article?') ) {
-                document.location.href = "/admin/blog/delete/" + id;
+        var deleteContacts = function( id ) {
+            if( typeof(id) != 'undefined' && id != '' && confirm('Delete a contact?') ) {
+                document.location.href = "/admin/contacts/delete/" + id;
             }
         };
     </script>

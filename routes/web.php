@@ -70,4 +70,13 @@ Route::group([
         Route::get('image-delete/{id}', 'Admin\BlogController@imageDelete');
     });
 
+    Route::group(['prefix' => 'contacts'], function () {
+        Route::get('/', 'Admin\ContactController@index')->name('admin-contacts-list');
+        Route::post('add', 'Admin\ContactController@postAdd');
+        Route::get('add', 'Admin\ContactController@getAdd')->name('admin-add-contact');
+        Route::get('{id}', 'Admin\ContactController@getEdit')->name('admin-get-contact');
+        Route::post('{id}', 'Admin\ContactController@postEdit');
+        Route::get('delete/{id}', 'Admin\ContactController@delete');
+    });
+
 });
