@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\CreateArticleRequest;
+use App\Http\Requests\Contact\CreateContactRequest;
 use App\Models\Article;
 use App\Models\Contact;
 use Illuminate\Http\Request;
@@ -29,9 +30,8 @@ class ContactController extends Controller
             $contact = new Contact();
         }
 
-        return view('Admin::contact.edit', [
-            'article'   => $contact,
-            'old_input' => old('form'),
+        return view('Admin::contacts.edit', [
+            'contact' => $contact
         ]);
     }
 
@@ -40,86 +40,38 @@ class ContactController extends Controller
         return $this->postEdit($request);
     }
 
-    public function postEdit(Request $request, $article_id = null )
+    public function postEdit(Request $request, $contact_id = null )
     {
-        $validator = \Validator::make($request->all(), with(new CreateArticleRequest())->rules());
+        $validator = \Validator::make($request->all(), with(new CreateContactRequest())->rules());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if( empty($article_id) || !is_numeric($article_id) || !($article = Article::find($article_id)) ) {
-            $article = new Article();
+        if( empty($contact_id) || !is_numeric($contact_id) || !($contact = Contact::find($contact_id)) ) {
+            $contact = new Contact();
         }
 
-        if($image = $request->file('image')) {
-            $origext  = $image->getClientOriginalExtension();
-            $filename = generate_file_name(".{$origext}");
-
-            \Storage::disk('blog')->put($filename, file_get_contents($image->getRealPath()));
-
-            \Image::make($image->getRealPath())
-                ->resize(300, 200)
-                ->save(public_path('/media/uploads/blog') . '/prev-' . $filename, 60);
-
-            $article->photo     = $filename;
-            $article->preview   = 'prev-' . $filename;
-        }
-
-        $article->fill([
-            'title'     => $request->get('title'),
-            'uri'       => $request->get('uri'),
-            'content'   => $request->get('content'),
-            'published' => $request->get('published') ? $request->get('published') : 0,
+        $contact->fill([
+            'name'  => $request->get('name'),
+            'value' => $request->get('value'),
         ]);
 
-        $article->save();
+        $contact->save();
 
-        return redirect()->route('admin-get-single-article', ['id' => $article->id])->with('messages', ['Created successful']);
+        return redirect()->route('admin-get-contact', ['id' => $contact->id])->with('messages', ['Created successful']);
     }
 
-    public function imageDelete( $article_id = null )
+    public function delete( $contact_id = null )
     {
-        if( empty($article_id) || !is_numeric($article_id) || !($article = Article::find($article_id)) ) {
+        if( empty($contact_id) || !is_numeric($contact_id) || !($contact = Contact::find($contact_id)) ) {
             return response()->json([
                 'success' => false,
                 'message' => 'Incorrect identifier',
             ]);
         }
 
-        if(!empty($article->photo) && \Storage::disk('blog')->exists($article->photo)) {
-            \Storage::disk('blog')->delete($article->photo);
-            \Storage::disk('blog')->delete('prev-' . $article->photo);
-
-            $article->photo = '';
-            $article->preview = '';
-            $article->save();
-
-            return response()->json([
-                'success' => true,
-            ]);
-        }
-
-        return response()->json([
-            'success' => false,
-        ]);
-    }
-
-    public function delete( $article_id = null )
-    {
-        if( empty($article_id) || !is_numeric($article_id) || !($article = Article::find($article_id)) ) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Incorrect identifier',
-            ]);
-        }
-
-        if(!empty($article->photo) && \Storage::disk('blog')->exists($article->photo)) {
-            \Storage::disk('blog')->delete($article->photo);
-            \Storage::disk('blog')->delete('prev-' . $article->photo);
-        }
-
-        $article->delete();
+        $contact->delete();
 
         return redirect()->back();
     }

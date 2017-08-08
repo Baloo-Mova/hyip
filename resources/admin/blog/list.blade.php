@@ -39,6 +39,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="pull-right">
+                {{ $items->render() }}
+            </div>
         </div>
     @else
         <div>No articles</div>

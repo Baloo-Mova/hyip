@@ -30,7 +30,7 @@ class BlogController extends Controller
 
         return view('Admin::blog.edit', [
             'article'   => $article,
-            'old_input' => old('form'),
+//            'old_input' => old('form'),
         ]);
     }
 

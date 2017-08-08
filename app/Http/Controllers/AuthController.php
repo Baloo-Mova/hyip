@@ -42,15 +42,16 @@ class AuthController extends Controller
                     $guard = 'users';
                     $redirect = route('cabinet');
             }
+
+            if (\Auth::guard($guard)->attempt([
+                'email'     => $request->get('email'),
+                'password'  => $request->get('password')
+            ])) {
+                $request->session()->regenerate();
+                return redirect($redirect);
+            }
         }
 
-        if (\Auth::guard($guard)->attempt([
-            'email'     => $request->get('email'),
-            'password'  => $request->get('password')
-        ])) {
-            $request->session()->regenerate();
-            return redirect($redirect);
-        }
 
         return redirect()->back()->withInput($request->all())->withErrors(['password' => ['Incorrect password']]);
     }
