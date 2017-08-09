@@ -2,42 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Requests\Contact\CreateContactRequest;
-use App\Models\Article;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class ContactController extends BaseController
 {
-    public function index()
+    private $_model;
+    private $_view = 'contacts';
+
+    public function __construct(Contact $model)
     {
-        return view('Admin::contacts.list', [
-            'items' => Contact::paginate(15),
-        ]);
-    }
-
-    public function getAdd()
-    {
-        return $this->getEdit();
-    }
-
-
-    public function getEdit($contact_id = null)
-    {
-        if( empty($contact_id) || !is_numeric($contact_id) || !($contact = Contact::find($contact_id)) ) {
-            $contact = new Contact();
-        }
-
-        return view('Admin::contacts.edit', [
-            'contact' => $contact
-        ]);
-    }
-
-    public function postAdd(Request $request)
-    {
-        return $this->postEdit($request);
+        parent::__construct($model, $this->_view);
+        $this->_model = $model;
     }
 
     public function postEdit(Request $request, $contact_id = null )
@@ -60,19 +37,5 @@ class ContactController extends Controller
         $contact->save();
 
         return redirect()->route('admin-get-contact', ['id' => $contact->id])->with('messages', ['Created successful']);
-    }
-
-    public function delete( $contact_id = null )
-    {
-        if( empty($contact_id) || !is_numeric($contact_id) || !($contact = Contact::find($contact_id)) ) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Incorrect identifier',
-            ]);
-        }
-
-        $contact->delete();
-
-        return redirect()->back();
     }
 }

@@ -79,4 +79,13 @@ Route::group([
         Route::get('delete/{id}', 'Admin\ContactController@delete');
     });
 
+    Route::group(['prefix' => 'subscription'], function () {
+        Route::get('/', 'Admin\SubscriptionController@index')->name('admin-subscriptions-list');
+        Route::post('add', 'Admin\SubscriptionController@postAdd');
+        Route::get('add', 'Admin\SubscriptionController@getAdd')->name('admin-add-subscription');
+        Route::get('{id}', 'Admin\SubscriptionController@getEdit')->name('admin-get-subscription');
+        Route::post('{id}', 'Admin\SubscriptionController@postEdit');
+        Route::get('delete/{id}', 'Admin\SubscriptionController@delete');
+    });
+
 });

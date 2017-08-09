@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SubscribePrices extends Migration
+class SubscriptionPrices extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class SubscribePrices extends Migration
      */
     public function up()
     {
-        Schema::create('subscribe_prices', function (Blueprint $table) {
+        Schema::create('subscription_prices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('subscribe_id');
             $table->double('value');
@@ -29,6 +29,6 @@ class SubscribePrices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscribe_prices');
+        Schema::dropIfExists('subscription_prices');
     }
 }
