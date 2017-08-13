@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
             'user'           => ( \Auth::check() ) ? \Auth::user() : false,
             'current_uri'    => \Request::path(),
         ]);
+
         Schema::defaultStringLength(191);
     }
 
