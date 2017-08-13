@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +25,17 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Schema::defaultStringLength(191);
+
+        \Schema::defaultStringLength(191);
+
+        \Form::macro('customButton', function($text, $buttonClass, $faClass)
+        {
+            return '<button type="submit" class="' . $buttonClass . '">
+                    <i class="fa ' . $faClass . '" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    ' . $text . '
+                </button>';
+        });
     }
 
     /**

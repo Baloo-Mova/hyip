@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('subscribedFor')->nullable();
             $table->integer('referral_id')->nullable();
             $table->string('ref_link');
-            $table->timestamp('last_activity');
+            $table->timestamp('last_activity')->nullable();
             $table->boolean('is_banned')->default(0);
             $table->rememberToken();
             $table->timestamps();

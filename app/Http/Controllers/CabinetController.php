@@ -42,7 +42,7 @@ class CabinetController extends Controller
             'phone' => $request->get('phone'),
         ]);
 
-        return redirect('/cabinet')
+        return redirect()->route('cabinet')
             ->with(['message' => trans('backend.create_success')]);
     }
 }

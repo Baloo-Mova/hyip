@@ -2,41 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class BlogController extends BaseController
 {
-    public function index()
+    private $_model;
+    private $_view = 'blog';
+
+    public function __construct(Article $model)
     {
-        return view('Admin::blog.list', [
-            'items' => Article::paginate(15),
-        ]);
-    }
-
-    public function getAdd()
-    {
-        return $this->getEdit();
-    }
-
-
-    public function getEdit($article_id = null)
-    {
-        if( empty($article_id) || !is_numeric($article_id) || !($article = Article::find($article_id)) ) {
-            $article = new Article();
-        }
-
-        return view('Admin::blog.edit', [
-            'article'   => $article,
-            'old_input' => old('form'),
-        ]);
-    }
-
-    public function postAdd(Request $request)
-    {
-        return $this->postEdit($request);
+        parent::__construct($model, $this->_view);
+        $this->_model = $model;
     }
 
     public function postEdit(Request $request, $article_id = null )
@@ -47,8 +25,8 @@ class BlogController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if( empty($article_id) || !is_numeric($article_id) || !($article = Article::find($article_id)) ) {
-            $article = new Article();
+        if( empty($article_id) || !is_numeric($article_id) || !($article = $this->_model->find($article_id)) ) {
+            $article = $this->_model;
         }
 
         if($image = $request->file('image')) {
@@ -74,12 +52,12 @@ class BlogController extends Controller
 
         $article->save();
 
-        return redirect('/admin/blog/' . $article->id)->with('messages', ['Created successful']);
+        return redirect()->route('admin-get-single-article', ['id' => $article->id])->with('messages', ['Created successful']);
     }
 
     public function imageDelete( $article_id = null )
     {
-        if( empty($article_id) || !is_numeric($article_id) || !($article = Article::find($article_id)) ) {
+        if( empty($article_id) || !is_numeric($article_id) || !($article = $this->_model->find($article_id)) ) {
             return response()->json([
                 'success' => false,
                 'message' => 'Incorrect identifier',
@@ -106,7 +84,7 @@ class BlogController extends Controller
 
     public function delete( $article_id = null )
     {
-        if( empty($article_id) || !is_numeric($article_id) || !($article = Article::find($article_id)) ) {
+        if( empty($article_id) || !is_numeric($article_id) || !($article = $this->_model->find($article_id)) ) {
             return response()->json([
                 'success' => false,
                 'message' => 'Incorrect identifier',
