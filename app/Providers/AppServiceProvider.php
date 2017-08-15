@@ -24,8 +24,6 @@ class AppServiceProvider extends ServiceProvider
             'current_uri'    => \Request::path(),
         ]);
 
-        Schema::defaultStringLength(191);
-
         \Schema::defaultStringLength(191);
 
         \Form::macro('customButton', function($text, $buttonClass, $faClass)

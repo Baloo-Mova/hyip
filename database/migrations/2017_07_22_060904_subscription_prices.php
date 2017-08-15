@@ -15,7 +15,7 @@ class SubscriptionPrices extends Migration
     {
         Schema::create('subscription_prices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('subscribe_id');
+            $table->integer('subscription_id');
             $table->double('value');
             $table->boolean('is_percent');
             $table->integer('level');

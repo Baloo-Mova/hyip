@@ -22,7 +22,7 @@
     <div class="row">
         {!! Form::open(['class' => 'form']) !!}
 
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-6" id="form-container">
                 <div class="form-group @if( is_error('name') )has-error @endif">
                     {!! Form::label('edit-form-name', '* Name') !!}
                     {!! Form::text('name', !empty($item->name) ? $item->name : '', ['id' => 'edit-form-name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
@@ -44,6 +44,14 @@
                     {!! Form::number('term', !empty($item->term) ? $item->term : '30', ['id' => 'edit-form-term', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
                     @if( is_error('term') )
                         <span class="help-block">{{ $errors->first('term') }}</span>
+                    @endif
+                </div>
+
+                <div class="form-group @if( is_error('levels') )has-error @endif">
+                    {!! Form::label('edit-form-levels', '* levels') !!}
+                    {!! Form::number('levels', !empty($item->levels) ? $item->levels : '0', ['id' => 'edit-form-levels', 'class' => 'form-control', 'max' => "10000", 'required' => 'required']) !!}
+                    @if( is_error('levels') )
+                        <span class="help-block">{{ $errors->first('levels') }}</span>
                     @endif
                 </div>
             </div>
@@ -73,5 +81,55 @@
 
         {!! Form::close() !!}
     </div>
+
+
+
+@push('footer-scripts')
+<script type="text/javascript">
+
+    var levels = $('#edit-form-levels').val()*1;
+    var max_levels = $('#edit-form-levels').attr('max')*1;
+    var min_levels = 0;
+
+    $('#edit-form-levels').on('keyup', function(e) {
+        var target = e.target;
+        if (target.value > max_levels) {
+            target.value = max_levels;
+        }
+        if (target.value < min_levels) {
+            target.value = min_levels;
+        }
+        if (target.value) {
+            changeLevels(target.value);
+        }
+    });
+    function changeLevels (value) {
+        var value = value*1;
+        var hr = '<hr>';
+        if (value > levels) {
+            for (var i = levels; i < value ; i++) {
+                if (i == 0) {
+                    hr = ''
+                }
+                $('#form-container').append(
+                        '<div class="form-group">' +
+                            hr +
+                            '<label for="edit-form-level[' + i + ']">level ' + (i * 1 + 1) + '</label>' +
+                            '<input id="edit-form-level-' + i + '" class="form-control" required="required" min="0" name="level[' + i + '][count]" type="number">' +
+                            '<input name="level[' + i + '][is_percent]" type="checkbox"> ' +
+                            '<label>Percent</label>' +
+                        '</div>'
+                )
+            }
+        } else if (value < levels) {
+            for (var i = levels; i >= value; i--) {
+                $('#edit-form-level-' + i).parent().remove();
+            }
+
+        }
+        levels = value;
+    }
+</script>
+@endpush
 
 @endsection

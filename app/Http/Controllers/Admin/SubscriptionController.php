@@ -35,7 +35,9 @@ class SubscriptionController extends BaseController
             'term'          => $request->get('term'),
             'description'   => $request->get('description'),
             'is_active'     => $request->get('is_active') ? $request->get('is_active') : 0,
+            'levels'        => $request->get('levels'),
         ]);
+        dd($subscription);
 
         $subscription->save();
 
