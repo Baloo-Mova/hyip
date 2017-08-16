@@ -16,4 +16,9 @@ class Subscription extends Model
         'description',
         'is_active',
     ];
+
+    public function prices()
+    {
+        return $this->hasMany(SubscriptionPrice::class);
+    }
 }

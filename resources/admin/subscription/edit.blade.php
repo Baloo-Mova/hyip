@@ -54,6 +54,19 @@
                         <span class="help-block">{{ $errors->first('levels') }}</span>
                     @endif
                 </div>
+
+                @foreach($item->prices as $key => $price)
+                    <div class="form-group">
+                        @if ($key != 0)
+                            <hr>
+                        @endif
+                            {!! Form::label('edit-form-level-count-' . $price->level, 'Level ' . ($price->level + 1)) !!}
+                            {!! Form::number('level[' . $price->level . '][count]', $price->value, ['id' => 'edit-form-level-count-' . $price->level, 'class' => 'form-control', 'maxlength' => "255", 'min' => "0", 'required' => 'required']) !!}
+                            {!! Form::checkbox('level[' . $price->level . '][is_percent]', 1, $price->is_percent ? true : false, ['id' => 'edit-form-level-percent-' . $price->level]) !!}
+                            {!! Form::label('edit-form-level-percent-' . $price->level, 'Percent') !!}
+                    </div>
+                @endforeach
+
             </div>
 
             @if( !empty($item->id) )
@@ -90,9 +103,11 @@
     var levels = $('#edit-form-levels').val()*1;
     var max_levels = $('#edit-form-levels').attr('max')*1;
     var min_levels = 0;
+    changeLevels(levels);
 
-    $('#edit-form-levels').on('keyup', function(e) {
+    $('#edit-form-levels').on('change keyup', function(e) {
         var target = e.target;
+        console.log()
         if (target.value > max_levels) {
             target.value = max_levels;
         }
@@ -114,16 +129,16 @@
                 $('#form-container').append(
                         '<div class="form-group">' +
                             hr +
-                            '<label for="edit-form-level[' + i + ']">level ' + (i * 1 + 1) + '</label>' +
-                            '<input id="edit-form-level-' + i + '" class="form-control" required="required" min="0" name="level[' + i + '][count]" type="number">' +
-                            '<input name="level[' + i + '][is_percent]" type="checkbox"> ' +
-                            '<label>Percent</label>' +
+                            '<label for="edit-form-level-count-' + i + '">Level ' + (i * 1 + 1) + '</label>' +
+                            '<input name="level[' + i + '][count]"  id="edit-form-level-count-' + i + '" class="form-control" required="required" maxlength="255" min="0" type="number">' +
+                            '<input name="level[' + i + '][is_percent]" id="edit-form-level-percent-' + i + '" type="checkbox"> ' +
+                            '<label for="edit-form-level-percent-' + i + '">Percent</label>' +
                         '</div>'
                 )
             }
         } else if (value < levels) {
             for (var i = levels; i >= value; i--) {
-                $('#edit-form-level-' + i).parent().remove();
+                $('#edit-form-level-count-' + i).parent().remove();
             }
 
         }
