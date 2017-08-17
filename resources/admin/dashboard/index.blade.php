@@ -26,8 +26,8 @@
         <h1 class="sub-header">Dashboard</h1>
     </div>
 
+    <h3>Users</h3>
     @if (count($users))
-        <h3>Users</h3>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -48,6 +48,32 @@
         </div>
     @else
         <div>No users</div>
+    @endif
+
+    <h3>Subscriptions</h3>
+    @if (count($subscriptions))
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Active</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($subscriptions as $group)
+                    @foreach($group as $subscription)
+                        <tr>
+                            <td><a href="{{ route('admin-get-subscription', ['id' => $subscription->id]) }}">{{ $subscription->name }}</a></td>
+                            <td>{{ $subscription->is_active ? 'Yes' : 'No' }}</td>
+                        </tr>
+                    @endforeach
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    @else
+        <div>No subscriptions</div>
     @endif
 
 @endsection

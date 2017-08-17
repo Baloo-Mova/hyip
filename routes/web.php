@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('/logout', 'AuthController@logout');
 
