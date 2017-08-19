@@ -19,6 +19,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/admin-cabinet/dist/css/styles.css">
 
+    <link rel="stylesheet" href="{{asset('/admin-cabinet/css/AdminLTE.css')}}">
+
     @stack('header-scripts')
 
 </head>
@@ -32,18 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('index') }}">Project name</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
-            </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
+            <a class="navbar-brand" href="{{ route('index') }}">AdminTemplate</a>
         </div>
     </div>
 </nav>
@@ -62,6 +53,8 @@
 <script src="/admin-cabinet/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 <script src="/admin-cabinet/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{asset('/admin-cabinet/js/adminlte.js')}}"></script>
+<script src="{{asset('/admin-cabinet/js/app.js')}}"></script>
 
 
 @stack('footer-scripts')

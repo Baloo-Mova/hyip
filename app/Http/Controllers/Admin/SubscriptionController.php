@@ -23,7 +23,6 @@ class SubscriptionController extends BaseController
         if( empty($item_id) || !is_numeric($item_id) || !($item = $this->_model->where('id', $item_id)->with('prices')->first()) ) {
             $item = $this->_model;
         }
-//        dd($item);
 
         return view('Admin::subscription.edit', [
             'item' => $item

@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
-
+Route::get('/', "SiteController@index")->name('index');
+Route::get('/file/{name}', "DownloadController@file")->name('file');
 Route::get('/logout', 'AuthController@logout');
 
 Route::group(['middleware' => 'guest'], function () {
@@ -51,41 +49,49 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group([
     'middleware' => 'admin',
-    'prefix'     => 'admin'
+    'prefix' => 'admin',
+    'namespace' => 'Admin'
 ], function () {
 
-
-    Route::get('/', function(){
-        return Redirect()->route('admin-dashboard');
-    });
-    Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin-dashboard');
+    Route::get('/', 'DashboardController@index')->name('admin-dashboard');
 
     Route::group(['prefix' => 'blog'], function () {
-        Route::get('/', 'Admin\BlogController@index')->name('admin-blog-list');
-        Route::post('add', 'Admin\BlogController@postAdd');
-        Route::get('add', 'Admin\BlogController@getAdd')->name('admin-get-add-article');
-        Route::get('{id}', 'Admin\BlogController@getEdit')->name('admin-get-single-article');
-        Route::post('{id}', 'Admin\BlogController@postEdit');
-        Route::get('delete/{id}', 'Admin\BlogController@delete');
-        Route::get('image-delete/{id}', 'Admin\BlogController@imageDelete');
+        Route::get('/', 'BlogController@index')->name('admin-blog-list');
+        Route::post('add', 'BlogController@postAdd');
+        Route::get('add', 'BlogController@getAdd')->name('admin-get-add-article');
+        Route::get('{id}', 'BlogController@getEdit')->name('admin-get-single-article');
+        Route::post('{id}', 'BlogController@postEdit');
+        Route::get('delete/{id}', 'BlogController@delete');
+        Route::get('image-delete/{id}', 'BlogController@imageDelete');
     });
 
     Route::group(['prefix' => 'contacts'], function () {
-        Route::get('/', 'Admin\ContactController@index')->name('admin-contacts-list');
-        Route::post('add', 'Admin\ContactController@postAdd');
-        Route::get('add', 'Admin\ContactController@getAdd')->name('admin-add-contact');
-        Route::get('{id}', 'Admin\ContactController@getEdit')->name('admin-get-contact');
-        Route::post('{id}', 'Admin\ContactController@postEdit');
-        Route::get('delete/{id}', 'Admin\ContactController@delete');
+        Route::get('/', 'ContactController@index')->name('admin-contacts-list');
+        Route::post('add', 'ContactController@postAdd');
+        Route::get('add', 'ContactController@getAdd')->name('admin-add-contact');
+        Route::get('{id}', 'ContactController@getEdit')->name('admin-get-contact');
+        Route::post('{id}', 'ContactController@postEdit');
+        Route::get('delete/{id}', 'ContactController@delete');
     });
 
     Route::group(['prefix' => 'subscription'], function () {
-        Route::get('/', 'Admin\SubscriptionController@index')->name('admin-subscriptions-list');
-        Route::post('add', 'Admin\SubscriptionController@postAdd');
-        Route::get('add', 'Admin\SubscriptionController@getAdd')->name('admin-add-subscription');
-        Route::get('{id}', 'Admin\SubscriptionController@getEdit')->name('admin-get-subscription');
-        Route::post('{id}', 'Admin\SubscriptionController@postEdit');
-        Route::get('delete/{id}', 'Admin\SubscriptionController@delete');
+        Route::get('/', 'SubscriptionController@index')->name('admin-subscriptions-list');
+        Route::post('add', 'SubscriptionController@postAdd');
+        Route::get('add', 'SubscriptionController@getAdd')->name('admin-add-subscription');
+        Route::get('{id}', 'SubscriptionController@getEdit')->name('admin-get-subscription');
+        Route::post('{id}', 'SubscriptionController@postEdit');
+        Route::get('delete/{id}', 'SubscriptionController@delete');
+    });
+
+    Route::group(['namespace' => 'Content'], function () {
+        Route::group(['prefix' => 'main-header'], function () {
+            Route::get('/', 'MainHeaderController@index')->name('mainheader.list');
+            Route::post('/add', 'MainHeaderController@save')->name('mainheader.add.post');
+            Route::get('/add', 'MainHeaderController@add')->name('mainheader.add');
+            Route::get('/edit/{id}', 'MainHeaderController@edit')->name('mainheader.edit');
+            Route::post('/update/{id}', 'MainHeaderController@update')->name('mainheader.update');
+            Route::get('/delete/{id}', 'MainHeaderController@delete')->name('mainheader.delete');
+        });
     });
 
 });
