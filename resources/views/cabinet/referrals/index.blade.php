@@ -1,7 +1,6 @@
-@extends('index')
+@extends('user')
 
 @section('content')
-    <div class="container">
         @if(Session::get('errors'))
             <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -12,7 +11,7 @@
                 </ul>
             </div>
         @endif
-            <h2 class="form-signin-heading">Referrals</h2>
+        <h1 class="page-header">Рефералы</h1>
 
         @if(count($referrals))
             <table class="table table-striped">
@@ -36,7 +35,6 @@
                 </tbody>
             </table>
         @else
-            <div>No referrals</div>
+            <div>Нет рефералов</div>
         @endif
-    </div>
 @endsection

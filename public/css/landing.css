@@ -1,0 +1,114 @@
+body {
+    padding-top: 30px;
+    background-color: #FEFEFE;
+}
+footer{
+    height: 100px;
+    background-color: #1A1A1A;
+    text-align: center;
+    color: #fff;
+    padding: 20px 0px;
+}
+section{
+    padding: 20px 0px;
+}
+section h1{
+    text-align: center;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+.carousel-item{
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.about-fa{
+    color: #cd4542;
+}
+.about__item{
+    padding-bottom: 20px;
+}
+.about__item h4{
+    margin-top: 0;
+}
+.about__link{
+    color: #cd4542;
+}
+.about__link:hover{
+    text-decoration: none;
+    color: #AD3B39;
+}
+.about__register-wrap{
+    text-align: center;
+    padding: 20px 0px;
+}
+.about-icon__wrap{
+    text-align: center;
+}
+.rate__wrap{
+    background-color: #FAFAFA;
+}
+.rate-carousel-item,
+.news__item{
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+}
+.rate-carousel-item h4{
+    margin-top: 0;
+}
+.paysystems__img{
+    padding: 20px 10px;
+}
+.news__wrap{
+    background-color: #f8f8f8;
+}
+.contacts__textarea{
+    resize: none;
+}
+.contacts__ul{
+    list-style: none;
+    padding-left: 0;
+}
+.contacts__img{
+    width: 25px;
+    height: 25px;
+}
+.overflow{
+    overflow: hidden;
+}
+.about__overflow,
+.rate__overflow,
+.news__overflow{
+    height: 105px;
+}
+@media screen and (max-width: 486px) {
+    .about-fa {
+        font-size: 4em;
+    }
+    .news__item{
+        margin-bottom: 20px;
+    }
+}
+@media screen and (min-width: 486px) {
+    .about-fa {
+        font-size: 6em;
+    }
+    .news__item{
+        margin-bottom: 20px;
+    }
+}
+@media screen and (min-width: 576px) {
+    .about-fa {
+        font-size: 7em;
+    }
+    .news__item{
+        margin-bottom: 20px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .news__item{
+        margin-bottom: 0px;
+    }
+}

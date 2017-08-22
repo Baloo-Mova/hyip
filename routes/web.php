@@ -36,12 +36,25 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'cabinet'], function () {
         Route::get('/', 'CabinetController@index')->name('cabinet');
-        Route::get('/referrals', 'ReferralController@index');
+        Route::get('/referrals', 'ReferralController@index')->name('referrals');
 
         Route::group(['prefix' => 'dialogs'], function () {
-            Route::get('/', 'MessageController@index');
+            Route::get('/', 'MessageController@index')->name('dialogs');
             Route::get('{id}', 'MessageController@show');
             Route::post('/create', 'MessageController@create');
+        });
+        Route::group(['prefix' => 'facilities'], function () {
+            Route::get('/', 'FacilitiesController@index')->name('facilities');
+            Route::get('/operations', 'FacilitiesController@operations')->name('facilities.operations');
+        });
+        Route::group(['prefix' => 'profile'], function () {
+            Route::get('/', 'ProfileController@index')->name('profile');
+        });
+        Route::group(['prefix' => 'tariff'], function () {
+            Route::get('/', 'TariffController@index')->name('tariff');
+        });
+        Route::group(['prefix' => 'support'], function () {
+            Route::get('/', 'SupportController@index')->name('support');
         });
     });
 

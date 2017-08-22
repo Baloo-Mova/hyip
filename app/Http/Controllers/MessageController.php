@@ -6,6 +6,7 @@ use App\Http\Requests\Message\CreateMessageRequest;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -13,7 +14,10 @@ class MessageController extends Controller
     private $_cache_key_messages = 'Current_dialog_';
 
     public function index() {
-        return view('cabinet.mail.index');
+        $messages = Message::where(['to_user' => \Auth::user()->id])->get();
+        return view('cabinet.mail.index',[
+                'messages' => isset($messages) ? $messages : []
+            ]);
     }
 
     public function show($user_id = null)

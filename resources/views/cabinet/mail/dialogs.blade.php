@@ -8,5 +8,5 @@
         <p class="list-group-item-text">{{ $dialog->message }}</p>
     </a>
 @empty
-    <div class="cab__title">No dialogs</div>
+    <div class="cab__title">Нет сообщений</div>
 @endforelse
