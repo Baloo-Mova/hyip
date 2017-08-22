@@ -11,8 +11,21 @@ class CabinetController extends Controller
 {
     public function index(Request $request)
     {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
         return view('cabinet.index', [
-            'user' => \Auth::user()
+            'user' => \Auth::user(),
+            'data' => $data
         ]);
     }
 

@@ -15,8 +15,21 @@ class MessageController extends Controller
 
     public function index() {
         $messages = Message::where(['to_user' => \Auth::user()->id])->get();
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
         return view('cabinet.mail.index',[
-                'messages' => isset($messages) ? $messages : []
+                'messages' => isset($messages) ? $messages : [],
+                'data' => $data
             ]);
     }
 

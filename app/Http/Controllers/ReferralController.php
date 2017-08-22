@@ -10,8 +10,23 @@ class ReferralController extends Controller
     public function index()
     {
         $referrals = $this->getReferrals(Auth::id(), User::all());
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
 
-        return view('cabinet.referrals.index', compact('referrals'));
+        return view('cabinet.referrals.index', [
+            'referrals' => $referrals,
+            'data' => $data
+        ]);
     }
 
     private function getReferrals($ref_id, $users)

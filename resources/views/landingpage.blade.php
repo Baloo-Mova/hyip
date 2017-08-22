@@ -15,36 +15,7 @@
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse main-menu__wrap">
-            <ul class="nav navbar-nav main-menu__menu_center" id="menu">
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#about">О проекте</a></li>
-                <li><a href="#news">Новости</a></li>
-                <li><a href="#questions">Вопрос-ответ</a></li>
-                <li>
-                    <a href="{{ url('/login') }}" class="main-menu__register-link">Войти/</a>
-                    <a href="{{ url('/register') }}" class="main-menu__register-link">регистрация</a>
-                </li>
-                <li><a href="#regulations">Правила</a></li>
-                <li><a href="#contacts">Контакты</a></li>
-                <li>
-                    @foreach($data['contacts']['social'] as $soc)
-                        <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
-                    @endforeach
-                </li>
-
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
+    @include('partial.mainmenu')
 </nav>
 
 <section id="home">
@@ -80,14 +51,14 @@
                     <div class="overflow about__overflow">
                         <p>{{ $about['description'] }}</p>
                     </div>
-                    <a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>
+                    <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
                 </div>
             </div>
             @endforeach
         </div>
         <div class="row">
             <div class="col-xs-12 about__register-wrap">
-                <a href="#" class="btn btn-success btn-lg">Регистрация</a>
+                <a href="{{ url('register') }}" class="btn btn-success btn-lg">Регистрация</a>
             </div>
         </div>
     </div>
@@ -110,7 +81,7 @@
                                     {{ $rate['description'] }}
                                 </p>
                             </div>
-                            <a href="#" class="btn btn-success btn-md">Подписаться</a>
+                            <a href="{{ url('register') }}" class="btn btn-success btn-md">Подписаться</a>
                         </div>
                     @endforeach
                 </div>
@@ -144,7 +115,7 @@
                     <div class="overflow news__overflow">
                         <p>{{ $news['description'] }}</p>
                     </div>
-                    <a href="{{ $news['link'] }}" class="about__link">Читать далее...</a>
+                    <a href="{{ route('news') }}" class="about__link">Читать далее...</a>
                 </div>
             </div>
             @endforeach

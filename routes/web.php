@@ -12,6 +12,11 @@
 */
 
 Route::get('/', "SiteController@index")->name('index');
+Route::get('/about', "SiteController@about")->name('about');
+Route::get('/news', "SiteController@news")->name('news');
+Route::get('/questions', "SiteController@questions")->name('questions');
+Route::get('/regulations', "SiteController@regulations")->name('regulations');
+Route::get('/contacts', "SiteController@contacts")->name('contacts');
 Route::get('/file/{name}', "DownloadController@file")->name('file');
 Route::get('/logout', 'AuthController@logout');
 

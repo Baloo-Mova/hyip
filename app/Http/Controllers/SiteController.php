@@ -64,4 +64,89 @@ class SiteController extends Controller
         ];
         return view('landingpage', ['data' => $data]);
     }
+
+    public function about()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
+        return view('main.about', ['data' => $data]);
+    }
+
+    public function news()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
+        return view('main.news', ['data' => $data]);
+    }
+
+    public function contacts()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
+        return view('main.contacts', ['data' => $data]);
+    }
+
+    public function questions()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
+        return view('main.questions', ['data' => $data]);
+    }
+
+    public function regulations()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'vk' => [
+                        'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                    ],
+                    'instagram' => [
+                        'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                    ]
+                ]
+            ]
+        ];
+        return view('main.regulations', ['data' => $data]);
+    }
 }

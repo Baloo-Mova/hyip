@@ -7,27 +7,29 @@
     <title>Laravel</title>
     @include('partial.head')
     @yield('css')
-    <link rel="stylesheet" href="{{asset('css/user.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
 <body>
 
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-static-top">
-    @include('partial.usermainmenu')
+    @include('partial.mainmenu')
 </nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            @include('partial.usersidemenu')
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            @yield('content')
+@yield('content')
+
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Все права защищены. 2017</p>
+            </div>
         </div>
     </div>
-</div>
+</footer>
 
 @include('partial.scripts')
 
