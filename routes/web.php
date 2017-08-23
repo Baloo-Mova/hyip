@@ -92,7 +92,7 @@ Route::group([
         Route::get('delete/{id}', 'ContactController@delete');
     });
 
-    Route::group(['prefix' => 'subscription'], function () {
+    Route::group(['prefix' => 'subscriptions'], function () {
         Route::get('/', 'SubscriptionController@index')->name('admin-subscriptions-list');
         Route::post('add', 'SubscriptionController@postAdd');
         Route::get('add', 'SubscriptionController@getAdd')->name('admin-add-subscription');
@@ -110,6 +110,10 @@ Route::group([
             Route::post('/update/{id}', 'MainHeaderController@update')->name('mainheader.update');
             Route::get('/delete/{id}', 'MainHeaderController@delete')->name('mainheader.delete');
         });
+    });
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', 'UserController@index')->name('admin-users-list');
     });
 
 });

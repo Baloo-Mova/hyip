@@ -22,13 +22,13 @@ class BaseController extends Controller
         ]);
     }
 
-    public function getAdd()
+    protected function getAdd()
     {
         return $this->getEdit();
     }
 
 
-    public function getEdit($item_id = null)
+    protected function getEdit($item_id = null)
     {
         if( empty($item_id) || !is_numeric($item_id) || !($item = $this->_model->find($item_id)) ) {
             $item = $this->_model;
@@ -39,12 +39,12 @@ class BaseController extends Controller
         ]);
     }
 
-    public function postAdd(Request $request)
+    protected function postAdd(Request $request)
     {
         return $this->postEdit($request);
     }
 
-    public function delete($item_id = null)
+    protected function delete($item_id = null)
     {
         if( empty($item_id) || !is_numeric($item_id) || !($item = $this->_model->find($item_id)) ) {
             return response()->json([
