@@ -18,7 +18,7 @@ section h1{
     margin-bottom: 20px;
 }
 .carousel-item{
-    height: 400px;
+    height: 600px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -83,6 +83,32 @@ section h1{
 .news__overflow{
     height: 105px;
 }
+
+.video_container{
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    margin-left: -16px;
+    height: 600px;
+}
+#video_container video {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* The following will size the video to fit the full container. Not necessary, just nice.*/
+    min-width: 100%;
+    min-height: 100%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    z-index: 0;
+}
+.video_container_after{
+    position: relative;
+    z-index: 1;
+}
+
 @media screen and (max-width: 486px) {
     .about-fa {
         font-size: 4em;

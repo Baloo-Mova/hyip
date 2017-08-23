@@ -20,10 +20,14 @@
 
 <section id="home">
     <div class="container-fluid">
-        <div class="row">
+        <div id="video_container" class="row video_container">
+            <video id="video" width="" height="" autoplay="autoplay" loop="loop" preload="auto">
+                <source src="{{ asset('mov/628513837.mp4') }}"></source>
+            </video>
+            <div class="video_container_after"></div>
             <div class="owl-carousel main-carousel">
                 @foreach($data['carousel'] as $carousel)
-                <div class="carousel-item" style="background-image: url({{ $carousel['img'] }});">
+                <div class="carousel-item" >
                     <h3 class="carousel-caption">
                         {{ $carousel['caption'] }}
                     </h3>
