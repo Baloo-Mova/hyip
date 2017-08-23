@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class SubscriptionController extends BaseController
 {
     private $_model;
-    private $_view = 'subscription';
+    private $_view = 'subscriptions';
 
     public function __construct(Subscription $model)
     {
@@ -24,7 +24,7 @@ class SubscriptionController extends BaseController
             $item = $this->_model;
         }
 
-        return view('Admin::subscription.edit', [
+        return view('Admin::' . $this->_view . '.edit', [
             'item' => $item
         ]);
     }
@@ -65,9 +65,8 @@ class SubscriptionController extends BaseController
                 ];
 
             }
+            SubscriptionPrice::insert($prices);
         }
-
-        SubscriptionPrice::insert($prices);
 
         return redirect()->route('admin-get-subscription', ['id' => $subscription->id])->with('messages', ['Created successful']);
     }

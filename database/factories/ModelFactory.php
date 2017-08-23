@@ -13,11 +13,17 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
-    static $password;
 
+    $mail = $faker->unique()->safeEmail;
     return [
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'login'             => $mail,
+        'email'             => $mail,
+        'password'          => bcrypt('password'),
+        'remember_token'    => str_random(32),
+        'role'              => 1,
+        'balance'           => 0,
+        'ref_link'          => $faker->uuid,
+        'last_activity'     => \Carbon\Carbon::now(),
+        'referral_id'       => rand(0, 10) < 8 ? \App\Models\User::inRandomOrder()->first()->id : null,
     ];
 });
