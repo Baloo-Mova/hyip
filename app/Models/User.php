@@ -86,4 +86,8 @@ class User extends Authenticatable
                 ->get();
         });
     }
+
+    public function subsctiption(){
+        return $this->hasOne(Subscription::class, 'id','subscribe_id');
+    }
 }

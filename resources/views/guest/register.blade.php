@@ -35,6 +35,10 @@
                 {!! Form::label('email', 'E-Mail', ['class' => 'control-label']) !!}
                 {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'mail@example.com', 'required']) !!}
             </div>
+                <div class="form-group has-feedback {{ $errors->has('phone') ? 'has-error' : false }}">
+                    {!! Form::label('phone', 'Телефон', ['class' => 'control-label']) !!}
+                    {!! Form::text('phone', '', ['class' => 'form-control', 'id' => 'phone', 'placeholder' => '77777777777', 'required']) !!}
+                </div>
             <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : false }}">
                 {!! Form::label('password', 'Пароль', ['class' => 'control-label']) !!}
                 {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => 'Пароль', 'required']) !!}
