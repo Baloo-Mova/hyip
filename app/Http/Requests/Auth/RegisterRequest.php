@@ -15,4 +15,8 @@ class RegisterRequest extends FormRequest
             'confirm_password'  => 'same:password',
         ];
     }
+
+    public function authorize(){
+        return true;
+    }
 }

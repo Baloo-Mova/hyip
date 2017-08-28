@@ -23,6 +23,7 @@ class User extends Authenticatable
         'ref_link',
         'referral_id',
         'last_activity',
+        'ip'
     ];
 
     /**
