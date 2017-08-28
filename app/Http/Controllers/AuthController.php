@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Users;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
@@ -23,7 +24,7 @@ class AuthController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if($user = User::where('email', $request->get('email'))->first()) {
+        if ($user = User::where('email', $request->get('email'))->first()) {
 
             if ($user->is_banned) {
                 return redirect()->back()->withInput($request->all())->withErrors(['user' => ['User is banned']]);
@@ -44,8 +45,8 @@ class AuthController extends Controller
             }
 
             if (\Auth::guard($guard)->attempt([
-                'email'     => $request->get('email'),
-                'password'  => $request->get('password')
+                'email' => $request->get('email'),
+                'password' => $request->get('password')
             ])) {
                 $request->session()->regenerate();
                 return redirect($redirect);
@@ -58,11 +59,14 @@ class AuthController extends Controller
 
     public function registerForm($token = null)
     {
-        return view('guest.register', ['token' => $token]);
+        $user = User::where('ref_link', '=', $token)->first();
+
+        return view('guest.register', ['user' => $user]);
     }
 
     public function register(Request $request)
     {
+
         $validator = \Validator::make($request->all(), with(new RegisterRequest())->rules());
 
         if ($validator->fails()) {
@@ -72,26 +76,26 @@ class AuthController extends Controller
         $referral_id = null;
         if ($request->get('token')) {
             $ref = User::where('ref_link', $request->get('token'))->first();
-            if (!empty($ref->id)) {
+            if (isset($ref)) {
                 $referral_id = $ref->id;
             }
         }
 
         User::create([
-            'login'         => $request->get('login'),
-            'email'         => $request->get('email'),
-            'password'      => \Hash::make($request->get('password')),
-            'role'          => 1,
-            'balance'       => 0,
-            'ref_link'      => str_replace(' ','',md5(uniqid()) . microtime()),
-            'referral_id'   => $referral_id,
+            'login' => $request->get('login'),
+            'email' => $request->get('email'),
+            'password' => \Hash::make($request->get('password')),
+            'role' => 1,
+            'balance' => 0,
+            'ref_link' => str_replace(' ', '', md5(uniqid()) . microtime()),
+            'referral_id' => $referral_id,
             'last_activity' => Carbon::now(),
         ]);
 
 
         \Auth::guard('users')->attempt([
-            'email'     => $request->get('email'),
-            'password'  => $request->get('password')
+            'email' => $request->get('email'),
+            'password' => $request->get('password')
         ]);
 
         return redirect()->route('cabinet');
