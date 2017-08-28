@@ -23,6 +23,7 @@ class User extends Authenticatable
         'ref_link',
         'referral_id',
         'last_activity',
+        'ip'
     ];
 
     /**
@@ -84,5 +85,9 @@ class User extends Authenticatable
                 ->orderBy('id', 'desc')
                 ->get();
         });
+    }
+
+    public function subsctiption(){
+        return $this->hasOne(Subscription::class, 'id','subscribe_id');
     }
 }

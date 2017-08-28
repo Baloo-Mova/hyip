@@ -57,22 +57,20 @@ class AuthController extends Controller
         return redirect()->back()->withInput($request->all())->withErrors(['password' => ['Incorrect password']]);
     }
 
-    public function registerForm($token = null)
+    public function registerForm(Request $request, $token = null)
     {
+        $count = User::where('ip', '=', $request->ip())->count();
+        if ($count > 0) {
+            return view('guest.register', ['user' => null])->withErrors(['userWithIpExist' => $request->ip()]);
+        }
+
         $user = User::where('ref_link', '=', $token)->first();
 
         return view('guest.register', ['user' => $user]);
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-
-        $validator = \Validator::make($request->all(), with(new RegisterRequest())->rules());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
-        }
-
         $referral_id = null;
         if ($request->get('token')) {
             $ref = User::where('ref_link', $request->get('token'))->first();
@@ -83,6 +81,7 @@ class AuthController extends Controller
 
         User::create([
             'login' => $request->get('login'),
+            'ip' => $request->ip(),
             'email' => $request->get('email'),
             'password' => \Hash::make($request->get('password')),
             'role' => 1,
