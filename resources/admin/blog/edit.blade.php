@@ -62,8 +62,8 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    <label>Content</label>
-                    <textarea cols="8" rows="5" name="content" class="form-control" id="edit-form-content">@if( !empty($old_input['content']) ){!! $old_input['content'] !!}@else{!! $item->content !!}@endif</textarea>
+                    {!! Form::label('edit-form-content', '* Content') !!}
+                    {!! Form::textarea('content', !empty($old_input['content']) ? $old_input['content'] : $item->content, ['cols' => '8', 'rows' => '5', 'id' => 'edit-form-content', 'class' => 'form-control', 'required' => 'required']) !!}
                 </div>
             </div>
 

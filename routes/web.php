@@ -19,6 +19,7 @@ Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
 Route::get('/file/{name}', "DownloadController@file")->name('file');
 Route::get('/logout', 'AuthController@logout');
+Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedback');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
@@ -114,6 +115,12 @@ Route::group([
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UserController@index')->name('admin-users-list');
+    });
+
+    Route::group(['prefix' => 'feedback'], function () {
+        Route::get('{type}', 'FeedbackController@index')->name('admin-feedback-list');
+        Route::get('{type}/{id}', 'FeedbackController@show')->name('admin-get-feedback');
+        Route::post('{type}/{id}', 'FeedbackController@sendEmail');
     });
 
 });

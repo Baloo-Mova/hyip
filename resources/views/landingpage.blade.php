@@ -165,24 +165,60 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-5">
-                <form action="" method="post">
+                <form action="{{ route('create-feedback') }}" method="post">
                     {{ csrf_field() }}
-                    <div class="form-group">
+                    <div class="form-group @if( is_error('name') )has-error @endif">
                         <label for="name">Имя</label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="Ваше имя">
+                        @if( is_error('name') )
+                            <span class="help-block">{{ $errors->first('name') }}</span>
+                        @endif
                     </div>
-                    <div class="form-group">
+                    <div class="form-group @if( is_error('email') )has-error @endif">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="email@example.com">
+                        @if( is_error('email') )
+                            <span class="help-block">{{ $errors->first('email') }}</span>
+                        @endif
                     </div>
-                    <div class="form-group">
+                    <div class="form-group @if( is_error('question') )has-error @endif">
                         <label for="question">Вопрос</label>
                         <textarea name="question" id="question" class="form-control contacts__textarea"></textarea>
+                        @if( is_error('question') )
+                            <span class="help-block">{{ $errors->first('question') }}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">Отправить</button>
                     </div>
                 </form>
+
+                {{--{!! Form::open(['route' => 'create-feedback', 'class' => 'form']) !!}--}}
+                {{--<div class="form-group @if( is_error('name') )has-error @endif">--}}
+                    {{--{!! Form::label('name', 'Имя') !!}--}}
+                    {{--{!! Form::text('name', '', ['placeholder' => 'Ваше имя', 'id' => 'name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
+                    {{--@if( is_error('name') )--}}
+                        {{--<span class="help-block">{{ $errors->first('name') }}</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                {{--<div class="form-group @if( is_error('email') )has-error @endif">--}}
+                    {{--{!! Form::label('email', 'Email') !!}--}}
+                    {{--{!! Form::email('email', '', ['placeholder' => 'email@example.com', 'id' => 'email', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
+                    {{--@if( is_error('email') )--}}
+                        {{--<span class="help-block">{{ $errors->first('email') }}</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                {{--<div class="form-group @if( is_error('question') )has-error @endif">--}}
+                    {{--{!! Form::label('question', 'Вопрос') !!}--}}
+                    {{--{!! Form::textarea('question', '', ['rows' => '2', 'id' => 'question', 'class' => 'form-control contacts__textarea', 'required' => 'required']) !!}--}}
+                    {{--@if( is_error('question') )--}}
+                        {{--<span class="help-block">{{ $errors->first('question') }}</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--{!! Form::button('Отправить', ['class' => 'btn btn-success']) !!}--}}
+                {{--</div>--}}
+                {{--{!! Form::close() !!}--}}
             </div>
         </div>
     </div>

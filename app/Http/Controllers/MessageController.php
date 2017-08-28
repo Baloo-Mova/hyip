@@ -14,6 +14,7 @@ class MessageController extends Controller
     private $_cache_key_messages = 'Current_dialog_';
 
     public function index() {
+        //TODO я писал логику получения сообщений в модели пользователя; пример отображения есть в ЛК пользователя;
         $messages = Message::where(['to_user' => \Auth::user()->id])->get();
         $data = [
             'contacts' =>[
