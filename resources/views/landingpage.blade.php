@@ -37,7 +37,21 @@
         </div>
     </div>
 </section>
-<section id="about">
+<section id="greetings" class="greetings">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="greetings_img_wrap">
+                    <img src="{{ $data['greetings']['img'] }}" alt="" class="greetings_img">
+                </div>
+                <p class="greetings_txt">
+                    {{ $data['greetings']['description'] }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="about" class="about">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -93,17 +107,6 @@
         </div>
     </div>
 </section>
-<section id="questions">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                @foreach($data['paysystems'] as $img)
-                    <img src="{{ $img }}" alt="" class="paysystems__img">
-                @endforeach
-            </div>
-        </div>
-    </div>
-</section>
 <section id="login" class="news__wrap">
     <div class="container">
         <div class="row">
@@ -126,7 +129,18 @@
         </div>
     </div>
 </section>
-<section id="regulations">
+<section id="questions" class="questions">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                @foreach($data['paysystems'] as $img)
+                    <img src="{{ $img }}" alt="" class="paysystems__img">
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+<section id="regulations" class="regulations">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
