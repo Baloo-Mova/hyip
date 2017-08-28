@@ -13,6 +13,10 @@ class SiteController extends Controller
               ['img' => 'img/2.jpg', 'caption' => 'Описание 2'],
               ['img' => 'img/3.jpg', 'caption' => 'Описание 3'],
             ],
+            'greetings' => [
+                'img' => 'img/1.jpg',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o'
+            ],
             'about' => [
                 ['icon' => 'fa fa-american-sign-language-interpreting', 'title' => 'Преимущество 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum odio provident quibusdam quo, sint soluta ullam velit veritatis vitae. Dolor molestias nesciunt quasi!', 'link' => '#'],
                 ['icon' => 'fa fa-american-sign-language-interpreting', 'title' => 'Преимущество 2', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum odio provident quibusdam quo, sint soluta ullam velit veritatis vitae. Dolor molestias nesciunt quasi!', 'link' => '#'],
@@ -29,12 +33,10 @@ class SiteController extends Controller
                 ['title' => 'Тариф 7', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o'],
             ],
             'paysystems' => [
-                'img/brand1.png',
-                'img/brand2.png',
                 'img/brand3.png',
-                'img/brand4.png',
                 'img/brand5.png',
-                'img/brand6.png',
+                'img/brand7.png',
+                'img/brand8.png',
             ],
             'news' => [
                 ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua'],

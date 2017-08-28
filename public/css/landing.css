@@ -47,7 +47,6 @@ section h1{
     text-align: center;
 }
 .rate__wrap{
-    background-color: #FAFAFA;
 }
 .rate-carousel-item,
 .news__item{
@@ -62,7 +61,7 @@ section h1{
     padding: 20px 10px;
 }
 .news__wrap{
-    background-color: #f8f8f8;
+    background-color: #FAFAFA;
 }
 .contacts__textarea{
     resize: none;
@@ -107,6 +106,23 @@ section h1{
 .video_container_after{
     position: relative;
     z-index: 1;
+}
+.regulations{
+    background-color: #f8f8f8;
+}
+.about{
+    background-color: #FAFAFA;
+}
+.greetings_img_wrap{
+    width: 100%;
+    overflow: hidden;
+}
+.greetings_img{
+    width: 100%;
+}
+.greetings_txt{
+    margin-top: 20px;
+    text-align: center;
 }
 
 @media screen and (max-width: 486px) {
