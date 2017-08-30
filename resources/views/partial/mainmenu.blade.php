@@ -29,10 +29,6 @@
             </li>
             <li><a href="{{ route('news') }}">Новости</a></li>
             <li><a href="{{ route('questions') }}">Вопрос-ответ</a></li>
-            <li>
-                <a href="{{ url('/login') }}" class="main-menu__register-link">Войти/</a>
-                <a href="{{ url('/register') }}" class="main-menu__register-link">регистрация</a>
-            </li>
         </ul>
     </div><!--/.nav-collapse -->
 </div>

@@ -12,22 +12,49 @@
 </head>
 <body>
 
-
 <!-- Fixed navbar -->
-<nav class="navbar navbar-green navbar-fixed-top">
+<nav class="navbar navbar-default navbar-green navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img alt="Brand" src="{{ asset('img/logo.png') }}">
             </a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
-        <div id="navbar" class="navbar-collapse collapse top-main-menu__wrap">
+        <div id="navbar" class="navbar-collapse collapse top-main-menu__wrap ">
             <ul class="nav navbar-nav top-main-menu__menu_left new_nav" id="menu">
                 <li>
                     @foreach($data['contacts']['social']['links'] as $soc)
                         <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
                     @endforeach
                 </li>
+            </ul>
+            <ul class="nav navbar-nav hidden-md hidden-lg" id="menu">
+                <li><a href="{{ route('index') }}">Главная</a></li>
+                <li class="dropdown">
+                    <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О проекте <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ route('about') }}">Акции</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Партнерам <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Пополнить счет</a></li>
+                        <li><a href="#">Вывести средства</a></li>
+                        <li><a href="#">Тарифы</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ route('news') }}">Новости</a></li>
+                <li><a href="{{ route('questions') }}">Вопрос-ответ</a></li>
             </ul>
 
         </div><!--/.nav-collapse -->
@@ -38,7 +65,7 @@
         </ul>
     </div>
 </nav>
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top hidden-sm hidden-xs">
     @include('partial.mainmenu')
 </nav>
 

@@ -166,7 +166,7 @@ section h1{
     padding-top: 0;
 }
 .navbar-green{
-    background-color: #00B600;
+    background-color: #00B600 !important;
 }
 .dropdown-menu {
     background-color: rgba(0,0,0, 0.7);
