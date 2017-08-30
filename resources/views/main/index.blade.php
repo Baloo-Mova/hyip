@@ -3,17 +3,21 @@
 @section('content')
     <section id="home">
         <div class="container-fluid">
-            <div id="video_container" class="row video_container">
-                <video id="video" width="" height="" autoplay="autoplay" loop="loop" preload="auto">
-                    <source src="{{ asset('mov/628513837.mp4') }}"></source>
-                </video>
-                <div class="video_container_after"></div>
+            <div id="" class="row ">
                 <div class="owl-carousel main-carousel">
                     @foreach($data['carousel'] as $carousel)
-                        <div class="carousel-item">
-                            <h3 class="carousel-caption">
-                                {{ $carousel['caption'] }}
-                            </h3>
+                        <div class="carousel-item" style="background-image: url({{ $carousel['img'] }})">
+                            <div class="carousel-caption">
+                                <h3>
+                                    {{ $carousel['caption'] }}
+                                </h3>
+                                @if(isset($carousel['buttons']))
+                                    @foreach($carousel['buttons'] as $button)
+                                        <a href="{{ url($button['link']) }}" class="btn {{ $button['class'] }}">{{ $button['title'] }}</a>
+                                    @endforeach
+                                @endif
+                            </div>
+
                         </div>
                     @endforeach
                 </div>
@@ -52,22 +56,35 @@
                     <h1>О проекте</h1>
                 </div>
             </div>
-            <div class="row">
-                @foreach($data['about'] as $about)
-                    <div class="col-xs-12 col-md-6 about__item">
-                        <div class="col-xs-4 about-icon__wrap">
-                            <i class="{{ $about['icon'] }} fa-6 about-fa" aria-hidden="true"></i>
-                        </div>
-                        <div class="col-xs-8">
-                            <h4>{{ $about['title'] }}</h4>
-                            <div class="overflow about__overflow">
-                                <p>{{ $about['description'] }}</p>
+            @foreach($data['about'] as $key=>$about)
+                @if($key == 0 || $key % 2 == 0)
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="about__img">
+                                <img src="{{ $about['img'] }}" alt="">
                             </div>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <h4>{{ $about['title'] }}</h4>
+                            <p>{{ $about['description'] }}</p>
                             <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                @else
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8">
+                            <h4>{{ $about['title'] }}</h4>
+                            <p>{{ $about['description'] }}</p>
+                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="about__img">
+                                <img src="{{ $about['img'] }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
             <div class="row">
                 <div class="col-xs-12 about__register-wrap">
                     <a href="{{ url('register') }}" class="btn btn-success btn-lg">Регистрация</a>
@@ -145,13 +162,17 @@
                     <div class="owl-carousel rate-carousel">
                         @foreach($data['rate'] as $rate)
                             <div class="rate-carousel-item">
-                                <h4>{{ $rate['title'] }}</h4>
-                                <div class="overflow rate__overflow">
-                                    <p class="">
-                                        {{ $rate['description'] }}
-                                    </p>
+                                <div class="rate__img">
+                                    <img src="img/{{ random_int(1,3) }}.jpg" alt="">
                                 </div>
-                                <a href="{{ url('register') }}" class="btn btn-success btn-md">Подписаться</a>
+                                <h4 class="mt20">Название: {{ $rate['name'] }}</h4>
+                                <p>Цена: {{ $rate['price'] }}</p>
+                                <p>Реферальная система: {{ $rate['levels'] }}</p>
+                                <p>Выплаты по ступеням: {{ $rate['levels'] }}</p>
+                                <p>Срок действия: {{ $rate['term'] }} дней</p>
+
+                                <a href="{{ url('register') }}" class="btn btn-success btn-md">Оформить подписку</a>
+                                <a href="{{ url('register') }}" class="btn btn-success btn-md">Подробнее</a>
                             </div>
                         @endforeach
                     </div>
@@ -286,6 +307,15 @@
                     {{--{!! Form::button('Отправить', ['class' => 'btn btn-success']) !!}--}}
                     {{--</div>--}}
                     {{--{!! Form::close() !!}--}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="confidency" class="confidency">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <a href="">Политика конфиденциальности</a>
                 </div>
             </div>
         </div>

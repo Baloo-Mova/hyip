@@ -13,9 +13,12 @@
             <li class="dropdown">
                 <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О проекте <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#">Что такое White Coin?</a></li>
+                    <li><a href="#">Как мы работаем?</a></li>
+                    <li><a href="#">Наши цели</a></li>
+                    <li><a href="#">Почему мы?</a></li>
+                    <li><a href="#">Как зарабатывать?</a></li>
+                    <li><a href="#">Документы</a></li>
                 </ul>
             </li>
             <li><a href="{{ route('about') }}">Акции</a></li>
