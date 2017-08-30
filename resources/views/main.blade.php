@@ -17,7 +17,7 @@
 <nav class="navbar navbar-green navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <img alt="Brand" src="{{ asset('img/logo.png') }}">
             </a>
         </div>
@@ -32,9 +32,9 @@
 
         </div><!--/.nav-collapse -->
         <ul class="nav navbar-nav navbar-right top-main-menu__menu_right hidden-sm hidden-xs" >
-            <li><a href="#regulations" class="anchor_a">Feedback</a></li>
-            <li><a href="{{ url('/login') }}">Login</a></li>
-            <li><a href="{{ url('/register') }}">Registration</a></li>
+            <li><a href="{{ route('contacts', ['#feedback']) }}">Контакты</a></li>
+            <li><a href="{{ url('/login') }}">Войти</a></li>
+            <li><a href="{{ url('/register') }}">Регистрация</a></li>
         </ul>
     </div>
 </nav>
@@ -45,22 +45,9 @@
 @yield('content')
 
 
-<footer>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <p>Все права защищены. 2017</p>
-            </div>
-        </div>
-    </div>
-</footer>
+@include('partial.footer')
 
 @include('partial.scripts')
-
-<script>
-    $(document).ready(function(){
-
-    });
-</script>
+@yield('js')
 </body>
 </html>

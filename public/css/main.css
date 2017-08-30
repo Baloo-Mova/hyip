@@ -4,9 +4,9 @@ html {
 }
 
 body {
-    padding-top: 80px;
+    padding-top: 73px;
     background-color: #FEFEFE;
-    margin-bottom: 60px;
+    margin-bottom: 103px;
 }
 footer{
     position: absolute;
@@ -212,6 +212,16 @@ section h1{
 .top-main-menu__menu_right li a:focus,
 .top-main-menu__menu_right li a:active{
     background-color: transparent;
+}
+.regulations{
+    min-height: 450px;
+}
+.feedback__section{
+    background-color: #F8F8F8;
+    min-height: 450px;
+}
+.contacts-information__section{
+    min-height: 400px;
 }
 @media screen and (max-width: 486px) {
     .about-fa {
