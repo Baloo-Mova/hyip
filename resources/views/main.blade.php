@@ -27,17 +27,17 @@
             </button>
         </div>
         <div id="navbar" class="navbar-collapse collapse top-main-menu__wrap ">
-            <ul class="nav navbar-nav top-main-menu__menu_left new_nav" id="menu">
+            <ul class="nav navbar-nav top-main-menu__menu_left new_nav hidden-sm hidden-xs" id="menu">
                 <li>
                     @foreach($data['contacts']['social']['links'] as $soc)
                         <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
                     @endforeach
                 </li>
             </ul>
-            <ul class="nav navbar-nav hidden-md hidden-lg" id="menu">
+            <ul class="nav navbar-nav hidden-md hidden-lg top_hidden_menu" id="menu">
                 <li><a href="{{ route('index') }}">Главная</a></li>
                 <li class="dropdown">
-                    <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О проекте <span class="caret"></span></a>
+                    <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О компании <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Что такое White Coin?</a></li>
                         <li><a href="#">Как мы работаем?</a></li>
@@ -58,17 +58,22 @@
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
                 <li><a href="{{ route('questions') }}">Вопрос-ответ</a></li>
+                <li class="text-center">
+                    @foreach($data['contacts']['social']['links'] as $soc)
+                        <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
+                    @endforeach
+                </li>
             </ul>
 
         </div><!--/.nav-collapse -->
-        <ul class="nav navbar-nav navbar-right top-main-menu__menu_right hidden-sm hidden-xs" >
-            <li><a href="{{ route('contacts', ['#feedback']) }}">Контакты</a></li>
-            <li><a href="{{ url('/login') }}">Войти</a></li>
+        <ul class="nav navbar-nav navbar-right top-main-menu__menu_right hidden-xs" >
+            <li><a href="{{ route('contacts', ['#feedback']) }}">Обратная связь</a></li>
             <li><a href="{{ url('/register') }}">Регистрация</a></li>
+            <li><a href="{{ url('/login') }}">Личный кабинет</a></li>
         </ul>
     </div>
 </nav>
-<nav class="navbar navbar-default navbar-static-top hidden-sm hidden-xs">
+<nav class="navbar navbar-default navbar-static-top hidden-xs">
     @include('partial.mainmenu')
 </nav>
 

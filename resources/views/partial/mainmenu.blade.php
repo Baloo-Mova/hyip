@@ -11,7 +11,7 @@
         <ul class="nav navbar-nav main-menu__menu_center" id="menu">
             <li><a href="{{ route('index') }}">Главная</a></li>
             <li class="dropdown">
-                <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О проекте <span class="caret"></span></a>
+                <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О компании <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Что такое White Coin?</a></li>
                     <li><a href="#">Как мы работаем?</a></li>

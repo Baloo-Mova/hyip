@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    padding-top: 73px;
+    padding-top: 72px;
     background-color: #FEFEFE;
     margin-bottom: 100px;
 }
@@ -192,7 +192,7 @@ section h1{
 }
 .top-main-menu__menu_right{
     width: auto !important;
-    padding: 15px;
+    padding: 11px;
 }
 .top-main-menu__menu_right li{
     border: 1px solid #fff;
@@ -344,6 +344,16 @@ section h1{
         height: 130px;
     }
 }
+@media screen and (min-width: 750px) {
+    .top-main-menu__wrap{
+        float: left;
+    }
+    .top_hidden_menu{
+        display: none;
+    }
+}
+
+
 @media screen and (min-width: 1024px) {
     .news__item{
         margin-bottom: 0px;
