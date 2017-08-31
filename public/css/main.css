@@ -282,7 +282,7 @@ section h1{
     .navbar-nav {
         width: 100%;
         text-align: center;
-        margin: 7.5px auto;
+        margin: 0px auto;
     }
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #fff;
@@ -343,7 +343,7 @@ section h1{
     .navbar-nav {
         width: 100%;
         text-align: center;
-        margin: 7.5px auto;
+        margin: 0px auto;
     }
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #fff;
@@ -403,7 +403,7 @@ section h1{
     .navbar-nav {
         width: 100%;
         text-align: center;
-        margin: 7.5px auto;
+        margin: 0px auto;
     }
     .navbar-nav > li {
         float: none !important;
@@ -441,14 +441,14 @@ section h1{
     .navbar-nav {
         width: 100%;
         text-align: left;
-        margin: 7.5px auto;
+        margin: 0px auto;
     }
     .navbar-nav > li {
         float: none !important;
         display: inline-block !important;
     }
     body {
-        padding-top: 90px;
+        padding-top: 75px;
     }
 }
 
@@ -522,13 +522,13 @@ section h1{
     .navbar-nav {
         width: 100%;
         text-align: center;
-        margin: 7.5px auto;
+        margin: 0px auto;
     }
     .navbar-nav > li {
         float: none !important;
         display: inline-block !important;
     }
     body {
-        padding-top: 90px;
+        padding-top: 75px;
     }
 }

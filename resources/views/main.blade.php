@@ -58,7 +58,7 @@
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
                 <li><a href="{{ route('questions') }}">Вопрос-ответ</a></li>
-                <li class="text-center">
+                <li class="text-center hidden-xs">
                     @foreach($data['contacts']['social']['links'] as $soc)
                         <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
                     @endforeach

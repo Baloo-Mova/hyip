@@ -24,7 +24,7 @@ class SiteController extends Controller
               ],
               [
                   'img' => 'img/2.jpg',
-                  'caption' => 'содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
+                  'caption' => 'Содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
                   'buttons' => [
                       [
                           'title' => 'Регистрация',
@@ -94,9 +94,7 @@ class SiteController extends Controller
             'rate' => $subscriptions,
             'paysystems' => [
                 'img/brand3.png',
-                'img/brand5.png',
                 'img/brand7.png',
-                'img/brand8.png',
                 'img/brand2.png',
                 'img/brand6.png',
                 'img/brand9.png',
