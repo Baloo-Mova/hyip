@@ -290,15 +290,6 @@
             </div>
         </div>
     </section>
-    <section id="confidency" class="confidency">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <a href="">Политика конфиденциальности</a>
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection
 
 @section('js')
