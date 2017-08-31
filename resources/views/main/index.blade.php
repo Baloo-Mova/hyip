@@ -13,7 +13,7 @@
                                 </h3>
                                 @if(isset($carousel['buttons']))
                                     @foreach($carousel['buttons'] as $button)
-                                        <a href="{{ url($button['link']) }}" class="btn {{ $button['class'] }}">{{ $button['title'] }}</a>
+                                        <a href="{{ url($button['link']) }}" class="btn {{ $button['class'] }} btn-carousel">{{ $button['title'] }}</a>
                                     @endforeach
                                 @endif
                             </div>
@@ -262,14 +262,14 @@
                         {{ csrf_field() }}
                         <div class="form-group @if( is_error('name') )has-error @endif">
                             <label for="name">Имя</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Ваше имя">
+                            <input type="text" class="form-control btn-flat" name="name" id="name" placeholder="Ваше имя">
                             @if( is_error('name') )
                                 <span class="help-block">{{ $errors->first('name') }}</span>
                             @endif
                         </div>
                         <div class="form-group @if( is_error('email') )has-error @endif">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" id="email"
+                            <input type="email" class="form-control btn-flat" name="email" id="email"
                                    placeholder="email@example.com">
                             @if( is_error('email') )
                                 <span class="help-block">{{ $errors->first('email') }}</span>
@@ -277,7 +277,7 @@
                         </div>
                         <div class="form-group @if( is_error('question') )has-error @endif">
                             <label for="question">Вопрос</label>
-                            <textarea name="question" id="question" class="form-control contacts__textarea"></textarea>
+                            <textarea name="question" id="question" class="form-control contacts__textarea btn-flat"></textarea>
                             @if( is_error('question') )
                                 <span class="help-block">{{ $errors->first('question') }}</span>
                             @endif
