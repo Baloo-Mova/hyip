@@ -283,8 +283,11 @@ section h1{
         width: 100%;
         text-align: center;
     }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+    }
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-        border-color: #e7e7e7;
+        border-color: transparent;
     }
 }
 @media screen and (min-width: 486px) {
@@ -328,8 +331,11 @@ section h1{
         width: 100%;
         text-align: center;
     }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+    }
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-        border-color: #e7e7e7;
+        border-color: transparent;
     }
 }
 @media screen and (min-width: 576px) {
@@ -376,7 +382,7 @@ section h1{
         color: #fff;
     }
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-        border-color: #e7e7e7;
+        border-color: transparent;
     }
 }
 @media screen and (min-width: 750px) {
