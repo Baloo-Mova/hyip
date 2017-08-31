@@ -177,8 +177,8 @@
                                 <p>Выплаты по ступеням: {{ $rate['levels'] }}</p>
                                 <p>Срок действия: {{ $rate['term'] }} дней</p>
 
-                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat">Оформить подписку</a>
-                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat">Подробнее</a>
+                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
+                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
                             </div>
                         @endforeach
                     </div>

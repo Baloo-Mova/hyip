@@ -227,7 +227,6 @@ section h1{
     width: 100%;
 }
 .rate__img{
-    height: 205px;
     overflow: hidden;
 }
 .rate__img img{
@@ -263,11 +262,18 @@ section h1{
         position: relative;
         margin-top: 0px;
         z-index: 2;
-        padding: 40px 38px ;
+        padding: 0px ;
         box-shadow: none;
     }
     .greetings_subtitle{
         margin-top: 20px;
+    }
+    .rate-carousel__button{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .rate__img{
+        height: 130px;
     }
 }
 @media screen and (min-width: 486px) {
@@ -290,12 +296,19 @@ section h1{
         position: relative;
         margin-top: 0px;
         z-index: 2;
-        padding: 40px 38px ;
+        padding: 0px ;
         box-shadow: none;
     }
     .greetings_subtitle{
         margin-top: 20px;
     }
+    .rate-carousel__button{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .rate__img{
+         height: 130px;
+     }
 }
 @media screen and (min-width: 576px) {
     .about-fa {
@@ -317,11 +330,18 @@ section h1{
         position: relative;
         margin-top: 0px;
         z-index: 2;
-        padding: 40px 38px ;
+        padding: 0px ;
         box-shadow: none;
     }
     .greetings_subtitle{
         margin-top: 20px;
+    }
+    .rate-carousel__button{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .rate__img{
+        height: 130px;
     }
 }
 @media screen and (min-width: 1024px) {
@@ -380,5 +400,11 @@ section h1{
     }
     .top-main-menu__wrap{
         float: left;
+    }
+    .rate-carousel__button{
+        width: auto;
+    }
+    .rate__img{
+        height: 205px;
     }
 }
