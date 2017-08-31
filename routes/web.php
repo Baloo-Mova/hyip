@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
         Route::group(['prefix' => 'tariff'], function () {
             Route::get('/', 'TariffController@index')->name('tariff');
+            Route::get('{id}', 'TariffController@pay')->name('tariff.payment');
         });
         Route::group(['prefix' => 'support'], function () {
             Route::get('/', 'SupportController@index')->name('support');
