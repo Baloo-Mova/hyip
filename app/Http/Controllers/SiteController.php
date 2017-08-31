@@ -8,7 +8,8 @@ use App\Models\Subscription;
 class SiteController extends Controller
 {
     public function index(){
-        $subscriptions = Subscription::all()->toArray();
+        $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
+
         $data = [
             'carousel' => [
               [

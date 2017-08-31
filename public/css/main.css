@@ -60,7 +60,6 @@ section h1{
 .rate-carousel-item,
 .news__item{
     border: 1px solid #ddd;
-    padding: 20px;
     text-align: center;
 }
 .rate-carousel-item h4{
@@ -242,6 +241,63 @@ section h1{
 .confidency a{
     color: #fff;
 }
+.dark__wrap{
+    background-color: #222;
+}
+.register-form__wrap{
+    background-color: #fff;
+    margin: 0px auto;
+}
+.register-form__header{
+    background-color: #00B600;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+.form-signin-heading{
+    text-transform: uppercase;
+}
+.register-form__inputs{
+    padding: 20px;
+}
+.register-form__inputs input{
+    border-radius: 0px;
+}
+.register__add-buttons{
+    margin-top: 30px;
+}
+.register__add-buttons a{
+    color: #fff;
+}
+.register-form__inputs-bottom{
+    background-color: #e0e0e0;
+}
+.rate__title{
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 60px;
+    padding-top: 2px;
+}
+.rate__footer{
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 90px;
+    padding-top: 35px;
+}
+.rate__body{
+    width: 100%;
+    padding: 20px;
+}
+.rate__price{
+    color: #CB4245;
+    font-size: 32px;
+    font-weight: 900;
+}
+.rate__top{
+    background-color: #e0e0e0;
+    width: 100%;
+    height: 10px;
+}
 @media screen and (max-width: 486px) {
     .about-fa {
         font-size: 4em;
@@ -301,6 +357,9 @@ section h1{
     }
     body {
         padding-top: 72px;
+    }
+    .register-form__wrap{
+        width: 100%;
     }
 }
 @media screen and (min-width: 486px) {
@@ -362,6 +421,9 @@ section h1{
     }
     body {
         padding-top: 72px;
+    }
+    .register-form__wrap{
+        width: 100%;
     }
 }
 @media screen and (min-width: 576px) {
@@ -427,6 +489,9 @@ section h1{
     body {
         padding-top: 72px;
     }
+    .register-form__wrap{
+        width: 300px;
+    }
 }
 @media screen and (min-width: 750px) {
     .top-main-menu__wrap{
@@ -449,6 +514,9 @@ section h1{
     }
     body {
         padding-top: 75px;
+    }
+    .register-form__wrap{
+        width: 40%;
     }
 }
 
@@ -530,5 +598,9 @@ section h1{
     }
     body {
         padding-top: 75px;
+    }
+    .register-form__wrap{
+        width: 40%;
+
     }
 }

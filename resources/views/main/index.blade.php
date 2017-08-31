@@ -168,17 +168,31 @@
                     <div class="owl-carousel rate-carousel">
                         @foreach($data['rate'] as $rate)
                             <div class="rate-carousel-item">
-                                <div class="rate__img">
-                                    <img src="img/{{ random_int(1,3) }}.jpg" alt="">
+                                <div class="rate__top">
+                                    &nbsp;
                                 </div>
-                                <h4 class="mt20">Название: {{ $rate['name'] }}</h4>
-                                <p>Цена: {{ $rate['price'] }}</p>
-                                <p>Реферальная система: {{ $rate['levels'] }}</p>
-                                <p>Выплаты по ступеням: {{ $rate['levels'] }}</p>
-                                <p>Срок действия: {{ $rate['term'] }} дней</p>
-
-                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                <div class="rate__img">
+                                    <img src="img/{{ random_int(1,3) }}.jpg" class="" alt="">
+                                </div>
+                                <div class="rate__title">
+                                    <h3>{{ $rate['name'] }}</h3>
+                                </div>
+                                <div class="rate__body">
+                                    <p class="rate__price">Цена: {{ $rate['price'] }}</p>
+                                    <p>Реферальная система: {{ $rate['levels'] }} уровня</p>
+                                    <hr>
+                                    @if(isset($rate['first_prices']))
+                                        @foreach($rate['first_prices'] as $item)
+                                            <p>{{ $item['level'] + 1 }} уровень - {{ $item['value'].($item['is_percent'] ? "%" : "") }}</p>
+                                            <hr>
+                                        @endforeach
+                                    @endif
+                                    <p>Срок действия: {{ $rate['term'] }} дней</p>
+                                </div>
+                                <div class="rate__footer">
+                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
+                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -302,11 +316,11 @@
                 dots: true,
             });
             $(".rate-carousel").owlCarousel({
-                items: 3,
-                autoplay: true,
-                loop: true,
+                autoplay: false,
+                loop: false,
                 dots: true,
                 margin: 10,
+                center: true,
                 responsiveClass: true,
                 responsive: {
                     0: {
