@@ -64,3 +64,14 @@
     text-decoration: none;
     background-color: transparent;
 }
+.btn-flat{
+    border-radius: 0px !important;
+}
+.btn-main-carousel{
+    background-color: #00B600;
+    color: #fff;
+}
+.btn-main-carousel:hover{
+    color: #fff;
+    background-color: #009000;
+}

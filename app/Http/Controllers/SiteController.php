@@ -18,7 +18,7 @@ class SiteController extends Controller
                       [
                           'title' => 'Регистрация',
                           'link'  => '/register',
-                          'class' => 'btn-success'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
               ],
@@ -29,12 +29,12 @@ class SiteController extends Controller
                       [
                           'title' => 'Регистрация',
                           'link'  => '/register',
-                          'class' => 'btn-success'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ],
                       [
                           'title' => 'Узнать как',
                           'link'  => '/register',
-                          'class' => 'btn-primary'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
               ],
@@ -45,12 +45,12 @@ class SiteController extends Controller
                       [
                           'title' => 'Регистрация',
                           'link'  => '/register',
-                          'class' => 'btn-success'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ],
                       [
                           'title' => 'Подробнее',
                           'link'  => '/register',
-                          'class' => 'btn-primary'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
               ],
@@ -97,6 +97,9 @@ class SiteController extends Controller
                 'img/brand5.png',
                 'img/brand7.png',
                 'img/brand8.png',
+                'img/brand2.png',
+                'img/brand6.png',
+                'img/brand9.png',
             ],
             'news' => [
                 ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua'],

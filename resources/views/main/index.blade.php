@@ -70,24 +70,30 @@
                             <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
                         </div>
                     </div>
+                    @if($about != end($data['about']))
+                        <hr>
+                    @endif
                 @else
                     <div class="row">
-                        <div class="col-xs-12 col-md-8">
-                            <h4>{{ $about['title'] }}</h4>
-                            <p>{{ $about['description'] }}</p>
-                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
-                        </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-12 col-md-4 col-md-push-8">
                             <div class="about__img">
                                 <img src="{{ $about['img'] }}" alt="">
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-8 col-md-pull-4">
+                            <h4>{{ $about['title'] }}</h4>
+                            <p>{{ $about['description'] }}</p>
+                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
+                        </div>
                     </div>
+                    @if($about != end($data['about']))
+                        <hr>
+                    @endif
                 @endif
             @endforeach
             <div class="row">
                 <div class="col-xs-12 about__register-wrap">
-                    <a href="{{ url('register') }}" class="btn btn-success btn-lg">Регистрация</a>
+                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
                 </div>
             </div>
         </div>
@@ -171,8 +177,8 @@
                                 <p>Выплаты по ступеням: {{ $rate['levels'] }}</p>
                                 <p>Срок действия: {{ $rate['term'] }} дней</p>
 
-                                <a href="{{ url('register') }}" class="btn btn-success btn-md">Оформить подписку</a>
-                                <a href="{{ url('register') }}" class="btn btn-success btn-md">Подробнее</a>
+                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat">Оформить подписку</a>
+                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat">Подробнее</a>
                             </div>
                         @endforeach
                     </div>
@@ -277,36 +283,9 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">Отправить</button>
+                            <button type="submit" class="btn btn-main-carousel btn-flat">Отправить</button>
                         </div>
                     </form>
-
-                    {{--{!! Form::open(['route' => 'create-feedback', 'class' => 'form']) !!}--}}
-                    {{--<div class="form-group @if( is_error('name') )has-error @endif">--}}
-                    {{--{!! Form::label('name', 'Имя') !!}--}}
-                    {{--{!! Form::text('name', '', ['placeholder' => 'Ваше имя', 'id' => 'name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
-                    {{--@if( is_error('name') )--}}
-                    {{--<span class="help-block">{{ $errors->first('name') }}</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group @if( is_error('email') )has-error @endif">--}}
-                    {{--{!! Form::label('email', 'Email') !!}--}}
-                    {{--{!! Form::email('email', '', ['placeholder' => 'email@example.com', 'id' => 'email', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
-                    {{--@if( is_error('email') )--}}
-                    {{--<span class="help-block">{{ $errors->first('email') }}</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group @if( is_error('question') )has-error @endif">--}}
-                    {{--{!! Form::label('question', 'Вопрос') !!}--}}
-                    {{--{!! Form::textarea('question', '', ['rows' => '2', 'id' => 'question', 'class' => 'form-control contacts__textarea', 'required' => 'required']) !!}--}}
-                    {{--@if( is_error('question') )--}}
-                    {{--<span class="help-block">{{ $errors->first('question') }}</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                    {{--{!! Form::button('Отправить', ['class' => 'btn btn-success']) !!}--}}
-                    {{--</div>--}}
-                    {{--{!! Form::close() !!}--}}
                 </div>
             </div>
         </div>
