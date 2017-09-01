@@ -59,7 +59,7 @@
                         <div class="form-group has-feedback {{ $errors->has('confirm_regulations') ? 'has-error' : false }}">
                             <label for="">
                                 <input type="checkbox" name="confirm_regulations">
-                                Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего текста:
+                                Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a href="#">текста</a>
                             </label>
                         </div>
                         {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
@@ -71,7 +71,7 @@
 
             </div>
             <div class="register__add-buttons text-center">
-                <a href="">Главная</a>
+                <a href="{{ route('index') }}">Главная</a>
             </div>
 
         </div>

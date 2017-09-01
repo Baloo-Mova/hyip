@@ -24,7 +24,7 @@ Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedb
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
 
-        Route::get('/', 'AuthController@registerForm');
+        Route::get('/', 'AuthController@registerForm')->name('register');
         Route::get('{token}', 'AuthController@registerForm');
         Route::post('/', 'AuthController@register');
 
@@ -32,7 +32,7 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::group(['prefix' => 'login'], function () {
 
-        Route::get('/', 'AuthController@loginForm');
+        Route::get('/', 'AuthController@loginForm')->name('login');
         Route::post('/', 'AuthController@login');
 
     });
