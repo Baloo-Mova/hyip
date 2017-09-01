@@ -112,6 +112,13 @@
 .z100{
     z-index: 100;
 }
+input, input:active, input:hover, input:focus {
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 @media screen and (max-width: 486px) {
     .navbar-nav {
         width: 100%;
@@ -261,5 +268,5 @@
 
 }
 .navbar__black{
-    background-color: #000;
+    background-color: #1A1A1A;
 }
