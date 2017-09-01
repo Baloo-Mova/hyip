@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'facilities'], function () {
             Route::get('/', 'FacilitiesController@index')->name('facilities');
             Route::get('/operations', 'FacilitiesController@operations')->name('facilities.operations');
+            Route::post('/refill', 'FacilitiesController@refill')->name('facilities.refill');
+            Route::post('/refill/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
         });
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile');
