@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/payeer_395290401.txt',function(){
+    echo "395290401";
+});
+
 Route::get('/', "SiteController@index")->name('index');
 Route::get('/about', "SiteController@about")->name('about');
 Route::get('/news', "SiteController@news")->name('news');
