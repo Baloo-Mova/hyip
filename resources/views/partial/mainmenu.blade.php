@@ -44,7 +44,20 @@
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
                 <li><a href="{{ route('questions') }}">Вопрос-ответ</a></li>
-                <li class="text-center hidden-xs">
+                <li><a href="{{ route('contacts', ['#feedback']) }}">Обратная связь</a></li>
+                @if(Auth::check())
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->login }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('cabinet') }}">Личный кабинет</a></li>
+                            <li><a href="{{ route('logout') }}">Выйти</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li><a href="{{ route('register') }}">Регистрация</a></li>
+                    <li><a href="{{ route('login') }}">Войти</a></li>
+                @endif
+                <li class="text-center pb20">
                     @foreach($data['contacts']['social']['links'] as $soc)
                         <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
                     @endforeach
@@ -54,8 +67,18 @@
         </div><!--/.nav-collapse -->
         <ul class="nav navbar-nav navbar-right top-main-menu__menu_right hidden-xs" >
             <li><a href="{{ route('contacts', ['#feedback']) }}">Обратная связь</a></li>
-            <li><a href="{{ route('register') }}">Регистрация</a></li>
-            <li><a href="{{ route('login') }}">Личный кабинет</a></li>
+            @if(Auth::check())
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->login }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="bottom-border"><a href="{{ route('cabinet') }}">Личный кабинет</a></li>
+                        <li class="no-top-border"><a href="{{ route('logout') }}">Выйти</a></li>
+                    </ul>
+                </li>
+            @else
+                <li><a href="{{ route('register') }}">Регистрация</a></li>
+                <li><a href="{{ route('login') }}">Войти</a></li>
+            @endif
         </ul>
     </div>
 </nav>

@@ -44,7 +44,15 @@
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
                 <li><a href="{{ route('questions') }}">Вопрос-ответ</a></li>
-                <li class="text-center hidden-xs">
+                <li><a href="{{ route('contacts', ['#feedback']) }}">Обратная связь</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->login }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('cabinet') }}">Личный кабинет</a></li>
+                        <li><a href="{{ route('logout') }}">Выйти</a></li>
+                    </ul>
+                </li>
+                <li class="text-center pb20">
                     @foreach($data['contacts']['social']['links'] as $soc)
                         <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
                     @endforeach
@@ -65,7 +73,7 @@
         </ul>
     </div>
 </nav>
-<nav class="navbar navbar-default navbar-static-top hidden-xs navbar__black">
+<nav class="navbar navbar-default navbar-static-top hidden-xs navbar__black  z100">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
