@@ -7,6 +7,10 @@ use App\Models\Subscription;
 
 class SiteController extends Controller
 {
+    public function needVerifyEmail()
+    {
+        return view('guest.need_verify_email');
+    }
     public function index(){
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
 
@@ -344,5 +348,83 @@ class SiteController extends Controller
             ]
         ];
         return view('main.regulations', ['data' => $data]);
+    }
+
+    public function termsOfUse()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'links' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ],
+                    'share' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'fb' => [
+                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
+                        ],
+                        'ok' => [
+                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
+                        ],
+                        'tw' => [
+                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
+                        ],
+                        'tl' => [
+                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return view('main.termsOfUse', ['data' => $data]);
+    }
+
+    public function privacyPolicy()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'links' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ],
+                    'share' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'fb' => [
+                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
+                        ],
+                        'ok' => [
+                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
+                        ],
+                        'tw' => [
+                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
+                        ],
+                        'tl' => [
+                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return view('main.privacyPolicy', ['data' => $data]);
     }
 }

@@ -1,4 +1,4 @@
-<ul class="nav nav-sidebar">
+<ul class="nav nav-sidebar user-sidebar">
     <li class="{{ Request::path() == 'cabinet' ? 'active' : ''}}"><a href="{{ route('cabinet') }}">Главная <span class="sr-only">(current)</span></a></li>
     <li class="{{ Request::path() == 'cabinet/referrals' ? 'active' : ''}}"><a href="{{ route('referrals') }}">Рефералы</a></li>
     <li class="{{ Request::path() == 'cabinet/facilities' ? 'active' : ''}}"><a href="{{ route('facilities') }}">Ввод/вывод</a></li>

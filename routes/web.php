@@ -17,14 +17,17 @@ Route::get('/news', "SiteController@news")->name('news');
 Route::get('/questions', "SiteController@questions")->name('questions');
 Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
+Route::get('/terms-of-use', "SiteController@termsOfUse")->name('terms.of.use');
+Route::get('/privacy-policy', "SiteController@privacyPolicy")->name('privacy.policy');
 Route::get('/file/{name}', "DownloadController@file")->name('file');
 Route::get('/logout', 'AuthController@logout');
 Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedback');
+Route::get('/need-verify-email', "SiteController@needVerifyEmail")->name('need.verify.email');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
 
-        Route::get('/', 'AuthController@registerForm');
+        Route::get('/', 'AuthController@registerForm')->name('register');
         Route::get('{token}', 'AuthController@registerForm');
         Route::post('/', 'AuthController@register');
 
@@ -32,7 +35,7 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::group(['prefix' => 'login'], function () {
 
-        Route::get('/', 'AuthController@loginForm');
+        Route::get('/', 'AuthController@loginForm')->name('login');
         Route::post('/', 'AuthController@login');
 
     });
@@ -52,12 +55,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'facilities'], function () {
             Route::get('/', 'FacilitiesController@index')->name('facilities');
             Route::get('/operations', 'FacilitiesController@operations')->name('facilities.operations');
+            Route::post('/refill', 'FacilitiesController@refill')->name('facilities.refill');
+            Route::post('/refill/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
         });
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile');
         });
         Route::group(['prefix' => 'tariff'], function () {
             Route::get('/', 'TariffController@index')->name('tariff');
+            Route::get('{id}', 'TariffController@pay')->name('tariff.payment');
         });
         Route::group(['prefix' => 'support'], function () {
             Route::get('/', 'SupportController@index')->name('support');

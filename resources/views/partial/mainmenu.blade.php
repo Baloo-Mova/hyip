@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default navbar-green navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ route('index') }}">
                 <img alt="Brand" src="{{ asset('img/logo.png') }}">
             </a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -54,12 +54,12 @@
         </div><!--/.nav-collapse -->
         <ul class="nav navbar-nav navbar-right top-main-menu__menu_right hidden-xs" >
             <li><a href="{{ route('contacts', ['#feedback']) }}">Обратная связь</a></li>
-            <li><a href="{{ url('/register') }}">Регистрация</a></li>
-            <li><a href="{{ url('/login') }}">Личный кабинет</a></li>
+            <li><a href="{{ route('register') }}">Регистрация</a></li>
+            <li><a href="{{ route('login') }}">Личный кабинет</a></li>
         </ul>
     </div>
 </nav>
-<nav class="navbar navbar-default navbar-static-top hidden-xs">
+<nav class="navbar navbar-default navbar-static-top hidden-xs navbar__black">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

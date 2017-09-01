@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRefferalsCount extends Migration
+class ChangePeymentsRequestTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddRefferalsCount extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('ref_count')->default(0);
+        Schema::table('payments_request', function (Blueprint $table) {
+            $table->integer('wallet_id')->nullable()->change();
         });
     }
 
@@ -25,8 +25,8 @@ class AddRefferalsCount extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $ta) {
-            $ta->dropColumn('ref_count');
+        Schema::table('payments_request', function (Blueprint $table) {
+            $table->integer('wallet_id')->nullable(false)->change();
         });
     }
 }

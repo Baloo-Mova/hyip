@@ -73,6 +73,13 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
+
+        $validator = \Validator::make($request->all(), with(new RegisterRequest())->rules());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
+        }
+
         $referral_id = null;
         if ($request->get('token')) {
             $ref = User::where('ref_link', $request->get('token'))->first();
