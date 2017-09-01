@@ -380,6 +380,13 @@ section h1{
     .register-form__wrap{
         width: 300px;
     }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+        background-color: transparent !important;
+    }
+    .dropdown-menu {
+        padding-bottom: 0 !important;
+    }
 }
 @media screen and (min-width: 750px) {
     .btn-carousel{
@@ -463,5 +470,27 @@ section h1{
     .register-form__wrap{
         width: 40%;
 
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+        background-color: transparent !important;
+    }
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        margin-right: -2px;
+        min-width: 127px;
+        padding-bottom: 0 !important;
+    }
+
+    .bottom-border{
+        border: none !important;
+    }
+    .no-top-border{
+        border: none !important;
     }
 }
