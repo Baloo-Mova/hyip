@@ -494,3 +494,26 @@ section h1{
         border: none !important;
     }
 }
+.news__item{
+    padding: 20px 20px;
+    -webkit-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.42);
+    -moz-box-shadow:    2px 2px 8px 0px rgba(50, 50, 50, 0.42);
+    box-shadow:         2px 2px 8px 0px rgba(50, 50, 50, 0.42);
+    margin-bottom: 20px;
+}
+.news_title img{
+    width: 100%;
+}
+.news__description{
+    text-align: left;
+}
+.news__description h4{
+    margin-top: 0;
+}
+.news-show__img img{
+    width: 100%;
+}
+.news-show__text{
+    margin-top: 20px;
+    margin-bottom: 50px;
+}

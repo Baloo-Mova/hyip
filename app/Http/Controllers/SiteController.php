@@ -194,9 +194,91 @@ class SiteController extends Controller
         return view('main.about', ['data' => $data]);
     }
 
+    public function newsShow($id){
+        $news = [
+            1 => [
+                'id' => 1,
+                'title' => 'Новость 1',
+                'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                'img' => 'img/1.jpg'
+            ],
+            2 => [
+                'id' => 2,
+                'title' => 'Новость 2',
+                'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                'img' => 'img/2.jpg'
+            ]
+        ];
+        $data = [
+            'news' => $news[$id],
+            'contacts' =>[
+                'social' => [
+                    'links' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ],
+                    'share' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'fb' => [
+                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
+                        ],
+                        'ok' => [
+                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
+                        ],
+                        'tw' => [
+                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
+                        ],
+                        'tl' => [
+                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return view('main.newsShow', ['data' => $data]);
+    }
+
     public function news()
     {
         $data = [
+            'news' => [
+                0 => [
+                    'id' => 1,
+                    'title' => 'Новость 1',
+                    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                    'img' => 'img/1.jpg'
+                ],
+                1 => [
+                    'id' => 2,
+                    'title' => 'Новость 2',
+                    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                    'img' => 'img/2.jpg'
+                ]
+            ],
             'contacts' =>[
                 'social' => [
                     'links' => [
