@@ -14,6 +14,10 @@
 
 
 <!-- Fixed navbar -->
+<div class="user__sidebar__wrap">
+    <i class="fa fa-bars phpdebugbar-fa-3x user__sidebar__call" aria-hidden="true"></i>
+</div>
+
 <nav class="navbar navbar-default navbar-static-top">
     @include('partial.usermainmenu')
 </nav>
@@ -33,7 +37,15 @@
 
 <script>
     $(document).ready(function(){
+        $(".user__sidebar__call").on("click", function () {
+            var state = $(".sidebar").css("display");
 
+            if(state == "block"){
+                $(".sidebar").hide(100);
+            }else{
+                $(".sidebar").show(100);
+            }
+        });
     });
 </script>
 </body>
