@@ -12,7 +12,7 @@
 */
 
 Route::get('/payeer_395290401.txt',function(){
-    echo "395290401";
+    return response()->download(storage_path("1.txt"));
 });
 
 Route::get('/', "SiteController@index")->name('index');
