@@ -62,7 +62,7 @@
                                 Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a href="#">текста</a>
                             </label>
                         </div>
-                        {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
+                        {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block register-button disabled']) !!}
 
 
                         {!! Form::close() !!}
@@ -101,14 +101,14 @@
 @section('js')
     <script>
         $(document).ready(function () {
-           /*$(".confirm_regulations").on("change", function () {
+           $(".confirm_regulations").on("change", function () {
                var state = $(this).prop("checked");
                if(state){
                    $(".register-button").removeClass("disabled");
                }else{
                    $(".register-button").addClass("disabled");
                }
-           });*/
+           });
         });
     </script>
 @stop
