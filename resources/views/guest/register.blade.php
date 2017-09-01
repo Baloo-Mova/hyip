@@ -18,7 +18,7 @@
             @endif
 
             <div class="register-form__wrap">
-                {!! Form::open(['url' => 'register', 'class' => 'form-signin']) !!}
+                {!! Form::open(['route' => 'register', 'class' => 'form-signin']) !!}
                 <div class="register-form__header">
                     <img src="img/logo.png" alt="">
                 </div>
@@ -58,11 +58,11 @@
                     <div class="register-form__inputs">
                         <div class="form-group has-feedback {{ $errors->has('confirm_regulations') ? 'has-error' : false }}">
                             <label for="">
-                                <input type="checkbox" name="confirm_regulations">
+                                <input type="checkbox" name="confirm_regulations" class="confirm_regulations">
                                 Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a href="#">текста</a>
                             </label>
                         </div>
-                        {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
+                        {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
 
 
                         {!! Form::close() !!}
@@ -96,4 +96,19 @@
             font-size: 16px;
         }
     </style>
+@stop
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+           /*$(".confirm_regulations").on("change", function () {
+               var state = $(this).prop("checked");
+               if(state){
+                   $(".register-button").removeClass("disabled");
+               }else{
+                   $(".register-button").addClass("disabled");
+               }
+           });*/
+        });
+    </script>
 @stop

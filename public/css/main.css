@@ -253,6 +253,7 @@ section h1{
     width: 100%;
     text-align: center;
     padding: 20px;
+    position: relative;
 }
 .form-signin-heading{
     text-transform: uppercase;
