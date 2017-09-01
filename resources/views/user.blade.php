@@ -15,12 +15,13 @@
 
 <!-- Fixed navbar -->
 <div class="user__sidebar__wrap">
-    <i class="fa fa-bars phpdebugbar-fa-3x user__sidebar__call" aria-hidden="true"></i>
+    <i class="fa fa-bars phpdebugbar-fa-2x user__sidebar__call" aria-hidden="true"></i>
 </div>
 
-<nav class="navbar navbar-default navbar-static-top">
+{{--<nav class="navbar navbar-default navbar-static-top">
     @include('partial.usermainmenu')
-</nav>
+</nav>--}}
+@include('partial.usermainmenu')
 
 <div class="container-fluid">
     <div class="row">

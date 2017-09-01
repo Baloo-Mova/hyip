@@ -157,57 +157,8 @@ section h1{
 .carousel-caption{
     padding-bottom: 17%;
 }
-.navbar-default{
-    background-color: #262626 !important;
-    margin-bottom: 0;
-}
 #home{
     padding-top: 0;
-}
-.navbar-green{
-    background-color: #00B600 !important;
-}
-.dropdown-menu {
-    background-color: rgba(0,0,0, 0.7);
-    border-radius: 0px;
-    margin-top: -1px !important;
-}
-.dropdown-menu > li > a {
-    color: #fff;
-}
-.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
-    color: #EAB52A !important;
-}
-.new_nav > li > a:focus, .new_nav > li > a:hover {
-    text-decoration: none;
-    background-color: transparent;
-}
-.navbar-brand {
-    padding: 0px 15px;
-    height: 100%;
-}
-.top-main-menu__menu_left{
-    padding: 25px;
-}
-.top-main-menu__menu_right{
-    width: auto !important;
-    padding: 11px;
-}
-.top-main-menu__menu_right li{
-    border: 1px solid #fff;
-}
-.top-main-menu__menu_right li a{
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-.top-main-menu__menu_right li a:hover{
-    background-color: transparent;
-    color: #EAB52A !important;
-}
-.top-main-menu__menu_right li a:focus,
-.top-main-menu__menu_right li a:active{
-    background-color: transparent;
 }
 .regulations{
     min-height: 450px;
@@ -336,26 +287,6 @@ section h1{
         width:100%;
         margin-bottom: 10px;
     }
-    .navbar-nav {
-        width: 100%;
-        text-align: center;
-        margin: 0px auto;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #fff;
-    }
-    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-        border-color: transparent;
-    }
-    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
-        color: #EAB52A;
-    }
-    .navbar-nav .open .dropdown-menu{
-        text-align: center;
-    }
-    .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
-        max-height: 100% !important;
-    }
     body {
         padding-top: 72px;
     }
@@ -400,26 +331,6 @@ section h1{
         width:100%;
         margin-bottom: 10px;
     }
-    .navbar-nav {
-        width: 100%;
-        text-align: center;
-        margin: 0px auto;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #fff;
-    }
-    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-        border-color: transparent;
-    }
-    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
-        color: #EAB52A;
-    }
-    .navbar-nav .open .dropdown-menu{
-        text-align: center;
-    }
-    .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
-        max-height: 100% !important;
-    }
     body {
         padding-top: 72px;
     }
@@ -463,30 +374,6 @@ section h1{
     .btn-carousel{
         width: auto;
     }
-    .navbar-nav {
-        width: 100%;
-        text-align: center;
-        margin: 0px auto;
-    }
-    .navbar-nav > li {
-        float: none !important;
-        display: block !important;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #fff;
-    }
-    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-        border-color: transparent;
-    }
-    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
-        color: #EAB52A;
-    }
-    .navbar-nav .open .dropdown-menu{
-        text-align: center;
-    }
-    .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
-        max-height: 100% !important;
-    }
     body {
         padding-top: 72px;
     }
@@ -495,23 +382,8 @@ section h1{
     }
 }
 @media screen and (min-width: 750px) {
-    .top-main-menu__wrap{
-        float: left;
-    }
-    .top_hidden_menu{
-        display: none;
-    }
     .btn-carousel{
         width: auto;
-    }
-    .navbar-nav {
-        width: 100%;
-        text-align: left;
-        margin: 0px auto;
-    }
-    .navbar-nav > li {
-        float: none !important;
-        display: inline-block !important;
     }
     body {
         padding-top: 75px;
@@ -576,9 +448,6 @@ section h1{
     .greetings_subtitle{
         margin-top: 0;
     }
-    .top-main-menu__wrap{
-        float: left;
-    }
     .rate-carousel__button{
         width: auto;
     }
@@ -587,15 +456,6 @@ section h1{
     }
     .btn-carousel{
         width: auto;
-    }
-    .navbar-nav {
-        width: 100%;
-        text-align: center;
-        margin: 0px auto;
-    }
-    .navbar-nav > li {
-        float: none !important;
-        display: inline-block !important;
     }
     body {
         padding-top: 75px;
