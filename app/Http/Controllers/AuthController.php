@@ -7,7 +7,9 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Http\Request;
+use Faker\Generator;
 
 class AuthController extends Controller
 {
@@ -86,6 +88,10 @@ class AuthController extends Controller
             }
         }
 
+        $gen = Factory::create();
+        $gen->seed(microtime(true));
+
+
         User::create([
             'login' => $request->get('login'),
             'ip' => $request->ip(),
@@ -93,7 +99,7 @@ class AuthController extends Controller
             'password' => \Hash::make($request->get('password')),
             'role' => 1,
             'balance' => 0,
-            'ref_link' => str_replace(' ', '', md5(uniqid()) . microtime()),
+            'ref_link' => $gen->uuid,
             'referral_id' => $referral_id,
             'last_activity' => Carbon::now(),
         ]);
