@@ -52,12 +52,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'facilities'], function () {
             Route::get('/', 'FacilitiesController@index')->name('facilities');
             Route::get('/operations', 'FacilitiesController@operations')->name('facilities.operations');
+            Route::post('/refill', 'FacilitiesController@refill')->name('facilities.refill');
+            Route::post('/refill/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
         });
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile');
         });
         Route::group(['prefix' => 'tariff'], function () {
             Route::get('/', 'TariffController@index')->name('tariff');
+            Route::get('{id}', 'TariffController@pay')->name('tariff.payment');
         });
         Route::group(['prefix' => 'support'], function () {
             Route::get('/', 'SupportController@index')->name('support');
