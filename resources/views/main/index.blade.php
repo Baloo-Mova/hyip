@@ -13,7 +13,7 @@
                                 </h3>
                                 @if(isset($carousel['buttons']))
                                     @foreach($carousel['buttons'] as $button)
-                                        <a href="{{ url($button['link']) }}" class="btn {{ $button['class'] }}">{{ $button['title'] }}</a>
+                                        <a href="{{ url($button['link']) }}" class="btn {{ $button['class'] }} btn-carousel">{{ $button['title'] }}</a>
                                     @endforeach
                                 @endif
                             </div>
@@ -70,24 +70,30 @@
                             <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
                         </div>
                     </div>
+                    @if($about != end($data['about']))
+                        <hr>
+                    @endif
                 @else
                     <div class="row">
-                        <div class="col-xs-12 col-md-8">
-                            <h4>{{ $about['title'] }}</h4>
-                            <p>{{ $about['description'] }}</p>
-                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
-                        </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-12 col-md-4 col-md-push-8">
                             <div class="about__img">
                                 <img src="{{ $about['img'] }}" alt="">
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-8 col-md-pull-4">
+                            <h4>{{ $about['title'] }}</h4>
+                            <p>{{ $about['description'] }}</p>
+                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
+                        </div>
                     </div>
+                    @if($about != end($data['about']))
+                        <hr>
+                    @endif
                 @endif
             @endforeach
             <div class="row">
                 <div class="col-xs-12 about__register-wrap">
-                    <a href="{{ url('register') }}" class="btn btn-success btn-lg">Регистрация</a>
+                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
                 </div>
             </div>
         </div>
@@ -162,17 +168,31 @@
                     <div class="owl-carousel rate-carousel">
                         @foreach($data['rate'] as $rate)
                             <div class="rate-carousel-item">
-                                <div class="rate__img">
-                                    <img src="img/{{ random_int(1,3) }}.jpg" alt="">
+                                <div class="rate__top">
+                                    &nbsp;
                                 </div>
-                                <h4 class="mt20">Название: {{ $rate['name'] }}</h4>
-                                <p>Цена: {{ $rate['price'] }}</p>
-                                <p>Реферальная система: {{ $rate['levels'] }}</p>
-                                <p>Выплаты по ступеням: {{ $rate['levels'] }}</p>
-                                <p>Срок действия: {{ $rate['term'] }} дней</p>
-
-                                <a href="{{ url('register') }}" class="btn btn-success btn-md">Оформить подписку</a>
-                                <a href="{{ url('register') }}" class="btn btn-success btn-md">Подробнее</a>
+                                <div class="rate__img">
+                                    <img src="img/{{ random_int(1,3) }}.jpg" class="" alt="">
+                                </div>
+                                <div class="rate__title">
+                                    <h3>{{ $rate['name'] }}</h3>
+                                </div>
+                                <div class="rate__body">
+                                    <p class="rate__price">Цена: {{ $rate['price'] }}</p>
+                                    <p>Реферальная система: {{ $rate['levels'] }} уровня</p>
+                                    <hr>
+                                    @if(isset($rate['first_prices']))
+                                        @foreach($rate['first_prices'] as $item)
+                                            <p>{{ $item['level'] + 1 }} уровень - {{ $item['value'].($item['is_percent'] ? "%" : "") }}</p>
+                                            <hr>
+                                        @endforeach
+                                    @endif
+                                    <p>Срок действия: {{ $rate['term'] }} дней</p>
+                                </div>
+                                <div class="rate__footer">
+                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
+                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -256,14 +276,14 @@
                         {{ csrf_field() }}
                         <div class="form-group @if( is_error('name') )has-error @endif">
                             <label for="name">Имя</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Ваше имя">
+                            <input type="text" class="form-control btn-flat" name="name" id="name" placeholder="Ваше имя">
                             @if( is_error('name') )
                                 <span class="help-block">{{ $errors->first('name') }}</span>
                             @endif
                         </div>
                         <div class="form-group @if( is_error('email') )has-error @endif">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" id="email"
+                            <input type="email" class="form-control btn-flat" name="email" id="email"
                                    placeholder="email@example.com">
                             @if( is_error('email') )
                                 <span class="help-block">{{ $errors->first('email') }}</span>
@@ -271,51 +291,15 @@
                         </div>
                         <div class="form-group @if( is_error('question') )has-error @endif">
                             <label for="question">Вопрос</label>
-                            <textarea name="question" id="question" class="form-control contacts__textarea"></textarea>
+                            <textarea name="question" id="question" class="form-control contacts__textarea btn-flat"></textarea>
                             @if( is_error('question') )
                                 <span class="help-block">{{ $errors->first('question') }}</span>
                             @endif
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">Отправить</button>
+                            <button type="submit" class="btn btn-main-carousel btn-flat">Отправить</button>
                         </div>
                     </form>
-
-                    {{--{!! Form::open(['route' => 'create-feedback', 'class' => 'form']) !!}--}}
-                    {{--<div class="form-group @if( is_error('name') )has-error @endif">--}}
-                    {{--{!! Form::label('name', 'Имя') !!}--}}
-                    {{--{!! Form::text('name', '', ['placeholder' => 'Ваше имя', 'id' => 'name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
-                    {{--@if( is_error('name') )--}}
-                    {{--<span class="help-block">{{ $errors->first('name') }}</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group @if( is_error('email') )has-error @endif">--}}
-                    {{--{!! Form::label('email', 'Email') !!}--}}
-                    {{--{!! Form::email('email', '', ['placeholder' => 'email@example.com', 'id' => 'email', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
-                    {{--@if( is_error('email') )--}}
-                    {{--<span class="help-block">{{ $errors->first('email') }}</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group @if( is_error('question') )has-error @endif">--}}
-                    {{--{!! Form::label('question', 'Вопрос') !!}--}}
-                    {{--{!! Form::textarea('question', '', ['rows' => '2', 'id' => 'question', 'class' => 'form-control contacts__textarea', 'required' => 'required']) !!}--}}
-                    {{--@if( is_error('question') )--}}
-                    {{--<span class="help-block">{{ $errors->first('question') }}</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                    {{--{!! Form::button('Отправить', ['class' => 'btn btn-success']) !!}--}}
-                    {{--</div>--}}
-                    {{--{!! Form::close() !!}--}}
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="confidency" class="confidency">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <a href="">Политика конфиденциальности</a>
                 </div>
             </div>
         </div>
@@ -332,11 +316,11 @@
                 dots: true,
             });
             $(".rate-carousel").owlCarousel({
-                items: 3,
-                autoplay: true,
-                loop: true,
+                autoplay: false,
+                loop: false,
                 dots: true,
                 margin: 10,
+                center: true,
                 responsiveClass: true,
                 responsive: {
                     0: {

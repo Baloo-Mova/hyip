@@ -8,7 +8,8 @@ use App\Models\Subscription;
 class SiteController extends Controller
 {
     public function index(){
-        $subscriptions = Subscription::all()->toArray();
+        $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
+
         $data = [
             'carousel' => [
               [
@@ -18,23 +19,23 @@ class SiteController extends Controller
                       [
                           'title' => 'Регистрация',
                           'link'  => '/register',
-                          'class' => 'btn-success'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
               ],
               [
                   'img' => 'img/2.jpg',
-                  'caption' => 'содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
+                  'caption' => 'Содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
                   'buttons' => [
                       [
                           'title' => 'Регистрация',
                           'link'  => '/register',
-                          'class' => 'btn-success'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ],
                       [
                           'title' => 'Узнать как',
                           'link'  => '/register',
-                          'class' => 'btn-primary'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
               ],
@@ -45,12 +46,12 @@ class SiteController extends Controller
                       [
                           'title' => 'Регистрация',
                           'link'  => '/register',
-                          'class' => 'btn-success'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ],
                       [
                           'title' => 'Подробнее',
                           'link'  => '/register',
-                          'class' => 'btn-primary'
+                          'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
               ],
@@ -94,9 +95,10 @@ class SiteController extends Controller
             'rate' => $subscriptions,
             'paysystems' => [
                 'img/brand3.png',
-                'img/brand5.png',
                 'img/brand7.png',
-                'img/brand8.png',
+                'img/brand2.png',
+                'img/brand6.png',
+                'img/brand9.png',
             ],
             'news' => [
                 ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua'],

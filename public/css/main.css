@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    padding-top: 73px;
+    padding-top: 72px;
     background-color: #FEFEFE;
     margin-bottom: 100px;
 }
@@ -60,7 +60,6 @@ section h1{
 .rate-carousel-item,
 .news__item{
     border: 1px solid #ddd;
-    padding: 20px;
     text-align: center;
 }
 .rate-carousel-item h4{
@@ -192,7 +191,7 @@ section h1{
 }
 .top-main-menu__menu_right{
     width: auto !important;
-    padding: 15px;
+    padding: 11px;
 }
 .top-main-menu__menu_right li{
     border: 1px solid #fff;
@@ -227,7 +226,6 @@ section h1{
     width: 100%;
 }
 .rate__img{
-    height: 205px;
     overflow: hidden;
 }
 .rate__img img{
@@ -242,6 +240,63 @@ section h1{
 }
 .confidency a{
     color: #fff;
+}
+.dark__wrap{
+    background-color: #222;
+}
+.register-form__wrap{
+    background-color: #fff;
+    margin: 0px auto;
+}
+.register-form__header{
+    background-color: #00B600;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+.form-signin-heading{
+    text-transform: uppercase;
+}
+.register-form__inputs{
+    padding: 20px;
+}
+.register-form__inputs input{
+    border-radius: 0px;
+}
+.register__add-buttons{
+    margin-top: 30px;
+}
+.register__add-buttons a{
+    color: #fff;
+}
+.register-form__inputs-bottom{
+    background-color: #e0e0e0;
+}
+.rate__title{
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 60px;
+    padding-top: 2px;
+}
+.rate__footer{
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 90px;
+    padding-top: 35px;
+}
+.rate__body{
+    width: 100%;
+    padding: 20px;
+}
+.rate__price{
+    color: #CB4245;
+    font-size: 32px;
+    font-weight: 900;
+}
+.rate__top{
+    background-color: #e0e0e0;
+    width: 100%;
+    height: 10px;
 }
 @media screen and (max-width: 486px) {
     .about-fa {
@@ -263,11 +318,48 @@ section h1{
         position: relative;
         margin-top: 0px;
         z-index: 2;
-        padding: 40px 38px ;
+        padding: 0px ;
         box-shadow: none;
     }
     .greetings_subtitle{
         margin-top: 20px;
+    }
+    .rate-carousel__button{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .rate__img{
+        height: 130px;
+    }
+    .btn-carousel{
+        width:100%;
+        margin-bottom: 10px;
+    }
+    .navbar-nav {
+        width: 100%;
+        text-align: center;
+        margin: 0px auto;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+    }
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+        border-color: transparent;
+    }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+        color: #EAB52A;
+    }
+    .navbar-nav .open .dropdown-menu{
+        text-align: center;
+    }
+    .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+        max-height: 100% !important;
+    }
+    body {
+        padding-top: 72px;
+    }
+    .register-form__wrap{
+        width: 100%;
     }
 }
 @media screen and (min-width: 486px) {
@@ -290,11 +382,48 @@ section h1{
         position: relative;
         margin-top: 0px;
         z-index: 2;
-        padding: 40px 38px ;
+        padding: 0px ;
         box-shadow: none;
     }
     .greetings_subtitle{
         margin-top: 20px;
+    }
+    .rate-carousel__button{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .rate__img{
+         height: 130px;
+     }
+    .btn-carousel{
+        width:100%;
+        margin-bottom: 10px;
+    }
+    .navbar-nav {
+        width: 100%;
+        text-align: center;
+        margin: 0px auto;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+    }
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+        border-color: transparent;
+    }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+        color: #EAB52A;
+    }
+    .navbar-nav .open .dropdown-menu{
+        text-align: center;
+    }
+    .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+        max-height: 100% !important;
+    }
+    body {
+        padding-top: 72px;
+    }
+    .register-form__wrap{
+        width: 100%;
     }
 }
 @media screen and (min-width: 576px) {
@@ -317,13 +446,81 @@ section h1{
         position: relative;
         margin-top: 0px;
         z-index: 2;
-        padding: 40px 38px ;
+        padding: 0px ;
         box-shadow: none;
     }
     .greetings_subtitle{
         margin-top: 20px;
     }
+    .rate-carousel__button{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .rate__img{
+        height: 130px;
+    }
+    .btn-carousel{
+        width: auto;
+    }
+    .navbar-nav {
+        width: 100%;
+        text-align: center;
+        margin: 0px auto;
+    }
+    .navbar-nav > li {
+        float: none !important;
+        display: block !important;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+    }
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+        border-color: transparent;
+    }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+        color: #EAB52A;
+    }
+    .navbar-nav .open .dropdown-menu{
+        text-align: center;
+    }
+    .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+        max-height: 100% !important;
+    }
+    body {
+        padding-top: 72px;
+    }
+    .register-form__wrap{
+        width: 300px;
+    }
 }
+@media screen and (min-width: 750px) {
+    .top-main-menu__wrap{
+        float: left;
+    }
+    .top_hidden_menu{
+        display: none;
+    }
+    .btn-carousel{
+        width: auto;
+    }
+    .navbar-nav {
+        width: 100%;
+        text-align: left;
+        margin: 0px auto;
+    }
+    .navbar-nav > li {
+        float: none !important;
+        display: inline-block !important;
+    }
+    body {
+        padding-top: 75px;
+    }
+    .register-form__wrap{
+        width: 40%;
+    }
+}
+
+
 @media screen and (min-width: 1024px) {
     .news__item{
         margin-bottom: 0px;
@@ -380,5 +577,30 @@ section h1{
     }
     .top-main-menu__wrap{
         float: left;
+    }
+    .rate-carousel__button{
+        width: auto;
+    }
+    .rate__img{
+        height: 205px;
+    }
+    .btn-carousel{
+        width: auto;
+    }
+    .navbar-nav {
+        width: 100%;
+        text-align: center;
+        margin: 0px auto;
+    }
+    .navbar-nav > li {
+        float: none !important;
+        display: inline-block !important;
+    }
+    body {
+        padding-top: 75px;
+    }
+    .register-form__wrap{
+        width: 40%;
+
     }
 }

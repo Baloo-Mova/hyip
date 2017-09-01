@@ -10,16 +10,9 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
-<body>
-
-
-
-@include('partial.mainmenu')
+<body class="dark__wrap">
 
 @yield('content')
-
-
-@include('partial.footer')
 
 @include('partial.scripts')
 @yield('js')
