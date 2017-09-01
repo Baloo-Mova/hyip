@@ -17,9 +17,12 @@ Route::get('/news', "SiteController@news")->name('news');
 Route::get('/questions', "SiteController@questions")->name('questions');
 Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
+Route::get('/terms-of-use', "SiteController@termsOfUse")->name('terms.of.use');
+Route::get('/privacy-policy', "SiteController@privacyPolicy")->name('privacy.policy');
 Route::get('/file/{name}', "DownloadController@file")->name('file');
 Route::get('/logout', 'AuthController@logout');
 Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedback');
+Route::get('/need-verify-email', "SiteController@needVerifyEmail")->name('need.verify.email');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {

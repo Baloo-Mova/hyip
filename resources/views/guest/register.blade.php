@@ -3,24 +3,45 @@
 @section('content')
 
     @if($errors->has('userWithIpExist'))
-        С данного IP: {{$errors->first('userWithIpExist')}} регистрация не возможна
+        <div class="container">
+            <div class="register-form__wrap">
+                <div class="register-form__header">
+                    <img src="img/logo.png" alt="">
+                </div>
+                <div class="register-form__inputs hide-on-click">
+                    <div class="alert alert-danger alert-dismissable btn-flat">
+                        С данного IP: {{$errors->first('userWithIpExist')}} регистрация не возможна
+                    </div>
+                </div>
+                <div class="register-form__inputs-bottom">
+                    <div class="register-form__inputs text-center">
+                        <a href="{{ route('index') }}" class="btn btn-flat btn-main-carousel btn-lg">На главную</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     @else
         <div class="container">
-            @if(Session::get('errors'))
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <ul>
-                        @foreach($errors->all() as $message)
-                            <li>{{$message}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+
 
             <div class="register-form__wrap">
                 {!! Form::open(['route' => 'register', 'class' => 'form-signin']) !!}
                 <div class="register-form__header">
                     <img src="img/logo.png" alt="">
+                </div>
+                <div class="register-form__title">
+                    @if(Session::get('errors'))
+                        <div class="register-form__inputs hide-on-click">
+                            <div class="alert alert-danger alert-dismissable btn-flat">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <ul>
+                                    @foreach($errors->all() as $message)
+                                        <li>{{$message}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="register-form__title">
                     @if(isset($user))
@@ -59,10 +80,10 @@
                         <div class="form-group has-feedback {{ $errors->has('confirm_regulations') ? 'has-error' : false }}">
                             <label for="">
                                 <input type="checkbox" name="confirm_regulations" class="confirm_regulations">
-                                Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a href="#">текста</a>
+                                Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a href="{{ route('terms.of.use') }}" target="_blank" class="red-text">текста</a>
                             </label>
                         </div>
-                        {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block register-button disabled']) !!}
+                        {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
 
 
                         {!! Form::close() !!}
@@ -101,14 +122,18 @@
 @section('js')
     <script>
         $(document).ready(function () {
+           /* $(".register-button").prop("disabled", true);
            $(".confirm_regulations").on("change", function () {
                var state = $(this).prop("checked");
                if(state){
-                   $(".register-button").removeClass("disabled");
+                   $(".register-button").prop("disabled", false);
                }else{
-                   $(".register-button").addClass("disabled");
+                   $(".register-button").prop("disabled", true);
                }
-           });
+           });*/
+            $(".close").on("click", function(){
+                $(".hide-on-click").hide();
+            });
         });
     </script>
 @stop

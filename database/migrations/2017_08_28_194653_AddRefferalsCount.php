@@ -14,7 +14,7 @@ class AddRefferalsCount extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('ref_count');
+            $table->integer('ref_count')->default(0);
         });
     }
 
