@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/payeer_395290401.txt',function(){
+Route::get('/payeer_395290401.txt', function () {
     return response()->download(storage_path("1.txt"));
 });
 
@@ -28,12 +28,12 @@ Route::get('/file/{name}', "DownloadController@file")->name('file');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedback');
 Route::get('/need-verify-email', "SiteController@needVerifyEmail")->name('need.verify.email');
-
+Route::post('/facilities/result/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
 
         Route::get('/', 'AuthController@registerForm')->name('register');
-        Route::get('/{token}', 'AuthController@registerForm');
+        Route::get('/{token}', 'AuthController@registerForm')->name('register.referral');
         Route::post('/', 'AuthController@register');
 
     });

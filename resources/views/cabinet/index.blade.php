@@ -14,17 +14,19 @@
     @endif
     <h1 class="page-header">Личный кабинет пользователя</h1>
     <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12">
             <ul class="user-cabinet__menu">
                 <li>Баланс: {{ $user->balance }}</li>
                 @if(isset($user->subscribe_id))
                     <li>Ваш тариф: {{$user->subsctiption->name}}</li>
                     <li title="Срок действия тарифа">
-                        Тариф истечет через: {{ date('d H:i',strtotime($user->subscribedFor)-strtotime(date('now'))) }}
+
+                        Тариф истечет через: {{ date('d H:i:s',strtotime($user->subscribedFor) - time()) }}
                     </li>
                 @else
                     <li>Тариф отсутствует</li>
                 @endif
+                <li>Ваша реферальная ссылка: <b>{{route('register.referral',['token'=>$user->ref_link])}}</b></li>
             </ul>
         </div>
     </div>

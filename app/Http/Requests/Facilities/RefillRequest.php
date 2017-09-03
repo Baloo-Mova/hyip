@@ -12,4 +12,8 @@ class RefillRequest extends FormRequest
             'count' => 'required|integer',
         ];
     }
+
+    public function authorize(){
+        return true;
+    }
 }

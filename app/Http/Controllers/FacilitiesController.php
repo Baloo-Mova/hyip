@@ -90,18 +90,8 @@ class FacilitiesController extends Controller
         ]);
     }
 
-    public function refill(Request $request)
+    public function refill(RefillRequest $request)
     {
-        if (!\Auth::check()) {
-            return redirect('/');
-        }
-
-        $validator = \Validator::make($request->all(), with(new RefillRequest())->rules());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
-        }
-
         $user_id = \Auth::id();
 
         $payment = PaymentsRequest::create([
@@ -111,7 +101,8 @@ class FacilitiesController extends Controller
             'comment'   => 'refill',
         ]);
 
-        $payment_config  = \Config('payment');
+        $payment_config  = config('payment');
+
         $m_shop         = $payment_config['m_shop'];
         $m_orderid      = $payment->id;
         $m_amount       = number_format($request->get('count'), 2, '.', '');
