@@ -137,4 +137,10 @@ Route::group([
         Route::post('{type}/{id}', 'FeedbackController@sendEmail');
     });
 
+    Route::group(['prefix' => 'blacklist'], function () {
+        Route::get('/', 'BlacklistController@index')->name('admin.blacklist');
+        Route::get('{id}', 'BlacklistController@getEdit')->name('admin.blacklist.user');
+        Route::post('{id}', 'BlacklistController@postEdit');
+    });
+
 });

@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
 
         \Form::macro('customButton', function($text, $buttonClass, $faClass)
         {
-            return '<button type="submit" class="' . $buttonClass . '">
+            return '<button class="' . $buttonClass . '">
                     <i class="fa ' . $faClass . '" aria-hidden="true"></i>
                     &nbsp;&nbsp;
                     ' . $text . '

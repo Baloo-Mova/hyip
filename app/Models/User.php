@@ -23,7 +23,8 @@ class User extends Authenticatable
         'ref_link',
         'referral_id',
         'last_activity',
-        'ip'
+        'ip',
+        'is_banned',
     ];
 
     /**
@@ -41,7 +42,7 @@ class User extends Authenticatable
     }
 
 
-    static function dialogs(){
+    static function dialogs() {
 
         $id = \Auth::id();
         $key = md5( 'Dialogs_for_user_' . $id );
@@ -87,7 +88,11 @@ class User extends Authenticatable
         });
     }
 
-    public function subsctiption(){
-        return $this->hasOne(Subscription::class, 'id','subscribe_id');
+    public function subscription() {
+        return $this->hasOne(Subscription::class, 'id', 'subscribe_id');
+    }
+
+    public function referrer() {
+        return $this->hasOne(User::class, 'id', 'referral_id');
     }
 }
