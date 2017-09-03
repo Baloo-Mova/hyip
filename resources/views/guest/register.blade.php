@@ -6,7 +6,7 @@
         <div class="container">
             <div class="register-form__wrap">
                 <div class="register-form__header">
-                    <img src="img/logo.png" alt="">
+                    <img src="{{url('img/logo.png')}}" alt="">
                 </div>
                 <div class="register-form__inputs hide-on-click">
                     <div class="alert alert-danger alert-dismissable btn-flat">
@@ -27,7 +27,7 @@
             <div class="register-form__wrap">
                 {!! Form::open(['route' => 'register', 'class' => 'form-signin']) !!}
                 <div class="register-form__header">
-                    <img src="img/logo.png" alt="">
+                    <img src="{{url('img/logo.png')}}" alt="">
                 </div>
                 <div class="register-form__title">
                     @if(Session::get('errors'))
@@ -43,16 +43,6 @@
                         </div>
                     @endif
                 </div>
-                <div class="register-form__title">
-                    @if(isset($user))
-                        {!! Form::hidden ('token', $user->ref_link) !!}
-                        <span>
-                            Вас пригласил <b>{{$user->login}}</b>
-                        </span>
-                    @endif
-                </div>
-
-
                 <div class="register-form__inputs">
                     <div class="form-group has-feedback {{ $errors->has('login') ? 'has-error' : false }}">
                         {!! Form::label('login', 'Логин', ['class' => 'control-label']) !!}
@@ -73,6 +63,14 @@
                     <div class="form-group has-feedback {{ $errors->has('confirm_password') ? 'has-error' : false }}">
                         {!! Form::label('confirm-password', 'Повторите пароль', ['class' => 'control-label']) !!}
                         {!! Form::password('confirm_password', ['class' => 'form-control', 'id' => 'confirm-password', 'placeholder' => 'Пароль', 'required']) !!}
+                    </div>
+                    <div class="form-group has-feedback">
+                        @if(isset($user))
+                            {!! Form::hidden ('token', $user->ref_link) !!}
+                            <span>
+                            Вас пригласил <b>{{$user->login}}</b>
+                        </span>
+                        @endif
                     </div>
                 </div>
                 <div class="register-form__inputs-bottom">

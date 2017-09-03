@@ -125,7 +125,7 @@ class FacilitiesController extends Controller
         ];
 
         $key        = md5('Ключ для шифрования дополнительных параметров'.$m_orderid);
-        $m_params   = urlencode(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, json_encode($arParams), MCRYPT_MODE_ECB)));
+        $m_params   = urlencode(base64_encode(\mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, json_encode($arParams), MCRYPT_MODE_ECB)));
         $arHash     = [
             $m_shop,
             $m_orderid,

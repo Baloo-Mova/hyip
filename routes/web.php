@@ -33,16 +33,14 @@ Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
 
         Route::get('/', 'AuthController@registerForm')->name('register');
-        Route::get('{token}', 'AuthController@registerForm');
+        Route::get('/{token}', 'AuthController@registerForm');
         Route::post('/', 'AuthController@register');
 
     });
 
     Route::group(['prefix' => 'login'], function () {
-
         Route::get('/', 'AuthController@loginForm')->name('login');
         Route::post('/', 'AuthController@login');
-
     });
 });
 
