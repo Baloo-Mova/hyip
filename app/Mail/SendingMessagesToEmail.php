@@ -7,19 +7,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MailFeedback extends Mailable
+class SendingMessagesToEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mail;
+    protected $text;
 
     /**
-     * Feedback constructor.
-     * @param $mail
+     * Create a new message instance.
+     *
+     * @param $text
      */
-    public function __construct($mail)
+    public function __construct($text)
     {
-        $this->mail = $mail;
+        $this->text = $text;
     }
 
     /**
@@ -30,9 +31,9 @@ class MailFeedback extends Mailable
     public function build()
     {
         return $this->from(env('NO_REPLY_EMAIL'))
-                    ->view('emails.feedback')
-                    ->with([
-                        'mail' => $this->mail,
-                    ]);
+            ->view('emails.sending-messages')
+            ->with([
+                'text' => $this->text
+            ]);
     }
 }

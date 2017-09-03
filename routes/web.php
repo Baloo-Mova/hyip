@@ -126,6 +126,11 @@ Route::group([
         Route::get('/', 'UserController@index')->name('admin-users-list');
     });
 
+    Route::group(['prefix' => 'sending-messages'], function () {
+        Route::get('/', 'SendingMessagesController@index')->name('admin.sending-messages');
+        Route::post('/', 'SendingMessagesController@send');
+    });
+
     Route::group(['prefix' => 'feedback'], function () {
         Route::get('{type}', 'FeedbackController@index')->name('admin-feedback-list');
         Route::get('{type}/{id}', 'FeedbackController@show')->name('admin-get-feedback');
