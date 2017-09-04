@@ -22,6 +22,8 @@
             <ul class="treeview-menu menu-open">
                 <li class="@if( Route::currentRouteName() == 'mainheader.list') active @endif">
                     <a href='{{ route('mainheader.list') }}'>Main Header</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.social-networks.list') active @endif">
+                    <a href='{{ route('admin.social-networks.list') }}'>Social networks</a></li>
             </ul>
         </li>
     </ul>
