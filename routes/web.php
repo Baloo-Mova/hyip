@@ -128,6 +128,7 @@ Route::group([
             Route::get('{id}', 'SocialNetworkController@getEdit')->name('admin.social-networks.get');
             Route::post('{id}', 'SocialNetworkController@postEdit');
             Route::get('delete/{id}', 'SocialNetworkController@delete');
+            Route::get('image-delete/{id}/{type}', 'SocialNetworkController@imageDelete');
         });
     });
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Contact;
+namespace App\Http\Requests\SocialNetwork;
 
 use Illuminate\Foundation\Http\FormRequest;
 

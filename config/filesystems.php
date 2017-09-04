@@ -69,6 +69,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'social-networks' => [
+            'driver'     => 'local',
+            'root'       => public_path('/media/uploads/social-networks'),
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];

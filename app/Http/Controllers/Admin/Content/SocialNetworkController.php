@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Admin\BaseController;
-use App\Http\Requests\Contact\CreateSocialRequest;
+use App\Http\Requests\SocialNetwork\CreateSocialRequest;
 use App\Models\SocialNetwork;
 use Illuminate\Http\Request;
 
@@ -30,15 +30,94 @@ class SocialNetworkController extends BaseController
             $social = new SocialNetwork();
         }
 
+        if($image = $request->file('img')) {
+            $origext  = $image->getClientOriginalExtension();
+            $filename = generate_file_name(".{$origext}");
+
+            \Storage::disk('social-networks')->put($filename, file_get_contents($image->getRealPath()));
+
+            $social->img = $filename;
+        }
+
+        if($image = $request->file('black_img')) {
+            $origext  = $image->getClientOriginalExtension();
+            $filename = generate_file_name(".{$origext}");
+
+            \Storage::disk('social-networks')->put($filename, file_get_contents($image->getRealPath()));
+
+            $social->black_img = $filename;
+        }
+
         $social->fill([
             'name'      => $request->get('name'),
             'link'      => $request->get('link'),
-            'img'       => $request->get('img'),
-            'black_img' => $request->get('black_img'),
         ]);
 
         $social->save();
 
         return redirect()->route('admin.social-networks.get', ['id' => $social->id])->with('messages', ['Created successful']);
+    }
+
+    public function imageDelete( $social_id = null , $type = 'img')
+    {
+        if( empty($social_id) || !is_numeric($social_id) || !($social = $this->_model->find($social_id)) ) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Incorrect identifier',
+            ]);
+        }
+
+        switch ($type) {
+            case 'img':
+                if(!empty($social->img) && \Storage::disk('social-networks')->exists($social->img)) {
+                    \Storage::disk('social-networks')->delete($social->img);
+
+                    $social->img = '';
+                    $social->save();
+
+                    return response()->json([
+                        'success' => true,
+                    ]);
+                }
+                break;
+            case 'black_img':
+                if(!empty($social->black_img) && \Storage::disk('social-networks')->exists($social->black_img)) {
+                    \Storage::disk('social-networks')->delete($social->black_img);
+
+                    $social->black_img = '';
+                    $social->save();
+
+                    return response()->json([
+                        'success' => true,
+                    ]);
+                }
+                break;
+        }
+
+        return response()->json([
+            'success' => false,
+        ]);
+    }
+
+    public function delete( $social_id = null )
+    {
+        if( empty($social_id) || !is_numeric($social_id) || !($social = $this->_model->find($social_id)) ) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Incorrect identifier',
+            ]);
+        }
+
+        if(!empty($social->img) && \Storage::disk('social-networks')->exists($social->img)) {
+            \Storage::disk('social-networks')->delete($social->img);
+        }
+
+        if(!empty($social->black_img) && \Storage::disk('social-networks')->exists($social->black_img)) {
+            \Storage::disk('social-networks')->delete($social->black_img);
+        }
+
+        $social->delete();
+
+        return redirect()->back();
     }
 }

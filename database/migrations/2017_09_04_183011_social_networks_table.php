@@ -17,9 +17,9 @@ class SocialNetworksTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('link');
-            $table->string('img_url');
-            $table->string('black_img_url');
-            $table->boolean('is_active');
+            $table->string('img')->nullable();
+            $table->string('black_img')->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
