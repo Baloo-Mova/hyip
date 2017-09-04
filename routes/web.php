@@ -120,6 +120,15 @@ Route::group([
             Route::post('/update/{id}', 'MainHeaderController@update')->name('mainheader.update');
             Route::get('/delete/{id}', 'MainHeaderController@delete')->name('mainheader.delete');
         });
+
+        Route::group(['prefix' => 'social-networks'], function () {
+            Route::get('/', 'SocialNetworkController@index')->name('admin.social-networks.list');
+            Route::post('add', 'SocialNetworkController@postAdd');
+            Route::get('add', 'SocialNetworkController@getAdd')->name('admin.social-networks.add');
+            Route::get('{id}', 'SocialNetworkController@getEdit')->name('admin.social-networks.get');
+            Route::post('{id}', 'SocialNetworkController@postEdit');
+            Route::get('delete/{id}', 'SocialNetworkController@delete');
+        });
     });
 
     Route::group(['prefix' => 'users'], function () {
