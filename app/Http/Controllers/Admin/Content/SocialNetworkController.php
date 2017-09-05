@@ -51,6 +51,7 @@ class SocialNetworkController extends BaseController
         $social->fill([
             'name'      => $request->get('name'),
             'link'      => $request->get('link'),
+            'is_active' => $request->get('is_active') ? $request->get('is_active') : 0,
         ]);
 
         $social->save();

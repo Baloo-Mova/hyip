@@ -86,6 +86,10 @@
                         <input type="file" id="edit-form-black_img" name="black_img">
                     @endif
                 </div>
+                <div class="form-group">
+                    {!! Form::checkbox('is_active', 1, !empty($old_input['is_active']) || !empty($item->is_active) ? true : false, ['id' => 'is_active']) !!}
+                    {!! Form::label('is_active', 'Published') !!}
+                </div>
             </div>
 
             <div class="col-md-12">
