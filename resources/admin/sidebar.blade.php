@@ -24,6 +24,8 @@
                     <a href='{{ route('mainheader.list') }}'>Main Header</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.social-networks.list') active @endif">
                     <a href='{{ route('admin.social-networks.list') }}'>Social networks</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.faq.list') active @endif">
+                    <a href='{{ route('admin.faq.list') }}'>FAQ</a></li>
             </ul>
         </li>
     </ul>
