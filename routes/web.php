@@ -130,6 +130,15 @@ Route::group([
             Route::get('delete/{id}', 'SocialNetworkController@delete');
             Route::get('image-delete/{id}/{type}', 'SocialNetworkController@imageDelete');
         });
+
+        Route::group(['prefix' => 'faq'], function () {
+            Route::get('/', 'FAQController@index')->name('admin.faq.list');
+            Route::post('add', 'FAQController@postAdd');
+            Route::get('add', 'FAQController@getAdd')->name('admin.faq.add');
+            Route::get('{id}', 'FAQController@getEdit')->name('admin.faq.get');
+            Route::post('{id}', 'FAQController@postEdit');
+            Route::get('delete/{id}', 'FAQController@delete');
+        });
     });
 
     Route::group(['prefix' => 'users'], function () {
