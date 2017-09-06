@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Content;
 
+use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Contact\CreateContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\Request;
@@ -25,8 +26,10 @@ class ContactController extends BaseController
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if( empty($contact_id) || !is_numeric($contact_id) || !($contact = Contact::find($contact_id)) ) {
-            $contact = new Contact();
+        if( empty($contact_id) || !is_numeric($contact_id) || !($contact = $this->_model->find($contact_id)) ) {
+            $contact = $this->_model;
+        } else {
+            $contact->published = $request->get('published') ? $request->get('published') : 0;
         }
 
         $contact->fill([
@@ -36,6 +39,6 @@ class ContactController extends BaseController
 
         $contact->save();
 
-        return redirect()->route('admin-get-contact', ['id' => $contact->id])->with('messages', ['Created successful']);
+        return redirect()->route('admin.contact.get', ['id' => $contact->id])->with('messages', ['Created successful']);
     }
 }

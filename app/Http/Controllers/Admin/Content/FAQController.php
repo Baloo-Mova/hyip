@@ -26,14 +26,15 @@ class FAQController extends BaseController
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if( empty($item_id) || !is_numeric($item_id) || !($item = FAQ::find($item_id)) ) {
-            $item = new FAQ();
+        if( empty($item_id) || !is_numeric($item_id) || !($item = $this->_model->find($item_id)) ) {
+            $item = $this->_model;
+        } else {
+            $item->is_active = $request->get('is_active') ? $request->get('is_active') : 0;
         }
 
         $item->fill([
             'question'  => $request->get('question'),
             'answer'    => $request->get('answer'),
-            'is_active' => $request->get('is_active') ? $request->get('is_active') : 0,
         ]);
 
         $item->save();

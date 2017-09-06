@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Content;
 
+use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -9,7 +10,7 @@ use Illuminate\Http\Request;
 class BlogController extends BaseController
 {
     private $_model;
-    private $_view = 'blog';
+    private $_view = 'content.blog';
 
     public function __construct(Article $model)
     {
@@ -27,6 +28,8 @@ class BlogController extends BaseController
 
         if( empty($article_id) || !is_numeric($article_id) || !($article = $this->_model->find($article_id)) ) {
             $article = $this->_model;
+        } else {
+            $article->published = $request->get('published') ? $request->get('published') : 0;
         }
 
         if($image = $request->file('image')) {
@@ -47,12 +50,11 @@ class BlogController extends BaseController
             'title'     => $request->get('title'),
             'uri'       => $request->get('uri'),
             'content'   => $request->get('content'),
-            'published' => $request->get('published') ? $request->get('published') : 0,
         ]);
 
         $article->save();
 
-        return redirect()->route('admin-get-single-article', ['id' => $article->id])->with('messages', ['Created successful']);
+        return redirect()->route('admin.articles.get', ['id' => $article->id])->with('messages', ['Created successful']);
     }
 
     public function imageDelete( $article_id = null )

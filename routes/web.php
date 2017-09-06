@@ -83,25 +83,6 @@ Route::group([
 
     Route::get('/', 'DashboardController@index')->name('admin-dashboard');
 
-    Route::group(['prefix' => 'blog'], function () {
-        Route::get('/', 'BlogController@index')->name('admin-blog-list');
-        Route::post('add', 'BlogController@postAdd');
-        Route::get('add', 'BlogController@getAdd')->name('admin-get-add-article');
-        Route::get('{id}', 'BlogController@getEdit')->name('admin-get-single-article');
-        Route::post('{id}', 'BlogController@postEdit');
-        Route::get('delete/{id}', 'BlogController@delete');
-        Route::get('image-delete/{id}', 'BlogController@imageDelete');
-    });
-
-    Route::group(['prefix' => 'contacts'], function () {
-        Route::get('/', 'ContactController@index')->name('admin-contacts-list');
-        Route::post('add', 'ContactController@postAdd');
-        Route::get('add', 'ContactController@getAdd')->name('admin-add-contact');
-        Route::get('{id}', 'ContactController@getEdit')->name('admin-get-contact');
-        Route::post('{id}', 'ContactController@postEdit');
-        Route::get('delete/{id}', 'ContactController@delete');
-    });
-
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::get('/', 'SubscriptionController@index')->name('admin-subscriptions-list');
         Route::post('add', 'SubscriptionController@postAdd');
@@ -138,6 +119,25 @@ Route::group([
             Route::get('{id}', 'FAQController@getEdit')->name('admin.faq.get');
             Route::post('{id}', 'FAQController@postEdit');
             Route::get('delete/{id}', 'FAQController@delete');
+        });
+
+        Route::group(['prefix' => 'blog'], function () {
+            Route::get('/', 'BlogController@index')->name('admin.articles.list');
+            Route::post('add', 'BlogController@postAdd');
+            Route::get('add', 'BlogController@getAdd')->name('admin.articles.add');
+            Route::get('{id}', 'BlogController@getEdit')->name('admin.articles.get');
+            Route::post('{id}', 'BlogController@postEdit');
+            Route::get('delete/{id}', 'BlogController@delete');
+            Route::get('image-delete/{id}', 'BlogController@imageDelete');
+        });
+
+        Route::group(['prefix' => 'contacts'], function () {
+            Route::get('/', 'ContactController@index')->name('admin.contacts.list');
+            Route::post('add', 'ContactController@postAdd');
+            Route::get('add', 'ContactController@getAdd')->name('admin.contact.add');
+            Route::get('{id}', 'ContactController@getEdit')->name('admin.contact.get');
+            Route::post('{id}', 'ContactController@postEdit');
+            Route::get('delete/{id}', 'ContactController@delete');
         });
     });
 

@@ -4,7 +4,7 @@
     @include('Admin::alerts')
 
         <div>
-            <a href="{{ route('admin-blog-list') }}" class="btn-sm btn-primary pull-right">
+            <a href="{{ route('admin.articles.list') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
                 back to list
@@ -44,10 +44,12 @@
                         {!! Form::file('image', '') !!}
                     @endif
                 </div>
-                <div class="form-group">
-                    {!! Form::checkbox('published', 1, !empty($old_input['published']) || !empty($item->published) ? true : false) !!}
-                    {!! Form::label('published', 'Published') !!}
-                </div>
+                @if( empty($item->id) )
+                    <div class="form-group">
+                        {!! Form::checkbox('published', 1, !empty($old_input['published']) || !empty($item->published) ? true : false) !!}
+                        {!! Form::label('published', 'Published') !!}
+                    </div>
+                @else
             </div>
 
             <div class="col-md-6">

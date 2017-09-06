@@ -8,10 +8,6 @@
         <li class="@if( preg_match('/^admin\/sending-messages/i', $current_uri) ) active @endif"><a href='{{ route('admin.sending-messages') }}'>Sending messages</a></li>
         <li class="@if( preg_match('/^admin\/feedback/i', $current_uri) ) active @endif"><a href='{{ route('admin-feedback-list', ['type' => 'users']) }}'>Feedback @if (\App\Models\Feedback::hasUnreadFeedback()) <span class="title_unread" style="background: red">new</span>@endif</a></li>
         <li class="@if( preg_match('/^admin\/blacklist/i', $current_uri) ) active @endif"><a href='{{ route('admin.blacklist') }}'>Blacklist</a></li>
-        <li class="@if( preg_match('/^admin\/blog/i', $current_uri) ) active @endif"><a
-                    href='{{ route('admin-blog-list') }}'>Blog</a></li>
-        <li class="@if( preg_match('/^admin\/contacts/i', $current_uri) ) active @endif"><a
-                    href='{{ route('admin-contacts-list') }}'>Contacts</a></li>
         <li class="treeview menu-open @if( Route::currentRouteName() == 'mainheader.list') active @endif">
             <a href="#">
             <span class="pull-right-container">
@@ -26,6 +22,10 @@
                     <a href='{{ route('admin.social-networks.list') }}'>Social networks</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.faq.list') active @endif">
                     <a href='{{ route('admin.faq.list') }}'>FAQ</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.articles.list') active @endif">
+                    <a href='{{ route('admin.articles.list') }}'>Blog</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.contacts.list') active @endif">
+                    <a href='{{ route('admin.contacts.list') }}'>Contacts</a></li>
             </ul>
         </li>
     </ul>

@@ -26,8 +26,10 @@ class SocialNetworkController extends BaseController
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if( empty($social_id) || !is_numeric($social_id) || !($social = SocialNetwork::find($social_id)) ) {
-            $social = new SocialNetwork();
+        if( empty($social_id) || !is_numeric($social_id) || !($social = $this->_model->find($social_id)) ) {
+            $social = $this->_model;
+        } else {
+            $social->is_active = $request->get('is_active') ? $request->get('is_active') : 0;
         }
 
         if($image = $request->file('img')) {
@@ -51,7 +53,6 @@ class SocialNetworkController extends BaseController
         $social->fill([
             'name'      => $request->get('name'),
             'link'      => $request->get('link'),
-            'is_active' => $request->get('is_active') ? $request->get('is_active') : 0,
         ]);
 
         $social->save();
