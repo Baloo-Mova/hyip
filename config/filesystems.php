@@ -63,15 +63,10 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
-        'blog' => [
+        'uploads' => [
             'driver'     => 'local',
-            'root'       => public_path('/media/uploads/blog'),
-            'visibility' => 'public',
-        ],
-
-        'social-networks' => [
-            'driver'     => 'local',
-            'root'       => public_path('/media/uploads/social-networks'),
+            'root'       => public_path('/media/uploads'),
+            'url'        => '/media/uploads',
             'visibility' => 'public',
         ],
 

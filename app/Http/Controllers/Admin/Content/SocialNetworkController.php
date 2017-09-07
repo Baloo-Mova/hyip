@@ -36,7 +36,7 @@ class SocialNetworkController extends BaseController
             $origext  = $image->getClientOriginalExtension();
             $filename = generate_file_name(".{$origext}");
 
-            \Storage::disk('social-networks')->put($filename, file_get_contents($image->getRealPath()));
+            \Storage::disk('uploads')->put("social-networks/$filename", file_get_contents($image->getRealPath()));
 
             $social->img = $filename;
         }
@@ -45,7 +45,7 @@ class SocialNetworkController extends BaseController
             $origext  = $image->getClientOriginalExtension();
             $filename = generate_file_name(".{$origext}");
 
-            \Storage::disk('social-networks')->put($filename, file_get_contents($image->getRealPath()));
+            \Storage::disk('uploads')->put("social-networks/$filename", file_get_contents($image->getRealPath()));
 
             $social->black_img = $filename;
         }
@@ -71,8 +71,8 @@ class SocialNetworkController extends BaseController
 
         switch ($type) {
             case 'img':
-                if(!empty($social->img) && \Storage::disk('social-networks')->exists($social->img)) {
-                    \Storage::disk('social-networks')->delete($social->img);
+                if(!empty($social->img) && \Storage::disk('uploads')->exists("social-networks/$social->img")) {
+                    \Storage::disk('uploads')->delete("social-networks/$social->img");
 
                     $social->img = '';
                     $social->save();
@@ -83,8 +83,8 @@ class SocialNetworkController extends BaseController
                 }
                 break;
             case 'black_img':
-                if(!empty($social->black_img) && \Storage::disk('social-networks')->exists($social->black_img)) {
-                    \Storage::disk('social-networks')->delete($social->black_img);
+                if(!empty($social->black_img) && \Storage::disk('uploads')->exists("social-networks/$social->black_img")) {
+                    \Storage::disk('uploads')->delete("social-networks/$social->black_img");
 
                     $social->black_img = '';
                     $social->save();
@@ -110,12 +110,12 @@ class SocialNetworkController extends BaseController
             ]);
         }
 
-        if(!empty($social->img) && \Storage::disk('social-networks')->exists($social->img)) {
-            \Storage::disk('social-networks')->delete($social->img);
+        if(!empty($social->img) && \Storage::disk('uploads')->exists("social-networks/$social->img")) {
+            \Storage::disk('uploads')->delete("social-networks/$social->img");
         }
 
-        if(!empty($social->black_img) && \Storage::disk('social-networks')->exists($social->black_img)) {
-            \Storage::disk('social-networks')->delete($social->black_img);
+        if(!empty($social->black_img) && \Storage::disk('uploads')->exists("social-networks/$social->black_img")) {
+            \Storage::disk('uploads')->delete("social-networks/$social->black_img");
         }
 
         $social->delete();

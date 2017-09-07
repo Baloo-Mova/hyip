@@ -44,12 +44,6 @@
                         {!! Form::file('image', '') !!}
                     @endif
                 </div>
-                @if( empty($item->id) )
-                    <div class="form-group">
-                        {!! Form::checkbox('published', 1, !empty($old_input['published']) || !empty($item->published) ? true : false) !!}
-                        {!! Form::label('published', 'Published') !!}
-                    </div>
-                @else
             </div>
 
             <div class="col-md-6">
@@ -67,6 +61,12 @@
                     {!! Form::label('edit-form-content', '* Content') !!}
                     {!! Form::textarea('content', !empty($old_input['content']) ? $old_input['content'] : $item->content, ['cols' => '8', 'rows' => '5', 'id' => 'edit-form-content', 'class' => 'form-control', 'required' => 'required']) !!}
                 </div>
+                @if(!empty($item->id))
+                    <div class="form-group">
+                        {!! Form::checkbox('published', 1, !empty($old_input['published']) || !empty($item->published) ? true : false) !!}
+                        {!! Form::label('published', 'Published') !!}
+                    </div>
+                @endif
             </div>
 
             <div class="col-md-12" style="margin-top: 25px;">

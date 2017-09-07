@@ -26,6 +26,8 @@
                     <a href='{{ route('admin.articles.list') }}'>Blog</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.contacts.list') active @endif">
                     <a href='{{ route('admin.contacts.list') }}'>Contacts</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.about-notations.list') active @endif">
+                    <a href='{{ route('admin.about-notations.list') }}'>About</a></li>
             </ul>
         </li>
     </ul>

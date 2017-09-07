@@ -36,7 +36,7 @@ class BlogController extends BaseController
             $origext  = $image->getClientOriginalExtension();
             $filename = generate_file_name(".{$origext}");
 
-            \Storage::disk('blog')->put($filename, file_get_contents($image->getRealPath()));
+            \Storage::disk('uploads')->put("blog/$filename", file_get_contents($image->getRealPath()));
 
             \Image::make($image->getRealPath())
                 ->resize(300, 200)
@@ -66,9 +66,9 @@ class BlogController extends BaseController
             ]);
         }
 
-        if(!empty($article->photo) && \Storage::disk('blog')->exists($article->photo)) {
-            \Storage::disk('blog')->delete($article->photo);
-            \Storage::disk('blog')->delete('prev-' . $article->photo);
+        if(!empty($article->photo) && \Storage::disk('uploads')->exists("blog/$article->photo")) {
+            \Storage::disk('uploads')->delete("blog/$article->photo");
+            \Storage::disk('uploads')->delete("blog/prev-$article->photo");
 
             $article->photo = '';
             $article->preview = '';
@@ -93,9 +93,9 @@ class BlogController extends BaseController
             ]);
         }
 
-        if(!empty($article->photo) && \Storage::disk('blog')->exists($article->photo)) {
-            \Storage::disk('blog')->delete($article->photo);
-            \Storage::disk('blog')->delete('prev-' . $article->photo);
+        if(!empty($article->photo) && \Storage::disk('uploads')->exists("blog/$article->photo")) {
+            \Storage::disk('uploads')->delete("blog/$article->photo");
+            \Storage::disk('uploads')->delete("blog/prev-$article->photo");
         }
 
         $article->delete();

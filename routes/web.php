@@ -139,6 +139,16 @@ Route::group([
             Route::post('{id}', 'ContactController@postEdit');
             Route::get('delete/{id}', 'ContactController@delete');
         });
+
+        Route::group(['prefix' => 'about'], function () {
+            Route::get('/', 'AboutController@index')->name('admin.about-notations.list');
+            Route::post('add', 'AboutController@postAdd');
+            Route::get('add', 'AboutController@getAdd')->name('admin.about-notations.add');
+            Route::get('{id}', 'AboutController@getEdit')->name('admin.about-notations.get');
+            Route::post('{id}', 'AboutController@postEdit');
+            Route::get('delete/{id}', 'AboutController@delete');
+            Route::get('image-delete/{id}', 'AboutController@imageDelete');
+        });
     });
 
     Route::group(['prefix' => 'users'], function () {
