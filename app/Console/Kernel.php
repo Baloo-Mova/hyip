@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Test::class,
+        \App\Console\Commands\ChatServer::class,
     ];
 
     /**

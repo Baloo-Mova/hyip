@@ -50,6 +50,9 @@ class AuthController extends Controller
                 'email' => $request->get('email'),
                 'password' => $request->get('password')
             ])) {
+                $user->update([
+                    'auth_token' => str_random(32)
+                ]);
                 $request->session()->regenerate();
                 return redirect($redirect);
             }
@@ -115,6 +118,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        if ( $user = $this->guard()->user() ) {
+            $user->update([
+                'auth_token' => null
+            ]);
+        };
         $this->guard()->logout();
 
         $request->session()->invalidate();

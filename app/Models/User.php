@@ -25,6 +25,7 @@ class User extends Authenticatable
         'last_activity',
         'ip',
         'is_banned',
+        'auth_token',
     ];
 
     /**

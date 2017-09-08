@@ -92,15 +92,17 @@
         @endif
     <div class="navbar-fixed-bottom send-form">
         <div class="container">
-            {!! Form::open(['url' => '/cabinet/dialogs/create']) !!}
-            {!! Form::hidden('to_user', $to_user->id) !!}
+{{--            {!! Form::open(['url' => '/cabinet/dialogs/create']) !!}--}}
+{{--            {!! Form::hidden('to_user', $to_user->id) !!}--}}
             <div class="form-group {{ $errors->has('message') ? 'has-error' : false }}">
-                {!! Form::textarea('message', '', ['class' => 'form-control', 'rows' => '3', 'style' => 'resize: none;']) !!}
+                {!! Form::textarea('message', '', ['id' => 'message', 'class' => 'form-control', 'rows' => '3', 'style' => 'resize: none;']) !!}
             </div>
             <div class="form-group">
-                {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
+                <button class="btn btn-primary" id="send">
+                    Send
+                </button>
             </div>
-            {!! Form::close() !!}
+            {{--{!! Form::close() !!}--}}
         </div>
     </div>
     <script
@@ -110,5 +112,35 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+
+
+    <script>
+        var conn        = new WebSocket('ws://localhost:8083');
+        var msgInput    = $('#message');
+
+        conn.onopen = function (e) {
+
+            conn.send(JSON.stringify({
+                type: 'connect',
+                token: '{{Auth::user()->auth_token}}'
+            }));
+        };
+
+        conn.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            console.log(data);
+        };
+
+        // send message
+        $('#send').on('click', function (e) {
+            conn.send(JSON.stringify({
+                type: 'message',
+                to_user: '{{ $to_user->id }}',
+                message: msgInput.val(),
+            }));
+
+            msgInput.val('');
+        });
+    </script>
 </body>
 </html>
