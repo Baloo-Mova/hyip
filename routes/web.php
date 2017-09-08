@@ -149,6 +149,11 @@ Route::group([
             Route::get('delete/{id}', 'AboutController@delete');
             Route::get('image-delete/{id}', 'AboutController@imageDelete');
         });
+
+        Route::group(['prefix' => 'regulations'], function () {
+            Route::get('/', 'RegulationsController@index')->name('admin.regulations.get');
+            Route::post('/', 'RegulationsController@postEdit');
+        });
     });
 
     Route::group(['prefix' => 'users'], function () {
