@@ -125,11 +125,17 @@ class FacilitiesController extends Controller
         return redirect("https://payeer.com/merchant/?m_shop=$m_shop&m_orderid=$m_orderid&m_amount=$m_amount&m_curr=$m_curr&m_desc=$m_desc&m_sign=$sign");
     }
 
-    public function getResultRefill(Request $request, $type)
+    public function statusResult(Request $request)
     {
 
-        //  if (!in_array($_SERVER['REMOTE_ADDR'], ['185.71.65.92', '185.71.65.189', '149.202.17.210'])) return;
-        file_put_contents(storage_path('app/testP.txt'), json_encode([$request->all(), $_SERVER['REMOTE_ADDR'], $type]) . PHP_EOL . PHP_EOL, 8);
+        file_put_contents(storage_path('app/testP.txt'), json_encode([$request->all(), $_SERVER['REMOTE_ADDR']]) . PHP_EOL . PHP_EOL, 8);
+        if (!in_array($_SERVER['REMOTE_ADDR'], ['185.71.65.92', '185.71.65.189', '149.202.17.210'])) return;
+
+        echo 1;
+    }
+
+    public function getResultRefill(Request $request, $type)
+    {
         $m_key = \Config('payment.m_key');
         $m_shop = $request->get('m_shop');
         $m_orderid = $request->get('m_orderid');
