@@ -28,7 +28,7 @@ Route::get('/file/{name}', "DownloadController@file")->name('file');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedback');
 Route::get('/need-verify-email', "SiteController@needVerifyEmail")->name('need.verify.email');
-Route::post('/facilities/result/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
+Route::get('/facilities/result/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
