@@ -172,7 +172,7 @@ class FacilitiesController extends Controller
     public function getResultRefill(Request $request, $type)
     {
         if ($type == "success") {
-            return redirect()->route('facilities')->withInput('Оплата успешна, средства зачислены на баланс.');
+            return redirect()->route('facilities')->withInput(['messages' => 'Оплата успешна, средства зачислены на баланс.']);
         }
         return redirect()->route('facilities')->withErrors('Ошибка оплаты');
     }
