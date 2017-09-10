@@ -173,7 +173,7 @@ class FacilitiesController extends Controller
     public function getResultRefill(Request $request, $type)
     {
         if ($type == "success") {
-            Session::flash('Оплата успешна, средства зачислены на баланс.');
+            Session::flash('messages', ['Оплата успешна, средства зачислены на баланс.']);
             return redirect()->route('facilities');
         }
         return redirect()->route('facilities')->withErrors('Ошибка оплаты');
