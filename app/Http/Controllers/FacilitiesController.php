@@ -6,6 +6,7 @@ use App\Http\Requests\Facilities\RefillRequest;
 use App\Models\PaymentsRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FacilitiesController extends Controller
 {
@@ -172,7 +173,8 @@ class FacilitiesController extends Controller
     public function getResultRefill(Request $request, $type)
     {
         if ($type == "success") {
-            return redirect()->route('facilities')->withInput(['messages' => 'Оплата успешна, средства зачислены на баланс.']);
+            Session::flash('Оплата успешна, средства зачислены на баланс.');
+            return redirect()->route('facilities');
         }
         return redirect()->route('facilities')->withErrors('Ошибка оплаты');
     }
