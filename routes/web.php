@@ -29,6 +29,7 @@ Route::get('/logout', 'AuthController@logout')->name('logout');
 Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedback');
 Route::get('/need-verify-email', "SiteController@needVerifyEmail")->name('need.verify.email');
 Route::post('/facilities/result/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
+
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
 
@@ -52,8 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'dialogs'], function () {
             Route::get('/', 'MessageController@index')->name('dialogs');
-            Route::get('{id}', 'MessageController@show');
-            Route::post('/create', 'MessageController@create');
+            Route::post('/create', 'MessageController@create')->name('dialogs.create');
+            Route::get('{id}', 'MessageController@show')->name('dialogs.show');
         });
         Route::group(['prefix' => 'facilities'], function () {
             Route::get('/', 'FacilitiesController@index')->name('facilities');

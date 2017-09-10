@@ -12,7 +12,7 @@ class FacilitiesController extends Controller
     public function index()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -49,10 +49,11 @@ class FacilitiesController extends Controller
             'data' => $data
         ]);
     }
+
     public function operations()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -95,54 +96,46 @@ class FacilitiesController extends Controller
         $user_id = \Auth::id();
 
         $payment = PaymentsRequest::create([
-            'user_id'   => $user_id,
-            'summ'      => $request->get('count'),
-            'status'    => 0,
-            'comment'   => 'refill',
+            'user_id' => $user_id,
+            'summ' => $request->get('count'),
+            'status' => 0,
+            'comment' => 'refill',
         ]);
 
-        $payment_config  = config('payment');
+        $payment_config = config('payment');
 
-        $m_shop         = $payment_config['m_shop'];
-        $m_orderid      = $payment->id;
-        $m_amount       = number_format($request->get('count'), 2, '.', '');
-        $m_curr         = $payment_config['m_curr'];
-        $m_desc         = base64_encode('Пополнение баланса');
-        $m_key          = $payment_config['m_key'];
-        $arParams       = [
-            'success_url'   => route('facilities.refill.result', ['type' => 'success']),
-            'fail_url'      => route('facilities.refill.result', ['type' => 'fail']),
-            'status_url'    => route('facilities.refill.result', ['type' => 'status']),
-        ];
+        $m_shop = $payment_config['m_shop'];
+        $m_orderid = $payment->id;
+        $m_amount = number_format($request->get('count'), 2, '.', '');
+        $m_curr = $payment_config['m_curr'];
+        $m_desc = base64_encode('Пополнение баланса');
+        $m_key = $payment_config['m_key'];
 
-        $key        = md5('Ключ для шифрования дополнительных параметров'.$m_orderid);
-        $m_params   = urlencode(base64_encode(\mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, json_encode($arParams), MCRYPT_MODE_ECB)));
-        $arHash     = [
+        $arHash = [
             $m_shop,
             $m_orderid,
             $m_amount,
             $m_curr,
             $m_desc,
             $m_key,
-            $m_params
         ];
 
         $sign = strtoupper(hash('sha256', implode(':', $arHash)));
 
-        return redirect("https://payeer.com/merchant/?m_shop=$m_shop&m_orderid=$m_orderid&m_amount=$m_amount&m_curr=$m_curr&m_desc=$m_desc&m_params=$m_params&m_sign=$sign");
+        return redirect("https://payeer.com/merchant/?m_shop=$m_shop&m_orderid=$m_orderid&m_amount=$m_amount&m_curr=$m_curr&m_desc=$m_desc&m_sign=$sign");
     }
 
     public function getResultRefill(Request $request, $type)
     {
         if (!in_array($_SERVER['REMOTE_ADDR'], ['185.71.65.92', '185.71.65.189', '149.202.17.210'])) return;
 
-        $m_key      = \Config('payment.m_key');
-        $m_shop     = $request->get('m_shop');
-        $m_orderid  = $request->get('m_orderid');
-        $m_amount   = $request->get('m_amount');
-        $m_curr     = $request->get('m_curr');
-        $m_desc     = $request->get('m_desc');
-        $checksum   = $request->get('m_sign');
+        $m_key = \Config('payment.m_key');
+        $m_shop = $request->get('m_shop');
+        $m_orderid = $request->get('m_orderid');
+        $m_amount = $request->get('m_amount');
+        $m_curr = $request->get('m_curr');
+        $m_desc = $request->get('m_desc');
+        $checksum = $request->get('m_sign');
         if (isset($_POST['m_operation_id']) && isset($checksum)) {
             $arHash = array($m_shop, $m_orderid, $m_amount, $m_curr, $m_desc, $m_key);
             $sign_hash = strtoupper(hash('sha256', implode(':', $arHash)));
@@ -161,6 +154,9 @@ class FacilitiesController extends Controller
                         $payment->update([
                             'status' => -1
                         ]);
+                        break;
+                    case 'status':
+                        file_put_contents(storage_path('app/testP.txt'), json_encode($request->all()));
                         break;
                 }
             }
