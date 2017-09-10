@@ -127,7 +127,7 @@ class FacilitiesController extends Controller
 
     public function getResultRefill(Request $request, $type)
     {
-        dd($request->all());
+        dd($request->all(),$_SERVER['REMOTE_ADDR']);
         if (!in_array($_SERVER['REMOTE_ADDR'], ['185.71.65.92', '185.71.65.189', '149.202.17.210'])) return;
         file_put_contents(storage_path('app/testP.txt'), json_encode($request->all()), 8);
         $m_key = \Config('payment.m_key');
