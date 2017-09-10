@@ -128,45 +128,51 @@ class FacilitiesController extends Controller
     public function statusResult(Request $request)
     {
 
-        file_put_contents(storage_path('app/testP.txt'), json_encode([$request->all(), $_SERVER['REMOTE_ADDR']]) . PHP_EOL . PHP_EOL, 8);
         if (!in_array($_SERVER['REMOTE_ADDR'], ['185.71.65.92', '185.71.65.189', '149.202.17.210'])) return;
 
-        echo 1;
+        if (isset($_POST['m_operation_id']) && isset($_POST['m_sign'])) {
+            $m_key = config('payment.m_key');
+            $arHash = array(
+                $_POST['m_operation_id'],
+                $_POST['m_operation_ps'],
+                $_POST['m_operation_date'],
+                $_POST['m_operation_pay_date'],
+                $_POST['m_shop'],
+                $_POST['m_orderid'],
+                $_POST['m_amount'],
+                $_POST['m_curr'],
+                $_POST['m_desc'],
+                $_POST['m_status']
+            );
+
+            $arHash[] = $m_key;
+            $sign_hash = strtoupper(hash('sha256', implode(':', $arHash)));
+
+            if ($_POST['m_sign'] == $sign_hash && $_POST['m_status'] == 'success') {
+                $payment = PaymentsRequest::find($_POST['m_orderid']);
+
+                if (!isset($payment) || $payment->status == 1) {
+                    exit($_POST['m_orderid'] . '|error');
+                }
+
+                $payment->update([
+                    'status' => 1
+                ]);
+
+                $user = User::find($payment->user_id);
+                $user->balance += $_POST['m_amount'];
+                $user->save();
+
+                exit($_POST['m_orderid'] . '|success');
+            }
+            exit($_POST['m_orderid'] . '|error');
+        }
     }
 
     public function getResultRefill(Request $request, $type)
     {
-        $m_key = \Config('payment.m_key');
-        $m_shop = $request->get('m_shop');
-        $m_orderid = $request->get('m_orderid');
-        $m_amount = $request->get('m_amount');
-        $m_curr = $request->get('m_curr');
-        $m_desc = $request->get('m_desc');
-        $checksum = $request->get('m_sign');
-        if (isset($_POST['m_operation_id']) && isset($checksum)) {
-            $arHash = array($m_shop, $m_orderid, $m_amount, $m_curr, $m_desc, $m_key);
-            $sign_hash = strtoupper(hash('sha256', implode(':', $arHash)));
-            if ($checksum == $sign_hash) {
-                $payment = PaymentsRequest::find($m_orderid);
-                switch ($type) {
-                    case 'success':
-                        $payment->update([
-                            'status' => 1
-                        ]);
-                        $user = User::find($payment->user_id);
-                        $user->balance += $m_amount;
-                        $user->update();
-                        break;
-                    case 'fail':
-                        $payment->update([
-                            'status' => -1
-                        ]);
-                        break;
-                    case 'status':
-                        file_put_contents(storage_path('app/testP.txt'), json_encode($request->all()));
-                        break;
-                }
-            }
+        if ($type == "success") {
+            return redirect()->route('facilities')->withInput('Оплата успешна, средства зачислены на баланс.');
         }
         return redirect()->route('facilities')->withErrors('Ошибка оплаты');
     }
