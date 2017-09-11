@@ -340,7 +340,7 @@
                     }
                 },
                 onInitialized: function(e) {
-                    if(this.items().length > 2){
+                    if(this.items().length > 3){
                         is_three = true;
                     }
                 }
