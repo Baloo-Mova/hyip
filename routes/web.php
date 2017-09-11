@@ -17,11 +17,15 @@ Route::get('/payeer_395290401.txt', function () {
 
 Route::get('/', "SiteController@index")->name('index');
 Route::get('/about', "SiteController@about")->name('about');
+Route::get('/stock', "SiteController@stock")->name('stock');
 Route::get('/news', "SiteController@news")->name('news');
 Route::get('/news-show/{id}', "SiteController@newsShow")->name('news.show');
 Route::get('/questions', "SiteController@questions")->name('questions');
 Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
+Route::get('/about-tariffs', "SiteController@tariff")->name('about.tariffs');
+Route::get('/input', "SiteController@input")->name('input');
+Route::get('/output', "SiteController@output")->name('output');
 Route::get('/terms-of-use', "SiteController@termsOfUse")->name('terms.of.use');
 Route::get('/privacy-policy', "SiteController@privacyPolicy")->name('privacy.policy');
 Route::get('/file/{name}', "DownloadController@file")->name('file');
@@ -58,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('{id}', 'MessageController@show')->name('dialogs.show');
         });
         Route::group(['prefix' => 'facilities'], function () {
-            Route::get('/', 'FacilitiesController@index')->name('facilities');
+            Route::get('/{type}', 'FacilitiesController@index')->name('facilities');
             Route::get('/operations', 'FacilitiesController@operations')->name('facilities.operations');
             Route::post('/refill', 'FacilitiesController@refill')->name('facilities.refill');
             Route::post('/refill/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');

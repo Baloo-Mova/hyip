@@ -24,6 +24,6 @@ class Subscription extends Model
 
     public function firstPrices()
     {
-        return $this->hasMany(SubscriptionPrice::class)->orderBy('level', 'asc')->limit(3);
+        return $this->hasMany(SubscriptionPrice::class)->orderBy('level', 'asc');
     }
 }

@@ -82,6 +82,9 @@ section h1{
     width: 25px;
     height: 25px;
 }
+.contacts_ico{
+    font-size: 25px;
+}
 .overflow{
     overflow: hidden;
 }
@@ -162,6 +165,8 @@ section h1{
 }
 .regulations{
     min-height: 450px;
+    background-color: #262626;
+    color: #fff;
 }
 .feedback__section{
     background-color: #F8F8F8;
@@ -393,7 +398,7 @@ section h1{
         width: auto;
     }
     body {
-        padding-top: 75px;
+        padding-top: 134px;
     }
     .register-form__wrap{
         width: 40%;
@@ -465,7 +470,7 @@ section h1{
         width: auto;
     }
     body {
-        padding-top: 75px;
+        padding-top: 134px;
     }
     .register-form__wrap{
         width: 40%;
@@ -516,4 +521,25 @@ section h1{
 .news-show__text{
     margin-top: 20px;
     margin-bottom: 50px;
+}
+.vk_color{
+    color: #507299;
+}
+.fb_color{
+    color: #3b5998;
+}
+.ok_color{
+    color: #ed812b;
+}
+.tw_color{
+    color: #1da1f2;
+}
+.tl_color{
+    color: #0088cc;
+}
+.ins_color{
+    color: #405de6;
+}
+.contacts_ico:hover{
+    text-decoration: none;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
 
@@ -13,7 +14,6 @@ class SiteController extends Controller
     }
     public function index(){
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
-
         $data = [
             'carousel' => [
               [
@@ -22,7 +22,7 @@ class SiteController extends Controller
                   'buttons' => [
                       [
                           'title' => 'Регистрация',
-                          'link'  => '/register',
+                          'link'  => route('register'),
                           'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
@@ -33,12 +33,12 @@ class SiteController extends Controller
                   'buttons' => [
                       [
                           'title' => 'Регистрация',
-                          'link'  => '/register',
+                          'link'  => route('register'),
                           'class' => 'btn-main-carousel btn-flat btn-lg'
                       ],
                       [
                           'title' => 'Узнать как',
-                          'link'  => '/register',
+                          'link'  => route('about'),
                           'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
@@ -49,12 +49,12 @@ class SiteController extends Controller
                   'buttons' => [
                       [
                           'title' => 'Регистрация',
-                          'link'  => '/register',
+                          'link'  => route('register'),
                           'class' => 'btn-main-carousel btn-flat btn-lg'
                       ],
                       [
                           'title' => 'Подробнее',
-                          'link'  => '/register',
+                          'link'  => route('about'),
                           'class' => 'btn-main-carousel btn-flat btn-lg'
                       ]
                   ]
@@ -75,7 +75,7 @@ class SiteController extends Controller
                     'img' => 'img/2.jpg',
                     'title' => 'Бонусная программа',
                     'description' => 'Как только ваша структура вырастет до 1000 человек на трех ступенях, то вы можете получить от нас дополнительный бонус 10 000 рублей и будете получать его ежемесячно вместе с основными партнерскими вознаграждениями. А когда ваша структура достигнет количества в 10 000 человек на трех ступенях, то мы подарим вам 100 000 рублей! И этот бонус также вы будете получать ежемесячно. Чтобы более подробно узнать, как получать такие бонусы, проходите в раздел «Акции».',
-                    'link' => '#'
+                    'link' => route('stock')
                 ],
                 [
                     'img' => 'img/3.jpg',
@@ -131,22 +131,22 @@ class SiteController extends Controller
                     ],
                     'share' => [
                         'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                            'ico' => 'demo-icon icon-vk vk_color', 'link' => 'http://google.com.ua'
                         ],
                         'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
+                            'ico' => 'demo-icon icon-fb fb_color', 'link' => 'http://google.com.ua'
                         ],
                         'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
+                            'ico' => 'demo-icon icon-ok ok_color', 'link' => 'http://google.com.ua'
                         ],
                         'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
+                            'ico' => 'demo-icon icon-tw tw_color', 'link' => 'http://google.com.ua'
                         ],
                         'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
+                            'ico' => 'demo-icon icon-tl tl_color', 'link' => 'http://google.com.ua'
                         ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        'ins' => [
+                            'ico' => 'demo-icon icon-ins ins_color', 'link' => 'http://google.com.ua'
                         ]
                     ]
                 ]
@@ -156,6 +156,86 @@ class SiteController extends Controller
     }
 
     public function about()
+    {
+        $content = About::find(1);
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'links' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return view('main.about', [
+            'data' => $data,
+            'content' => isset($content) ? $content : []
+        ]);
+    }
+
+    public function tariff()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'links' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return view('main.tariff', ['data' => $data]);
+    }
+
+    public function input()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'links' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return view('main.inputOutput', ['data' => $data, 'type' => 'input']);
+    }
+
+    public function output()
+    {
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'links' => [
+                        'vk' => [
+                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
+                        ],
+                        'instagram' => [
+                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return view('main.inputOutput', ['data' => $data, 'type' => 'output']);
+    }
+
+    public function stock()
     {
         $data = [
             'contacts' =>[
@@ -191,7 +271,7 @@ class SiteController extends Controller
                 ]
             ]
         ];
-        return view('main.about', ['data' => $data]);
+        return view('main.stock', ['data' => $data]);
     }
 
     public function newsShow($id){

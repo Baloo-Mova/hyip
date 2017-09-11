@@ -155,6 +155,9 @@ input, input:active, input:hover, input:focus {
     .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
         max-height: 100% !important;
     }
+    body {
+        padding-top: 72px;
+    }
 }
 @media screen and (min-width: 486px) {
     .navbar-nav {
@@ -191,6 +194,9 @@ input, input:active, input:hover, input:focus {
     }
     .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
         max-height: 100% !important;
+    }
+    body {
+        padding-top: 72px;
     }
 }
 @media screen and (min-width: 576px) {
@@ -229,6 +235,9 @@ input, input:active, input:hover, input:focus {
     .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
         max-height: 100% !important;
     }
+    body {
+        padding-top: 72px;
+    }
 }
 @media screen and (min-width: 750px) {
     .top-main-menu__wrap{
@@ -249,6 +258,9 @@ input, input:active, input:hover, input:focus {
     .navbar-nav .open .dropdown-menu {
         z-index: 9999;
     }
+    body {
+        padding-top: 134px;
+    }
 }
 
 
@@ -265,8 +277,31 @@ input, input:active, input:hover, input:focus {
         float: none !important;
         display: inline-block !important;
     }
+    body {
+        padding-top: 134px;
+    }
 
 }
 .navbar__black{
     background-color: #1A1A1A;
+}
+.navbar-fixed-top--new{
+    top: 74px;
+    z-index: 111;
+}
+.main_page_divider:after{
+    content: '';
+    width: 24px;
+    height: 24px;
+    border-right: 1px solid #adabab;
+    border-bottom: 1px solid #adabab;
+    position: absolute;
+    top: -36px;
+    bottom: 0;
+    z-index: 1;
+    margin: auto;
+    left: 40%;
+    background-color: #fff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

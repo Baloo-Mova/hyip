@@ -13,7 +13,7 @@
                                 </h3>
                                 @if(isset($carousel['buttons']))
                                     @foreach($carousel['buttons'] as $button)
-                                        <a href="{{ url($button['link']) }}" class="btn {{ $button['class'] }} btn-carousel">{{ $button['title'] }}</a>
+                                        <a href="{{ $button['link'] }}" class="btn {{ $button['class'] }} btn-carousel">{{ $button['title'] }}</a>
                                     @endforeach
                                 @endif
                             </div>
@@ -67,7 +67,7 @@
                         <div class="col-xs-12 col-md-8">
                             <h4>{{ $about['title'] }}</h4>
                             <p>{{ $about['description'] }}</p>
-                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
+                            <a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>
                         </div>
                     </div>
                     @if($about != end($data['about']))
@@ -83,7 +83,7 @@
                         <div class="col-xs-12 col-md-8 col-md-pull-4">
                             <h4>{{ $about['title'] }}</h4>
                             <p>{{ $about['description'] }}</p>
-                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
+                            <a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>
                         </div>
                     </div>
                     @if($about != end($data['about']))
@@ -94,6 +94,11 @@
             <div class="row">
                 <div class="col-xs-12 about__register-wrap">
                     <a href="{{ url('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 main_page_divider">
+                    &nbsp;
                 </div>
             </div>
         </div>
@@ -182,16 +187,22 @@
                                     <p>Реферальная система: {{ $rate['levels'] }} уровня</p>
                                     <hr>
                                     @if(isset($rate['first_prices']))
-                                        @foreach($rate['first_prices'] as $item)
-                                            <p>{{ $item['level'] + 1 }} уровень - {{ $item['value'].($item['is_percent'] ? "%" : "") }}</p>
-                                            <hr>
-                                        @endforeach
+                                        @for($i = 0; $i < 3; $i++)
+                                            @if(!isset($rate['first_prices'][$i]))
+                                                -
+                                                <hr>
+                                                @continue
+                                            @else
+                                                <p>{{ ($rate['first_prices'][$i]['level'] + 1)." уровень -" }} {{ $rate['first_prices'][$i]['is_percent'] ? $rate['first_prices'][$i]['value']."%" : $rate['first_prices'][$i]['value'] }}</p>
+                                                <hr>
+                                            @endif
+                                        @endfor
                                     @endif
                                     <p>Срок действия: {{ $rate['term'] }} дней</p>
                                 </div>
                                 <div class="rate__footer">
                                     <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                    <a href="{{ route('about.tariffs') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
                                 </div>
                             </div>
                         @endforeach
@@ -265,7 +276,7 @@
                             <h4>Поделиться:</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
                                 <a href="{{ $soc['link'] }}">
-                                    <img src="{{ asset($soc['img']."_black.svg") }}" alt="" class="contacts__img">
+                                    <i class="{{ $soc['ico'] }} contacts_ico"></i>
                                 </a>
                             @endforeach
                         </div>
@@ -315,13 +326,16 @@
                 loop: true,
                 dots: true,
             });
-            $(".rate-carousel").owlCarousel({
-                autoplay: false,
-                loop: false,
+            var rateCarousel = $(".rate-carousel");
+            rateCarousel.owlCarousel({
+                autoplay: true,
+                loop: true,
                 dots: true,
                 margin: 10,
                 center: true,
                 responsiveClass: true,
+                autoplayTimeout:1500,
+                autoplayHoverPause:false,
                 responsive: {
                     0: {
                         items: 1,
@@ -334,6 +348,13 @@
                         items: 3
                     }
                 }
+            });
+            rateCarousel.trigger('stop.owl.autoplay');
+            $(".rate-carousel").on('mouseenter', function () {
+                rateCarousel.trigger('play.owl.autoplay', [1500]);
+            });
+            $(".rate-carousel").on('mouseleave', function () {
+                rateCarousel.trigger('stop.owl.autoplay');
             });
             $(".anchor_a").on("click", function (event) {
                 event.preventDefault();
