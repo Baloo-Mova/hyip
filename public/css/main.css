@@ -243,7 +243,11 @@ section h1{
 }
 .rate__body{
     width: 100%;
-    padding: 20px;
+    padding: 5px;
+}
+.rate__body hr{
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 .rate__price{
     color: #CB4245;

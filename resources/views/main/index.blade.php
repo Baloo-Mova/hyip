@@ -333,14 +333,12 @@
             });
             var rateCarousel = $(".rate-carousel");
             rateCarousel.owlCarousel({
-                autoplay: true,
-                loop: true,
+                autoplay: false,
+                loop: false,
                 dots: true,
                 margin: 10,
                 center: true,
                 responsiveClass: true,
-                autoplayTimeout:1500,
-                autoplayHoverPause:false,
                 responsive: {
                     0: {
                         items: 1,
@@ -356,10 +354,16 @@
             });
             rateCarousel.trigger('stop.owl.autoplay');
             $(".rate-carousel").on('mouseenter', function () {
-                rateCarousel.trigger('play.owl.autoplay', [1500]);
+                //rateCarousel.trigger('play.owl.autoplay', [1500]);
+                var rcw = $(".rate-carousel .owl-item").width(),
+                    nrcw = rcw - 10;
+                $(".rate-carousel .owl-stage").css({"transform": "translate3d("+nrcw+"px, 0px, 0px)", "transition": "transform 1s linear"});
             });
             $(".rate-carousel").on('mouseleave', function () {
-                rateCarousel.trigger('stop.owl.autoplay');
+                //rateCarousel.trigger('stop.owl.autoplay');
+                var rcw = $(".rate-carousel .owl-item").width(),
+                    nrcw = rcw + 10;
+                $(".rate-carousel .owl-stage").css({"transform": "translate3d("+nrcw+"px, 0px, 0px)", "transition": "transform 1s linear"});
             });
             $(".anchor_a").on("click", function (event) {
                 event.preventDefault();
