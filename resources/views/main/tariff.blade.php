@@ -13,7 +13,7 @@
                     @foreach($tariffs as $tariff)
                         <div class="rate-carousel-item">
                             <div class="rate__img">
-                                <img src="img/{{ random_int(1,3) }}.jpg" class="" alt="">
+                                <img src="{{ asset('img/'.random_int(1,3).'.jpg') }}" class="" alt="">
                             </div>
                             <div class="rate__title">
                                 <h3>{{ $tariff['name'] }}</h3>
@@ -38,20 +38,48 @@
                             </div>
                             <div class="rate__footer">
                                 <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                <a href="{{ route('about.tariffs') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                <a href="#" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="news__item about-tariff__item">
-
+        @if(!empty($tariff_info))
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="news__item about-tariff__item">
+                        <h3 class="tariff___name">{{ $tariff_info->name }}</h3>
+                        <div class="col-xs-12 col-md-4">
+                            <p class="tariff___ref-sys">{{ $tariff_info->levels }}</p>
+                            <h4>Реферальная система</h4>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <p class="tariff___price">{{ $tariff_info->price }}</p>
+                            <h4>Цена</h4>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <p class="tariff___term">{{ $tariff_info->term }}</p>
+                            <h4>Срок действия</h4>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="owl-carousel rate-carousel">
+                                @foreach($tariff_info->firstPrices as $prices)
+                                    <div class="rate-carousel-item">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="tariff___description">
+                                <p>{{ $tariff_info->description }}</p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection
 
@@ -64,7 +92,7 @@
                 loop: false,
                 dots: true,
                 margin: 10,
-                center: true,
+                center: false,
                 responsiveClass: true,
                 responsive: {
                     0: {
@@ -75,7 +103,7 @@
                         items: 3
                     },
                     1000: {
-                        items: 3
+                        items: 4
                     }
                 }
             });

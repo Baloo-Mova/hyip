@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="rate__footer">
                                     <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                    <a href="{{ route('about.tariffs') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                    <a href="{{ route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
                                 </div>
                             </div>
                         @endforeach
@@ -312,6 +312,7 @@
 @section('js')
     <script>
         $(document).ready(function () {
+            var is_three = false;
             $(".main-carousel").owlCarousel({
                 items: 1,
                 autoplay: true,
@@ -324,7 +325,7 @@
                 loop: false,
                 dots: true,
                 margin: 10,
-                center: true,
+                center: false,
                 responsiveClass: true,
                 responsive: {
                     0: {
@@ -337,21 +338,25 @@
                     1000: {
                         items: 3
                     }
+                },
+                onInitialized: function(e) {
+                    if(this.items().length > 2){
+                        is_three = true;
+                    }
                 }
             });
-            rateCarousel.trigger('stop.owl.autoplay');
-            $(".rate-carousel").on('mouseenter', function () {
-                //rateCarousel.trigger('play.owl.autoplay', [1500]);
-                var rcw = $(".rate-carousel .owl-item").width(),
-                    nrcw = rcw - 10;
-                $(".rate-carousel .owl-stage").css({"transform": "translate3d("+nrcw+"px, 0px, 0px)", "transition": "transform 1s linear"});
-            });
-            $(".rate-carousel").on('mouseleave', function () {
-                //rateCarousel.trigger('stop.owl.autoplay');
-                var rcw = $(".rate-carousel .owl-item").width(),
-                    nrcw = rcw + 10;
-                $(".rate-carousel .owl-stage").css({"transform": "translate3d("+nrcw+"px, 0px, 0px)", "transition": "transform 1s linear"});
-            });
+
+
+            if(is_three){
+                $(".rate-carousel").on('mouseenter', function () {
+                    $(".rate-carousel .owl-stage").css({"transform": "translate3d(-100px, 0px, 0px)", "transition": "transform 1s linear"});
+                });
+                $(".rate-carousel").on('mouseleave', function () {
+                    $(".rate-carousel .owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "transform 1s linear"});
+                });
+            }
+
+
             $(".anchor_a").on("click", function (event) {
                 event.preventDefault();
                 var id  = $(this).attr('href'),

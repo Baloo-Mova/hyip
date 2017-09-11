@@ -570,7 +570,7 @@ section h1{
     margin-bottom: 10px;
 }
 .about-tariff__item{
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .about:after{
     content: "";
@@ -605,4 +605,24 @@ section h1{
 .steps{
     position: relative;
     overflow-x: hidden;
+}
+.tariff___ref-sys,
+.tariff___price,
+.tariff___term{
+    color: #CB4245;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 0;
+}
+.tariff___description{
+    border: 1px solid #e0e0e0;
+    background-color: #fafafa;
+    margin-top: 40px;
+    padding: 20px;
+}
+.tariff___description p{
+    margin-bottom: 0;
+}
+.tariff___name{
+    margin-bottom: 40px;
 }

@@ -23,7 +23,7 @@ Route::get('/news-show/{id}', "SiteController@newsShow")->name('news.show');
 Route::get('/questions', "SiteController@questions")->name('questions');
 Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
-Route::get('/about-tariffs', "SiteController@tariff")->name('about.tariffs');
+Route::get('/about-tariffs/{id}', "SiteController@tariff")->name('about.tariffs');
 Route::get('/input', "SiteController@input")->name('input');
 Route::get('/output', "SiteController@output")->name('output');
 Route::get('/terms-of-use', "SiteController@termsOfUse")->name('terms.of.use');

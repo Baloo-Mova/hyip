@@ -178,9 +178,13 @@ class SiteController extends Controller
         ]);
     }
 
-    public function tariff()
+    public function tariff($id)
     {
-        $tariffs = Subscription::with(['firstPrices'])->get()->toArray();
+        $tariffs = Subscription::with(['firstPrices'])->get();
+        $tariff = Subscription::find($id);
+        if(isset($tariff)){
+            $subscriptionPrices = $tariff->firstPrices;
+        }
         $data = [
             'contacts' =>[
                 'social' => [
@@ -195,7 +199,12 @@ class SiteController extends Controller
                 ]
             ]
         ];
-        return view('main.tariff', ['data' => $data, 'tariffs' => $tariffs]);
+        return view('main.tariff', [
+            'data' => $data,
+            'tariffs' => $tariffs,
+            'tariff_info' => isset($tariff) ? $tariff : "",
+            "subscription" => isset($subscriptionPrices) ? $subscriptionPrices : ""
+        ]);
     }
 
     public function input()

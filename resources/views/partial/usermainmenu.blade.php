@@ -39,7 +39,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('input') }}">Пополнить счет</a></li>
                         <li><a href="#">Вывести средства</a></li>
-                        <li><a href="{{ Auth::check() ? route('tariff') : route('about.tariffs') }}">Тарифы</a></li>
+                        <li><a href="{{ Auth::check() ? route('tariff') : route('about.tariffs', ['id' => null]) }}">Тарифы</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
@@ -103,7 +103,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('input') }}">Пополнить счет</a></li>
                         <li><a href="#">Вывести средства</a></li>
-                        <li><a href="{{ Auth::check() ? route('tariff') : route('about.tariffs') }}">Тарифы</a></li>
+                        <li><a href="{{ Auth::check() ? route('tariff') : route('about.tariffs', ['id' => null]) }}">Тарифы</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
