@@ -159,6 +159,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 main_page_divider main_page_divider_second">
+                    &nbsp;
+                </div>
+            </div>
         </div>
     </section>
     <section id="news" class="rate__wrap">

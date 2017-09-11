@@ -289,6 +289,9 @@ input, input:active, input:hover, input:focus {
     top: 74px;
     z-index: 111;
 }
+.main_page_divider{
+    border-bottom: 1px solid #adabab;
+}
 .main_page_divider:after{
     content: '';
     width: 24px;
@@ -296,12 +299,18 @@ input, input:active, input:hover, input:focus {
     border-right: 1px solid #adabab;
     border-bottom: 1px solid #adabab;
     position: absolute;
-    top: -36px;
-    bottom: 0;
     z-index: 1;
+    bottom: -13px;
     margin: auto;
-    left: 40%;
-    background-color: #fff;
+    left: calc(50% - 24px);
+    background-color: #FAFAFA;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+.main_page_divider_second:after{
+    background-color: #fff;
+}
+.about,
+.steps{
+    padding-bottom: 0px;
 }
