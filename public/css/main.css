@@ -121,9 +121,6 @@ section h1{
 .questions{
     background-color: #f8f8f8;
 }
-.about{
-    background-color: #FAFAFA;
-}
 .greetings_title{
     text-transform: uppercase;
 }
@@ -232,14 +229,14 @@ section h1{
 .rate__title{
     width: 100%;
     background-color: #e0e0e0;
-    height: 60px;
+    height: 50px;
     padding-top: 2px;
 }
 .rate__footer{
     width: 100%;
     background-color: #e0e0e0;
-    height: 90px;
-    padding-top: 35px;
+    height: 55px;
+    padding-top: 10px;
 }
 .rate__body{
     width: 100%;
@@ -251,8 +248,9 @@ section h1{
 }
 .rate__price{
     color: #CB4245;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 900;
+    margin-bottom: 0;
 }
 .rate__top{
     background-color: #e0e0e0;
@@ -302,6 +300,10 @@ section h1{
     .register-form__wrap{
         width: 100%;
     }
+
+    .steps{
+        padding-bottom: 12vw;
+    }
 }
 @media screen and (min-width: 486px) {
     .about-fa {
@@ -345,6 +347,10 @@ section h1{
     }
     .register-form__wrap{
         width: 100%;
+    }
+
+    .steps{
+        padding-bottom: 12vw;
     }
 }
 @media screen and (min-width: 576px) {
@@ -396,6 +402,9 @@ section h1{
     .dropdown-menu {
         padding-bottom: 0 !important;
     }
+    .steps{
+        padding-bottom: 12vw;
+    }
 }
 @media screen and (min-width: 750px) {
     .btn-carousel{
@@ -406,6 +415,9 @@ section h1{
     }
     .register-form__wrap{
         width: 40%;
+    }
+    .steps{
+        padding-bottom: 12vw;
     }
 }
 
@@ -502,6 +514,9 @@ section h1{
     .no-top-border{
         border: none !important;
     }
+    .steps{
+        padding-bottom: 7vw;
+    }
 }
 .news__item{
     padding: 20px 20px;
@@ -546,4 +561,48 @@ section h1{
 }
 .contacts_ico:hover{
     text-decoration: none;
+}
+.tariff-info__page__item{
+    text-align: left;
+}
+.rate__title h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.about-tariff__item{
+    margin-top: 20px;
+}
+.about:after{
+    content: "";
+    background: transparent;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    border-top: 10vw solid transparent;
+    border-right: 50vw solid #FEFEFE;
+    border-left: 50vw solid #FEFEFE;
+}
+.about{
+    background-color: #FAFAFA;
+    position: relative;
+    padding-bottom: 7vw;
+    overflow-x: hidden;
+}
+.steps:after{
+    content: "";
+    background: transparent;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    border-top: 10vw solid transparent;
+    border-right: 50vw solid #FAFAFA;
+    border-left: 50vw solid #FAFAFA;
+}
+.steps{
+    position: relative;
+    overflow-x: hidden;
 }

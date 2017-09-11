@@ -96,11 +96,6 @@
                     <a href="{{ url('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 main_page_divider">
-                    &nbsp;
-                </div>
-            </div>
         </div>
     </section>
 
@@ -159,11 +154,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 main_page_divider main_page_divider_second">
-                    &nbsp;
-                </div>
-            </div>
         </div>
     </section>
     <section id="news" class="rate__wrap">
@@ -178,9 +168,6 @@
                     <div class="owl-carousel rate-carousel">
                         @foreach($data['rate'] as $rate)
                             <div class="rate-carousel-item">
-                                <div class="rate__top">
-                                    &nbsp;
-                                </div>
                                 <div class="rate__img">
                                     <img src="img/{{ random_int(1,3) }}.jpg" class="" alt="">
                                 </div>
@@ -189,7 +176,7 @@
                                 </div>
                                 <div class="rate__body">
                                     <p class="rate__price">Цена: {{ $rate['price'] }}</p>
-                                    <p>Реферальная система: {{ $rate['levels'] }} уровня</p>
+                                    <p>Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                     <hr>
                                     @if(isset($rate['first_prices']))
                                         @for($i = 0; $i < 3; $i++)
@@ -231,7 +218,7 @@
                             <div class="overflow news__overflow">
                                 <p>{{ $news['description'] }}</p>
                             </div>
-                            <a href="{{ route('news') }}" class="about__link">Читать далее...</a>
+                            <a href="{{ $news['link'] }}" class="about__link">Читать далее...</a>
                         </div>
                     </div>
                 @endforeach

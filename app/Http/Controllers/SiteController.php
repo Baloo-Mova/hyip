@@ -105,9 +105,9 @@ class SiteController extends Controller
                 'img/brand9.png',
             ],
             'news' => [
-                ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua'],
-                ['title' => 'Новость 2', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua'],
-                ['title' => 'Новость 3', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua']
+                ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 1]) ],
+                ['title' => 'Новость 2', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 2]) ],
+                ['title' => 'Новость 3', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 1]) ]
             ],
             'contacts' =>[
                 'phones' => [
@@ -180,6 +180,7 @@ class SiteController extends Controller
 
     public function tariff()
     {
+        $tariffs = Subscription::with(['firstPrices'])->get()->toArray();
         $data = [
             'contacts' =>[
                 'social' => [
@@ -194,7 +195,7 @@ class SiteController extends Controller
                 ]
             ]
         ];
-        return view('main.tariff', ['data' => $data]);
+        return view('main.tariff', ['data' => $data, 'tariffs' => $tariffs]);
     }
 
     public function input()
