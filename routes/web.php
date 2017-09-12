@@ -25,8 +25,8 @@ Route::get('/questions', "SiteController@questions")->name('questions');
 Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
 Route::get('/about-tariffs/{id}', "SiteController@tariff")->name('about.tariffs');
-Route::get('/input', "SiteController@input")->name('input');
-Route::get('/output', "SiteController@output")->name('output');
+Route::get('/get-tariff-info/{id}', "TariffController@getTariffInfo")->name('get.tariff.info');
+Route::get('/input-output/{type}', "SiteController@inputOutput")->name('input.output');
 Route::get('/terms-of-use', "SiteController@termsOfUse")->name('terms.of.use');
 Route::get('/privacy-policy', "SiteController@privacyPolicy")->name('privacy.policy');
 Route::get('/file/{name}', "DownloadController@file")->name('file');
@@ -67,9 +67,10 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile');
+            Route::post('/edit', 'ProfileController@edit')->name('profile.edit');
         });
         Route::group(['prefix' => 'tariff'], function () {
-            Route::get('/', 'TariffController@index')->name('tariff');
+            Route::get('/index/{id}', 'TariffController@index')->name('tariff');
             Route::get('{id}', 'TariffController@pay')->name('tariff.payment');
         });
         Route::group(['prefix' => 'support'], function () {

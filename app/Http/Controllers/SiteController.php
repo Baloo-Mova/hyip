@@ -224,9 +224,17 @@ class SiteController extends Controller
         ]);
     }
 
-    public function input()
+    public function inputOutput($type)
     {
         $data = [
+            'input' => [
+                'title' => 'Пополнить счет',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            ],
+            'output' => [
+                'title' => 'Вывести стредства',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            ],
             'contacts' => [
                 'social' => [
                     'links' => [
@@ -240,26 +248,7 @@ class SiteController extends Controller
                 ]
             ]
         ];
-        return view('main.inputOutput', ['data' => $data, 'type' => 'input']);
-    }
-
-    public function output()
-    {
-        $data = [
-            'contacts' => [
-                'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        return view('main.inputOutput', ['data' => $data, 'type' => 'output']);
+        return view('main.inputOutput', ['data' => $data, 'type' => $type]);
     }
 
     public function stock()

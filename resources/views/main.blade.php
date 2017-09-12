@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
 <body>
-
+<div id="preloader"></div>
 
 
 @include('partial.mainmenu')

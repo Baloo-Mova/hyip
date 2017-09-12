@@ -186,3 +186,119 @@
         min-width: 127px;
     }
 }
+.input-budjet__wrap{
+    margin: 20px 0px;
+    padding: 0px !important;
+    text-align: left !important;
+}
+.input-budjet__header{
+    background-color: #E0E0E0;
+    padding: 10px 20px;
+}
+.input-budjet__header h2{
+    margin: 0;
+}
+.input-budjet__body{
+    padding: 10px 20px;
+}
+.profile__item{
+    text-align: left !important;
+    overflow: hidden;
+    position: relative;
+}
+.profile__item_ref:after{
+    content: "";
+    background: transparent;
+
+    position: absolute;
+    left: 0;
+    bottom: -50px;
+
+    border-bottom: 250px solid transparent;
+    border-left: 250px solid red;
+}
+.profile__item_passport_data_form,
+.close_passport_data_form{
+    display: none;
+}
+.edit_passport_data:hover,
+.close_passport_data_form:hover{
+    cursor: pointer;
+}
+.passport_data_scans_button{
+    display: none !important;
+}
+.passport_data_scans_label{
+    float: right;
+}
+.datepicker{
+    background-color: #fff !important;
+}
+.datepicker td, .datepicker th{
+    border-radius: 0px;
+}
+.datepicker table tr td span{
+    border-radius: 0px;
+}
+.datepicker table tr td span.active, .datepicker table tr td span.active:hover, .datepicker table tr td span.active.disabled, .datepicker table tr td span.active.disabled:hover{
+    background-color: #00B600 !important;
+    background-image: none !important;
+}
+td.day.active{
+    background-color: #00B600 !important;
+    background-image: none !important;
+}
+.profile_scan_img__wrap{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: 5px;
+}
+.profile_scan_img{
+    height: 100%;
+}
+.profile_scan_status{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    padding-top: 5px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+.profile_scan_status_ok{
+    background-color: #00B600;
+}
+.profile_scan_status_not_ok{
+    background-color: red;
+}
+
+.profile_status{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    padding-top: 5px;
+    display: inline-block;
+}
+.profile_status_ok{
+    background-color: #00B600;
+    font-size: 10px;
+}
+.profile_status_not_ok{
+    background-color: red;
+    font-size: 10px;
+}
+.edit_passport_data,
+.close_passport_data_form{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

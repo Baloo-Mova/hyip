@@ -55,21 +55,11 @@ section h1{
 .about-icon__wrap{
     text-align: center;
 }
-.rate__wrap{
-}
-.rate-carousel-item,
-.news__item{
-    border: 1px solid #ddd;
-    text-align: center;
-}
 .rate-carousel-item h4{
     margin-top: 0;
 }
 .paysystems__img{
     padding: 20px 10px;
-}
-.rate__wrap{
-    background-color: #FAFAFA;
 }
 .contacts__textarea{
     resize: none;
@@ -178,9 +168,6 @@ section h1{
 .about__img img{
     width: 100%;
 }
-.rate__img{
-    overflow: hidden;
-}
 .rate__img img{
     width: 100%;
 }
@@ -226,37 +213,6 @@ section h1{
 .register-form__inputs-bottom{
     background-color: #e0e0e0;
 }
-.rate__title{
-    width: 100%;
-    background-color: #e0e0e0;
-    height: 50px;
-    padding-top: 2px;
-}
-.rate__footer{
-    width: 100%;
-    background-color: #e0e0e0;
-    height: 55px;
-    padding-top: 10px;
-}
-.rate__body{
-    width: 100%;
-    padding: 5px;
-}
-.rate__body hr{
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-.rate__price{
-    color: #CB4245;
-    font-size: 30px;
-    font-weight: 900;
-    margin-bottom: 0;
-}
-.rate__top{
-    background-color: #e0e0e0;
-    width: 100%;
-    height: 10px;
-}
 @media screen and (max-width: 486px) {
     .about-fa {
         font-size: 4em;
@@ -286,9 +242,6 @@ section h1{
     .rate-carousel__button{
         width: 100%;
         margin-bottom: 10px;
-    }
-    .rate__img{
-        height: 130px;
     }
     .btn-carousel{
         width:100%;
@@ -335,9 +288,6 @@ section h1{
         width: 100%;
         margin-bottom: 10px;
     }
-    .rate__img{
-         height: 130px;
-     }
     .btn-carousel{
         width:100%;
         margin-bottom: 10px;
@@ -383,9 +333,6 @@ section h1{
         width: 100%;
         margin-bottom: 10px;
     }
-    .rate__img{
-        height: 130px;
-    }
     .btn-carousel{
         width: auto;
     }
@@ -424,7 +371,7 @@ section h1{
 
 @media screen and (min-width: 1024px) {
     .news__item{
-        margin-bottom: 0px;
+        margin-bottom: 20px;
     }
     .l-steps [class*="col-"]:not(:last-child)::after {
         content: '';
@@ -479,9 +426,6 @@ section h1{
     .rate-carousel__button{
         width: auto;
     }
-    .rate__img{
-        height: 205px;
-    }
     .btn-carousel{
         width: auto;
     }
@@ -517,13 +461,6 @@ section h1{
     .steps{
         padding-bottom: 7vw;
     }
-}
-.news__item{
-    padding: 20px 20px;
-    -webkit-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.42);
-    -moz-box-shadow:    2px 2px 8px 0px rgba(50, 50, 50, 0.42);
-    box-shadow:         2px 2px 8px 0px rgba(50, 50, 50, 0.42);
-    margin-bottom: 20px;
 }
 .news_title img{
     width: 100%;
@@ -565,13 +502,6 @@ section h1{
 .tariff-info__page__item{
     text-align: left;
 }
-.rate__title h3{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.about-tariff__item{
-    margin-top: 40px;
-}
 .about:after{
     content: "";
     background: transparent;
@@ -605,24 +535,4 @@ section h1{
 .steps{
     position: relative;
     overflow-x: hidden;
-}
-.tariff___ref-sys,
-.tariff___price,
-.tariff___term{
-    color: #CB4245;
-    font-size: 30px;
-    font-weight: 900;
-    margin-bottom: 0;
-}
-.tariff___description{
-    border: 1px solid #e0e0e0;
-    background-color: #fafafa;
-    margin-top: 40px;
-    padding: 20px;
-}
-.tariff___description p{
-    margin-bottom: 0;
-}
-.tariff___name{
-    margin-bottom: 40px;
 }

@@ -67,7 +67,7 @@
                         <div class="col-xs-12 col-md-8">
                             <h4>{{ $about['title'] }}</h4>
                             <p>{{ $about['description'] }}</p>
-                            <a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>
+                            {{--<a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>--}}
                         </div>
                     </div>
                     @if($about != end($data['about']))
@@ -83,7 +83,7 @@
                         <div class="col-xs-12 col-md-8 col-md-pull-4">
                             <h4>{{ $about['title'] }}</h4>
                             <p>{{ $about['description'] }}</p>
-                            <a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>
+                            {{--<a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>--}}
                         </div>
                     </div>
                     @if($about != end($data['about']))
@@ -93,7 +93,7 @@
             @endforeach
             <div class="row">
                 <div class="col-xs-12 about__register-wrap">
-                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
+                    <a href="{{ route('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
                                     <span class="kostil_1">1.</span>
                                 </div>
                                 <div class="l-steps__item-about">
-                                    <a href="#" class="about__link">
+                                    <a href="{{ route('register') }}" class="about__link">
                                         <span class="js-translate">Register an account</span>
                                     </a>
                                     <span class="js-translate">&nbsp;and choose an investment portfolio</span>
@@ -267,7 +267,7 @@
                         <div class="col-xs-12 col-md-6">
                             <h4>Поделиться:</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
-                                <a href="{{ $soc['link'] }}">
+                                <a href="{{ $soc['link'] }}" class="no_underline">
                                     <i class="{{ $soc['ico'] }} contacts_ico"></i>
                                 </a>
                             @endforeach
@@ -346,16 +346,22 @@
                 }
             });
 
+            var left_position = 0;
 
             if(is_three){
                 $(".rate-carousel").on('mouseenter', function () {
-                    $(".rate-carousel .owl-stage").css({"transform": "translate3d(-100px, 0px, 0px)", "transition": "transform 1s linear"});
+                    left_position = $(".rate-carousel .owl-stage").position().left;
+                    if(left_position <= 0 && left_position > -50){
+                        left_position = left_position - 50;
+                        $(".rate-carousel .owl-stage").css({"transform": "translate3d("+(left_position)+"px, 0px, 0px)", "transition": "transform 1s linear"});
+                    }
                 });
                 $(".rate-carousel").on('mouseleave', function () {
-                    $(".rate-carousel .owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "transform 1s linear"});
-                });
+                    left_position = $(".rate-carousel .owl-stage").position().left;
+                    if(left_position == -50){
+                        $(".rate-carousel .owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "transform 1s linear"});
+                    }});
             }
-
 
             $(".anchor_a").on("click", function (event) {
                 event.preventDefault();
