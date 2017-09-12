@@ -23,14 +23,14 @@
                                 <p class="rate__price">Цена: {{ $tariff['price'] }}</p>
                                 <p>Реферальная система: {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                 <hr>
-                                @if(isset($tariff['first_prices']))
+                                @if(isset($tariff->firstPrices))
                                     @for($i = 0; $i < 3; $i++)
-                                        @if(!isset($tariff['first_prices'][$i]))
+                                        @if(!isset($tariff->firstPrices[$i]))
                                             -
                                             <hr>
                                             @continue
                                         @else
-                                            <p>{{ ($tariff['first_prices'][$i]['level'] + 1)." уровень -" }} {{ $tariff['first_prices'][$i]['is_percent'] ? $tariff['first_prices'][$i]['value']."%" : $tariff['first_prices'][$i]['value'] }}</p>
+                                            <p>{{ ($tariff->firstPrices[$i]['level'] + 1)." уровень -" }} {{ $tariff->firstPrices[$i]['is_percent'] ? $tariff->firstPrices[$i]['value']."%" : $tariff->firstPrices[$i]['value'] }}</p>
                                             <hr>
                                         @endif
                                     @endfor
@@ -115,6 +115,7 @@
             });
 
             $(".tariff__choose").on("click", function(e){
+                var scrollPosition = $(window).scrollTop();
                 e.preventDefault();
                 var id = $(this).data("id");
                 $(".about-tariff__wrap").removeClass("hidden");
@@ -165,7 +166,11 @@
                                     }
                                 }
                             });
-
+                            if(scrollPosition < 343){
+                                $('html, body').animate({
+                                    scrollTop: $(document).height()
+                                }, 1000);
+                            }
                         }
                     },
                     dataType: "json"

@@ -186,3 +186,18 @@
         min-width: 127px;
     }
 }
+.input-budjet__wrap{
+    margin: 20px 0px;
+    padding: 0px !important;
+    text-align: left !important;
+}
+.input-budjet__header{
+    background-color: #E0E0E0;
+    padding: 10px 20px;
+}
+.input-budjet__header h2{
+    margin: 0;
+}
+.input-budjet__body{
+    padding: 10px 20px;
+}
