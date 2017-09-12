@@ -441,3 +441,14 @@ input, input:active, input:hover, input:focus {
 .no_underline:hover{
     text-decoration: none;
 }
+.price-info-item{
+    border: 1px solid #ddd;
+    text-align: center;
+    display: inline-block;
+    width: 30.333%;
+    margin: 5px 5px;
+    padding: 10px;
+}
+.price-info__wrap{
+    text-align: center;
+}

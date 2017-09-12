@@ -63,10 +63,10 @@
                         <h4>Срок действия</h4>
                     </div>
                     <div class="col-xs-12">
-                        <div class="owl-carousel info-carousel">
+                        <div class="info-carousel price-info__wrap">
                             @if(isset($tariff_info->firstPrices))
                                 @foreach($tariff_info->firstPrices as $prices)
-                                    <div class="rate-carousel-item">
+                                    <div class="price-info-item">
                                         <p class="tariff___price">{{$prices->value }}{{ $prices->is_percent ? "%" : "" }}</p>
                                         <h4>{{ ($prices->level + 1)." уровень"}}</h4>
                                     </div>
@@ -90,29 +90,7 @@
     <script>
         $(function () {
             var is_three = false,
-                rateCarousel = $(".rate-carousel"),
-                infoCarousel = $(".info-carousel");
-
-            infoCarousel.owlCarousel({
-                autoplay: true,
-                loop: false,
-                dots: true,
-                margin: 10,
-                center: false,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                        stagePadding: 50
-                    },
-                    600: {
-                        items: 3
-                    },
-                    1000: {
-                        items: 3
-                    }
-                }
-            });
+                rateCarousel = $(".rate-carousel");
 
             $(".tariff__choose").on("click", function(e){
                 var scrollPosition = $(window).scrollTop();
@@ -138,34 +116,11 @@
                             tmp = "";
                             data.prices.forEach(function (item, i, arr) {
                                 tmp = data.prices[i].is_percent ? "%" : "";
-                                prices += '<div class="rate-carousel-item"><p class="tariff___price">'+data.prices[i].value +' '+tmp+'</p>'+
+                                prices += '<div class="price-info-item"><p class="tariff___price">'+data.prices[i].value +' '+tmp+'</p>'+
                                     '<h4>'+(data.prices[i].level + 1)+' уровень</h4></div>';
 
                             });
                             $(".info-carousel").html(prices);
-
-                            infoCarousel.trigger('destroy.owl.carousel');
-                            infoCarousel.html(infoCarousel.find('.owl-stage-outer').html()).removeClass('owl-loaded');
-                            infoCarousel.owlCarousel({
-                                autoplay: true,
-                                loop: false,
-                                dots: true,
-                                margin: 10,
-                                center: false,
-                                responsiveClass: true,
-                                responsive: {
-                                    0: {
-                                        items: 1,
-                                        stagePadding: 50
-                                    },
-                                    600: {
-                                        items: 3
-                                    },
-                                    1000: {
-                                        items: 3
-                                    }
-                                }
-                            });
 
                             if(scrollPosition < 343){
                                 $('html, body').animate({
