@@ -37,8 +37,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Партнерам <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input') }}">Пополнить счет</a></li>
-                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('output') }}">Вывести средства</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input.output', ['type' => 'input']) }}">Пополнить счет</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('input.output', ['type' => 'output']) }}">Вывести средства</a></li>
                         <li><a href="{{ Auth::check() ? route('tariff', ['id' => -1]) : route('about.tariffs', ['id' => -1]) }}">Тарифы</a></li>
                     </ul>
                 </li>
@@ -110,8 +110,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Партнерам <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input') }}">Пополнить счет</a></li>
-                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('output') }}">Вывести средства</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input.output', ['type' => 'input']) }}">Пополнить счет</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('input.output', ['type' => 'output']) }}">Вывести средства</a></li>
                         <li><a href="{{ Auth::check() ? route('tariff', ['id' => -1]) : route('about.tariffs', ['id' => -1]) }}">Тарифы</a></li>
                     </ul>
                 </li>
