@@ -193,7 +193,7 @@
                                     <p>Срок действия: {{ $rate['term'] }} дней</p>
                                 </div>
                                 <div class="rate__footer">
-                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
+                                    <a href="{{ route('tariff.payment',['id'=>$rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
                                     <a href="{{ route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
                                 </div>
                             </div>

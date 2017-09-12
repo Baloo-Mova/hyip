@@ -18,7 +18,7 @@ class ProfileController extends Controller
         $passportData = PassportData::where('user_id', '=', $user->id)->first();
         $scans = $user->scans;
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -31,9 +31,14 @@ class ProfileController extends Controller
                 ]
             ]
         ];
+
+        if (!isset($passportData)) {
+            $passportData = $user->createPassportData();
+        }
+
         return view('cabinet.profile.index', [
             'user' => $user,
-            'passport_data' => isset($passportData) ? json_decode($passportData->passport_data) : "",
+            'passport_data' => $passportData->dataToArray(),
             'data' => $data,
             'scans' => isset($scans) ? $scans : ""
         ]);
@@ -69,19 +74,19 @@ class ProfileController extends Controller
         $pd['is_confirm'] = $request->get('is_confirm');
 
         $passportData = PassportData::where('user_id', '=', \Auth::user()->id)->first();
-        if(!isset($passportData)){
+        if (!isset($passportData)) {
             $passportData = new PassportData();
             $passportData->user_id = \Auth::user()->id;
             $passportData->passport_data = json_encode($pd);
             $passportData->save();
-        }else{
+        } else {
             $passportData->passport_data = json_encode($pd);
             $passportData->save();
         }
 
         if ($request->hasFile('scans')) {
             $scans = [];
-            foreach ($request->file('scans') as $scan){
+            foreach ($request->file('scans') as $scan) {
                 $path = $scan->store('scans', 'public');
                 $scans[] = [
                     'user_id' => \Auth::user()->id,

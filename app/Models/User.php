@@ -53,6 +53,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @mixin \Eloquent
  * @property int $status
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereStatus($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PassportScans[] $scans
  */
 class User extends Authenticatable
 {
@@ -92,37 +93,38 @@ class User extends Authenticatable
     }
 
 
-    static function dialogs() {
+    static function dialogs()
+    {
 
         $id = \Auth::id();
-        $key = md5( 'Dialogs_for_user_' . $id );
+        $key = md5('Dialogs_for_user_' . $id);
         \Cache::forget($key);
-        return \Cache::rememberForever( $key, function() use($id) {
-            $query = Message::select( \DB::raw('max(id) as id, from_user, to_user') )
-                ->where(function($query) use ($id){
+        return \Cache::rememberForever($key, function () use ($id) {
+            $query = Message::select(\DB::raw('max(id) as id, from_user, to_user'))
+                ->where(function ($query) use ($id) {
 
                     $query->where('from_user', $id)
                         ->where('from_delete', 0);
 
                 })
-                ->orWhere(function($query) use ($id){
+                ->orWhere(function ($query) use ($id) {
 
                     $query->where('to_user', $id)
                         ->where('to_delete', 0);
 
                 })
                 ->groupBy('from_user', 'to_user')
-                ->orderBy( 'id', 'desc' )
+                ->orderBy('id', 'desc')
                 ->get();
 
             $dialogs = [];
             $exist_dialogs = [];
             $messages_id = [];
 
-            foreach( $query as $dialog ){
-                if( isset($exist_dialogs[$dialog->from_user]) && in_array( $dialog->to_user, $exist_dialogs[$dialog->from_user] )
-                    || isset($exist_dialogs[$dialog->to_user]) && in_array( $dialog->from_user, $exist_dialogs[$dialog->to_user] )
-                ){
+            foreach ($query as $dialog) {
+                if (isset($exist_dialogs[$dialog->from_user]) && in_array($dialog->to_user, $exist_dialogs[$dialog->from_user])
+                    || isset($exist_dialogs[$dialog->to_user]) && in_array($dialog->from_user, $exist_dialogs[$dialog->to_user])
+                ) {
                     continue;
 
                 } else {
@@ -138,11 +140,13 @@ class User extends Authenticatable
         });
     }
 
-    public function subscription() {
+    public function subscription()
+    {
         return $this->hasOne(Subscription::class, 'id', 'subscribe_id');
     }
 
-    public function referrer() {
+    public function referrer()
+    {
         return $this->hasOne(User::class, 'id', 'referral_id');
     }
 
@@ -153,7 +157,32 @@ class User extends Authenticatable
     }
 
 
-    public function scans(){
+    public function scans()
+    {
         return $this->hasMany(PassportScans::class, 'user_id', 'id');
+    }
+
+    public function createPassportData()
+    {
+        return PassportData::createDefault($this->id);
+    }
+
+    public function incrementReferrers()
+    {
+        $user = $this;
+        while (true) {
+
+            if (!isset($user->referral_id)) {
+                return;
+            }
+
+            $ref = $user->referrer;
+            if (!isset($ref)) {
+                return;
+            }
+
+            $ref->addReferr();
+            $user = $ref;
+        }
     }
 }

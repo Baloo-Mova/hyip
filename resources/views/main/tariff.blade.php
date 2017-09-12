@@ -21,7 +21,8 @@
                             </div>
                             <div class="rate__body">
                                 <p class="rate__price">Цена: {{ $tariff['price'] }}</p>
-                                <p>Реферальная система: {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
+                                <p>Реферальная
+                                    система: {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                 <hr>
                                 @if(isset($tariff->firstPrices))
                                     @for($i = 0; $i < 3; $i++)
@@ -38,8 +39,12 @@
                                 <p>Срок действия: {{ $tariff['term'] }} дней</p>
                             </div>
                             <div class="rate__footer">
-                                <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                <a href="#" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button tariff__choose" data-id="{{ $tariff['id'] }}">Подробнее</a>
+                                <a href="{{ route('tariff.payment', ['id'=>$tariff['id']]) }}"
+                                   class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить
+                                    подписку</a>
+                                <a href="#"
+                                   class="btn btn-main-carousel btn-md btn-flat rate-carousel__button tariff__choose"
+                                   data-id="{{ $tariff['id'] }}">Подробнее</a>
                             </div>
                         </div>
                     @endforeach
@@ -93,20 +98,24 @@
                 rateCarousel = $(".rate-carousel");
 
 
-            $(".tariff__choose").on("click", function(e){
+            $(".tariff__choose").on("click", function (e) {
                 var scrollPosition = $(window).scrollTop();
                 e.preventDefault();
                 var id = $(this).data("id");
                 $(".about-tariff__wrap").removeClass("hidden");
                 $(".rate-carousel-item").removeClass("active_tariff");
-                $('#preloader').fadeIn('slow',function(){$(this).show();});
+                $('#preloader').fadeIn('slow', function () {
+                    $(this).show();
+                });
                 $.ajax({
-                    method  : "get",
-                    url     : "{{ url('get-tariff-info') }}/" + id,
-                    success : function (data) {
+                    method: "get",
+                    url: "{{ url('get-tariff-info') }}/" + id,
+                    success: function (data) {
                         if (data.success == true) {
-                            $('#preloader').fadeOut('slow',function(){$(this).hide();});
-                            $(".tariff_"+id).addClass("active_tariff");
+                            $('#preloader').fadeOut('slow', function () {
+                                $(this).hide();
+                            });
+                            $(".tariff_" + id).addClass("active_tariff");
                             $(".tariff___ref-sys").text(data.info.levels);
                             $(".tariff___name").text(data.info.name);
                             $(".tariff___price").text(data.info.price);
@@ -114,16 +123,16 @@
                             $(".tariff___description").text(data.info.description == null ? "У этого тарифа нет описания" : data.info.description);
 
                             var prices = ''
-                                tmp = "";
+                            tmp = "";
                             data.prices.forEach(function (item, i, arr) {
                                 tmp = data.prices[i].is_percent ? "%" : "";
-                                prices += '<div class="price-info-item"><p class="tariff___price">'+data.prices[i].value +' '+tmp+'</p>'+
-                                    '<h4>'+(data.prices[i].level + 1)+' уровень</h4></div>';
+                                prices += '<div class="price-info-item"><p class="tariff___price">' + data.prices[i].value + ' ' + tmp + '</p>' +
+                                    '<h4>' + (data.prices[i].level + 1) + ' уровень</h4></div>';
 
                             });
                             $(".info-carousel").html(prices);
 
-                            if(scrollPosition < 343){
+                            if (scrollPosition < 343) {
                                 $('html, body').animate({
                                     scrollTop: $(document).height()
                                 }, 1000);
@@ -153,8 +162,8 @@
                         items: 3
                     }
                 },
-                onInitialized: function(e) {
-                    if(this.items().length > 3){
+                onInitialized: function (e) {
+                    if (this.items().length > 3) {
                         is_three = true;
                     }
                 }
@@ -162,21 +171,27 @@
 
             var left_position = 0;
 
-            if(is_three){
+            if (is_three) {
                 $(".rate-carousel").on('mouseenter', function () {
                     left_position = $(".rate-carousel .owl-stage").position().left;
-                    if(left_position == 0){
+                    if (left_position == 0) {
                         left_position = left_position - 50;
-                        $(".rate-carousel .owl-stage").css({"transform": "translate3d("+(left_position)+"px, 0px, 0px)", "transition": "transform 1s linear"});
+                        $(".rate-carousel .owl-stage").css({
+                            "transform": "translate3d(" + (left_position) + "px, 0px, 0px)",
+                            "transition": "transform 1s linear"
+                        });
                     }
                 });
                 $(".rate-carousel").on('mouseleave', function () {
                     left_position = $(".rate-carousel .owl-stage").position().left;
-                    if(left_position == -50){
-                        $(".rate-carousel .owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "transform 1s linear"});
-                    }});
+                    if (left_position == -50) {
+                        $(".rate-carousel .owl-stage").css({
+                            "transform": "translate3d(0px, 0px, 0px)",
+                            "transition": "transform 1s linear"
+                        });
+                    }
+                });
             }
-
 
 
         });

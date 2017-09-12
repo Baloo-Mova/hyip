@@ -43,6 +43,8 @@ class Test extends Command
      */
     public function handle()
     {
-
+        $user = User::find(5286);
+        Mail::to($user->email)
+            ->send(new SubmitEmail($user));
     }
 }

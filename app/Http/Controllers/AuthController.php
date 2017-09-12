@@ -113,24 +113,14 @@ class AuthController extends Controller
 
         ]);
 
+
+        $user->createPassportData();
+
         Mail::to($user->email)
             ->send(new SubmitEmail($user));
 
         if (isset($referral_id)) {
-            while (true) {
-
-                if (!isset($user->referral_id)) {
-                    break;
-                }
-
-                $ref = $user->referrer;
-                if (!isset($ref)) {
-                    break;
-                }
-
-                $ref->addReferr();
-                $user = $ref;
-            }
+            $user->incrementReferrers();
         }
 
         \Auth::guard('users')->attempt([

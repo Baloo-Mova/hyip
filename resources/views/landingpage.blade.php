@@ -192,7 +192,7 @@
                                     {{ $rate['description'] }}
                                 </p>
                             </div>
-                            <a href="{{ url('register') }}" class="btn btn-success btn-md">Подписаться</a>
+                            <a href="{{ route('tariff.payment',['id'=>$tariff['id']]) }}" class="btn btn-success btn-md">Подписаться</a>
                         </div>
                     @endforeach
                 </div>
@@ -300,33 +300,6 @@
                         <button type="submit" class="btn btn-success">Отправить</button>
                     </div>
                 </form>
-
-                {{--{!! Form::open(['route' => 'create-feedback', 'class' => 'form']) !!}--}}
-                {{--<div class="form-group @if( is_error('name') )has-error @endif">--}}
-                {{--{!! Form::label('name', 'Имя') !!}--}}
-                {{--{!! Form::text('name', '', ['placeholder' => 'Ваше имя', 'id' => 'name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
-                {{--@if( is_error('name') )--}}
-                {{--<span class="help-block">{{ $errors->first('name') }}</span>--}}
-                {{--@endif--}}
-                {{--</div>--}}
-                {{--<div class="form-group @if( is_error('email') )has-error @endif">--}}
-                {{--{!! Form::label('email', 'Email') !!}--}}
-                {{--{!! Form::email('email', '', ['placeholder' => 'email@example.com', 'id' => 'email', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required']) !!}--}}
-                {{--@if( is_error('email') )--}}
-                {{--<span class="help-block">{{ $errors->first('email') }}</span>--}}
-                {{--@endif--}}
-                {{--</div>--}}
-                {{--<div class="form-group @if( is_error('question') )has-error @endif">--}}
-                {{--{!! Form::label('question', 'Вопрос') !!}--}}
-                {{--{!! Form::textarea('question', '', ['rows' => '2', 'id' => 'question', 'class' => 'form-control contacts__textarea', 'required' => 'required']) !!}--}}
-                {{--@if( is_error('question') )--}}
-                {{--<span class="help-block">{{ $errors->first('question') }}</span>--}}
-                {{--@endif--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                {{--{!! Form::button('Отправить', ['class' => 'btn btn-success']) !!}--}}
-                {{--</div>--}}
-                {{--{!! Form::close() !!}--}}
             </div>
         </div>
     </div>

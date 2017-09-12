@@ -11,11 +11,11 @@ class TariffController extends Controller
     {
         $tariffs = Subscription::where('is_active', 1)->with(['firstPrices'])->get();
         $tariff = Subscription::find($id);
-        if(isset($tariff)){
+        if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;
         }
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -38,16 +38,22 @@ class TariffController extends Controller
 
     public function pay(Request $request, $id)
     {
-        if( empty($id) || !is_numeric($id) || !($subscription = Subscription::find($id)) ) {
-            return redirect()->route('tariff', ['id' => -1])->withErrors('Тариф не найден');
+        $subscription = Subscription::with(['prices'])->find($id);
+
+        if (!isset($subscription) || $subscription->is_active == 0) {
+            return back()->withErrors(['Тариф не найден']);
         }
+
+        $user = \Auth::user();
+
         dd($subscription);
+
     }
 
     public function getTariffInfo($id)
     {
         $tariff = Subscription::find($id);
-        if(!isset($tariff)){
+        if (!isset($tariff)) {
             return false;
         }
         $prices = $tariff->firstPrices->toArray();

@@ -33,7 +33,8 @@
                     @if(Session::get('errors'))
                         <div class="register-form__inputs hide-on-click">
                             <div class="alert alert-danger alert-dismissable btn-flat">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
                                 <ul>
                                     @foreach($errors->all() as $message)
                                         <li>{{$message}}</li>
@@ -78,7 +79,8 @@
                         <div class="form-group has-feedback {{ $errors->has('confirm_regulations') ? 'has-error' : false }}">
                             <label for="">
                                 <input type="checkbox" name="confirm_regulations" class="confirm_regulations">
-                                Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a href="{{ route('terms.of.use') }}" target="_blank" class="red-text">текста</a>
+                                Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a
+                                        href="{{ route('terms.of.use') }}" target="_blank" class="red-text">текста</a>
                             </label>
                         </div>
                         {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
@@ -99,6 +101,11 @@
 
 @section('css')
     <style>
+        body {
+            padding-top: 50px !important;
+            padding-bottom: 0px !important;
+        }
+
         .form-signin {
             width: 100%;
             padding: 0px;
@@ -120,16 +127,16 @@
 @section('js')
     <script>
         $(document).ready(function () {
-           /* $(".register-button").prop("disabled", true);
-           $(".confirm_regulations").on("change", function () {
-               var state = $(this).prop("checked");
-               if(state){
-                   $(".register-button").prop("disabled", false);
-               }else{
-                   $(".register-button").prop("disabled", true);
-               }
-           });*/
-            $(".close").on("click", function(){
+            /* $(".register-button").prop("disabled", true);
+            $(".confirm_regulations").on("change", function () {
+                var state = $(this).prop("checked");
+                if(state){
+                    $(".register-button").prop("disabled", false);
+                }else{
+                    $(".register-button").prop("disabled", true);
+                }
+            });*/
+            $(".close").on("click", function () {
                 $(".hide-on-click").hide();
             });
         });
