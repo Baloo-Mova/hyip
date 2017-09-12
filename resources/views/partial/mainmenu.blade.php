@@ -39,7 +39,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input') }}">Пополнить счет</a></li>
                         <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('output') }}">Вывести средства</a></li>
-                        <li><a href="{{ Auth::check() ? route('tariff') : route('about.tariffs', ['id' => null]) }}">Тарифы</a></li>
+                        <li><a href="{{ Auth::check() ? route('tariff', ['id' => -1]) : route('about.tariffs', ['id' => -1]) }}">Тарифы</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
@@ -112,7 +112,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input') }}">Пополнить счет</a></li>
                         <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('output') }}">Вывести средства</a></li>
-                        <li><a href="{{ Auth::check() ? route('tariff') : route('about.tariffs', ['id' => null]) }}">Тарифы</a></li>
+                        <li><a href="{{ Auth::check() ? route('tariff', ['id' => -1]) : route('about.tariffs', ['id' => -1]) }}">Тарифы</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>

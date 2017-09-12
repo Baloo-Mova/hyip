@@ -158,6 +158,9 @@ input, input:active, input:hover, input:focus {
     body {
         padding-top: 72px;
     }
+    .rate__img{
+        height: 130px;
+    }
 }
 @media screen and (min-width: 486px) {
     .navbar-nav {
@@ -198,6 +201,9 @@ input, input:active, input:hover, input:focus {
     body {
         padding-top: 72px;
     }
+    .rate__img{
+        height: 130px;
+    }
 }
 @media screen and (min-width: 576px) {
     .navbar-nav {
@@ -237,6 +243,9 @@ input, input:active, input:hover, input:focus {
     }
     body {
         padding-top: 72px;
+    }
+    .rate__img{
+        height: 130px;
     }
 }
 @media screen and (min-width: 750px) {
@@ -280,6 +289,9 @@ input, input:active, input:hover, input:focus {
     body {
         padding-top: 134px;
     }
+    .rate__img{
+        height: 205px;
+    }
 
 }
 .navbar__black{
@@ -313,4 +325,116 @@ input, input:active, input:hover, input:focus {
 .about,
 .steps{
     padding-bottom: 0px;
+}
+
+.tariff___ref-sys,
+.tariff___price,
+.tariff___term{
+    color: #CB4245;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 0;
+}
+.tariff___description{
+    border: 1px solid #e0e0e0;
+    background-color: #fafafa;
+    margin-top: 40px;
+    padding: 20px;
+}
+.tariff___description p{
+    margin-bottom: 0;
+}
+.tariff___name{
+    margin-bottom: 40px;
+}
+.info-carousel{
+    margin-top: 40px;
+}
+.active_tariff{
+    border: 1px solid #00B600 !important;
+    transform: scale(1) !important;
+}
+.rate-carousel-item--info-page{
+    transform: scale(0.97);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.hidden{
+    display: none;
+}
+.tariff__choose:focus{
+    color: #fff;
+}
+#preloader{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999999999999;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background: #333 url('../img/loading.gif') no-repeat center center;
+}
+
+.news__item{
+    padding: 20px 20px;
+    -webkit-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.42);
+    -moz-box-shadow:    2px 2px 8px 0px rgba(50, 50, 50, 0.42);
+    box-shadow:         2px 2px 8px 0px rgba(50, 50, 50, 0.42);
+    margin-bottom: 20px;
+}
+
+.rate-carousel-item,
+.news__item{
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.about-tariff__item{
+    margin-top: 40px;
+    margin-bottom: 50px !important;
+}
+.rate__title h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.rate__wrap{
+    background-color: #FAFAFA;
+}
+.rate__title{
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 50px;
+    padding-top: 2px;
+}
+.rate__footer{
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 55px;
+    padding-top: 10px;
+}
+.rate__body{
+    width: 100%;
+    padding: 5px;
+}
+.rate__body hr{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+.rate__price{
+    color: #CB4245;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 0;
+}
+.rate__top{
+    background-color: #e0e0e0;
+    width: 100%;
+    height: 10px;
+}
+.rate__img{
+    overflow: hidden;
 }
