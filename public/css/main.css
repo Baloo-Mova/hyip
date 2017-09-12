@@ -371,7 +371,7 @@ section h1{
 
 @media screen and (min-width: 1024px) {
     .news__item{
-        margin-bottom: 0px;
+        margin-bottom: 20px;
     }
     .l-steps [class*="col-"]:not(:last-child)::after {
         content: '';

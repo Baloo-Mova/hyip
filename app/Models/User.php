@@ -96,4 +96,8 @@ class User extends Authenticatable
     public function referrer() {
         return $this->hasOne(User::class, 'id', 'referral_id');
     }
+
+    public function scans(){
+        return $this->hasMany(PassportScans::class, 'user_id', 'id');
+    }
 }

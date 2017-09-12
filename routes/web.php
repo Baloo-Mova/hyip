@@ -69,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile');
+            Route::post('/edit', 'ProfileController@edit')->name('profile.edit');
         });
         Route::group(['prefix' => 'tariff'], function () {
             Route::get('/index/{id}', 'TariffController@index')->name('tariff');
