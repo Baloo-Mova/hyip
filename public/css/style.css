@@ -438,3 +438,6 @@ input, input:active, input:hover, input:focus {
 .rate__img{
     overflow: hidden;
 }
+.no_underline:hover{
+    text-decoration: none;
+}
