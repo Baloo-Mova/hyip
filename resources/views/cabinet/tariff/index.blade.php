@@ -211,13 +211,13 @@
                     left_position = $(".rate-carousel .owl-stage").position().left;
                     if(left_position == 0){
                         left_position = left_position - 100;
-                        $(".rate-carousel .owl-stage").css({"transform": "translate3d("+(left_position)+"px, 0px, 0px)", "transition": "transform 1s linear"});
+                        $(".rate-carousel .owl-stage").css({"transform": "translate3d("+(left_position)+"px, 0px, 0px)", "transition": "transform .1s linear"});
                     }
                 });
                 $(".rate-carousel").on('mouseleave', function () {
                     left_position = $(".rate-carousel .owl-stage").position().left;
                     if(left_position == -100){
-                        $(".rate-carousel .owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "transform 1s linear"});
+                        $(".rate-carousel .owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "transform .1s linear"});
                     }});
             }
 
