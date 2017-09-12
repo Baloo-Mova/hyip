@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class SiteController extends Controller
 {
@@ -12,53 +15,55 @@ class SiteController extends Controller
     {
         return view('guest.need_verify_email');
     }
-    public function index(){
+
+    public function index()
+    {
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
         $data = [
             'carousel' => [
-              [
-                  'img' => 'img/1.jpg',
-                  'caption' => 'Грамотно выстроенная маркетинговая система позволяет заработать всем',
-                  'buttons' => [
-                      [
-                          'title' => 'Регистрация',
-                          'link'  => route('register'),
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ]
-                  ]
-              ],
-              [
-                  'img' => 'img/2.jpg',
-                  'caption' => 'Содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
-                  'buttons' => [
-                      [
-                          'title' => 'Регистрация',
-                          'link'  => route('register'),
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ],
-                      [
-                          'title' => 'Узнать как',
-                          'link'  => route('about'),
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ]
-                  ]
-              ],
-              [
-                  'img' => 'img/3.jpg',
-                  'caption' => 'Ничего не надо продавать или покупать, просто делайте деньги',
-                  'buttons' => [
-                      [
-                          'title' => 'Регистрация',
-                          'link'  => route('register'),
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ],
-                      [
-                          'title' => 'Подробнее',
-                          'link'  => route('about'),
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ]
-                  ]
-              ],
+                [
+                    'img' => 'img/1.jpg',
+                    'caption' => 'Грамотно выстроенная маркетинговая система позволяет заработать всем',
+                    'buttons' => [
+                        [
+                            'title' => 'Регистрация',
+                            'link' => route('register'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ]
+                    ]
+                ],
+                [
+                    'img' => 'img/2.jpg',
+                    'caption' => 'Содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
+                    'buttons' => [
+                        [
+                            'title' => 'Регистрация',
+                            'link' => route('register'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ],
+                        [
+                            'title' => 'Узнать как',
+                            'link' => route('about'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ]
+                    ]
+                ],
+                [
+                    'img' => 'img/3.jpg',
+                    'caption' => 'Ничего не надо продавать или покупать, просто делайте деньги',
+                    'buttons' => [
+                        [
+                            'title' => 'Регистрация',
+                            'link' => route('register'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ],
+                        [
+                            'title' => 'Подробнее',
+                            'link' => route('about'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ]
+                    ]
+                ],
             ],
             'greetings' => [
                 'img' => 'img/1.jpg',
@@ -105,11 +110,11 @@ class SiteController extends Controller
                 'img/brand9.png',
             ],
             'news' => [
-                ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 1]) ],
-                ['title' => 'Новость 2', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 2]) ],
-                ['title' => 'Новость 3', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 1]) ]
+                ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 1])],
+                ['title' => 'Новость 2', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 2])],
+                ['title' => 'Новость 3', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => route('news.show', ['id' => 1])]
             ],
-            'contacts' =>[
+            'contacts' => [
                 'phones' => [
                     '+380661234567',
                     '+380661234567',
@@ -155,11 +160,23 @@ class SiteController extends Controller
         return view('main.index', ['data' => $data]);
     }
 
+    public function addReferral($id)
+    {
+        $user = User::where('ref_link', '=', $id)->first();
+        if (isset($user)) {
+            return redirect(route('index'))->withCookies([
+                Cookie::make('referralId', $user->id, 120)
+            ]);
+        }
+
+        return redirect(route('index'));
+    }
+
     public function about()
     {
         $content = About::find(1);
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -182,11 +199,11 @@ class SiteController extends Controller
     {
         $tariffs = Subscription::with(['firstPrices'])->get();
         $tariff = Subscription::find($id);
-        if(isset($tariff)){
+        if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;
         }
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -210,7 +227,7 @@ class SiteController extends Controller
     public function input()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -229,7 +246,7 @@ class SiteController extends Controller
     public function output()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -248,7 +265,7 @@ class SiteController extends Controller
     public function stock()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -284,7 +301,8 @@ class SiteController extends Controller
         return view('main.stock', ['data' => $data]);
     }
 
-    public function newsShow($id){
+    public function newsShow($id)
+    {
         $news = [
             1 => [
                 'id' => 1,
@@ -316,7 +334,7 @@ class SiteController extends Controller
         ];
         $data = [
             'news' => $news[$id],
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -369,7 +387,7 @@ class SiteController extends Controller
                     'img' => 'img/2.jpg'
                 ]
             ],
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -408,7 +426,7 @@ class SiteController extends Controller
     public function contacts()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -447,7 +465,7 @@ class SiteController extends Controller
     public function questions()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -486,7 +504,7 @@ class SiteController extends Controller
     public function regulations()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -525,7 +543,7 @@ class SiteController extends Controller
     public function termsOfUse()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -564,7 +582,7 @@ class SiteController extends Controller
     public function privacyPolicy()
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [

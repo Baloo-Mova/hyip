@@ -60,7 +60,7 @@
                 </div>
             </div>
         <div class="register__add-buttons text-center">
-            <a href="{{ route('index') }}">Забыли пароль?</a>
+            <a href="{{ route('index') }}">Назад</a>
         </div>
     </div>
 

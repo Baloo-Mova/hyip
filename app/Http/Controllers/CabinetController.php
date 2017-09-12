@@ -7,12 +7,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 use Auth, Validator;
+
 class CabinetController extends Controller
 {
     public function index(Request $request)
     {
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
                     'links' => [
                         'vk' => [
@@ -45,10 +46,17 @@ class CabinetController extends Controller
                 ]
             ]
         ];
-        return view('cabinet.index', [
+
+        $response = view('cabinet.index', [
             'user' => \Auth::user(),
             'data' => $data
         ]);
+
+        if (Auth::user()->status == 0) {
+            $response = $response->withErrors(['email' => 'Ваш email не подтвержден!']);
+        }
+        
+        return $response;
     }
 
     public function userUpdate(Request $request)
@@ -68,8 +76,8 @@ class CabinetController extends Controller
             $data = file_get_contents($path);
             $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             Passport::create([
-                'user_id'   => $user_id,
-                'img'       => $base64,
+                'user_id' => $user_id,
+                'img' => $base64,
             ]);
         }
 

@@ -1,4 +1,4 @@
-@if(Session::get('errors'))
+@if($errors->count() > 0)
     <div class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <ul>

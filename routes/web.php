@@ -16,6 +16,7 @@ Route::get('/payeer_395290401.txt', function () {
 });
 
 Route::get('/', "SiteController@index")->name('index');
+Route::get('/referral/{id}', "SiteController@addReferral")->name('ref.add');
 Route::get('/about', "SiteController@about")->name('about');
 Route::get('/stock', "SiteController@stock")->name('stock');
 Route::get('/news', "SiteController@news")->name('news');
@@ -34,14 +35,12 @@ Route::post('/feedback/create', 'FeedbackController@create')->name('create-feedb
 Route::get('/need-verify-email', "SiteController@needVerifyEmail")->name('need.verify.email');
 Route::get('/facilities/result/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
 Route::post('/facilities/status', 'FacilitiesController@statusResult')->name('facilities.refill.result.post');
+Route::get('/submit/{id}/{token}', ['uses' => 'AuthController@submitEmail', 'as' => 'submit.email']);
 
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
-
         Route::get('/', 'AuthController@registerForm')->name('register');
-        Route::get('/{token}', 'AuthController@registerForm')->name('register.referral');
         Route::post('/', 'AuthController@register');
-
     });
 
     Route::group(['prefix' => 'login'], function () {
@@ -50,8 +49,7 @@ Route::group(['middleware' => 'guest'], function () {
     });
 });
 
-Route::group(['middleware' => 'auth'], function () {
-
+Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'cabinet'], function () {
         Route::get('/', 'CabinetController@index')->name('cabinet');
         Route::get('/referrals', 'ReferralController@index')->name('referrals');
