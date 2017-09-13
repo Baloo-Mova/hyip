@@ -22,7 +22,8 @@ class SiteController extends Controller
     public function index()
     {
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
+        $shares = SocialNetwork::share()->get();
         $news = Article::orderBy('updated_at', 'asc')->limit(3)->get();
         $data = [
             'carousel' => [
@@ -128,26 +129,7 @@ class SiteController extends Controller
                 ],
                 'social' => [
                     'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'ico' => 'demo-icon icon-vk vk_color', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'ico' => 'demo-icon icon-fb fb_color', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'ico' => 'demo-icon icon-ok ok_color', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'ico' => 'demo-icon icon-tw tw_color', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'ico' => 'demo-icon icon-tl tl_color', 'link' => 'http://google.com.ua'
-                        ],
-                        'ins' => [
-                            'ico' => 'demo-icon icon-ins ins_color', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'share' => $shares
                 ]
             ]
         ];
@@ -169,7 +151,7 @@ class SiteController extends Controller
     public function about()
     {
         $content = About::find(1);
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
         $data = [
             'contacts' => [
                 'social' => [
@@ -187,7 +169,7 @@ class SiteController extends Controller
     {
         $tariffs = Subscription::with(['firstPrices'])->get();
         $tariff = Subscription::find($id);
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
         if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;
         }
@@ -208,7 +190,7 @@ class SiteController extends Controller
 
     public function inputOutput($type)
     {
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
         $data = [
             'input' => [
                 'title' => 'Пополнить счет',
@@ -229,8 +211,10 @@ class SiteController extends Controller
 
     public function stock()
     {
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
+        $stock = Article::stock()->orderBy('updated_at', 'asc')->paginate(10);
         $data = [
+            'stock' => $stock,
             'contacts' => [
                 'social' => [
                     'links' => $social,
@@ -260,75 +244,55 @@ class SiteController extends Controller
         return view('main.stock', ['data' => $data]);
     }
 
-    public function newsShow($id)
+    public function stockShow($uri)
     {
-        $social = SocialNetwork::all()->toArray();
-        $news = Article::find($id);
+        $social = SocialNetwork::link()->get();
+        $stock = Article::whereUri($uri)->first();
+        if(!isset($stock)){
+            return redirect(route('stock'))
+                ->withErrors('Записи с таким ID не существует!')
+                ->withInput();
+        }
+        $data = [
+            'article' => $stock,
+            'contacts' => [
+                'social' => [
+                    'links' => $social
+                ]
+            ]
+        ];
+        return view('main.article', ['data' => $data]);
+    }
+
+    public function newsShow($uri)
+    {
+        $news = Article::whereUri($uri)->first();
+        $social = SocialNetwork::link()->get();
         if(!isset($news)){
             return redirect(route('news'))
                 ->withErrors('Записи с таким ID не существует!')
                 ->withInput();
         }
         $data = [
-            'news' => $news,
+            'article' => $news,
             'contacts' => [
                 'social' => [
-                    'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
-        return view('main.newsShow', ['data' => $data]);
+        return view('main.article', ['data' => $data]);
     }
 
     public function news()
     {
-        $social = SocialNetwork::all()->toArray();
-        $news = Article::paginate(10);
+        $social = SocialNetwork::link()->get();
+        $news = Article::blog()->orderBy('updated_at', 'asc')->paginate(10);
         $data = [
             'news' => $news,
             'contacts' => [
                 'social' => [
-                    'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -337,31 +301,13 @@ class SiteController extends Controller
 
     public function contacts()
     {
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
+        $shares = SocialNetwork::share()->get();
         $data = [
             'contacts' => [
                 'social' => [
                     'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'share' => $shares
                 ]
             ]
         ];
@@ -371,7 +317,7 @@ class SiteController extends Controller
     public function questions()
     {
         $faq = FAQ::paginate(15);
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
 
         $data = [
             'contacts' => [
@@ -389,31 +335,11 @@ class SiteController extends Controller
 
     public function regulations()
     {
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -422,31 +348,11 @@ class SiteController extends Controller
 
     public function termsOfUse()
     {
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -455,31 +361,11 @@ class SiteController extends Controller
 
     public function privacyPolicy()
     {
-        $social = SocialNetwork::all()->toArray();
+        $social = SocialNetwork::link()->get();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];

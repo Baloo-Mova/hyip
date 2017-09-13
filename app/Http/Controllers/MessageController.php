@@ -17,31 +17,11 @@ class MessageController extends Controller
     public function index() {
         //TODO я писал логику получения сообщений в модели пользователя; пример отображения есть в ЛК пользователя;
         $messages = Message::where(['to_user' => \Auth::user()->id])->get();
-        $social = SocialNetwork::all();
+        $social = SocialNetwork::link()->get();
         $data = [
             'contacts' =>[
                 'social' => [
-                    'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];

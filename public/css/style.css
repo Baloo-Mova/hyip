@@ -518,4 +518,5 @@ input, input:active, input:hover, input:focus {
 .news__item--new{
     display: inline-block;
     float: none !important;
+    width: 32.333% !important;
 }

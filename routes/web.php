@@ -19,8 +19,9 @@ Route::get('/', "SiteController@index")->name('index');
 Route::get('/referral/{id}', "SiteController@addReferral")->name('ref.add');
 Route::get('/about', "SiteController@about")->name('about');
 Route::get('/stock', "SiteController@stock")->name('stock');
+Route::get('/stock-show/{uri}', "SiteController@stockShow")->name('stock.show');
 Route::get('/news', "SiteController@news")->name('news');
-Route::get('/news-show/{id}', "SiteController@newsShow")->name('news.show');
+Route::get('/news-show/{uri}', "SiteController@newsShow")->name('news.show');
 Route::get('/questions', "SiteController@questions")->name('questions');
 Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
@@ -110,12 +111,11 @@ Route::group([
 
         Route::group(['prefix' => 'social-networks'], function () {
             Route::get('/', 'SocialNetworkController@index')->name('admin.social-networks.list');
-            Route::post('add', 'SocialNetworkController@postAdd');
-            Route::get('add', 'SocialNetworkController@getAdd')->name('admin.social-networks.add');
-            Route::get('{id}', 'SocialNetworkController@getEdit')->name('admin.social-networks.get');
-            Route::post('{id}', 'SocialNetworkController@postEdit');
-            Route::get('delete/{id}', 'SocialNetworkController@delete');
-            Route::get('image-delete/{id}/{type}', 'SocialNetworkController@imageDelete');
+            Route::get('/add', 'SocialNetworkController@add')->name('admin.social-networks.add');
+            Route::post('/add', 'SocialNetworkController@save')->name('admin.social-networks.save');
+            Route::get('/edit/{id}', 'SocialNetworkController@edit')->name('admin.social-networks.get');
+            Route::post('/update/{id}', 'SocialNetworkController@update')->name('admin.social-networks.edit.save');
+            Route::get('/delete/{id}', 'SocialNetworkController@delete')->name('admin.social-networks.delete');
         });
 
         Route::group(['prefix' => 'faq'], function () {

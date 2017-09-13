@@ -40,11 +40,13 @@ class BlogController extends BaseController
 
             \Image::make($image->getRealPath())
                 ->resize(300, 200)
-                ->save(public_path('/media/uploads/blog') . '/prev-' . $filename, 60);
+                ->save(storage_path('/media/uploads/blog') . '/prev-' . $filename, 60);
 
             $article->photo     = $filename;
             $article->preview   = 'prev-' . $filename;
         }
+
+        $article->type_id = $request->has('is_stock') ? 2 : 1;
 
         $article->fill([
             'title'     => $request->get('title'),

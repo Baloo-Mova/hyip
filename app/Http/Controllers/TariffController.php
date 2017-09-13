@@ -13,7 +13,7 @@ class TariffController extends Controller
     {
         $tariffs = Subscription::where('is_active', 1)->with(['firstPrices'])->get();
         $tariff = Subscription::find($id);
-        $social = SocialNetwork::all();
+        $social = SocialNetwork::link()->get();
         if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;
         }

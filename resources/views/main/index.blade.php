@@ -218,7 +218,7 @@
                             <div class="overflow news__overflow">
                                 <p>{!!  $news['content'] !!}</p>
                             </div>
-                            <a href="{{ route('news.show', ['id' => $news['id']]) }}" class="about__link">Читать далее...</a>
+                            <a href="{{ route('news.show', ['uri' => $news['uri']]) }}" class="about__link">Читать далее...</a>
                         </div>
                     </div>
                 @endforeach
@@ -267,8 +267,8 @@
                         <div class="col-xs-12 col-md-6">
                             <h4>Поделиться:</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
-                                <a href="{{ $soc['link'] }}" class="no_underline">
-                                    <i class="{{ $soc['ico'] }} contacts_ico"></i>
+                                <a href="{{ $soc->link }}" class="no_underline">
+                                    <i class="{{ $soc->icon }} contacts_ico"></i>
                                 </a>
                             @endforeach
                         </div>

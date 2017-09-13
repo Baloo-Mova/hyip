@@ -69,6 +69,15 @@
                 @endif
             </div>
 
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="is_stock">
+                    <input type="checkbox" name="is_stock">
+                    Акция
+                </label>
+            </div>
+        </div>
+
             <div class="col-md-12" style="margin-top: 25px;">
                 {!! Form::customButton('Save', 'btn btn-primary', 'fa-floppy-o') !!}
             </div>

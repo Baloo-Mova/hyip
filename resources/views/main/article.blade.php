@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>{{ $data['news']['title'] }}</h1>
+                <h1>{{ $data['article']['title'] }}</h1>
                 <hr>
             </div>
         </div>
@@ -13,7 +13,7 @@
                 <div class="col-xs-12">
                     <div class="news-show__text">
                         <p>
-                            {!!  $data['news']['content'] !!}
+                            {!!  $data['article']['content'] !!}
                         </p>
                     </div>
                 </div>

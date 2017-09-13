@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetwork whereLink($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetwork whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetwork whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetwork whereTypeId($value)
  * @mixin \Eloquent
  */
 class SocialNetwork extends Model
@@ -37,5 +38,16 @@ class SocialNetwork extends Model
         'black_img',
         'is_active',
         'icon',
+        'type_id',
     ];
+
+    public function scopeLink()
+    {
+        return $this->whereTypeId(1);
+    }
+
+    public function scopeShare()
+    {
+        return $this->whereTypeId(2);
+    }
 }

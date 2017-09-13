@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUri($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereTypeId($value)
  * @mixin \Eloquent
  */
 class Article extends Model
@@ -39,11 +40,22 @@ class Article extends Model
         'photo',
         'preview',
         'published',
+        'type_id'
     ];
 
 
     public function scopePublished()
     {
         return $this->wherePublished(1);
+    }
+
+    public function scopeBlog()
+    {
+        return $this->whereTypeId(1);
+    }
+
+    public function scopeStock()
+    {
+        return $this->whereTypeId(2);
     }
 }
