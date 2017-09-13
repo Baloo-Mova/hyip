@@ -83,6 +83,9 @@ section h1{
 .news__overflow{
     height: 105px;
 }
+.news__overflow{
+    margin-bottom: 20px;
+}
 
 .video_container{
     overflow: hidden;
@@ -490,8 +493,10 @@ section h1{
 .news__description h4{
     margin-top: 0;
 }
-.news-show__img img{
-    width: 100%;
+.news-show__img{
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 .news-show__text{
     margin-top: 20px;

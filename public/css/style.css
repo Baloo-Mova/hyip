@@ -515,3 +515,7 @@ input, input:active, input:hover, input:focus {
     color: #CB4245;
     font-weight: bold;
 }
+.news__item--new{
+    display: inline-block;
+    float: none !important;
+}

@@ -15,14 +15,14 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-3">
                                 <div class="news_title">
-                                    <img src="{{ $news['img'] }}" alt="">
+                                    <img src="{{ asset('media/uploads/blog').'/'.$news['preview'] }}" alt="">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-9">
                                 <div class="news__description">
                                     <h4>{{ $news['title'] }}</h4>
                                     <p>
-                                        {{ $news['text'] }}
+                                        {!!  $news['content'] !!}
                                         <a href="{{ route('news.show', ['id' => $news['id']]) }}" class="red-text">подробнее</a>
                                     </p>
                                 </div>

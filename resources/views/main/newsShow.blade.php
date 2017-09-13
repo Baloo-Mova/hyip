@@ -5,19 +5,16 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>{{ $data['news']['title'] }}</h1>
+                <hr>
             </div>
         </div>
         <div class="row">
             <div class="news-show__item">
                 <div class="col-xs-12">
-                    <div class="news-show__img">
-                        <img src="{{ asset($data['news']['img']) }}" alt="" class="">
-                    </div>
-                </div>
-                <div class="col-xs-12">
                     <div class="news-show__text">
                         <p>
-                            {{ $data['news']['text'] }}
+                            <img src="{{ asset('media/uploads/blog').'/'.$data['news']['preview'] }}" alt="" class="news-show__img">
+                            {!!  $data['news']['content'] !!}
                         </p>
                     </div>
                 </div>

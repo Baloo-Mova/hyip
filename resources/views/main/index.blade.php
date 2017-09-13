@@ -210,15 +210,15 @@
                     <h1>Новости</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                 @foreach($data['news'] as $news)
-                    <div class="col-xs-12 col-md-4">
+                    <div class="col-xs-12 col-md-4 text-center news__item--new">
                         <div class="news__item">
                             <h4>{{ $news['title'] }}</h4>
                             <div class="overflow news__overflow">
-                                <p>{{ $news['description'] }}</p>
+                                <p>{!!  $news['content'] !!}</p>
                             </div>
-                            <a href="{{ $news['link'] }}" class="about__link">Читать далее...</a>
+                            <a href="{{ route('news.show', ['id' => $news['id']]) }}" class="about__link">Читать далее...</a>
                         </div>
                     </div>
                 @endforeach
