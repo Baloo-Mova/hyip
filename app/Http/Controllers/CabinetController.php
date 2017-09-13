@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Cabinet\UserUpdateRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Auth, Validator;
@@ -49,7 +50,8 @@ class CabinetController extends Controller
 
         $response = view('cabinet.index', [
             'user' => \Auth::user(),
-            'data' => $data
+            'data' => $data,
+            'payedForDiff' =>Carbon::now()->diff(Carbon::parse(Auth::user()->subscribedFor))
         ]);
 
         if (Auth::user()->status == 0) {

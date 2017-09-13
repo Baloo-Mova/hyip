@@ -163,6 +163,10 @@ Route::group([
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UserController@index')->name('admin-users-list');
+        Route::get('/{id}/remove', ['uses' => 'UserController@remove', 'as' => 'admin-users-delete']);
+        Route::get('/{id}/edit', ['uses' => 'UserController@edit', 'as' => 'admin-users-edit']);
+        Route::post('/{id}/edit', ['uses' => 'UserController@update', 'as' => 'admin-users-update']);
+        Route::get('/{id}/ban/{type}', ['uses' => 'UserController@ban', 'as' => 'admin-users-ban']);
     });
 
     Route::group(['prefix' => 'sending-messages'], function () {

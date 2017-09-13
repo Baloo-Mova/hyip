@@ -11,6 +11,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        try {
+            \App\Models\WalletProcessesType::insert([
+                'id' => 1,
+                'name' => 'Рефферальные начисления'
+            ]);
+        } catch (Exception $ex) {
+        }
     }
 }

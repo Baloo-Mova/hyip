@@ -10,7 +10,7 @@
                 @if(isset($user->subscribe_id))
                     <li>Ваш тариф: {{$user->subscription->name}}</li>
                     <li title="Срок действия тарифа">
-                        Тариф истечет через: {{ date('d H:i:s',strtotime($user->subscribedFor) - time()) }}
+                        Тариф истечет через: {{ $payedForDiff->days. '  '.$payedForDiff->h.':'.$payedForDiff->i }}
                     </li>
                 @else
                     <li>Тариф отсутствует</li>

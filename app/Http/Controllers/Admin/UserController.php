@@ -21,35 +21,71 @@ class UserController extends BaseController
 
     public function index()
     {
-        $referrals  = [];
-        $levels     = [];
-        $users      = User::all();
-
-        foreach ($users as $user) {
-            $count = get_referrals_count($user->id, $users);
-            if (!empty($referrals[$count])) {
-                $referrals[$count] = $referrals[$count] + 1;
-            } else {
-                $referrals[$count] = 1;
-            }
-
-            $level = get_referral_level($user->id, $users);
-            foreach ($level as $key => $item) {
-                if (!empty($levels[$key])) {
-                    $levels[$key] = $levels[$key] + $item;
-                } else {
-                    $levels[$key] = $item;
-                }
-
-            }
-        }
-        unset($referrals[0]);
-        ksort($referrals);
 
         return view('Admin::' . $this->_view . '.list', [
-            'referrals' => $referrals,
-            'levels'    => $levels
+            'users' => $this->_model->paginate(25),
         ]);
+    }
+
+    public function remove($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return back();
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('Admin::' . $this->_view . '.edit', [
+            'user' => $user,
+            'banState' => [
+                [
+                    'id' => 0,
+                    'name' => 'No'
+                ],
+                [
+                    'id' => 1,
+                    'name' => 'Yes'
+                ]
+            ],
+            'roles' => [
+                [
+                    'id' => 1,
+                    'name' => "User",
+                ],
+                [
+                    'id' => 2,
+                    'name' => "Admin"
+                ]
+            ]
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->fill($request->all());
+        $user->save();
+
+
+        \Session::flash('messages', ['Edit Successful']);
+        return back();
+    }
+
+    public function ban(Request $request, $id, $type)
+    {
+        $user = User::findOrFail($id);
+
+        $user->is_banned = $type;
+        $user->save();
+
+        return redirect(route('admin-users-list'));
+
     }
 
 

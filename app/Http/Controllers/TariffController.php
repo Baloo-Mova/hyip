@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TariffController extends Controller
@@ -46,8 +47,24 @@ class TariffController extends Controller
 
         $user = \Auth::user();
 
-        dd($subscription);
 
+        if ($user->balance < $subscription->price) {
+            return back()->withErrors([
+                'Не достаточно средств. <a href="' . route('facilities', ['type' => 'input']) . '">Пополните</a> пожалуйста счет.'
+            ]);
+        }
+
+        $user->payToReferrals($subscription);
+        $user->subscribedFor = $user->subscribe_id != $subscription->id ?
+            Carbon::now()->addDays($subscription->term) :
+            Carbon::parse($user->subscribedFor)->addDays($subscription->term);
+        $user->subscribe_id = $subscription->id;
+        $user->balance = $user->balance - $subscription->price;
+        $user->save();
+
+        \Session::flash('messages', ['Вы успешно подписались на тариф ' . $subscription->name . '. Приятного заработка!']);
+
+        return redirect(route('tariff', ['index' => -1]));
     }
 
     public function getTariffInfo($id)
