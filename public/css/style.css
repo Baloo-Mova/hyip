@@ -168,6 +168,11 @@ input, input:active, input:hover, input:focus {
         width: 92%;
         margin-bottom: 10px;
     }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
+    }
 }
 @media screen and (min-width: 486px) {
     .navbar-nav {
@@ -217,6 +222,11 @@ input, input:active, input:hover, input:focus {
     .rate-carousel__button{
         width: 92%;
         margin-bottom: 10px;
+    }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
     }
 }
 @media screen and (min-width: 576px) {
@@ -268,6 +278,11 @@ input, input:active, input:hover, input:focus {
         width: 92%;
         margin-bottom: 10px;
     }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
+    }
 }
 @media screen and (min-width: 750px) {
     .top-main-menu__wrap{
@@ -298,6 +313,11 @@ input, input:active, input:hover, input:focus {
         width: 92%;
         margin-bottom: 10px;
     }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
+    }
 }
 
 
@@ -326,7 +346,10 @@ input, input:active, input:hover, input:focus {
     .rate-carousel__button{
         width: auto;
     }
-
+    .price-info-item {
+        width: 30.333%;
+        margin: 5px 5px;
+    }
 }
 .navbar__black{
     background-color: #1A1A1A;
@@ -479,8 +502,6 @@ input, input:active, input:hover, input:focus {
     border: 1px solid #ddd;
     text-align: center;
     display: inline-block;
-    width: 30.333%;
-    margin: 5px 5px;
     padding: 10px;
 }
 .price-info__wrap{

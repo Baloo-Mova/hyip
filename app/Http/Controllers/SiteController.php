@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\Article;
 use App\Models\FAQ;
 use App\Models\SocialNetwork;
 use App\Models\User;
@@ -328,21 +329,9 @@ class SiteController extends Controller
     public function news()
     {
         $social = SocialNetwork::all()->toArray();
+        $news = Article::paginate(10);
         $data = [
-            'news' => [
-                0 => [
-                    'id' => 1,
-                    'title' => 'Новость 1',
-                    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    'img' => 'img/1.jpg'
-                ],
-                1 => [
-                    'id' => 2,
-                    'title' => 'Новость 2',
-                    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    'img' => 'img/2.jpg'
-                ]
-            ],
+            'news' => $news,
             'contacts' => [
                 'social' => [
                     'links' => $social,
