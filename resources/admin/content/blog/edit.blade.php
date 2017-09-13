@@ -223,8 +223,8 @@ $(function() {
     @endif
 
     //    CKEDITOR.replace('edit-form-announcement');
-    CKEDITOR.replace('edit-form-content', {contentsCss: "{{ url( elixir('css/ts_main.css') ) }}"});
-
+    CKEDITOR.replace('edit-form-content', {
+        contentsCss: "{{ url( elixir('css/ts_main.css') ) }}"});
 });
 
 </script>

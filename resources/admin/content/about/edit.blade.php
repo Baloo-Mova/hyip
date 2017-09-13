@@ -45,7 +45,7 @@
                     @if( !empty($item->img) )
                         <div style="width: 110px;">
                             <div style="width: 100px; margin: 0 auto; padding: 0;">
-                                <img src="{{ \Storage::disk('uploads')->url("about/$item->img") }}" width="100px" />
+                                <img src="{{ route('get.image', ['type' => 'about', 'name' => $item->img]) }}" width="100px" />
                             </div>
                             <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteItemImage()">Delete</button>
                         </div>
