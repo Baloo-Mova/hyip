@@ -27,7 +27,7 @@ class SiteController extends Controller
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
         $social = SocialNetwork::link()->get();
         $shares = SocialNetwork::share()->get();
-        $news = Article::orderBy('updated_at', 'asc')->limit(3)->get();
+        $news = Article::blog()->orderBy('updated_at', 'asc')->limit(3)->get();
         $email = Contact::email()->get();
         $phones = Contact::phones()->get();
         $slides = HeaderCarousel::where(['need_show' => 1])->get();
