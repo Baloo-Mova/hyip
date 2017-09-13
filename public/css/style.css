@@ -2,20 +2,23 @@
     height: 25px;
     width: 25px;
 }
+.main-menu__social-link__icon{
+    font-size: 20px;
+}
 .main-menu__social-link{
     display: inline !important;
-    padding: 5px !important;
+    padding: 0px !important;
 }
 .btn-flat{
     border-radius: 0px !important;
 }
 .btn-main-carousel{
-    background-color: #00B600;
-    color: #fff;
+    background-color: #00B600 !important;
+    color: #fff !important;
 }
 .btn-main-carousel:hover{
-    color: #fff;
-    background-color: #009000;
+    color: #fff !important;
+    background-color: #009000 !important;
 }
 .white-text{
     color: #fff !important;
@@ -161,6 +164,15 @@ input, input:active, input:hover, input:focus {
     .rate__img{
         height: 130px;
     }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
+    }
 }
 @media screen and (min-width: 486px) {
     .navbar-nav {
@@ -203,6 +215,18 @@ input, input:active, input:hover, input:focus {
     }
     .rate__img{
         height: 130px;
+    }
+    .reate__price_p{
+        font-size: 13px;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
     }
 }
 @media screen and (min-width: 576px) {
@@ -247,6 +271,18 @@ input, input:active, input:hover, input:focus {
     .rate__img{
         height: 130px;
     }
+    .reate__price_p{
+        font-size: 13px;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
+    }
 }
 @media screen and (min-width: 750px) {
     .top-main-menu__wrap{
@@ -270,6 +306,18 @@ input, input:active, input:hover, input:focus {
     body {
         padding-top: 134px;
     }
+    .reate__price_p{
+        font-size: 13px;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
+    .price-info-item {
+        width: 100%;
+        margin: 5px 5px;
+        margin-left: 0 !important;
+    }
 }
 
 
@@ -292,7 +340,16 @@ input, input:active, input:hover, input:focus {
     .rate__img{
         height: 205px;
     }
-
+    .reate__price_p{
+        font-size: 14px;
+    }
+    .rate-carousel__button{
+        width: auto;
+    }
+    .price-info-item {
+        width: 30.333%;
+        margin: 5px 5px;
+    }
 }
 .navbar__black{
     background-color: #1A1A1A;
@@ -413,7 +470,7 @@ input, input:active, input:hover, input:focus {
 .rate__footer{
     width: 100%;
     background-color: #e0e0e0;
-    height: 55px;
+    min-height: 55px;
     padding-top: 10px;
 }
 .rate__body{
@@ -445,10 +502,20 @@ input, input:active, input:hover, input:focus {
     border: 1px solid #ddd;
     text-align: center;
     display: inline-block;
-    width: 30.333%;
-    margin: 5px 5px;
     padding: 10px;
 }
 .price-info__wrap{
     text-align: center;
+}
+.faq__item{
+    text-align: left;
+}
+.faq__item h4{
+    margin-top: 0;
+    color: #CB4245;
+    font-weight: bold;
+}
+.news__item--new{
+    display: inline-block;
+    float: none !important;
 }

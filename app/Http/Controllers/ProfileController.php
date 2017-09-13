@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use App\Models\SocialNetwork;
 
 class ProfileController extends Controller
 {
@@ -17,17 +18,11 @@ class ProfileController extends Controller
         $user = \Auth::user();
         $passportData = PassportData::where('user_id', '=', $user->id)->first();
         $scans = $user->scans;
+        $social = SocialNetwork::all();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -50,7 +45,7 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'surname' => 'required',
-            'firdname' => 'required',
+            'middleName' => 'required',
             'series' => 'required',
             'number' => 'required',
             'issuedby' => 'required',
@@ -66,7 +61,7 @@ class ProfileController extends Controller
         $pd = [];
         $pd['name'] = $request->get('name');
         $pd['surname'] = $request->get('surname');
-        $pd['firdname'] = $request->get('firdname');
+        $pd['middleName'] = $request->get('middleName');
         $pd['series'] = $request->get('series');
         $pd['number'] = $request->get('number');
         $pd['issuedby'] = $request->get('issuedby');

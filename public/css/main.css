@@ -83,6 +83,9 @@ section h1{
 .news__overflow{
     height: 105px;
 }
+.news__overflow{
+    margin-bottom: 20px;
+}
 
 .video_container{
     overflow: hidden;
@@ -240,7 +243,7 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
     }
     .btn-carousel{
@@ -256,6 +259,9 @@ section h1{
 
     .steps{
         padding-bottom: 12vw;
+    }
+    .price-info-item {
+        width: 100%;
     }
 }
 @media screen and (min-width: 486px) {
@@ -285,7 +291,7 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
     }
     .btn-carousel{
@@ -301,6 +307,9 @@ section h1{
 
     .steps{
         padding-bottom: 12vw;
+    }
+    .price-info-item {
+        width: 100%;
     }
 }
 @media screen and (min-width: 576px) {
@@ -330,7 +339,7 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
     }
     .btn-carousel{
@@ -352,6 +361,9 @@ section h1{
     .steps{
         padding-bottom: 12vw;
     }
+    .price-info-item {
+        width: 100%;
+    }
 }
 @media screen and (min-width: 750px) {
     .btn-carousel{
@@ -365,6 +377,13 @@ section h1{
     }
     .steps{
         padding-bottom: 12vw;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
+    .price-info-item {
+        width: 49%;
     }
 }
 
@@ -461,18 +480,26 @@ section h1{
     .steps{
         padding-bottom: 7vw;
     }
+    .price-info-item {
+        width: 30.333%;
+    }
 }
 .news_title img{
     width: 100%;
 }
 .news__description{
     text-align: left;
+    height: 107px;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 .news__description h4{
     margin-top: 0;
 }
-.news-show__img img{
-    width: 100%;
+.news-show__img{
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 .news-show__text{
     margin-top: 20px;
@@ -535,4 +562,7 @@ section h1{
 .steps{
     position: relative;
     overflow-x: hidden;
+}
+.left-text{
+    text-align: left;
 }

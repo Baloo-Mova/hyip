@@ -6,6 +6,7 @@ use App\Http\Requests\Cabinet\UserUpdateRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\SocialNetwork;
 
 use Auth, Validator;
 
@@ -13,17 +14,11 @@ class CabinetController extends Controller
 {
     public function index(Request $request)
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'

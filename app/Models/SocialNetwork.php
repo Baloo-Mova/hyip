@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $link
+ * @property string $icon
  * @property string|null $img
  * @property string|null $black_img
  * @property int $is_active
@@ -35,5 +36,6 @@ class SocialNetwork extends Model
         'img',
         'black_img',
         'is_active',
+        'icon',
     ];
 }

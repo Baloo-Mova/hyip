@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('/admin-cabinet/dist/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('/admin-cabinet/css/AdminLTE.css')}}">
     <link rel="stylesheet" href="{{asset('/admin-cabinet/css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/social-networks.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

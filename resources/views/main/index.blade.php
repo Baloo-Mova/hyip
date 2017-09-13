@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="rate__body">
                                     <p class="rate__price">Цена: {{ $rate['price'] }}</p>
-                                    <p>Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
+                                    <p class="reate__price_p">Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                     <hr>
                                     @if(isset($rate['first_prices']))
                                         @for($i = 0; $i < 3; $i++)
@@ -210,15 +210,15 @@
                     <h1>Новости</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                 @foreach($data['news'] as $news)
-                    <div class="col-xs-12 col-md-4">
+                    <div class="col-xs-12 col-md-4 text-center news__item--new">
                         <div class="news__item">
                             <h4>{{ $news['title'] }}</h4>
                             <div class="overflow news__overflow">
-                                <p>{{ $news['description'] }}</p>
+                                <p>{!!  $news['content'] !!}</p>
                             </div>
-                            <a href="{{ $news['link'] }}" class="about__link">Читать далее...</a>
+                            <a href="{{ route('news.show', ['id' => $news['id']]) }}" class="about__link">Читать далее...</a>
                         </div>
                     </div>
                 @endforeach
@@ -329,8 +329,7 @@
                 responsiveClass: true,
                 responsive: {
                     0: {
-                        items: 1,
-                        stagePadding: 50
+                        items: 1
                     },
                     600: {
                         items: 3

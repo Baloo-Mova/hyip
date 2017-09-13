@@ -16,7 +16,9 @@
             <ul class="nav navbar-nav top-main-menu__menu_left new_nav hidden-sm hidden-xs" id="menu">
                 <li>
                     @foreach($data['contacts']['social']['links'] as $soc)
-                        <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
+                        <a href="{{ $soc['link'] }}" class="main-menu__social-link">
+                            <i class="{{ $soc['icon'] }} main-menu__social-link__icon"></i>
+                        </a>
                     @endforeach
                 </li>
             </ul>

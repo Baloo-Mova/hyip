@@ -7,22 +7,17 @@ use App\Models\PaymentsRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\SocialNetwork;
 
 class FacilitiesController extends Controller
 {
     public function index($type)
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -34,17 +29,11 @@ class FacilitiesController extends Controller
 
     public function operations()
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
