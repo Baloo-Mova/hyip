@@ -21,7 +21,7 @@
                             </div>
                             <div class="rate__body">
                                 <p class="rate__price">Цена: {{ $tariff['price'] }}</p>
-                                <p>Реферальная
+                                <p class="reate__price_p">Реферальная
                                     система: {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                 <hr>
                                 @if(isset($tariff->firstPrices))
@@ -152,8 +152,7 @@
                 responsiveClass: true,
                 responsive: {
                     0: {
-                        items: 1,
-                        stagePadding: 50
+                        items: 1
                     },
                     600: {
                         items: 3

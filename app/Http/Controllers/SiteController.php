@@ -171,17 +171,11 @@ class SiteController extends Controller
     public function about()
     {
         $content = About::find(1);
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -195,20 +189,14 @@ class SiteController extends Controller
     {
         $tariffs = Subscription::with(['firstPrices'])->get();
         $tariff = Subscription::find($id);
+        $social = SocialNetwork::all()->toArray();
         if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;
         }
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -222,6 +210,7 @@ class SiteController extends Controller
 
     public function inputOutput($type)
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'input' => [
                 'title' => 'Пополнить счет',
@@ -233,14 +222,7 @@ class SiteController extends Controller
             ],
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -249,17 +231,11 @@ class SiteController extends Controller
 
     public function stock()
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
@@ -288,6 +264,7 @@ class SiteController extends Controller
 
     public function newsShow($id)
     {
+        $social = SocialNetwork::all()->toArray();
         $news = [
             1 => [
                 'id' => 1,
@@ -321,14 +298,7 @@ class SiteController extends Controller
             'news' => $news[$id],
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
@@ -357,6 +327,7 @@ class SiteController extends Controller
 
     public function news()
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'news' => [
                 0 => [
@@ -374,14 +345,7 @@ class SiteController extends Controller
             ],
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
@@ -410,17 +374,11 @@ class SiteController extends Controller
 
     public function contacts()
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
@@ -450,18 +408,12 @@ class SiteController extends Controller
     public function questions()
     {
         $faq = FAQ::paginate(15);
+        $social = SocialNetwork::all()->toArray();
 
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -474,17 +426,11 @@ class SiteController extends Controller
 
     public function regulations()
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
@@ -513,17 +459,11 @@ class SiteController extends Controller
 
     public function termsOfUse()
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
@@ -552,17 +492,11 @@ class SiteController extends Controller
 
     public function privacyPolicy()
     {
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'

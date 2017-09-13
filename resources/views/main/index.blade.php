@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="rate__body">
                                     <p class="rate__price">Цена: {{ $rate['price'] }}</p>
-                                    <p>Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
+                                    <p class="reate__price_p">Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                     <hr>
                                     @if(isset($rate['first_prices']))
                                         @for($i = 0; $i < 3; $i++)
@@ -329,8 +329,7 @@
                 responsiveClass: true,
                 responsive: {
                     0: {
-                        items: 1,
-                        stagePadding: 50
+                        items: 1
                     },
                     600: {
                         items: 3

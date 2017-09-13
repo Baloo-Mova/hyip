@@ -240,7 +240,7 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
     }
     .btn-carousel{
@@ -285,7 +285,7 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
     }
     .btn-carousel{
@@ -330,7 +330,7 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
     }
     .btn-carousel{
@@ -365,6 +365,10 @@ section h1{
     }
     .steps{
         padding-bottom: 12vw;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
     }
 }
 

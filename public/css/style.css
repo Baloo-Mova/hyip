@@ -164,6 +164,10 @@ input, input:active, input:hover, input:focus {
     .rate__img{
         height: 130px;
     }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
 }
 @media screen and (min-width: 486px) {
     .navbar-nav {
@@ -206,6 +210,13 @@ input, input:active, input:hover, input:focus {
     }
     .rate__img{
         height: 130px;
+    }
+    .reate__price_p{
+        font-size: 13px;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
     }
 }
 @media screen and (min-width: 576px) {
@@ -250,6 +261,13 @@ input, input:active, input:hover, input:focus {
     .rate__img{
         height: 130px;
     }
+    .reate__price_p{
+        font-size: 13px;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
 }
 @media screen and (min-width: 750px) {
     .top-main-menu__wrap{
@@ -273,6 +291,13 @@ input, input:active, input:hover, input:focus {
     body {
         padding-top: 134px;
     }
+    .reate__price_p{
+        font-size: 13px;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
 }
 
 
@@ -294,6 +319,12 @@ input, input:active, input:hover, input:focus {
     }
     .rate__img{
         height: 205px;
+    }
+    .reate__price_p{
+        font-size: 14px;
+    }
+    .rate-carousel__button{
+        width: auto;
     }
 
 }
@@ -416,7 +447,7 @@ input, input:active, input:hover, input:focus {
 .rate__footer{
     width: 100%;
     background-color: #e0e0e0;
-    height: 55px;
+    min-height: 55px;
     padding-top: 10px;
 }
 .rate__body{
