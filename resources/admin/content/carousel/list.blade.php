@@ -4,11 +4,11 @@
     @include('Admin::alerts')
 
     <div>
-        <a href='{{ route('mainheader.list') }}' class="btn-sm btn-primary pull-right">
+        <a href='{{ route('admin.carousel.add') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
             Add
         </a>
-        <h1 class="sub-header">Contacts</h1>
+        <h1 class="sub-header">Carousel</h1>
     </div>
 
     @if (count($items))
@@ -31,7 +31,7 @@
                         <td>{{ $item->value }}</td>
                         <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                         <td>
-                            <a href='{{ route('mainheader.edit', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href='{{ route('admin.carousel.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;&nbsp;&nbsp;
                             <a onclick="deleteContacts('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
@@ -51,7 +51,7 @@
         <script type="text/javascript">
             var deleteContacts = function( id ) {
                 if( typeof(id) != 'undefined' && id != '' && confirm('Delete a contact?') ) {
-                    document.location.href = "/admin/contacts/delete/" + id;
+                    document.location.href = "/admin/carousel/delete/" + id;
                 }
             };
         </script>

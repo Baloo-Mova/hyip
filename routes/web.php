@@ -93,13 +93,13 @@ Route::group([
     });
 
     Route::group(['namespace' => 'Content'], function () {
-        Route::group(['prefix' => 'main-header'], function () {
-            Route::get('/', 'MainHeaderController@index')->name('mainheader.list');
-            Route::post('/add', 'MainHeaderController@save')->name('mainheader.add.post');
-            Route::get('/add', 'MainHeaderController@add')->name('mainheader.add');
-            Route::get('/edit/{id}', 'MainHeaderController@edit')->name('mainheader.edit');
-            Route::post('/update/{id}', 'MainHeaderController@update')->name('mainheader.update');
-            Route::get('/delete/{id}', 'MainHeaderController@delete')->name('mainheader.delete');
+        Route::group(['prefix' => 'carousel'], function () {
+            Route::get('/', 'CarouselController@index')->name('admin.carousel.list');
+            Route::post('add', 'CarouselController@postAdd');
+            Route::get('add', 'CarouselController@getAdd')->name('admin.carousel.add');
+            Route::get('{id}', 'CarouselController@getEdit')->name('admin.carousel.get');
+            Route::post('{id}', 'CarouselController@postEdit');
+            Route::get('delete/{id}', 'CarouselController@delete');
         });
 
         Route::group(['prefix' => 'social-networks'], function () {
@@ -110,6 +110,15 @@ Route::group([
             Route::post('{id}', 'SocialNetworkController@postEdit');
             Route::get('delete/{id}', 'SocialNetworkController@delete');
             Route::get('image-delete/{id}/{type}', 'SocialNetworkController@imageDelete');
+        });
+
+        Route::group(['prefix' => 'contacts'], function () {
+            Route::get('/', 'ContactController@index')->name('admin.contacts.list');
+            Route::post('add', 'ContactController@postAdd');
+            Route::get('add', 'ContactController@getAdd')->name('admin.contacts.add');
+            Route::get('{id}', 'ContactController@getEdit')->name('admin.contacts.get');
+            Route::post('{id}', 'ContactController@postEdit');
+            Route::get('delete/{id}', 'ContactController@delete');
         });
 
         Route::group(['prefix' => 'faq'], function () {
