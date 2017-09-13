@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -70,6 +71,7 @@ class User extends Authenticatable
         'password',
         'role',
         'balance',
+        'phone',
         'ref_link',
         'referral_id',
         'last_activity',
@@ -184,5 +186,66 @@ class User extends Authenticatable
             $ref->addReferr();
             $user = $ref;
         }
+    }
+
+    public function prices()
+    {
+        return $this->hasMany(SubscriptionPrice::class, 'subscription_id', 'subscribe_id');
+    }
+
+    public function payToReferrals(Subscription $subscription)
+    {
+        $prices = $subscription->prices;
+        if ($this->referral_id == null) {
+            return;
+        }
+
+        $iterator = 0;
+        $userToPay = $this->referrer;
+
+        while (true) {
+            if (!isset($userToPay)) {
+                break;
+            }
+            if ($iterator > count($prices)) {
+                break;
+            }
+
+            if (!isset($userToPay->subscribe_id)) {
+                $userToPay = $userToPay->referrer;
+                continue;
+            }
+            $priceNow = $this->findPriceByLevel($iterator, $userToPay->prices);
+            if (isset($priceNow)) {
+                $toIncrement = $priceNow->is_percent ? ($subscription->price * $priceNow->value) / 100 : $priceNow->value;
+                WalletProcesses::insert([
+                    'wallet_id' => 0,
+                    'type_id' => WalletProcessesType::REFERRAL,
+                    'time' => Carbon::now(),
+                    'value' => $toIncrement,
+                    'from_id' => $this->id,
+                ]);
+                $userToPay->increment('balance', $toIncrement);
+                $userToPay->save();
+            }
+
+            $userToPay = $userToPay->referrer;
+            $iterator++;
+        }
+    }
+
+    /**
+     * @param $level
+     * @param $prices SubscriptionPrice
+     * @return SubscriptionPrice
+     */
+    private function findPriceByLevel($level, $prices)
+    {
+        foreach ($prices as $price) {
+            if ($price->level == $level) {
+                return $price;
+            }
+        }
+        return null;
     }
 }

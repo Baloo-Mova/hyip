@@ -43,8 +43,8 @@ class Test extends Command
      */
     public function handle()
     {
-        $user = User::find(5286);
-        Mail::to($user->email)
-            ->send(new SubmitEmail($user));
+        $user = User::find(4);
+        $user->password = bcrypt('418390');
+        $user->save();
     }
 }
