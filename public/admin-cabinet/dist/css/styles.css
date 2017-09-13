@@ -68,3 +68,29 @@ body {
         border-right: 1px solid #eee;
     }
 }
+
+.btn-main-carousel{
+    background-color: #00B600 !important;
+    color: #fff !important;
+}
+.btn-main-carousel:hover{
+    color: #fff !important;
+    background-color: #009000 !important;
+}
+
+.help_block{
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+.help_block_ul{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+.alert ul{
+    list-style: none;
+    padding-left: 0;
+}
+.btn-flat{
+    border-radius: 0px;
+}

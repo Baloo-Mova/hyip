@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\FAQ;
+use App\Models\SocialNetwork;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
@@ -19,6 +21,7 @@ class SiteController extends Controller
     public function index()
     {
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
+        $social = SocialNetwork::all()->toArray();
         $data = [
             'carousel' => [
                 [
@@ -126,14 +129,7 @@ class SiteController extends Controller
                     'email3@gmail.com',
                 ],
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'ico' => 'demo-icon icon-vk vk_color', 'link' => 'http://google.com.ua'
@@ -453,6 +449,8 @@ class SiteController extends Controller
 
     public function questions()
     {
+        $faq = FAQ::paginate(15);
+
         $data = [
             'contacts' => [
                 'social' => [
@@ -463,31 +461,15 @@ class SiteController extends Controller
                         'instagram' => [
                             'img' => 'img/instagram', 'link' => 'http://google.com.ua'
                         ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
                     ]
                 ]
             ]
         ];
-        return view('main.questions', ['data' => $data]);
+
+        return view('main.questions', [
+            'data' => $data,
+            'faq'  => $faq
+        ]);
     }
 
     public function regulations()

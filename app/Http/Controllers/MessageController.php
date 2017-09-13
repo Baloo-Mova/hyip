@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SocialNetwork;
 
 class MessageController extends Controller
 {
@@ -16,17 +17,11 @@ class MessageController extends Controller
     public function index() {
         //TODO я писал логику получения сообщений в модели пользователя; пример отображения есть в ЛК пользователя;
         $messages = Message::where(['to_user' => \Auth::user()->id])->get();
+        $social = SocialNetwork::all();
         $data = [
             'contacts' =>[
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'

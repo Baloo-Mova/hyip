@@ -2,20 +2,23 @@
     height: 25px;
     width: 25px;
 }
+.main-menu__social-link__icon{
+    font-size: 20px;
+}
 .main-menu__social-link{
     display: inline !important;
-    padding: 5px !important;
+    padding: 0px !important;
 }
 .btn-flat{
     border-radius: 0px !important;
 }
 .btn-main-carousel{
-    background-color: #00B600;
-    color: #fff;
+    background-color: #00B600 !important;
+    color: #fff !important;
 }
 .btn-main-carousel:hover{
-    color: #fff;
-    background-color: #009000;
+    color: #fff !important;
+    background-color: #009000 !important;
 }
 .white-text{
     color: #fff !important;
@@ -451,4 +454,12 @@ input, input:active, input:hover, input:focus {
 }
 .price-info__wrap{
     text-align: center;
+}
+.faq__item{
+    text-align: left;
+}
+.faq__item h4{
+    margin-top: 0;
+    color: #CB4245;
+    font-weight: bold;
 }

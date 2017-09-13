@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use App\Models\SocialNetwork;
 
 class TariffController extends Controller
 {
@@ -11,20 +12,14 @@ class TariffController extends Controller
     {
         $tariffs = Subscription::where('is_active', 1)->with(['firstPrices'])->get();
         $tariff = Subscription::find($id);
+        $social = SocialNetwork::all();
         if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;
         }
         $data = [
             'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
