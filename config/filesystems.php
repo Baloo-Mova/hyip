@@ -65,7 +65,7 @@ return [
 
         'uploads' => [
             'driver'     => 'local',
-            'root'       => public_path('/media/uploads'),
+            'root'       => storage_path('/media/uploads'),
             'url'        => '/media/uploads',
             'visibility' => 'public',
         ],

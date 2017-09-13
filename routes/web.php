@@ -36,6 +36,7 @@ Route::get('/need-verify-email', "SiteController@needVerifyEmail")->name('need.v
 Route::get('/facilities/result/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
 Route::post('/facilities/status', 'FacilitiesController@statusResult')->name('facilities.refill.result.post');
 Route::get('/submit/{id}/{token}', ['uses' => 'AuthController@submitEmail', 'as' => 'submit.email']);
+Route::get('/images/{type}/{name}', ['uses' => 'DownloadController@getImage', 'as' => 'get.image']);
 
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {

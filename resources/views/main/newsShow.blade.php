@@ -13,7 +13,7 @@
                 <div class="col-xs-12">
                     <div class="news-show__text">
                         <p>
-                            <img src="{{ '../../../public/media/uploads/blog/'.$data['news']['preview'] }}" alt="" class="news-show__img">
+                            <img src="{{ route('get.image', ['type' => 'blog', 'name' => $data['news']['preview']]) }}" alt="" class="news-show__img">
                             {!!  $data['news']['content'] !!}
                         </p>
                     </div>

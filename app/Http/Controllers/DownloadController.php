@@ -15,4 +15,13 @@ class DownloadController extends Controller
 
          abort(404);
      }
+
+     public function getImage($type, $name)
+     {
+         if(isset($name) && Storage::disk('uploads')->exists('/'.$type.'/'.$name)){
+             return response()->file(storage_path('media/uploads/'.$type.'/'.$name));
+         }
+
+         abort(404);
+     }
 }
