@@ -8,7 +8,7 @@
         <li class="@if( preg_match('/^admin\/sending-messages/i', $current_uri) ) active @endif"><a href='{{ route('admin.sending-messages') }}'>Sending messages</a></li>
         <li class="@if( preg_match('/^admin\/feedback/i', $current_uri) ) active @endif"><a href='{{ route('admin-feedback-list', ['type' => 'users']) }}'>Feedback @if (\App\Models\Feedback::hasUnreadFeedback()) <span class="title_unread" style="background: red">new</span>@endif</a></li>
         <li class="@if( preg_match('/^admin\/blacklist/i', $current_uri) ) active @endif"><a href='{{ route('admin.blacklist') }}'>Blacklist</a></li>
-        <li class="treeview menu-open @if( Route::currentRouteName() == 'mainheader.list') active @endif">
+        <li class="treeview menu-open @if( Route::currentRouteName() == 'admin.carousel.list') active @endif">
             <a href="#">
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -16,8 +16,8 @@
                 <span>Content</span>
             </a>
             <ul class="treeview-menu menu-open">
-                <li class="@if( Route::currentRouteName() == 'mainheader.list') active @endif">
-                    <a href='{{ route('mainheader.list') }}'>Main Header</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.carousel.list') active @endif">
+                    <a href='{{ route('admin.carousel.list') }}'>Main Header</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.social-networks.list') active @endif">
                     <a href='{{ route('admin.social-networks.list') }}'>Social networks</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.faq.list') active @endif">

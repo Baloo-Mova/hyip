@@ -24,6 +24,9 @@ class HeaderCarousel extends Model
     protected $fillable = [
         'background_file',
         'text',
-        'need_show'
+        'need_show',
+        'button_title',
+        'button_link',
+        'show_button',
     ];
 }
