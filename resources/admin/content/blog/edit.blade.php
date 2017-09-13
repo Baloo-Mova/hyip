@@ -72,7 +72,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="is_stock">
-                    <input type="checkbox" name="is_stock">
+                    <input type="checkbox" name="is_stock" {{ isset($item->type_id) && $item->type_id == 2 ? "checked" : "" }}>
                     Акция
                 </label>
             </div>

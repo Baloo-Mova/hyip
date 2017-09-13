@@ -8,7 +8,7 @@
         <i class="fa fa-plus-square" aria-hidden="true"></i>
         Add
     </a>
-    <h1 class="sub-header">Blog</h1>
+    <h1 class="sub-header">Articles</h1>
     </div>
 
     @if (count($items))
@@ -19,6 +19,7 @@
                         <th>#</th>
                         <th>Title</th>
                         <th>Published</th>
+                        <th>Type</th>
                         <th>Date</th>
                         <th></th>
                     </tr>
@@ -29,6 +30,7 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->published ? 'yes' : 'no' }}</td>
+                            <td>{{ $item->type_id == 1 ? 'Blog' : 'Stock' }}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>
                                 <a href='{{ route('admin.articles.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>

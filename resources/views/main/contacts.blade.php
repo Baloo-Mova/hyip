@@ -11,8 +11,25 @@
     <section class="contacts-information__section" id="feedback">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea minima odio omnis qui saepe sit! Adipisci, eos quia? Asperiores cum expedita incidunt maxime molestiae neque nulla odio officia porro voluptates!
+                <div class="col-xs-12 col-md-4">
+                    <ul class="contacts__ul">
+                        <li><h4>Телефоны:</h4></li>
+                        @foreach($data['contacts']['phones'] as $phone)
+                            <li>
+                                {{ $phone->value }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <ul class="contacts__ul">
+                        <li><h4>Emails:</h4></li>
+                        @foreach($data['contacts']['emails'] as $email)
+                            <li>
+                                {{ $email->value }}
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
@@ -62,7 +79,19 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea minima odio omnis q
 @section('js')
     <script>
         $(function () {
+            $('html, body').hide();
 
+            if (window.location.hash) {
+                setTimeout(function() {
+                    $('html, body').scrollTop(0).show();
+                    $('html, body').animate({
+                        scrollTop: $(window.location.hash).offset().top + 200
+                    }, 1000)
+                }, 0);
+            }
+            else {
+                $('html, body').show();
+            }
         });
     </script>
 @stop

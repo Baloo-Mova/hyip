@@ -51,11 +51,11 @@ class Article extends Model
 
     public function scopeBlog()
     {
-        return $this->whereTypeId(1);
+        return $this->where(['type_id' => 1, 'published' => 1]);
     }
 
     public function scopeStock()
     {
-        return $this->whereTypeId(2);
+        return $this->where(['type_id' => 2, 'published' => 1]);
     }
 }

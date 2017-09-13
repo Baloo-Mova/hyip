@@ -18,6 +18,23 @@ class ContactController extends BaseController
         $this->_model = $model;
     }
 
+    public function index()
+    {
+        $contacts = Contact::paginate(10);
+        return view('Admin::content.contacts.list', ['items' => $contacts]);
+    }
+
+    public function getAdd()
+    {
+        return view('Admin::content.contacts.edit');
+    }
+
+    public function getEdit($item_id = null)
+    {
+        $item = Contact::whereId($item_id)->first();
+        return view('Admin::content.contacts.edit', ['item' => $item]);
+    }
+
     public function postEdit(Request $request, $contact_id = null )
     {
         $validator = \Validator::make($request->all(), with(new CreateContactRequest())->rules());
@@ -33,7 +50,7 @@ class ContactController extends BaseController
         }
 
         $contact->fill([
-            'name'  => $request->get('name'),
+            'type_id'  => $request->get('type_id'),
             'value' => $request->get('value'),
         ]);
 

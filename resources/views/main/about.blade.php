@@ -4,13 +4,13 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>{{ $content->title }}</h1>
+                <h1>{{ isset($content->title) ? $content->title : "О компании" }}</h1>
                 <hr>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
-                {!! $content->content !!}
+                {!! isset($content->content) ? $content->content : "" !!}
             </div>
         </div>
     </div>

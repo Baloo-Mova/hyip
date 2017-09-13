@@ -84,16 +84,14 @@
                               required
                     >{{ !empty($old_input['content']) ? $old_input['content'] : $item->content }}</textarea>
                 </div>
-                @if(!empty($item->id))
-                    <div class="form-group">
-                        <input type="checkbox"
-                               name="is_active"
-                               value="1"
-                               {{ !empty($old_input['is_active']) || !empty($item->is_active) ? 'checked' : '' }}
-                               id="edit-form-active">
-                        <label for="edit-form-active">Published</label>
-                    </div>
-                @endif
+                <div class="form-group">
+                    <input type="checkbox"
+                           name="is_active"
+                           value="1"
+                           {{ !empty($old_input['is_active']) || !empty($item->is_active) ? 'checked' : '' }}
+                           id="edit-form-active">
+                    <label for="edit-form-active">Published</label>
+                </div>
             </div>
 
             <div class="col-md-12" style="margin-top: 25px;">

@@ -22,17 +22,18 @@
     <div class="row">
         {!! Form::open(['class' => 'form']) !!}
 
-            <div class="col-xs-12">
-                <div class="form-group @if( is_error('name') )has-error @endif">
-                    {!! Form::label('edit-form-name', '* Name') !!}
-                    {!! Form::text('name', !empty($item->name) ? $item->name : '', ['id' => 'edit-form-name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
-                    @if( is_error('name') )
-                        <span class="help-block">{{ $errors->first('name') }}</span>
-                    @endif
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group @if( is_error('type_id') )has-error @endif">
+                    <label for="type_id">Contact type</label>
+                    <select name="type_id" id="type_id" class="form-control">
+                        <option disabled {{ !empty($item->type_id) ? "" : "selected" }}>Choose type</option>
+                        <option value="1" {{ !empty($item->type_id) && $item->type_id == 1 ? "selected" : "" }}>Email</option>
+                        <option value="2" {{ !empty($item->type_id) && $item->type_id == 2 ? "selected" : "" }}>Phone</option>
+                    </select>
                 </div>
             </div>
-
-            <div class="col-xs-12">
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('value') )has-error @endif">
                     {!! Form::label('edit-form-value', '* Value') !!}
                     {!! Form::text('value', !empty($item->value) ? $item->value : '', ['id' => 'edit-form-value', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}

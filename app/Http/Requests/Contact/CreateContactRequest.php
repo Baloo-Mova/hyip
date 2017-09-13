@@ -9,7 +9,7 @@ class CreateContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|string|max:255',
+            'type_id'  => 'required',
             'value' => 'required|string|max:255',
         ];
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use App\Models\Article;
+use App\Models\Contact;
 use App\Models\FAQ;
 use App\Models\SocialNetwork;
 use App\Models\User;
@@ -25,6 +26,8 @@ class SiteController extends Controller
         $social = SocialNetwork::link()->get();
         $shares = SocialNetwork::share()->get();
         $news = Article::orderBy('updated_at', 'asc')->limit(3)->get();
+        $email = Contact::email()->get();
+        $phones = Contact::phones()->get();
         $data = [
             'carousel' => [
                 [
@@ -117,16 +120,8 @@ class SiteController extends Controller
             ],
             'news' => $news,
             'contacts' => [
-                'phones' => [
-                    '+380661234567',
-                    '+380661234567',
-                    '+380661234567'
-                ],
-                'emails' => [
-                    'email1@gmail.com',
-                    'email2@gmail.com',
-                    'email3@gmail.com',
-                ],
+                'phones' => $phones,
+                'emails' => $email,
                 'social' => [
                     'links' => $social,
                     'share' => $shares
@@ -150,7 +145,7 @@ class SiteController extends Controller
 
     public function about()
     {
-        $content = About::find(1);
+        $content = About::where(['id' => 1, 'is_active' => 1])->first();
         $social = SocialNetwork::link()->get();
         $data = [
             'contacts' => [
@@ -303,12 +298,16 @@ class SiteController extends Controller
     {
         $social = SocialNetwork::link()->get();
         $shares = SocialNetwork::share()->get();
+        $email = Contact::email()->get();
+        $phones = Contact::phones()->get();
         $data = [
             'contacts' => [
                 'social' => [
                     'links' => $social,
                     'share' => $shares
-                ]
+                ],
+                'emails' => $email,
+                'phones' => $phones
             ]
         ];
         return view('main.contacts', ['data' => $data]);

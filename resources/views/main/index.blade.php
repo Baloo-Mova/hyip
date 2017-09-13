@@ -251,7 +251,7 @@
                                 <li><h4>Телефоны:</h4></li>
                                 @foreach($data['contacts']['phones'] as $phone)
                                     <li>
-                                        {{ $phone }}
+                                        {{ $phone->value }}
                                     </li>
                                 @endforeach
                             </ul>
@@ -259,7 +259,7 @@
                                 <li><h4>Emails:</h4></li>
                                 @foreach($data['contacts']['emails'] as $email)
                                     <li>
-                                        {{ $email }}
+                                        {{ $email->value }}
                                     </li>
                                 @endforeach
                             </ul>

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact wherePublished($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereValue($value)
@@ -26,7 +26,17 @@ class Contact extends Model
     protected $table = 'contacts';
 
     protected $fillable = [
-        'name',
+        'type_id',
         'value',
     ];
+
+    public function scopeEmail()
+    {
+        return $this->whereTypeId(1);
+    }
+
+    public function scopePhones()
+    {
+        return $this->whereTypeId(2);
+    }
 }
