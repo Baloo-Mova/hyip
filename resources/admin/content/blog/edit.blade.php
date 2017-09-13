@@ -41,7 +41,7 @@
                             <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteArticleImage()">Delete</button>
                         </div>
                     @else
-                        {!! Form::file('image', '') !!}
+                        {!! Form::file('image', []) !!}
                     @endif
                 </div>
             </div>
