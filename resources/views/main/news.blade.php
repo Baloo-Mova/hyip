@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>Новости</h1>
+                <hr>
             </div>
         </div>
         
@@ -18,14 +19,14 @@
                                     <img src="{{ asset('media/uploads/blog').'/'.$news['preview'] }}" alt="">
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-md-9">
+                            <div class="col-xs-12 col-md-9 left-text">
                                 <div class="news__description">
                                     <h4>{{ $news['title'] }}</h4>
                                     <p>
                                         {!!  $news['content'] !!}
-                                        <a href="{{ route('news.show', ['id' => $news['id']]) }}" class="red-text">подробнее</a>
                                     </p>
                                 </div>
+                                <a href="{{ route('news.show', ['id' => $news['id']]) }}" class="red-text">подробнее</a>
                             </div>
                         </div>
 

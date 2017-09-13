@@ -489,6 +489,9 @@ section h1{
 }
 .news__description{
     text-align: left;
+    height: 107px;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 .news__description h4{
     margin-top: 0;
@@ -559,4 +562,7 @@ section h1{
 .steps{
     position: relative;
     overflow-x: hidden;
+}
+.left-text{
+    text-align: left;
 }
