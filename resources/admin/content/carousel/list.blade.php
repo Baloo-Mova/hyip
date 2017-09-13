@@ -16,26 +16,19 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Icon</th>
-                    <th>Date</th>
+                    <th>Text</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($items as $item)
                     <tr class="item-{{ $item->id }}">
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->text }}</td>
                         <td>
-                            <i class="{{ $item->icon }}"></i>
-                        </td>
-                        <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
-                        <td>
-                            <a href='{{ route('admin.carousel.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href='#'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;&nbsp;&nbsp;
-                            <a href="{{ route('mainheader.delete', ['id' => $item->id]) }}" onclick="return confirm('Delete this item?')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a onclick="deleteNews('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
                         </td>
                     </tr>
                 @endforeach

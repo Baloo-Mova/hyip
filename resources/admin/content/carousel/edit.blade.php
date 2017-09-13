@@ -12,41 +12,106 @@
 
             <h3 class="sub-header">
                 @if( empty($item->id) )
-                    Create contact
+                    Add slide
                 @else
-                    Edit contact
+                    Edit slide
                 @endif
             </h3>
         </div>
 
     <div class="row">
-        {!! Form::open(['class' => 'form']) !!}
-
-            <div class="col-xs-12">
-                <div class="form-group @if( is_error('name') )has-error @endif">
-                    {!! Form::label('edit-form-name', '* Name') !!}
-                    {!! Form::text('name', !empty($item->name) ? $item->name : '', ['id' => 'edit-form-name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
-                    @if( is_error('name') )
-                        <span class="help-block">{{ $errors->first('name') }}</span>
+        <form action="" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group @if( is_error('text') )has-error @endif">
+                    <label for="text">Slide text</label>
+                    <textarea name="text" class="form-control" id="text"></textarea>
+                    @if( is_error('text') )
+                        <span class="help-block">{{ $errors->first('text') }}</span>
                     @endif
                 </div>
             </div>
-
-            <div class="col-xs-12">
-                <div class="form-group @if( is_error('value') )has-error @endif">
-                    {!! Form::label('edit-form-value', '* Value') !!}
-                    {!! Form::text('value', !empty($item->value) ? $item->value : '', ['id' => 'edit-form-value', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
-                    @if( is_error('value') )
-                        <span class="help-block">{{ $errors->first('value') }}</span>
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group @if( is_error('file') )has-error @endif">
+                    <label for="file">Slide image</label>
+                    <input type="file" name="file">
+                    @if( is_error('file') )
+                        <span class="help-block">{{ $errors->first('file') }}</span>
                     @endif
                 </div>
             </div>
-
-            <div class="col-md-12" style="margin-top: 25px;">
-                {!! Form::customButton('Save', 'btn btn-primary', 'fa-floppy-o') !!}
+            <div class="clearfix"></div>
+            <div class="buttons__wrap">
+                <div class="col-xs-12 col-md-4">
+                    <h4>Button 1 <i class="fa fa-plus-square add_carousel_buttons" aria-hidden="true" data-current="1"></i></h4>
+                    <hr>
+                    <div class="form-group @if( is_error('button_text[1]') )has-error @endif">
+                        <label for="button_text[1]">Text</label>
+                        <input type="text" class="form-control" name="button_text[1]">
+                        @if( is_error('button_text[1]') )
+                            <span class="help-block">{{ $errors->first('button_text[1]') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group @if( is_error('url[1]') )has-error @endif">
+                        <label for="url[1]">Url</label>
+                        <input type="text" class="form-control" name="url[1]">
+                        @if( is_error('url[1]') )
+                            <span class="help-block">{{ $errors->first('url[1]') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group ">
+                    <label for="need_show">
+                        <input type="checkbox" name="need_show" id="need_show">
+                        Need show
+                    </label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group ">
+                    <button class="btn btn-flat btn-success" type="submit">Save</button>
+                </div>
             </div>
 
-        {!! Form::close() !!}
+        </form>
     </div>
 
 @endsection
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+           $(".add_carousel_buttons").on("click", function(){
+              var current = $(this).data("current");
+               current++;
+               $(this).data("current", current);
+
+               $(".buttons__wrap").append('<div class="col-xs-12 col-md-4">'+
+                   '<h4>Button '+current+'</h4>'+
+                   '<hr>'+
+                   '<div class="form-group">'+
+                   '<label for="button_text['+current+']">Text</label>'+
+                   '<input type="text" class="form-control" name="button_text['+current+']">'+
+                   '</div>'+
+                   '</div>'+
+                   '<div class="clearfix"></div>'+
+                   '<div class="col-xs-12 col-md-4">'+
+                   '<div class="form-group">'+
+                   '<label for="url['+current+']">Url</label>'+
+                   '<input type="text" class="form-control" name="url['+current+']">'+
+                   '</div>'+
+                   '</div>'+
+                   '<div class="clearfix"></div>');
+           });
+        });
+    </script>
+@stop

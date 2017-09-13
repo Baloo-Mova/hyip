@@ -6,14 +6,14 @@
             <div id="" class="row ">
                 <div class="owl-carousel main-carousel">
                     @foreach($data['carousel'] as $carousel)
-                        <div class="carousel-item" style="background-image: url({{ $carousel['img'] }})">
+                        <div class="carousel-item" style="background-image: url({{ route('get.image', ['type' => 'carousel', 'name' => $carousel['background_file']])  }} )">
                             <div class="carousel-caption">
                                 <h3>
-                                    {{ $carousel['caption'] }}
+                                    {{ $carousel['text'] }}
                                 </h3>
                                 @if(isset($carousel['buttons']))
-                                    @foreach($carousel['buttons'] as $button)
-                                        <a href="{{ $button['link'] }}" class="btn {{ $button['class'] }} btn-carousel">{{ $button['title'] }}</a>
+                                    @foreach(json_decode($carousel['buttons'], true) as $button)
+                                        <a href="{{ url($button['url']) }}" class="btn btn-main-carousel btn-flat btn-carousel">{{ $button['text'] }}</a>
                                     @endforeach
                                 @endif
                             </div>

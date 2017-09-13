@@ -54,5 +54,6 @@
 <script src="{{asset('/admin-cabinet/js/adminlte.js')}}"></script>
 <script src="{{asset('/admin-cabinet/js/app.js')}}"></script>
 @stack('footer-scripts')
+@yield('js')
 </body>
 </html>

@@ -6,6 +6,8 @@ use App\Models\About;
 use App\Models\Article;
 use App\Models\Contact;
 use App\Models\FAQ;
+use App\Models\MainPage\HeaderCarousel;
+use App\Models\Regulations;
 use App\Models\SocialNetwork;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,52 +30,9 @@ class SiteController extends Controller
         $news = Article::orderBy('updated_at', 'asc')->limit(3)->get();
         $email = Contact::email()->get();
         $phones = Contact::phones()->get();
+        $slides = HeaderCarousel::where(['need_show' => 1])->get();
         $data = [
-            'carousel' => [
-                [
-                    'img' => 'img/1.jpg',
-                    'caption' => 'Грамотно выстроенная маркетинговая система позволяет заработать всем',
-                    'buttons' => [
-                        [
-                            'title' => 'Регистрация',
-                            'link' => route('register'),
-                            'class' => 'btn-main-carousel btn-flat btn-lg'
-                        ]
-                    ]
-                ],
-                [
-                    'img' => 'img/2.jpg',
-                    'caption' => 'Содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
-                    'buttons' => [
-                        [
-                            'title' => 'Регистрация',
-                            'link' => route('register'),
-                            'class' => 'btn-main-carousel btn-flat btn-lg'
-                        ],
-                        [
-                            'title' => 'Узнать как',
-                            'link' => route('about'),
-                            'class' => 'btn-main-carousel btn-flat btn-lg'
-                        ]
-                    ]
-                ],
-                [
-                    'img' => 'img/3.jpg',
-                    'caption' => 'Ничего не надо продавать или покупать, просто делайте деньги',
-                    'buttons' => [
-                        [
-                            'title' => 'Регистрация',
-                            'link' => route('register'),
-                            'class' => 'btn-main-carousel btn-flat btn-lg'
-                        ],
-                        [
-                            'title' => 'Подробнее',
-                            'link' => route('about'),
-                            'class' => 'btn-main-carousel btn-flat btn-lg'
-                        ]
-                    ]
-                ],
-            ],
+            'carousel' => $slides,
             'greetings' => [
                 'img' => 'img/1.jpg',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o'
@@ -335,7 +294,9 @@ class SiteController extends Controller
     public function regulations()
     {
         $social = SocialNetwork::link()->get();
+        $regulations = Regulations::where(['id' => 1, 'is_active' => 1])->first();
         $data = [
+            'content' => $regulations,
             'contacts' => [
                 'social' => [
                     'links' => $social

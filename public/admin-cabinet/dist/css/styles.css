@@ -112,3 +112,6 @@ body {
 .ins_color{
     color: #405de6;
 }
+.add_carousel_buttons:hover{
+    cursor: pointer;
+}
