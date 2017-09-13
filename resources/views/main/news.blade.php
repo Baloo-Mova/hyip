@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-3">
                                 <div class="news_title">
-                                    <img src="{{ asset('media/uploads/blog').'/'.$news['preview'] }}" alt="">
+                                    <img src="{{ '/media/uploads/blog/'.$news['preview'] }}" alt="">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-9 left-text">
