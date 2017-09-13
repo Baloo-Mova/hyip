@@ -27,7 +27,7 @@
                         <tr class="item-{{ $item->id }}">
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->title }}</td>
-                            <td>{{ $item->published ? 'yes' : 'no' }}</td>
+                            <td>{{ $item->is_active ? 'yes' : 'no' }}</td>
                             <td>
                                 <a href='{{ route('admin.about-notations.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;
