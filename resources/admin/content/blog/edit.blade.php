@@ -36,7 +36,7 @@
                     @if( !empty($item->photo) )
                         <div style="width: 110px;">
                             <div style="width: 100px; margin: 0 auto; padding: 0;">
-                                <img src="/media/uploads/blog/{{ $item->photo }}" width="100px" />
+                                <img src="{{ asset('media/uploads/blog').'/'.$item->photo }}" width="100px" />
                             </div>
                             <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteArticleImage()">Delete</button>
                         </div>
