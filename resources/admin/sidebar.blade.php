@@ -23,7 +23,7 @@
                 <li class="@if( Route::currentRouteName() == 'admin.faq.list') active @endif">
                     <a href='{{ route('admin.faq.list') }}'>FAQ</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.articles.list') active @endif">
-                    <a href='{{ route('admin.articles.list') }}'>Blog</a></li>
+                    <a href='{{ route('admin.articles.list') }}'>Articles</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.contacts.list') active @endif">
                     <a href='{{ route('admin.contacts.list') }}'>Contacts</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.about-notations.list') active @endif">
