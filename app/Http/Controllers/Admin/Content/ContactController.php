@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ContactController extends BaseController
 {
     private $_model;
-    private $_view = 'contacts';
+    private $_view = 'content.contacts';
 
     public function __construct(Contact $model)
     {
@@ -39,6 +39,6 @@ class ContactController extends BaseController
 
         $contact->save();
 
-        return redirect()->route('admin.contact.get', ['id' => $contact->id])->with('messages', ['Created successful']);
+        return redirect()->route('admin.contacts.get', ['id' => $contact->id])->with('messages', ['Created successful']);
     }
 }

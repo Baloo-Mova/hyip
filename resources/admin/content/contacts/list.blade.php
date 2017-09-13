@@ -4,7 +4,7 @@
     @include('Admin::alerts')
 
     <div>
-        <a href='{{ route('admin.contact.add') }}' class="btn-sm btn-primary pull-right">
+        <a href='{{ route('admin.contacts.add') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
             Add
         </a>
@@ -31,7 +31,7 @@
                             <td>{{ $item->value }}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>
-                                <a href='{{ route('admin.contact.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href='{{ route('admin.contacts.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;
                                 <a onclick="deleteContacts('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>

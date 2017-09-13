@@ -118,15 +118,6 @@ Route::group([
             Route::get('/delete/{id}', 'SocialNetworkController@delete')->name('admin.social-networks.delete');
         });
 
-        Route::group(['prefix' => 'contacts'], function () {
-            Route::get('/', 'ContactController@index')->name('admin.contacts.list');
-            Route::post('add', 'ContactController@postAdd');
-            Route::get('add', 'ContactController@getAdd')->name('admin.contacts.add');
-            Route::get('{id}', 'ContactController@getEdit')->name('admin.contacts.get');
-            Route::post('{id}', 'ContactController@postEdit');
-            Route::get('delete/{id}', 'ContactController@delete');
-        });
-
         Route::group(['prefix' => 'faq'], function () {
             Route::get('/', 'FAQController@index')->name('admin.faq.list');
             Route::post('add', 'FAQController@postAdd');
@@ -149,8 +140,8 @@ Route::group([
         Route::group(['prefix' => 'contacts'], function () {
             Route::get('/', 'ContactController@index')->name('admin.contacts.list');
             Route::post('add', 'ContactController@postAdd');
-            Route::get('add', 'ContactController@getAdd')->name('admin.contact.add');
-            Route::get('{id}', 'ContactController@getEdit')->name('admin.contact.get');
+            Route::get('add', 'ContactController@getAdd')->name('admin.contacts.add');
+            Route::get('{id}', 'ContactController@getEdit')->name('admin.contacts.get');
             Route::post('{id}', 'ContactController@postEdit');
             Route::get('delete/{id}', 'ContactController@delete');
         });
