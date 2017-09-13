@@ -119,9 +119,9 @@
             <div class="col-xs-12 col-md-12">
                 <div class="news__item profile__item">
                     @foreach($scans as $scan)
-                        <a href="{{ asset('storage').'/'.$scan->path }}" data-fancybox="group">
+                        <a href="{{ route('get.image', ['type' => 'scans', 'name' => $scan->photo]) }}" data-fancybox="group">
                             <div class="profile_scan_img__wrap"
-                                 style="background-image: url({{ asset('storage').'/'.$scan->path }})">
+                                 style="background-image: url({{ route('get.image', ['type' => 'scans', 'name' => $scan->preview]) }})">
                                 @if($scan->is_confirm)
                                     <div class="profile_scan_status_ok profile_scan_status"
                                          title="Документ не подтвержден">

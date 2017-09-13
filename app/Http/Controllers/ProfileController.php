@@ -82,10 +82,18 @@ class ProfileController extends Controller
         if ($request->hasFile('scans')) {
             $scans = [];
             foreach ($request->file('scans') as $scan) {
-                $path = $scan->store('scans', 'public');
+                $origext  = $scan->getClientOriginalExtension();
+                $filename = generate_file_name(".{$origext}");
+                \Storage::disk('uploads')->put("scans/$filename", file_get_contents($scan->getRealPath()));
+
+                \Image::make($scan->getRealPath())
+                    ->resize(300, 200)
+                    ->save(storage_path('/media/uploads/scans') . '/prev-' . $filename, 60);
+
                 $scans[] = [
                     'user_id' => \Auth::user()->id,
-                    'path' => $path
+                    'photo' => $filename,
+                    'preview' => 'prev-' . $filename
                 ];
             }
             PassportScans::insert($scans);
