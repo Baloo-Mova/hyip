@@ -28,6 +28,8 @@
                     <a href='{{ route('admin.contacts.list') }}'>Contacts</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.about-notations.list') active @endif">
                     <a href='{{ route('admin.about-notations.list') }}'>About</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.regulations.get') active @endif">
+                    <a href='{{ route('admin.regulations.get') }}'>Regulations</a></li>
             </ul>
         </li>
     </ul>

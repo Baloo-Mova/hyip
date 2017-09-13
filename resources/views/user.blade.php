@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<div id="preloader"></div>
 
 <!-- Fixed navbar -->
 <div class="user__sidebar__wrap">
@@ -35,6 +36,7 @@
 </div>
 
 @include('partial.scripts')
+@yield('js')
 
 <script>
     $(document).ready(function(){

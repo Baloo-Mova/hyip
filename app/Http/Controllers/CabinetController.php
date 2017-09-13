@@ -4,51 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Cabinet\UserUpdateRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\SocialNetwork;
 
 use Auth, Validator;
+
 class CabinetController extends Controller
 {
     public function index(Request $request)
     {
+        $social = SocialNetwork::link()->get();
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
-        return view('cabinet.index', [
+
+        $response = view('cabinet.index', [
             'user' => \Auth::user(),
-            'data' => $data
+            'data' => $data,
+            'payedForDiff' =>Carbon::now()->diff(Carbon::parse(Auth::user()->subscribedFor))
         ]);
+
+        if (Auth::user()->status == 0) {
+            $response = $response->withErrors(['email' => 'Ваш email не подтвержден!']);
+        }
+        
+        return $response;
     }
 
     public function userUpdate(Request $request)
@@ -68,8 +53,8 @@ class CabinetController extends Controller
             $data = file_get_contents($path);
             $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             Passport::create([
-                'user_id'   => $user_id,
-                'img'       => $base64,
+                'user_id' => $user_id,
+                'img' => $base64,
             ]);
         }
 

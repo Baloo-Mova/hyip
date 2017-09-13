@@ -3,60 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\SocialNetwork;
 
 class TariffController extends Controller
 {
-    public function index()
+    public function index($id)
     {
+        $tariffs = Subscription::where('is_active', 1)->with(['firstPrices'])->get();
+        $tariff = Subscription::find($id);
+        $social = SocialNetwork::link()->get();
+        if (isset($tariff)) {
+            $subscriptionPrices = $tariff->firstPrices;
+        }
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
-
-        $subscriptions = Subscription::where('is_active', 1)->get();
-
         return view('cabinet.tariff.index', [
-            'data'          => $data,
-            'subscriptions' => $subscriptions
+            'data' => $data,
+            'tariffs' => $tariffs,
+            'tariff_info' => isset($tariff) ? $tariff : "",
+            "subscription" => isset($subscriptionPrices) ? $subscriptionPrices : ""
         ]);
     }
 
     public function pay(Request $request, $id)
     {
-        if( empty($id) || !is_numeric($id) || !($subscription = Subscription::find($id)) ) {
-            return redirect()->route('tariff')->withErrors('Тариф не найден');
+        $subscription = Subscription::with(['prices'])->find($id);
+
+        if (!isset($subscription) || $subscription->is_active == 0) {
+            return back()->withErrors(['Тариф не найден']);
         }
-        dd($subscription);
+
+        $user = \Auth::user();
+
+
+        if ($user->balance < $subscription->price) {
+            return back()->withErrors([
+                'Не достаточно средств. <a href="' . route('facilities', ['type' => 'input']) . '">Пополните</a> пожалуйста счет.'
+            ]);
+        }
+
+        $user->payToReferrals($subscription);
+        $user->subscribedFor = $user->subscribe_id != $subscription->id ?
+            Carbon::now()->addDays($subscription->term) :
+            Carbon::parse($user->subscribedFor)->addDays($subscription->term);
+        $user->subscribe_id = $subscription->id;
+        $user->balance = $user->balance - $subscription->price;
+        $user->save();
+
+        \Session::flash('messages', ['Вы успешно подписались на тариф ' . $subscription->name . '. Приятного заработка!']);
+
+        return redirect(route('tariff', ['index' => -1]));
+    }
+
+    public function getTariffInfo($id)
+    {
+        $tariff = Subscription::find($id);
+        if (!isset($tariff)) {
+            return false;
+        }
+        $prices = $tariff->firstPrices->toArray();
+        return json_encode(['success' => true, 'info' => $tariff, 'prices' => $prices]);
     }
 }

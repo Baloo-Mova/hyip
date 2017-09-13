@@ -1,17 +1,7 @@
 @extends('user')
 
 @section('content')
-    @if(Session::get('errors'))
-
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <ul>
-                @foreach($errors->all() as $message)
-                    <li>{{$message}}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+   @include('alerts')
     <h1 class="page-header">Личный кабинет пользователя</h1>
     <div class="row">
         <div class="col-xs-12">
@@ -20,13 +10,12 @@
                 @if(isset($user->subscribe_id))
                     <li>Ваш тариф: {{$user->subscription->name}}</li>
                     <li title="Срок действия тарифа">
-
-                        Тариф истечет через: {{ date('d H:i:s',strtotime($user->subscribedFor) - time()) }}
+                        Тариф истечет через: {{ $payedForDiff->days. '  '.$payedForDiff->h.':'.$payedForDiff->i }}
                     </li>
                 @else
                     <li>Тариф отсутствует</li>
                 @endif
-                <li>Ваша реферальная ссылка: <b>{{route('register.referral',['token'=>$user->ref_link])}}</b></li>
+                <li>Ваша реферальная ссылка: <b>{{route('ref.add',['id'=>$user->ref_link])}}</b></li>
             </ul>
         </div>
     </div>

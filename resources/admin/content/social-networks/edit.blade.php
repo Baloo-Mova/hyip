@@ -3,34 +3,33 @@
 @section('content')
     @include('Admin::alerts')
 
-        <div>
-            <a href="{{ route('admin.social-networks.list') }}" class="btn-sm btn-primary pull-right">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                &nbsp;&nbsp;
-                back to list
-            </a>
+    <div>
+        <a href="{{ route('admin.social-networks.list') }}" class="btn-sm btn-primary pull-right">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            &nbsp;&nbsp;
+            back to list
+        </a>
+        <h3 class="sub-header">
+            @if( empty($item->id) )
+                Create Social network
+            @else
+                Edit Social network
+            @endif
+        </h3>
+    </div>
 
-            <h3 class="sub-header">
-                @if( empty($item->id) )
-                    Create social network
-                @else
-                    Edit social network
-                @endif
-            </h3>
-        </div>
+    <form action="{{ empty($item->id) ? route('admin.social-networks.save') : route('admin.social-networks.edit.save', ['id' => $item->id]) }}" method="post">
 
-    <div class="row">
-        <form method="POST" class="form" enctype="multipart/form-data">
+        {{ csrf_field() }}
 
-            {{ csrf_field() }}
-
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('name') )has-error @endif">
-                    <label for="edit-form-name">* Name</label>
+                    <label for="name">Name</label>
                     <input type="text"
                            name="name"
                            value="{{ !empty($item->name) ? $item->name : '' }}"
-                           id="edit-form-name"
+                           id="name"
                            class="form-control"
                            maxlength="255"
                            required
@@ -39,15 +38,13 @@
                         <span class="help-block">{{ $errors->first('name') }}</span>
                     @endif
                 </div>
-            </div>
 
-            <div class="col-md-6">
                 <div class="form-group @if( is_error('link') )has-error @endif">
-                    <label for="edit-form-link">* Link</label>
+                    <label for="link">Link</label>
                     <input type="text"
                            name="link"
                            value="{{ !empty($item->link) ? $item->link : '' }}"
-                           id="edit-form-link"
+                           id="link"
                            class="form-control"
                            maxlength="255"
                            required
@@ -56,68 +53,88 @@
                         <span class="help-block">{{ $errors->first('link') }}</span>
                     @endif
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="form-group @if( is_error('img') ) has-error @endif" id="edit-img">
-                    <label for="edit-form-img">Image</label>
-                    @if( !empty($item->img) )
-                        <div style="width: 110px;">
-                            <div style="width: 100px; margin: 0 auto; padding: 0;">
-                                <img src="/media/uploads/social-networks/{{ $item->img }}" width="100px" />
-                            </div>
-                            <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteImg('img')">Delete</button>
-                        </div>
-                    @else
-                        <input type="file" id="edit-form-img" name="img">
+                <div class="form-group @if( is_error('icon') )has-error @endif">
+                    <label for="icon">Icon</label>
+                    <input type="text"
+                           name="icon"
+                           value="{{ !empty($item->icon) ? $item->icon : '' }}"
+                           id="icon"
+                           class="form-control"
+                           maxlength="255"
+                           placeholder="demo-icon icon-vk"
+                           required
+                    >
+                    @if( is_error('icon') )
+                        <span class="help-block">{{ $errors->first('icon') }}</span>
                     @endif
                 </div>
 
-                <div class="form-group @if( is_error('black_img') ) has-error @endif" id="edit-black_img">
-                    <label for="edit-form-black_img">Black image</label>
-                    @if( !empty($item->black_img) )
-                        <div style="width: 110px;">
-                            <div style="width: 100px; margin: 0 auto; padding: 0;">
-                                <img src="/media/uploads/social-networks/{{ $item->black_img }}" width="100px" />
-                            </div>
-                            <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteImg('black_img')">Delete</button>
-                        </div>
-                    @else
-                        <input type="file" id="edit-form-black_img" name="black_img">
-                    @endif
-                </div>
                 <div class="form-group">
-                    {!! Form::checkbox('is_active', 1, !empty($old_input['is_active']) || !empty($item->is_active) ? true : false, ['id' => 'is_active']) !!}
-                    {!! Form::label('is_active', 'Published') !!}
+                    <label for="type_id">
+                        <input type="checkbox" name="type_id" id="type_id" {{ isset($item->type_id) && $item->type_id == 2 ? "checked" : "" }}>
+                        Share icon
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-main-carousel btn-flat ">{{ empty($item->id) ? "Create" : "Edit" }}</button>
                 </div>
             </div>
 
-            <div class="col-md-12">
-                <button class="btn btn-primary">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                    &nbsp;&nbsp;
-                    Save
-                </button>
+            <div class="col-xs-12 col-md-4">
+                <div class="help_block">
+                    <label>Класс иконок: </label>
+                    <ul class="help_block_ul">
+                        <li>
+                            <i class="demo-icon icon-vk"></i> - demo-icon icon-vk
+                        </li>
+                        <li>
+                            <i class="demo-icon icon-fb"></i> - demo-icon icon-fb
+                        </li>
+                        <li>
+                            <i class="demo-icon icon-ins"></i> - demo-icon icon-ins
+                        </li>
+                        <li>
+                            <i class="demo-icon icon-ok"></i> - demo-icon icon-ok
+                        </li>
+                        <li>
+                            <i class="demo-icon icon-tw"></i> - demo-icon icon-tw
+                        </li>
+                        <li>
+                            <i class="demo-icon icon-tl"></i> - demo-icon icon-tl
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="help_block">
+                    <label>Класс цветов иконок (для share icons): </label>
+                    <ul class="help_block_ul">
+                        <li class="vk_color">
+                            <i class="demo-icon icon-vk"></i> - vk_color
+                        </li>
+                        <li class="fb_color">
+                            <i class="demo-icon icon-fb"></i> - fb_color
+                        </li>
+                        <li class="ins_color">
+                            <i class="demo-icon icon-ins"></i> - ins_color
+                        </li>
+                        <li class="ok_color">
+                            <i class="demo-icon icon-ok"></i> - ok_color
+                        </li>
+                        <li class="tw_color">
+                            <i class="demo-icon icon-tw"></i> - tw_color
+                        </li>
+                        <li class="tl_color">
+                            <i class="demo-icon icon-tl"></i> - tl_color
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-        </form>
-    </div>
+        </div>
+
+    </form>
 
 @endsection
-
-@push('footer-scripts')
-@if(!empty($item->id))
-    <script type="text/javascript">
-        var deleteImg = function(type) {
-            $.getJSON('/admin/social-networks/image-delete/{{ $item->id }}/' + type, function(data) {
-                if( typeof(data.success) != 'undefined' && data.success == true ) {
-                    $('#edit-' + type + ' div:first').remove();
-                    $('#edit-' + type).append(
-                            $('<input/>', {type: 'file', name: type})
-                    );
-                }
-            });
-        };
-    </script>
-@endif
-@endpush

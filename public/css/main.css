@@ -55,21 +55,11 @@ section h1{
 .about-icon__wrap{
     text-align: center;
 }
-.rate__wrap{
-}
-.rate-carousel-item,
-.news__item{
-    border: 1px solid #ddd;
-    text-align: center;
-}
 .rate-carousel-item h4{
     margin-top: 0;
 }
 .paysystems__img{
     padding: 20px 10px;
-}
-.rate__wrap{
-    background-color: #FAFAFA;
 }
 .contacts__textarea{
     resize: none;
@@ -82,6 +72,9 @@ section h1{
     width: 25px;
     height: 25px;
 }
+.contacts_ico{
+    font-size: 25px;
+}
 .overflow{
     overflow: hidden;
 }
@@ -89,6 +82,9 @@ section h1{
 .rate__overflow,
 .news__overflow{
     height: 105px;
+}
+.news__overflow{
+    margin-bottom: 20px;
 }
 
 .video_container{
@@ -117,9 +113,6 @@ section h1{
 }
 .questions{
     background-color: #f8f8f8;
-}
-.about{
-    background-color: #FAFAFA;
 }
 .greetings_title{
     text-transform: uppercase;
@@ -162,6 +155,8 @@ section h1{
 }
 .regulations{
     min-height: 450px;
+    background-color: #262626;
+    color: #fff;
 }
 .feedback__section{
     background-color: #F8F8F8;
@@ -175,9 +170,6 @@ section h1{
 }
 .about__img img{
     width: 100%;
-}
-.rate__img{
-    overflow: hidden;
 }
 .rate__img img{
     width: 100%;
@@ -224,32 +216,6 @@ section h1{
 .register-form__inputs-bottom{
     background-color: #e0e0e0;
 }
-.rate__title{
-    width: 100%;
-    background-color: #e0e0e0;
-    height: 60px;
-    padding-top: 2px;
-}
-.rate__footer{
-    width: 100%;
-    background-color: #e0e0e0;
-    height: 90px;
-    padding-top: 35px;
-}
-.rate__body{
-    width: 100%;
-    padding: 20px;
-}
-.rate__price{
-    color: #CB4245;
-    font-size: 32px;
-    font-weight: 900;
-}
-.rate__top{
-    background-color: #e0e0e0;
-    width: 100%;
-    height: 10px;
-}
 @media screen and (max-width: 486px) {
     .about-fa {
         font-size: 4em;
@@ -277,11 +243,8 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
-    }
-    .rate__img{
-        height: 130px;
     }
     .btn-carousel{
         width:100%;
@@ -291,6 +254,13 @@ section h1{
         padding-top: 72px;
     }
     .register-form__wrap{
+        width: 100%;
+    }
+
+    .steps{
+        padding-bottom: 12vw;
+    }
+    .price-info-item {
         width: 100%;
     }
 }
@@ -321,12 +291,9 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
     }
-    .rate__img{
-         height: 130px;
-     }
     .btn-carousel{
         width:100%;
         margin-bottom: 10px;
@@ -335,6 +302,13 @@ section h1{
         padding-top: 72px;
     }
     .register-form__wrap{
+        width: 100%;
+    }
+
+    .steps{
+        padding-bottom: 12vw;
+    }
+    .price-info-item {
         width: 100%;
     }
 }
@@ -365,11 +339,8 @@ section h1{
         margin-top: 20px;
     }
     .rate-carousel__button{
-        width: 100%;
+        width: 92%;
         margin-bottom: 10px;
-    }
-    .rate__img{
-        height: 130px;
     }
     .btn-carousel{
         width: auto;
@@ -387,23 +358,39 @@ section h1{
     .dropdown-menu {
         padding-bottom: 0 !important;
     }
+    .steps{
+        padding-bottom: 12vw;
+    }
+    .price-info-item {
+        width: 100%;
+    }
 }
 @media screen and (min-width: 750px) {
     .btn-carousel{
         width: auto;
     }
     body {
-        padding-top: 75px;
+        padding-top: 134px;
     }
     .register-form__wrap{
         width: 40%;
+    }
+    .steps{
+        padding-bottom: 12vw;
+    }
+    .rate-carousel__button{
+        width: 92%;
+        margin-bottom: 10px;
+    }
+    .price-info-item {
+        width: 49%;
     }
 }
 
 
 @media screen and (min-width: 1024px) {
     .news__item{
-        margin-bottom: 0px;
+        margin-bottom: 20px;
     }
     .l-steps [class*="col-"]:not(:last-child)::after {
         content: '';
@@ -458,14 +445,11 @@ section h1{
     .rate-carousel__button{
         width: auto;
     }
-    .rate__img{
-        height: 205px;
-    }
     .btn-carousel{
         width: auto;
     }
     body {
-        padding-top: 75px;
+        padding-top: 134px;
     }
     .register-form__wrap{
         width: 40%;
@@ -493,27 +477,92 @@ section h1{
     .no-top-border{
         border: none !important;
     }
-}
-.news__item{
-    padding: 20px 20px;
-    -webkit-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.42);
-    -moz-box-shadow:    2px 2px 8px 0px rgba(50, 50, 50, 0.42);
-    box-shadow:         2px 2px 8px 0px rgba(50, 50, 50, 0.42);
-    margin-bottom: 20px;
+    .steps{
+        padding-bottom: 7vw;
+    }
+    .price-info-item {
+        width: 30.333%;
+    }
 }
 .news_title img{
     width: 100%;
 }
 .news__description{
     text-align: left;
+    height: 107px;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 .news__description h4{
     margin-top: 0;
 }
-.news-show__img img{
-    width: 100%;
+.news-show__img{
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 .news-show__text{
     margin-top: 20px;
     margin-bottom: 50px;
+}
+.vk_color{
+    color: #507299;
+}
+.fb_color{
+    color: #3b5998;
+}
+.ok_color{
+    color: #ed812b;
+}
+.tw_color{
+    color: #1da1f2;
+}
+.tl_color{
+    color: #0088cc;
+}
+.ins_color{
+    color: #405de6;
+}
+.contacts_ico:hover{
+    text-decoration: none;
+}
+.tariff-info__page__item{
+    text-align: left;
+}
+.about:after{
+    content: "";
+    background: transparent;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    border-top: 10vw solid transparent;
+    border-right: 50vw solid #FEFEFE;
+    border-left: 50vw solid #FEFEFE;
+}
+.about{
+    background-color: #FAFAFA;
+    position: relative;
+    padding-bottom: 7vw;
+    overflow-x: hidden;
+}
+.steps:after{
+    content: "";
+    background: transparent;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    border-top: 10vw solid transparent;
+    border-right: 50vw solid #FAFAFA;
+    border-left: 50vw solid #FAFAFA;
+}
+.steps{
+    position: relative;
+    overflow-x: hidden;
+}
+.left-text{
+    text-align: left;
 }

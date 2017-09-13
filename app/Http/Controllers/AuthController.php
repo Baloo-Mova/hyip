@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Users;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Mail\SubmitEmail;
 use App\Models\User;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Faker\Generator;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -50,6 +52,9 @@ class AuthController extends Controller
                 'email' => $request->get('email'),
                 'password' => $request->get('password')
             ])) {
+                $user->update([
+                    'auth_token' => str_random(32)
+                ]);
                 $request->session()->regenerate();
                 return redirect($redirect);
             }
@@ -59,14 +64,15 @@ class AuthController extends Controller
         return redirect()->back()->withInput($request->all())->withErrors(['password' => ['Incorrect password']]);
     }
 
-    public function registerForm(Request $request, $token = null)
+    public function registerForm(Request $request)
     {
         $count = User::where('ip', '=', $request->ip())->count();
         if ($count > 0) {
             return view('guest.register', ['user' => null])->withErrors(['userWithIpExist' => $request->ip()]);
         }
 
-        $user = User::where('ref_link', '=', $token)->first();
+
+        $user = User::find($request->cookie('referralId'));
 
         return view('guest.register', ['user' => $user]);
     }
@@ -92,18 +98,30 @@ class AuthController extends Controller
         $gen->seed(microtime(true));
 
 
-        User::create([
+        $user = User::create([
             'login' => $request->get('login'),
             'ip' => $request->ip(),
             'email' => $request->get('email'),
             'password' => \Hash::make($request->get('password')),
             'role' => 1,
+            'ref_count' => 0,
             'balance' => 0,
+            'status' => 0,
             'ref_link' => $gen->uuid,
             'referral_id' => $referral_id,
             'last_activity' => Carbon::now(),
+
         ]);
 
+
+        $user->createPassportData();
+
+        Mail::to($user->email)
+            ->send(new SubmitEmail($user));
+
+        if (isset($referral_id)) {
+            $user->incrementReferrers();
+        }
 
         \Auth::guard('users')->attempt([
             'email' => $request->get('email'),
@@ -113,8 +131,34 @@ class AuthController extends Controller
         return redirect()->route('cabinet');
     }
 
+    public function submitEmail($id, $token)
+    {
+        $user = User::find($id);
+        if (isset($user) && md5($user->email) == $token) {
+            if ($user->status == 0) {
+
+                $user->status = 1;
+                $user->save();
+
+                \Session::flash('messages', [
+                    'Email успешно подтвержден'
+                ]);
+
+            }
+        }
+
+        $to = \Auth::check() ? 'cabinet' : 'index';
+
+        return redirect(route($to));
+    }
+
     public function logout(Request $request)
     {
+        if ($user = $this->guard()->user()) {
+            $user->update([
+                'auth_token' => null
+            ]);
+        };
         $this->guard()->logout();
 
         $request->session()->invalidate();

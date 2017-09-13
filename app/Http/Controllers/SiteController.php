@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
+use App\Models\Article;
+use App\Models\FAQ;
+use App\Models\SocialNetwork;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class SiteController extends Controller
 {
@@ -11,54 +18,58 @@ class SiteController extends Controller
     {
         return view('guest.need_verify_email');
     }
-    public function index(){
-        $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
 
+    public function index()
+    {
+        $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
+        $social = SocialNetwork::link()->get();
+        $shares = SocialNetwork::share()->get();
+        $news = Article::orderBy('updated_at', 'asc')->limit(3)->get();
         $data = [
             'carousel' => [
-              [
-                  'img' => 'img/1.jpg',
-                  'caption' => 'Грамотно выстроенная маркетинговая система позволяет заработать всем',
-                  'buttons' => [
-                      [
-                          'title' => 'Регистрация',
-                          'link'  => '/register',
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ]
-                  ]
-              ],
-              [
-                  'img' => 'img/2.jpg',
-                  'caption' => 'Содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
-                  'buttons' => [
-                      [
-                          'title' => 'Регистрация',
-                          'link'  => '/register',
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ],
-                      [
-                          'title' => 'Узнать как',
-                          'link'  => '/register',
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ]
-                  ]
-              ],
-              [
-                  'img' => 'img/3.jpg',
-                  'caption' => 'Ничего не надо продавать или покупать, просто делайте деньги',
-                  'buttons' => [
-                      [
-                          'title' => 'Регистрация',
-                          'link'  => '/register',
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ],
-                      [
-                          'title' => 'Подробнее',
-                          'link'  => '/register',
-                          'class' => 'btn-main-carousel btn-flat btn-lg'
-                      ]
-                  ]
-              ],
+                [
+                    'img' => 'img/1.jpg',
+                    'caption' => 'Грамотно выстроенная маркетинговая система позволяет заработать всем',
+                    'buttons' => [
+                        [
+                            'title' => 'Регистрация',
+                            'link' => route('register'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ]
+                    ]
+                ],
+                [
+                    'img' => 'img/2.jpg',
+                    'caption' => 'Содержит информацию о перспективах сотрудничества с компанией, о выгоде клиентов',
+                    'buttons' => [
+                        [
+                            'title' => 'Регистрация',
+                            'link' => route('register'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ],
+                        [
+                            'title' => 'Узнать как',
+                            'link' => route('about'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ]
+                    ]
+                ],
+                [
+                    'img' => 'img/3.jpg',
+                    'caption' => 'Ничего не надо продавать или покупать, просто делайте деньги',
+                    'buttons' => [
+                        [
+                            'title' => 'Регистрация',
+                            'link' => route('register'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ],
+                        [
+                            'title' => 'Подробнее',
+                            'link' => route('about'),
+                            'class' => 'btn-main-carousel btn-flat btn-lg'
+                        ]
+                    ]
+                ],
             ],
             'greetings' => [
                 'img' => 'img/1.jpg',
@@ -75,7 +86,7 @@ class SiteController extends Controller
                     'img' => 'img/2.jpg',
                     'title' => 'Бонусная программа',
                     'description' => 'Как только ваша структура вырастет до 1000 человек на трех ступенях, то вы можете получить от нас дополнительный бонус 10 000 рублей и будете получать его ежемесячно вместе с основными партнерскими вознаграждениями. А когда ваша структура достигнет количества в 10 000 человек на трех ступенях, то мы подарим вам 100 000 рублей! И этот бонус также вы будете получать ежемесячно. Чтобы более подробно узнать, как получать такие бонусы, проходите в раздел «Акции».',
-                    'link' => '#'
+                    'link' => route('stock')
                 ],
                 [
                     'img' => 'img/3.jpg',
@@ -104,12 +115,8 @@ class SiteController extends Controller
                 'img/brand6.png',
                 'img/brand9.png',
             ],
-            'news' => [
-                ['title' => 'Новость 1', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua'],
-                ['title' => 'Новость 2', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua'],
-                ['title' => 'Новость 3', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, ex facere fugiat maxime molestiae non nostrum o', 'link' => 'http://google.com.ua']
-            ],
-            'contacts' =>[
+            'news' => $news,
+            'contacts' => [
                 'phones' => [
                     '+380661234567',
                     '+380661234567',
@@ -121,121 +128,96 @@ class SiteController extends Controller
                     'email3@gmail.com',
                 ],
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social,
+                    'share' => $shares
                 ]
             ]
         ];
         return view('main.index', ['data' => $data]);
     }
 
-    public function about()
+    public function addReferral($id)
     {
-        $data = [
-            'contacts' =>[
-                'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        return view('main.about', ['data' => $data]);
+        $user = User::where('ref_link', '=', $id)->first();
+        if (isset($user)) {
+            return redirect(route('index'))->withCookies([
+                Cookie::make('referralId', $user->id, 120)
+            ]);
+        }
+
+        return redirect(route('index'));
     }
 
-    public function newsShow($id){
-        $news = [
-            1 => [
-                'id' => 1,
-                'title' => 'Новость 1',
-                'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                'img' => 'img/1.jpg'
-            ],
-            2 => [
-                'id' => 2,
-                'title' => 'Новость 2',
-                'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                'img' => 'img/2.jpg'
+    public function about()
+    {
+        $content = About::find(1);
+        $social = SocialNetwork::link()->get();
+        $data = [
+            'contacts' => [
+                'social' => [
+                    'links' => $social
+                ]
             ]
         ];
+        return view('main.about', [
+            'data' => $data,
+            'content' => isset($content) ? $content : []
+        ]);
+    }
+
+    public function tariff($id)
+    {
+        $tariffs = Subscription::with(['firstPrices'])->get();
+        $tariff = Subscription::find($id);
+        $social = SocialNetwork::link()->get();
+        if (isset($tariff)) {
+            $subscriptionPrices = $tariff->firstPrices;
+        }
         $data = [
-            'news' => $news[$id],
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
+                    'links' => $social
+                ]
+            ]
+        ];
+        return view('main.tariff', [
+            'data' => $data,
+            'tariffs' => $tariffs,
+            'tariff_info' => isset($tariff) ? $tariff : "",
+            "subscription" => isset($subscriptionPrices) ? $subscriptionPrices : ""
+        ]);
+    }
+
+    public function inputOutput($type)
+    {
+        $social = SocialNetwork::link()->get();
+        $data = [
+            'input' => [
+                'title' => 'Пополнить счет',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            ],
+            'output' => [
+                'title' => 'Вывести стредства',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            ],
+            'contacts' => [
+                'social' => [
+                    'links' => $social
+                ]
+            ]
+        ];
+        return view('main.inputOutput', ['data' => $data, 'type' => $type]);
+    }
+
+    public function stock()
+    {
+        $social = SocialNetwork::link()->get();
+        $stock = Article::stock()->orderBy('updated_at', 'asc')->paginate(10);
+        $data = [
+            'stock' => $stock,
+            'contacts' => [
+                'social' => [
+                    'links' => $social,
                     'share' => [
                         'vk' => [
                             'img' => 'img/vk', 'link' => 'http://google.com.ua'
@@ -259,56 +241,58 @@ class SiteController extends Controller
                 ]
             ]
         ];
-        return view('main.newsShow', ['data' => $data]);
+        return view('main.stock', ['data' => $data]);
+    }
+
+    public function stockShow($uri)
+    {
+        $social = SocialNetwork::link()->get();
+        $stock = Article::whereUri($uri)->first();
+        if(!isset($stock)){
+            return redirect(route('stock'))
+                ->withErrors('Записи с таким ID не существует!')
+                ->withInput();
+        }
+        $data = [
+            'article' => $stock,
+            'contacts' => [
+                'social' => [
+                    'links' => $social
+                ]
+            ]
+        ];
+        return view('main.article', ['data' => $data]);
+    }
+
+    public function newsShow($uri)
+    {
+        $news = Article::whereUri($uri)->first();
+        $social = SocialNetwork::link()->get();
+        if(!isset($news)){
+            return redirect(route('news'))
+                ->withErrors('Записи с таким ID не существует!')
+                ->withInput();
+        }
+        $data = [
+            'article' => $news,
+            'contacts' => [
+                'social' => [
+                    'links' => $social
+                ]
+            ]
+        ];
+        return view('main.article', ['data' => $data]);
     }
 
     public function news()
     {
+        $social = SocialNetwork::link()->get();
+        $news = Article::blog()->orderBy('updated_at', 'asc')->paginate(10);
         $data = [
-            'news' => [
-                0 => [
-                    'id' => 1,
-                    'title' => 'Новость 1',
-                    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    'img' => 'img/1.jpg'
-                ],
-                1 => [
-                    'id' => 2,
-                    'title' => 'Новость 2',
-                    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    'img' => 'img/2.jpg'
-                ]
-            ],
-            'contacts' =>[
+            'news' => $news,
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -317,37 +301,13 @@ class SiteController extends Controller
 
     public function contacts()
     {
+        $social = SocialNetwork::link()->get();
+        $shares = SocialNetwork::share()->get();
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social,
+                    'share' => $shares
                 ]
             ]
         ];
@@ -356,76 +316,30 @@ class SiteController extends Controller
 
     public function questions()
     {
+        $faq = FAQ::paginate(15);
+        $social = SocialNetwork::link()->get();
+
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
-        return view('main.questions', ['data' => $data]);
+
+        return view('main.questions', [
+            'data' => $data,
+            'faq'  => $faq
+        ]);
     }
 
     public function regulations()
     {
+        $social = SocialNetwork::link()->get();
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -434,37 +348,11 @@ class SiteController extends Controller
 
     public function termsOfUse()
     {
+        $social = SocialNetwork::link()->get();
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];
@@ -473,37 +361,11 @@ class SiteController extends Controller
 
     public function privacyPolicy()
     {
+        $social = SocialNetwork::link()->get();
         $data = [
-            'contacts' =>[
+            'contacts' => [
                 'social' => [
-                    'links' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ],
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];

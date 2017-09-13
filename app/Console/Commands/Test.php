@@ -2,9 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\SubmitEmail;
+use App\Models\User;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Test extends Command
 {
@@ -39,8 +43,8 @@ class Test extends Command
      */
     public function handle()
     {
-
-        $gen = Factory::create();
-        dd($gen->uuid);
+        $user = User::find(4);
+        $user->password = bcrypt('418390');
+        $user->save();
     }
 }

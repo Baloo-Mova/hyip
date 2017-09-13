@@ -34,6 +34,6 @@ return [
     |
     */
 
-    'm_key' => env('RUB'),
+    'm_key' => env('M_KEY'),
 
 ];

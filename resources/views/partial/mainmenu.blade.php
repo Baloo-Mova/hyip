@@ -16,7 +16,9 @@
             <ul class="nav navbar-nav top-main-menu__menu_left new_nav hidden-sm hidden-xs" id="menu">
                 <li>
                     @foreach($data['contacts']['social']['links'] as $soc)
-                        <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
+                        <a href="{{ $soc->link }}" class="main-menu__social-link">
+                            <i class="{{ $soc->icon }} main-menu__social-link__icon"></i>
+                        </a>
                     @endforeach
                 </li>
             </ul>
@@ -25,21 +27,21 @@
                 <li class="dropdown">
                     <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О компании <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Что такое White Coin?</a></li>
-                        <li><a href="#">Как мы работаем?</a></li>
-                        <li><a href="#">Наши цели</a></li>
-                        <li><a href="#">Почему мы?</a></li>
-                        <li><a href="#">Как зарабатывать?</a></li>
-                        <li><a href="#">Документы</a></li>
+                        <li><a href="{{ route('about', ['#what']) }}" data-anchor="what" class="about_menu_a">Что такое White Coin?</a></li>
+                        <li><a href="{{ route('about', ['#how_we_work']) }}" data-anchor="how_we_work" class="about_menu_a">Как мы работаем?</a></li>
+                        <li><a href="{{ route('about', ['#our_targets']) }}" data-anchor="our_targets" class="about_menu_a">Наши цели</a></li>
+                        <li><a href="{{ route('about', ['#why_we']) }}" data-anchor="why_we" class="about_menu_a">Почему мы?</a></li>
+                        <li><a href="{{ route('about', ['#how_earn']) }}" data-anchor="how_earn" class="about_menu_a">Как зарабатывать?</a></li>
+                        <li><a href="{{ route('about', ['#documents']) }}" data-anchor="documents" class="about_menu_a">Документы</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ route('about') }}">Акции</a></li>
+                <li><a href="{{ route('stock') }}">Акции</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Партнерам <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Пополнить счет</a></li>
-                        <li><a href="#">Вывести средства</a></li>
-                        <li><a href="#">Тарифы</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input.output', ['type' => 'input']) }}">Пополнить счет</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('input.output', ['type' => 'output']) }}">Вывести средства</a></li>
+                        <li><a href="{{ Auth::check() ? route('tariff', ['id' => -1]) : route('about.tariffs', ['id' => -1]) }}">Тарифы</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>
@@ -82,7 +84,7 @@
         </ul>
     </div>
 </nav>
-<nav class="navbar navbar-default navbar-static-top hidden-xs navbar__black">
+<nav class="navbar navbar-default navbar-fixed-top hidden-xs navbar__black navbar-fixed-top--new">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -98,21 +100,21 @@
                 <li class="dropdown">
                     <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">О компании <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Что такое White Coin?</a></li>
-                        <li><a href="#">Как мы работаем?</a></li>
-                        <li><a href="#">Наши цели</a></li>
-                        <li><a href="#">Почему мы?</a></li>
-                        <li><a href="#">Как зарабатывать?</a></li>
-                        <li><a href="#">Документы</a></li>
+                        <li><a href="{{ route('about', ['#what']) }}" data-anchor="what" class="about_menu_a">Что такое White Coin?</a></li>
+                        <li><a href="{{ route('about', ['#how_we_work']) }}" data-anchor="how_we_work" class="about_menu_a">Как мы работаем?</a></li>
+                        <li><a href="{{ route('about', ['#our_targets']) }}" data-anchor="our_targets" class="about_menu_a">Наши цели</a></li>
+                        <li><a href="{{ route('about', ['#why_we']) }}" data-anchor="why_we" class="about_menu_a">Почему мы?</a></li>
+                        <li><a href="{{ route('about', ['#how_earn']) }}" data-anchor="how_earn" class="about_menu_a">Как зарабатывать?</a></li>
+                        <li><a href="{{ route('about', ['#documents']) }}" data-anchor="documents" class="about_menu_a">Документы</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ route('about') }}">Акции</a></li>
+                <li><a href="{{ route('stock') }}">Акции</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Партнерам <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Пополнить счет</a></li>
-                        <li><a href="#">Вывести средства</a></li>
-                        <li><a href="#">Тарифы</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'input']) : route('input.output', ['type' => 'input']) }}">Пополнить счет</a></li>
+                        <li><a href="{{ Auth::check() ? route('facilities', ['type' => 'output']) : route('input.output', ['type' => 'output']) }}">Вывести средства</a></li>
+                        <li><a href="{{ Auth::check() ? route('tariff', ['id' => -1]) : route('about.tariffs', ['id' => -1]) }}">Тарифы</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('news') }}">Новости</a></li>

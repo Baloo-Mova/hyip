@@ -13,7 +13,7 @@
                                 </h3>
                                 @if(isset($carousel['buttons']))
                                     @foreach($carousel['buttons'] as $button)
-                                        <a href="{{ url($button['link']) }}" class="btn {{ $button['class'] }} btn-carousel">{{ $button['title'] }}</a>
+                                        <a href="{{ $button['link'] }}" class="btn {{ $button['class'] }} btn-carousel">{{ $button['title'] }}</a>
                                     @endforeach
                                 @endif
                             </div>
@@ -67,7 +67,7 @@
                         <div class="col-xs-12 col-md-8">
                             <h4>{{ $about['title'] }}</h4>
                             <p>{{ $about['description'] }}</p>
-                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
+                            {{--<a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>--}}
                         </div>
                     </div>
                     @if($about != end($data['about']))
@@ -83,7 +83,7 @@
                         <div class="col-xs-12 col-md-8 col-md-pull-4">
                             <h4>{{ $about['title'] }}</h4>
                             <p>{{ $about['description'] }}</p>
-                            <a href="{{ route('about') }}" class="about__link">Подробнее...</a>
+                            {{--<a href="{{ $about['link'] }}" class="about__link">Подробнее...</a>--}}
                         </div>
                     </div>
                     @if($about != end($data['about']))
@@ -93,7 +93,7 @@
             @endforeach
             <div class="row">
                 <div class="col-xs-12 about__register-wrap">
-                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
+                    <a href="{{ route('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
                                     <span class="kostil_1">1.</span>
                                 </div>
                                 <div class="l-steps__item-about">
-                                    <a href="#" class="about__link">
+                                    <a href="{{ route('register') }}" class="about__link">
                                         <span class="js-translate">Register an account</span>
                                     </a>
                                     <span class="js-translate">&nbsp;and choose an investment portfolio</span>
@@ -168,9 +168,6 @@
                     <div class="owl-carousel rate-carousel">
                         @foreach($data['rate'] as $rate)
                             <div class="rate-carousel-item">
-                                <div class="rate__top">
-                                    &nbsp;
-                                </div>
                                 <div class="rate__img">
                                     <img src="img/{{ random_int(1,3) }}.jpg" class="" alt="">
                                 </div>
@@ -179,19 +176,25 @@
                                 </div>
                                 <div class="rate__body">
                                     <p class="rate__price">Цена: {{ $rate['price'] }}</p>
-                                    <p>Реферальная система: {{ $rate['levels'] }} уровня</p>
+                                    <p class="reate__price_p">Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                     <hr>
                                     @if(isset($rate['first_prices']))
-                                        @foreach($rate['first_prices'] as $item)
-                                            <p>{{ $item['level'] + 1 }} уровень - {{ $item['value'].($item['is_percent'] ? "%" : "") }}</p>
-                                            <hr>
-                                        @endforeach
+                                        @for($i = 0; $i < 3; $i++)
+                                            @if(!isset($rate['first_prices'][$i]))
+                                                -
+                                                <hr>
+                                                @continue
+                                            @else
+                                                <p>{{ ($rate['first_prices'][$i]['level'] + 1)." уровень -" }} {{ $rate['first_prices'][$i]['is_percent'] ? $rate['first_prices'][$i]['value']."%" : $rate['first_prices'][$i]['value'] }}</p>
+                                                <hr>
+                                            @endif
+                                        @endfor
                                     @endif
                                     <p>Срок действия: {{ $rate['term'] }} дней</p>
                                 </div>
                                 <div class="rate__footer">
-                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                    <a href="{{ url('register') }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                    <a href="{{ route('tariff.payment',['id'=>$rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
+                                    <a href="{{ route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
                                 </div>
                             </div>
                         @endforeach
@@ -207,15 +210,15 @@
                     <h1>Новости</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                 @foreach($data['news'] as $news)
-                    <div class="col-xs-12 col-md-4">
+                    <div class="col-xs-12 col-md-4 text-center news__item--new">
                         <div class="news__item">
                             <h4>{{ $news['title'] }}</h4>
                             <div class="overflow news__overflow">
-                                <p>{{ $news['description'] }}</p>
+                                <p>{!!  $news['content'] !!}</p>
                             </div>
-                            <a href="{{ route('news') }}" class="about__link">Читать далее...</a>
+                            <a href="{{ route('news.show', ['uri' => $news['uri']]) }}" class="about__link">Читать далее...</a>
                         </div>
                     </div>
                 @endforeach
@@ -264,8 +267,8 @@
                         <div class="col-xs-12 col-md-6">
                             <h4>Поделиться:</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
-                                <a href="{{ $soc['link'] }}">
-                                    <img src="{{ asset($soc['img']."_black.svg") }}" alt="" class="contacts__img">
+                                <a href="{{ $soc->link }}" class="no_underline">
+                                    <i class="{{ $soc->icon }} contacts_ico"></i>
                                 </a>
                             @endforeach
                         </div>
@@ -309,23 +312,24 @@
 @section('js')
     <script>
         $(document).ready(function () {
+            var is_three = false;
             $(".main-carousel").owlCarousel({
                 items: 1,
                 autoplay: true,
                 loop: true,
                 dots: true,
             });
-            $(".rate-carousel").owlCarousel({
+            var rateCarousel = $(".rate-carousel");
+            rateCarousel.owlCarousel({
                 autoplay: false,
                 loop: false,
                 dots: true,
                 margin: 10,
-                center: true,
+                center: false,
                 responsiveClass: true,
                 responsive: {
                     0: {
-                        items: 1,
-                        stagePadding: 50
+                        items: 1
                     },
                     600: {
                         items: 3
@@ -333,8 +337,31 @@
                     1000: {
                         items: 3
                     }
+                },
+                onInitialized: function(e) {
+                    if(this.items().length > 3){
+                        is_three = true;
+                    }
                 }
             });
+
+            var left_position = 0;
+
+            if(is_three){
+                $(".rate-carousel").on('mouseenter', function () {
+                    left_position = $(".rate-carousel .owl-stage").position().left;
+                    if(left_position <= 0 && left_position > -50){
+                        left_position = left_position - 50;
+                        $(".rate-carousel .owl-stage").css({"transform": "translate3d("+(left_position)+"px, 0px, 0px)", "transition": "transform 1s linear"});
+                    }
+                });
+                $(".rate-carousel").on('mouseleave', function () {
+                    left_position = $(".rate-carousel .owl-stage").position().left;
+                    if(left_position == -50){
+                        $(".rate-carousel .owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "transform 1s linear"});
+                    }});
+            }
+
             $(".anchor_a").on("click", function (event) {
                 event.preventDefault();
                 var id  = $(this).attr('href'),

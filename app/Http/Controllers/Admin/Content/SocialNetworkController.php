@@ -2,124 +2,80 @@
 
 namespace App\Http\Controllers\Admin\Content;
 
-use App\Http\Controllers\Admin\BaseController;
-use App\Http\Requests\SocialNetwork\CreateSocialRequest;
 use App\Models\SocialNetwork;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
-class SocialNetworkController extends BaseController
+class SocialNetworkController extends Controller
 {
-    private $_model;
-    private $_view = 'content.social-networks';
-
-    public function __construct(SocialNetwork $model)
-    {
-        parent::__construct($model, $this->_view);
-        $this->_model = $model;
+    public function index(){
+        $items = SocialNetwork::paginate(10);
+        return view('Admin::content.social-networks.list',compact('items'));
     }
 
-    public function postEdit(Request $request, $social_id = null )
-    {
-        $validator = \Validator::make($request->all(), with(new CreateSocialRequest())->rules());
+    public function add(){
+        return view('Admin::content.social-networks.edit');
+    }
+
+    public function save(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'link' => 'required',
+            'icon' => 'required',
+        ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
+            return redirect(route('admin.social-networks.add'))
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        if( empty($social_id) || !is_numeric($social_id) || !($social = $this->_model->find($social_id)) ) {
-            $social = $this->_model;
-        } else {
-            $social->is_active = $request->get('is_active') ? $request->get('is_active') : 0;
-        }
+        $item = new SocialNetwork();
+        $item->name = $request->get('name');
+        $item->link = $request->get('link');
+        $item->icon = $request->get('icon');
+        $item->type_id = $request->has('type_id') ? 2 : 1;
+        $item->save();
 
-        if($image = $request->file('img')) {
-            $origext  = $image->getClientOriginalExtension();
-            $filename = generate_file_name(".{$origext}");
-
-            \Storage::disk('uploads')->put("social-networks/$filename", file_get_contents($image->getRealPath()));
-
-            $social->img = $filename;
-        }
-
-        if($image = $request->file('black_img')) {
-            $origext  = $image->getClientOriginalExtension();
-            $filename = generate_file_name(".{$origext}");
-
-            \Storage::disk('uploads')->put("social-networks/$filename", file_get_contents($image->getRealPath()));
-
-            $social->black_img = $filename;
-        }
-
-        $social->fill([
-            'name'      => $request->get('name'),
-            'link'      => $request->get('link'),
-        ]);
-
-        $social->save();
-
-        return redirect()->route('admin.social-networks.get', ['id' => $social->id])->with('messages', ['Created successful']);
+        Session::flash('messages', ['Изменения успешно внесены!']);
+        return back();
     }
 
-    public function imageDelete( $social_id = null , $type = 'img')
-    {
-        if( empty($social_id) || !is_numeric($social_id) || !($social = $this->_model->find($social_id)) ) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Incorrect identifier',
-            ]);
+    public function edit($id){
+        $item = SocialNetwork::find($id);
+        if(!isset($item)){
+            return redirect(route('admin.social-networks.list'))
+                ->withErrors('Записи с таким ID не существует!')
+                ->withInput();
         }
-
-        switch ($type) {
-            case 'img':
-                if(!empty($social->img) && \Storage::disk('uploads')->exists("social-networks/$social->img")) {
-                    \Storage::disk('uploads')->delete("social-networks/$social->img");
-
-                    $social->img = '';
-                    $social->save();
-
-                    return response()->json([
-                        'success' => true,
-                    ]);
-                }
-                break;
-            case 'black_img':
-                if(!empty($social->black_img) && \Storage::disk('uploads')->exists("social-networks/$social->black_img")) {
-                    \Storage::disk('uploads')->delete("social-networks/$social->black_img");
-
-                    $social->black_img = '';
-                    $social->save();
-
-                    return response()->json([
-                        'success' => true,
-                    ]);
-                }
-                break;
-        }
-
-        return response()->json([
-            'success' => false,
-        ]);
+        return view('Admin::content.social-networks.edit', ['item' => $item]);
     }
 
-    public function delete( $social_id = null )
-    {
-        if( empty($social_id) || !is_numeric($social_id) || !($social = $this->_model->find($social_id)) ) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Incorrect identifier',
-            ]);
+    public function update(Request $request, $id){
+        $item = SocialNetwork::find($id);
+        if(!isset($item)){
+            return redirect(route('admin.social-networks.list'))
+                ->withErrors('Записи с таким ID не существует!')
+                ->withInput();
         }
+        $item->fill($request->all());
+        $item->type_id = $request->has('type_id') ? 2 : 1;
+        $item->save();
+        Session::flash('messages', ['Изменения успешно внесены!']);
+        return back();
+    }
 
-        if(!empty($social->img) && \Storage::disk('uploads')->exists("social-networks/$social->img")) {
-            \Storage::disk('uploads')->delete("social-networks/$social->img");
+    public function delete($id){
+        $item = SocialNetwork::find($id);
+        if(!isset($item)){
+            return redirect(route('admin.social-networks.list'))
+                ->withErrors('Записи с таким ID не существует!')
+                ->withInput();
         }
-
-        if(!empty($social->black_img) && \Storage::disk('uploads')->exists("social-networks/$social->black_img")) {
-            \Storage::disk('uploads')->delete("social-networks/$social->black_img");
-        }
-
-        $social->delete();
-
-        return redirect()->back();
+        $item->delete();
+        Session::flash('messages', ['Запись успешно удалена!']);
+        return back();
     }
 }

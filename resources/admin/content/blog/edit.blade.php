@@ -36,12 +36,12 @@
                     @if( !empty($item->photo) )
                         <div style="width: 110px;">
                             <div style="width: 100px; margin: 0 auto; padding: 0;">
-                                <img src="/media/uploads/blog/{{ $item->photo }}" width="100px" />
+                                <img src="{{ route('get.image', ['type' => 'blog', 'name' => $item->photo]) }}" width="100px" />
                             </div>
                             <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteArticleImage()">Delete</button>
                         </div>
                     @else
-                        {!! Form::file('image', '') !!}
+                        {!! Form::file('image', []) !!}
                     @endif
                 </div>
             </div>
@@ -68,6 +68,15 @@
                     </div>
                 @endif
             </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="is_stock">
+                    <input type="checkbox" name="is_stock">
+                    Акция
+                </label>
+            </div>
+        </div>
 
             <div class="col-md-12" style="margin-top: 25px;">
                 {!! Form::customButton('Save', 'btn btn-primary', 'fa-floppy-o') !!}
@@ -223,8 +232,8 @@ $(function() {
     @endif
 
     //    CKEDITOR.replace('edit-form-announcement');
-    CKEDITOR.replace('edit-form-content', {contentsCss: "{{ url( elixir('css/ts_main.css') ) }}"});
-
+    CKEDITOR.replace('edit-form-content', {
+        contentsCss: "{{ url( elixir('css/ts_main.css') ) }}"});
 });
 
 </script>

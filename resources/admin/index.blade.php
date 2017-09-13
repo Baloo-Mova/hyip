@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('/admin-cabinet/dist/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('/admin-cabinet/css/AdminLTE.css')}}">
     <link rel="stylesheet" href="{{asset('/admin-cabinet/css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/social-networks.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -22,6 +23,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     @stack('header-scripts')
+    @yield('css')
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -36,6 +38,7 @@
             </button>
             <a class="navbar-brand" href="{{ route('index') }}">AdminTemplate</a>
         </div>
+            <a class="navbar-brand pull-right" href="{{ route('logout') }}">Logout</a>
     </div>
 </nav>
 <div class="container-fluid">

@@ -18,7 +18,7 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Value</th>
+                    <th>Icon</th>
                     <th>Date</th>
                     <th></th>
                 </tr>
@@ -28,12 +28,14 @@
                     <tr class="item-{{ $item->id }}">
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->value }}</td>
+                        <td>
+                            <i class="{{ $item->icon }}"></i>
+                        </td>
                         <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                         <td>
                             <a href='{{ route('admin.carousel.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;&nbsp;&nbsp;
-                            <a onclick="deleteContacts('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="{{ route('mainheader.delete', ['id' => $item->id]) }}" onclick="return confirm('Delete this item?')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -46,14 +48,4 @@
     @else
         <div>No items</div>
     @endif
-
-    @push('footer-scripts')
-        <script type="text/javascript">
-            var deleteContacts = function( id ) {
-                if( typeof(id) != 'undefined' && id != '' && confirm('Delete a contact?') ) {
-                    document.location.href = "/admin/carousel/delete/" + id;
-                }
-            };
-        </script>
-    @endpush
 @endsection
