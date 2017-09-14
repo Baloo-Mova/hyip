@@ -10,6 +10,7 @@ use App\Models\InputOutput;
 use App\Models\MainPage\HeaderCarousel;
 use App\Models\Regulations;
 use App\Models\SocialNetwork;
+use App\Models\SocialNetworksShares;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
@@ -27,7 +28,7 @@ class SiteController extends Controller
     {
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
         $social = SocialNetwork::link()->get();
-        $shares = SocialNetwork::share()->get();
+        $shares = SocialNetworksShares::find(1);
         $news = Article::blog()->orderBy('updated_at', 'asc')->limit(3)->get();
         $email = Contact::email()->get();
         $phones = Contact::phones()->get();
@@ -84,7 +85,7 @@ class SiteController extends Controller
                 'emails' => $email,
                 'social' => [
                     'links' => $social,
-                    'share' => $shares
+                    'share' => json_decode($shares->shares)
                 ]
             ]
         ];

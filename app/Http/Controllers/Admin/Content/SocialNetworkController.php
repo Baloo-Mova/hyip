@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Models\SocialNetwork;
+use App\Models\SocialNetworksShares;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -13,6 +14,33 @@ class SocialNetworkController extends Controller
     public function index(){
         $items = SocialNetwork::paginate(10);
         return view('Admin::content.social-networks.list',compact('items'));
+    }
+
+    public function shares(){
+        $shares = SocialNetworksShares::find(1);
+        return view('Admin::content.social-networks.shares', ['item' => $shares]);
+    }
+
+    public function sharesSave(Request $request)
+    {
+        $text = $request->get('text');
+
+        $shares = [];
+
+        foreach ($request->get('name') as $name){
+            $shares[$name] = [
+                'link' => str_replace(['[link]', '[text]'], [urlencode(url('/')), urlencode($text)], $request->get('link')[$name]),
+                'icon' => $request->get('icon')[$name],
+                'color' => $request->get('color')[$name],
+                'need_show' => !empty($request->get('need_show')[$name]) ? 1 : 0,
+            ];
+        }
+
+        SocialNetworksShares::where(['id' => 1])->update(['text' => $text, 'shares' => json_encode($shares)]);
+
+        $shares = SocialNetworksShares::find(1);
+        Session::flash('messages', ['Изменения успешно внесены!']);
+        return view('Admin::content.social-networks.shares', ['item' => $shares]);
     }
 
     public function add(){

@@ -267,8 +267,11 @@
                         <div class="col-xs-12 col-md-6">
                             <h4>Поделиться:</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
-                                <a href="{{ $soc->link }}" class="no_underline">
-                                    <i class="{{ $soc->icon }} contacts_ico"></i>
+                                @if($soc->need_show == 0)
+                                    @continue
+                                @endif
+                                <a href="{{ $soc->link }}" class="no_underline" target="_blank">
+                                    <i class="{{ $soc->icon." ".$soc->color }} contacts_ico"></i>
                                 </a>
                             @endforeach
                         </div>

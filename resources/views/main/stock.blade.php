@@ -34,6 +34,9 @@
                 @empty
                 @endforelse
             </div>
+            <div class="col-xs-12 text-center">
+                {{ $data['stock']->links() }}
+            </div>
         </div>
 
     </div>

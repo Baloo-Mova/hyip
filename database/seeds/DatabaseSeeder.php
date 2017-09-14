@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UsersTableSeeder::class);
+        $this->call(social_networks_share::class);
         try {
             \App\Models\WalletProcessesType::insert([
                 'id' => 1,

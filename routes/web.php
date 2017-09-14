@@ -118,6 +118,8 @@ Route::group([
 
         Route::group(['prefix' => 'social-networks'], function () {
             Route::get('/', 'SocialNetworkController@index')->name('admin.social-networks.list');
+            Route::get('/shares', 'SocialNetworkController@shares')->name('admin.social-networks.shares');
+            Route::post('/shares', 'SocialNetworkController@sharesSave')->name('admin.social-networks.shares.save');
             Route::get('/add', 'SocialNetworkController@add')->name('admin.social-networks.add');
             Route::post('/add', 'SocialNetworkController@save')->name('admin.social-networks.save');
             Route::get('/edit/{id}', 'SocialNetworkController@edit')->name('admin.social-networks.get');

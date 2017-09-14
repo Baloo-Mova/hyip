@@ -19,6 +19,9 @@
 
                 @endforelse
             </div>
+            <div class="col-xs-12 text-center">
+                {{ $faq->links() }}
+            </div>
         </div>
     </div>
 @endsection
