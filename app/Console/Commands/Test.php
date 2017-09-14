@@ -43,7 +43,7 @@ class Test extends Command
      */
     public function handle()
     {
-        $user = User::find(4);
+        $user = User::find(20)->with('isConfirmed');
         $user->password = bcrypt('418390');
         $user->save();
     }

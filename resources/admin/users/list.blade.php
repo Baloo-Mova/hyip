@@ -44,7 +44,7 @@
                     <td>{{$user->ref_count}}</td>
                     <td>{{$user->is_confirm == 0 ? "Unconfirmed" : "Confirmed"}}</td>
                     <td>
-                        @if(!$user->is_confirm)
+                        @if(!$user->is_confirm && isset($user->confirmed))
                             <a title="Confirm" href="{{route('admin-users-confirm', ['id'=>$user->id])}}"><i
                                         class="fa fa-newspaper-o"></i></a>
                         @endif

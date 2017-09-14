@@ -253,4 +253,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(PassportData::class, 'user_id', 'id');
     }
+
+    public function confirmed()
+    {
+        return $this->hasOne(UserConfirm::class, 'user_id', 'id')->where(['is_read' => 0]);
+    }
 }

@@ -22,9 +22,9 @@ class UserController extends BaseController
 
     public function index()
     {
-
+        $users = User::with('confirmed')->paginate(15);
         return view('Admin::' . $this->_view . '.list', [
-            'users' => $this->_model->paginate(25),
+            'users' =>$users,
         ]);
     }
 
