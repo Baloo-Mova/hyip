@@ -51,7 +51,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="buttons__wrap">
-                @if(isset($item))
+                @if(isset($item) && !empty($item))
                     <?php $buttons = json_decode($item->buttons); ?>
                     @foreach($buttons as $key=>$button)
                         <?php ++$key; ?>
@@ -127,7 +127,7 @@
 
                $(".buttons__wrap").append('<div class="col-xs-12 col-md-4">'+
                    '<h4>Button '+current+
-                   '<i class="fa fa-minus-square carousel_crud_delete_button" aria-hidden="true" title="Удалить эту кнопку" data-button="'+current+'"></i>'+
+                   ' <i class="fa fa-minus-square carousel_crud_delete_button" aria-hidden="true" title="Удалить эту кнопку" data-button="'+current+'"></i>'+
                    '</h4>'+
                    '<hr>'+
                    '<div class="form-group">'+

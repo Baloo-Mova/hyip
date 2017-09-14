@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Models\MainPage\HeaderCarousel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class CarouselController extends BaseController
 {
@@ -18,8 +19,23 @@ class CarouselController extends BaseController
         $this->_model = $model;
     }
 
+    public function getAdd()
+    {
+        return view('Admin::content.carousel.edit');
+    }
+
     public function postEdit(Request $request, $slide_id = null )
     {
+        $carousel = HeaderCarousel::find($slide_id);
+        $validator = Validator::make($request->all(), [
+            'text' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('admin.carousel.add'))
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         if ($request->hasFile('file')) {
             $origext  = $request->file('file')->getClientOriginalExtension();
@@ -34,8 +50,6 @@ class CarouselController extends BaseController
                 'url' => $request->get('url')[$i],
             ];
         }
-
-        $carousel = HeaderCarousel::find($slide_id);
 
         if(!isset($carousel)){
             $carousel = new HeaderCarousel();

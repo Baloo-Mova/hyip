@@ -40,7 +40,7 @@ class SocialNetworkController extends Controller
         $item->save();
 
         Session::flash('messages', ['Изменения успешно внесены!']);
-        return back();
+        return redirect()->route('admin.social-networks.get', ['id' => $item]);
     }
 
     public function edit($id){
