@@ -112,6 +112,13 @@ body {
 .ins_color{
     color: #405de6;
 }
-.add_carousel_buttons:hover{
+.add_carousel_buttons:hover,
+.carousel_crud_delete_button:hover{
     cursor: pointer;
+}
+.mt20{
+    margin-top: 20px;
+}
+.mt10{
+    margin-top: 10px;
 }

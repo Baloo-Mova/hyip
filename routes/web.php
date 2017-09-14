@@ -106,7 +106,8 @@ Route::group([
             Route::get('add', 'CarouselController@getAdd')->name('admin.carousel.add');
             Route::get('{id}', 'CarouselController@getEdit')->name('admin.carousel.get');
             Route::post('{id}', 'CarouselController@postEdit');
-            Route::get('delete/{id}', 'CarouselController@delete');
+            Route::get('delete/{id}', 'CarouselController@delete')->name('admin.carousel.delete');
+            Route::get('delete-img/{id}', 'CarouselController@deleteImage')->name('admin.carousel.delete.image');
         });
 
         Route::group(['prefix' => 'social-networks'], function () {

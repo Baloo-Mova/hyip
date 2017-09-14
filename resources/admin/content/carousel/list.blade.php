@@ -17,6 +17,7 @@
                 <thead>
                 <tr>
                     <th>Text</th>
+                    <th>Background image</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -24,10 +25,15 @@
                 @foreach($items as $item)
                     <tr class="item-{{ $item->id }}">
                         <td>{{ $item->text }}</td>
+                        <td><img src="{{ route('get.image', ['type' => 'carousel', 'name' => $item->background_file]) }}" alt="" style="width: 100px;"></td>
                         <td>
-                            <a href='#'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href='{{ route('admin.carousel.get', ['id' => $item->id]) }}'>
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
                             &nbsp;&nbsp;&nbsp;
-                            <a onclick="deleteNews('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="{{ route('admin.carousel.delete', ['id' => $item->id]) }}" onclick="return confirm('Delete this slide?')" style="cursor: pointer;">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
 
                         </td>
                     </tr>

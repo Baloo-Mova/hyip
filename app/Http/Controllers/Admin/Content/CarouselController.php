@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Content;
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\MainPage\HeaderCarousel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CarouselController extends BaseController
 {
@@ -34,20 +35,56 @@ class CarouselController extends BaseController
             ];
         }
 
-        $carousel = HeaderCarousel::whereId($slide_id)->first();
+        $carousel = HeaderCarousel::find($slide_id);
 
         if(!isset($carousel)){
             $carousel = new HeaderCarousel();
         }
 
         $carousel->text = $request->get('text');
-        $carousel->background_file = $filename;
+        $carousel->background_file = isset($filename) ? $filename : $request->get('file');
         $carousel->need_show = $request->has('need_show') ? 1 : 0;
         $carousel->buttons = json_encode($buttons);
 
         $carousel->save();
 
-        return redirect()->route('admin.carousel.add', ['id' => $carousel->id])->with('messages', ['Created successful']);
+        return redirect()->route('admin.carousel.get', ['item' => $carousel])->with('messages', ['Created successful']);
     }
+
+    public function delete($id = null)
+    {
+        $slide = HeaderCarousel::find($id);
+
+        if(!isset($slide)){
+            return redirect(route('admin.carousel.list'))
+                ->withErrors('Записи с таким ID не существует!');
+        }
+
+        \Storage::disk('uploads')->delete("carousel/$slide->background_file");
+
+        $slide->delete();
+
+        Session::flash('messages', ['Изменения успешно внесены!']);
+        return back();
+    }
+
+    public function deleteImage($id = null)
+    {
+        $slide = HeaderCarousel::find($id);
+
+        if(!isset($slide)){
+            return redirect(route('admin.carousel.list'))
+                ->withErrors('Записи с таким ID не существует!');
+        }
+
+        \Storage::disk('uploads')->delete("carousel/$slide->background_file");
+
+        $slide->background_file = null;
+        $slide->save();
+
+        return redirect()->route('admin.carousel.get', ['item' => $slide]);
+    }
+
+
 
 }
