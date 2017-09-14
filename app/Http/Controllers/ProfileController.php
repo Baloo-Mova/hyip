@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PassportData;
 use App\Models\PassportScans;
+use App\Models\UserConfirm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -66,7 +67,6 @@ class ProfileController extends Controller
         $pd['number'] = $request->get('number');
         $pd['issuedby'] = $request->get('issuedby');
         $pd['dateofissue'] = Carbon::parse($request->get('dateofissue'))->toDateTimeString();
-        $pd['is_confirm'] = $request->get('is_confirm');
 
         $passportData = PassportData::where('user_id', '=', \Auth::user()->id)->first();
         if (!isset($passportData)) {
@@ -98,6 +98,10 @@ class ProfileController extends Controller
             }
             PassportScans::insert($scans);
         }
+
+        $confirm = new UserConfirm();
+        $confirm->user_id = \Auth::user()->id;
+        $confirm->save();
 
         Session::flash('messages', ['Изменения успешно внесены!']);
         return back();

@@ -248,4 +248,9 @@ class User extends Authenticatable
         }
         return null;
     }
+
+    public function passportData()
+    {
+        return $this->hasOne(PassportData::class, 'user_id', 'id');
+    }
 }

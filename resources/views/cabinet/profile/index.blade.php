@@ -13,7 +13,7 @@
             <div class="news__item profile__item">
                 <h4>
                     Паспортные данные
-                    @if($passport_data->is_confirm)
+                    @if($user->is_confirm)
                         <div class="profile_status_ok profile_status" title="Документ не подтвержден">
                             <i class="fa fa-check-square-o" aria-hidden="true"></i>
                         </div>
@@ -35,7 +35,7 @@
                     <p>Серия паспорта: {{ $passport_data->series }}</p>
                     <p>Номер паспорта: {{ $passport_data->number }}</p>
                     <p>Кем выдан: {{ $passport_data->issuedby }}</p>
-                    <p>Дата выдачи: {{ \Carbon\Carbon::parse($passport_data->dateofissue)->format("d.m.Y") }}</p>
+                    <p>Дата выдачи: {{ !empty($passport_data->dateofissue) ? \Carbon\Carbon::parse($passport_data->dateofissue)->format("d.m.Y") : "" }}</p>
                 </div>
                 <div class="profile__item_passport_data_form row">
                     <form action="{{ route('profile.edit') }}" method="post" enctype="multipart/form-data">
@@ -122,7 +122,7 @@
                         <a href="{{ route('get.image', ['type' => 'scans', 'name' => $scan->photo]) }}" data-fancybox="group">
                             <div class="profile_scan_img__wrap"
                                  style="background-image: url({{ route('get.image', ['type' => 'scans', 'name' => $scan->preview]) }})">
-                                @if($scan->is_confirm)
+                                @if($user->is_confirm)
                                     <div class="profile_scan_status_ok profile_scan_status"
                                          title="Документ не подтвержден">
                                         <i class="fa fa-check-square-o" aria-hidden="true"></i>

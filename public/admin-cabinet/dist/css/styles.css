@@ -122,3 +122,20 @@ body {
 .mt10{
     margin-top: 10px;
 }
+.no-dots{
+    list-style: none;
+    padding-left: 0;
+}
+.profile_scan_img__wrap{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: 5px;
+}
+.inline-form{
+    display: inline;
+}

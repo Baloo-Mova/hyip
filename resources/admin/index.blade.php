@@ -21,9 +21,11 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
     <![endif]-->
     @stack('header-scripts')
     @yield('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -54,6 +56,7 @@
 <script src="{{asset('/admin-cabinet/js/adminlte.js')}}"></script>
 <script src="{{asset('/admin-cabinet/js/app.js')}}"></script>
 @stack('footer-scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
 @yield('js')
 </body>
 </html>

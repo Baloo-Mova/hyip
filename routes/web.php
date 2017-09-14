@@ -171,10 +171,13 @@ Route::group([
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UserController@index')->name('admin-users-list');
+        Route::post('/', 'UserController@search')->name('admin-users-list-search');
         Route::get('/{id}/remove', ['uses' => 'UserController@remove', 'as' => 'admin-users-delete']);
         Route::get('/{id}/edit', ['uses' => 'UserController@edit', 'as' => 'admin-users-edit']);
         Route::post('/{id}/edit', ['uses' => 'UserController@update', 'as' => 'admin-users-update']);
         Route::get('/{id}/ban/{type}', ['uses' => 'UserController@ban', 'as' => 'admin-users-ban']);
+        Route::get('/confirm/{id}', ['uses' => 'UserController@confirm', 'as' => 'admin-users-confirm']);
+        Route::post('/confirm/{id}', ['uses' => 'UserController@confirmSave', 'as' => 'admin-users-confirm.save']);
     });
 
     Route::group(['prefix' => 'sending-messages'], function () {

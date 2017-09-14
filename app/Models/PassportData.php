@@ -36,8 +36,7 @@ class PassportData extends Model
                 'series' => '',
                 'number' => '',
                 'issuedby' => '',
-                'dateofissue' => '',
-                'is_confirm' => false
+                'dateofissue' => ''
             ]),
         ]);
     }
