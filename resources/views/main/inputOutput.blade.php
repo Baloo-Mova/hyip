@@ -16,11 +16,11 @@
             <div class="tab-content ">
                 <div class="tab-pane {{ $type == "input" ? "active" : "" }}" id="in">
                     <h2>{{ $data['input']['title'] }}</h2>
-                    {{ $data['input']['description'] }}
+                    {!!  $data['input']['description']  !!}
                 </div>
                 <div class="tab-pane {{ $type == "output" ? "active" : "" }}" id="out">
                     <h2>{{ $data['output']['title'] }}</h2>
-                    {{ $data['output']['description'] }}
+                    {!! $data['output']['description']  !!}
                 </div>
             </div>
         </div>

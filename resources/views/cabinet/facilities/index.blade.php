@@ -19,7 +19,7 @@
                 <div class="col-md-4 col-xs-12">
                     <div class="news__item input-budjet__wrap">
                         <div class="input-budjet__header">
-                            <h2>Пополнить счет</h2>
+                            <h2>{{ isset($item) ? $item->input_title : "Пополнить счет" }}</h2>
                         </div>
                         <div class="input-budjet__body">
                             <form action="{{route('facilities.refill')}}" method="POST">
@@ -37,11 +37,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-8 col-xs-12">
+                    <div class="news__item input-budjet__wrap p20">
+                        <label for="">Как пополнить счет:</label>
+                        <p>{!! isset($item) ? $item->input_text : "" !!}</p>
+                    </div>
+                </div>
             </div>
             {{-- 1-st tab --}}
 
             <div class="tab-pane {{ $type == "output" ? "active" : "" }}" id="out">
-                <h2>Вывести средства</h2>
+                <div class="col-md-4 col-xs-12">
+                    <h2>{{ isset($item) ? $item->output_title : "Вывести средства" }}</h2>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <div class="news__item input-budjet__wrap p20">
+                        <label for="">Как вывести средства:</label>
+                        <p>{!! isset($item) ? $item->input_text : "" !!}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

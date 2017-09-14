@@ -6,6 +6,7 @@ use App\Models\About;
 use App\Models\Article;
 use App\Models\Contact;
 use App\Models\FAQ;
+use App\Models\InputOutput;
 use App\Models\MainPage\HeaderCarousel;
 use App\Models\Regulations;
 use App\Models\SocialNetwork;
@@ -145,14 +146,15 @@ class SiteController extends Controller
     public function inputOutput($type)
     {
         $social = SocialNetwork::link()->get();
+        $item = InputOutput::find(1);
         $data = [
             'input' => [
-                'title' => 'Пополнить счет',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                'title' => isset($item) ? $item->input_title : 'Пополнить счет',
+                'description' => isset($item) ? $item->input_text : ''
             ],
             'output' => [
-                'title' => 'Вывести стредства',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                'title' => isset($item) ? $item->output_title : 'Вывести стредства',
+                'description' => isset($item) ? $item->output_text : ''
             ],
             'contacts' => [
                 'social' => [
@@ -171,27 +173,7 @@ class SiteController extends Controller
             'stock' => $stock,
             'contacts' => [
                 'social' => [
-                    'links' => $social,
-                    'share' => [
-                        'vk' => [
-                            'img' => 'img/vk', 'link' => 'http://google.com.ua'
-                        ],
-                        'fb' => [
-                            'img' => 'img/fb', 'link' => 'http://google.com.ua'
-                        ],
-                        'ok' => [
-                            'img' => 'img/ok', 'link' => 'http://google.com.ua'
-                        ],
-                        'tw' => [
-                            'img' => 'img/tw', 'link' => 'http://google.com.ua'
-                        ],
-                        'tl' => [
-                            'img' => 'img/tl', 'link' => 'http://google.com.ua'
-                        ],
-                        'instagram' => [
-                            'img' => 'img/instagram', 'link' => 'http://google.com.ua'
-                        ]
-                    ]
+                    'links' => $social
                 ]
             ]
         ];

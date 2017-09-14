@@ -100,6 +100,12 @@ Route::group([
     });
 
     Route::group(['namespace' => 'Content'], function () {
+
+        Route::group(['prefix' => 'input-output'], function () {
+            Route::get('/', 'InputOutputController@index')->name('admin.input-output.index');
+            Route::post('/', 'InputOutputController@save');
+        });
+
         Route::group(['prefix' => 'carousel'], function () {
             Route::get('/', 'CarouselController@index')->name('admin.carousel.list');
             Route::post('add', 'CarouselController@postAdd');

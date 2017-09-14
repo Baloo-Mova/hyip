@@ -8,12 +8,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\SocialNetwork;
+use App\Models\InputOutput;
 
 class FacilitiesController extends Controller
 {
     public function index($type)
     {
         $social = SocialNetwork::link()->get();
+        $item = InputOutput::find(1);
         $data = [
             'contacts' => [
                 'social' => [
@@ -23,7 +25,8 @@ class FacilitiesController extends Controller
         ];
         return view('cabinet.facilities.index', [
             'data' => $data,
-            'type' => $type
+            'type' => $type,
+            'item' => $item
         ]);
     }
 
