@@ -53,7 +53,7 @@
                 <div class="col-md-8 col-xs-12">
                     <div class="news__item input-budjet__wrap p20">
                         <label for="">Как вывести средства:</label>
-                        <p>{!! isset($item) ? $item->input_text : "" !!}</p>
+                        <p>{!! isset($item) ? $item->output_text : "" !!}</p>
                     </div>
                 </div>
             </div>

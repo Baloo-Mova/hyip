@@ -146,7 +146,7 @@ class SiteController extends Controller
     public function inputOutput($type)
     {
         $social = SocialNetwork::link()->get();
-        $item = InputOutput::find(1);
+        $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
         $data = [
             'input' => [
                 'title' => isset($item) ? $item->input_title : 'Пополнить счет',

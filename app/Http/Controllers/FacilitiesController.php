@@ -15,7 +15,7 @@ class FacilitiesController extends Controller
     public function index($type)
     {
         $social = SocialNetwork::link()->get();
-        $item = InputOutput::find(1);
+        $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
         $data = [
             'contacts' => [
                 'social' => [
