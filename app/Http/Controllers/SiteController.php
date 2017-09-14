@@ -27,7 +27,7 @@ class SiteController extends Controller
     public function index()
     {
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $shares = SocialNetworksShares::find(1);
         $news = Article::blog()->orderBy('updated_at', 'asc')->limit(3)->get();
         $email = Contact::email()->get();
@@ -107,7 +107,7 @@ class SiteController extends Controller
     public function about()
     {
         $content = About::where(['id' => 1, 'is_active' => 1])->first();
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' => [
                 'social' => [
@@ -125,7 +125,7 @@ class SiteController extends Controller
     {
         $tariffs = Subscription::with(['firstPrices'])->get();
         $tariff = Subscription::find($id);
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;
         }
@@ -146,7 +146,7 @@ class SiteController extends Controller
 
     public function inputOutput($type)
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
         $data = [
             'input' => [
@@ -168,7 +168,7 @@ class SiteController extends Controller
 
     public function stock()
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $stock = Article::stock()->orderBy('updated_at', 'asc')->paginate(10);
         $data = [
             'stock' => $stock,
@@ -183,7 +183,7 @@ class SiteController extends Controller
 
     public function stockShow($uri)
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $stock = Article::whereUri($uri)->first();
         if(!isset($stock)){
             return redirect(route('stock'))
@@ -204,7 +204,7 @@ class SiteController extends Controller
     public function newsShow($uri)
     {
         $news = Article::whereUri($uri)->first();
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         if(!isset($news)){
             return redirect(route('news'))
                 ->withErrors('Записи с таким ID не существует!')
@@ -223,7 +223,7 @@ class SiteController extends Controller
 
     public function news()
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $news = Article::blog()->orderBy('updated_at', 'asc')->paginate(10);
         $data = [
             'news' => $news,
@@ -238,8 +238,8 @@ class SiteController extends Controller
 
     public function contacts()
     {
-        $social = SocialNetwork::link()->get();
-        $shares = SocialNetwork::share()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
+        $shares = SocialNetworksShares::find(1);
         $email = Contact::email()->get();
         $phones = Contact::phones()->get();
         $data = [
@@ -258,7 +258,7 @@ class SiteController extends Controller
     public function questions()
     {
         $faq = FAQ::paginate(15);
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
 
         $data = [
             'contacts' => [
@@ -276,7 +276,7 @@ class SiteController extends Controller
 
     public function regulations()
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $regulations = Regulations::where(['id' => 1, 'is_active' => 1])->first();
         $data = [
             'content' => $regulations,
@@ -291,7 +291,7 @@ class SiteController extends Controller
 
     public function termsOfUse()
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' => [
                 'social' => [
@@ -304,7 +304,7 @@ class SiteController extends Controller
 
     public function privacyPolicy()
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' => [
                 'social' => [

@@ -18,7 +18,6 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Icon</th>
-                    <th>Type</th>
                     <th>Date</th>
                     <th></th>
                 </tr>
@@ -31,7 +30,6 @@
                         <td>
                             <i class="{{ $item->icon }}"></i>
                         </td>
-                        <td>{{ $item->type_id == 1 ? "link" : "share link" }}</td>
                         <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                         <td>
                             <a href='{{ route('admin.social-networks.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>

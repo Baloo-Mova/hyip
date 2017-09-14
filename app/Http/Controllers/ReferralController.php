@@ -11,7 +11,7 @@ class ReferralController extends Controller
     public function index()
     {
         $referrals = $this->getReferrals(Auth::id(), User::all());
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' =>[
                 'social' => [

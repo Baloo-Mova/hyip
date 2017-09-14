@@ -14,7 +14,7 @@ class CabinetController extends Controller
 {
     public function index(Request $request)
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' => [
                 'social' => [

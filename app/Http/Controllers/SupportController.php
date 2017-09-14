@@ -9,7 +9,7 @@ class SupportController extends Controller
 {
     public function index()
     {
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' =>[
                 'social' => [

@@ -38,16 +38,5 @@ class SocialNetwork extends Model
         'black_img',
         'is_active',
         'icon',
-        'type_id',
     ];
-
-    public function scopeLink()
-    {
-        return $this->whereTypeId(1);
-    }
-
-    public function scopeShare()
-    {
-        return $this->whereTypeId(2);
-    }
 }

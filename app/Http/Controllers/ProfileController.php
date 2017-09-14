@@ -19,7 +19,7 @@ class ProfileController extends Controller
         $user = \Auth::user();
         $passportData = PassportData::where('user_id', '=', $user->id)->first();
         $scans = $user->scans;
-        $social = SocialNetwork::link()->get();
+        $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' => [
                 'social' => [

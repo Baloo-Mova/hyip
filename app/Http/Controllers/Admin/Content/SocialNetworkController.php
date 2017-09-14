@@ -64,7 +64,6 @@ class SocialNetworkController extends Controller
         $item->name = $request->get('name');
         $item->link = $request->get('link');
         $item->icon = $request->get('icon');
-        $item->type_id = $request->has('type_id') ? 2 : 1;
         $item->save();
 
         Session::flash('messages', ['Изменения успешно внесены!']);
