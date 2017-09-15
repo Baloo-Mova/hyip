@@ -589,3 +589,6 @@ input, input:active, input:hover, input:focus {
     color: #CB4245;
     text-decoration: none;
 }
+.user__item_referal{
+    word-wrap: break-word;
+}

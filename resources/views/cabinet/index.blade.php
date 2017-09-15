@@ -11,7 +11,7 @@
                         <div>
                             <img src="{{ asset('img/avatar.png') }}" alt="" class="user_avatar">
                             <h4>{{ $user->login }}</h4>
-                            <h5>{{route('ref.add',['id'=>$user->ref_link])}}</h5>
+                            <h5 class="user__item_referal">{{route('ref.add',['id'=>$user->ref_link])}}</h5>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-4">
