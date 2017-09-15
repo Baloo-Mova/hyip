@@ -256,6 +256,11 @@ class User extends Authenticatable
 
     public function confirmed()
     {
-        return $this->hasOne(UserConfirm::class, 'user_id', 'id')->where(['is_read' => 0]);
+        return $this->hasMany(UserConfirm::class, 'user_id', 'id')->where(['is_read' => 0]);
+    }
+
+    public function processes()
+    {
+        return $this->hasMany(WalletProcesses::class, 'from_id', 'id');
     }
 }

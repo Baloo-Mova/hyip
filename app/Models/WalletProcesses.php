@@ -32,4 +32,9 @@ class WalletProcesses extends Model
         'time',
         'value',
     ];
+
+    public function getType()
+    {
+        return $this->hasOne(WalletProcessesType::class, 'id', 'type_id');
+    }
 }

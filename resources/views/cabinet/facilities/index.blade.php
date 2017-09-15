@@ -56,6 +56,44 @@
                         <p>{!! isset($item) ? $item->output_text : "" !!}</p>
                     </div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12">
+                     <h4>История операций</h4>
+                    <hr>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Тип</th>
+                                <th>Сумма</th>
+                                <th>Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($operations as $operation)
+                                <tr>
+                                    <td>
+                                        {{ $operation->getType->name }}
+                                    </td>
+                                    <td>
+                                        {{ $operation->value }}
+                                    </td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($operation->time)->format('d.m.Y H:i:s') }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        <p>Нет операций</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    <div class="mt20 text-center">
+                        {{ $operations->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

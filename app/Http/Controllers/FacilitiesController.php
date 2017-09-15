@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Facilities\RefillRequest;
 use App\Models\PaymentsRequest;
 use App\Models\User;
+use App\Models\WalletProcesses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\SocialNetwork;
@@ -16,6 +17,7 @@ class FacilitiesController extends Controller
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
+        $operations = WalletProcesses::with('getType')->where(['from_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
         $data = [
             'contacts' => [
                 'social' => [
@@ -26,7 +28,8 @@ class FacilitiesController extends Controller
         return view('cabinet.facilities.index', [
             'data' => $data,
             'type' => $type,
-            'item' => $item
+            'item' => $item,
+            'operations' => $operations
         ]);
     }
 
