@@ -573,3 +573,19 @@ input, input:active, input:hover, input:focus {
 .contact_person__wrap{
     display: none;
 }
+.user__item{
+    text-align: left;
+}
+.user_avatar{
+    width: 128px;
+}
+.user-info__item{
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+.user-info__item a:hover{
+    color: #CB4245;
+    text-decoration: none;
+}
