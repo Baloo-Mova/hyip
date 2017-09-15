@@ -46,7 +46,7 @@
             </div>
 
             <div class="col-md-12" style="margin-top: 25px;">
-                {!! Form::button('Send', ['class' => 'btn btn-primary']) !!}
+                <button type="submit" class="btn btn-primary">Send</button>
             </div>
 
         {!! Form::close() !!}

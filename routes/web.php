@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::group(['prefix' => 'support'], function () {
             Route::get('/', 'SupportController@index')->name('support');
+            Route::get('/show/{id}', 'SupportController@show')->name('support.show');
         });
     });
 
