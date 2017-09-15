@@ -20,7 +20,7 @@
                             <h3>{{ $tariff['name'] }}</h3>
                         </div>
                         <div class="rate__body">
-                            <p class="rate__price">Цена: {{ $tariff['price'] }}</p>
+                            <p class="rate__price">Цена: {{ $tariff['price'] }}₽</p>
                             <p class="reate__price_p">Реферальная
                                 система: {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                             <hr>
@@ -31,7 +31,7 @@
                                         <hr>
                                         @continue
                                     @else
-                                        <p>{{ ($tariff->firstPrices[$i]['level'] + 1)." уровень -" }} {{ $tariff->firstPrices[$i]['is_percent'] ? $tariff->firstPrices[$i]['value']."%" : $tariff->firstPrices[$i]['value'] }}</p>
+                                        <p>{{ ($tariff->firstPrices[$i]['level'] + 1)." уровень -" }} {{ $tariff->firstPrices[$i]['is_percent'] ? $tariff->firstPrices[$i]['value']."%" : $tariff->firstPrices[$i]['value']."₽" }}</p>
                                         <hr>
                                     @endif
                                 @endfor
@@ -59,7 +59,7 @@
                     <h4>Реферальная система</h4>
                 </div>
                 <div class="col-xs-12 col-md-4">
-                    <p class="tariff___price">{{ isset($tariff_info->price) ? $tariff_info->price : "" }}</p>
+                    <p class="tariff___price">{{ isset($tariff_info->price) ? $tariff_info->price."₽" : "" }}</p>
                     <h4>Цена</h4>
                 </div>
                 <div class="col-xs-12 col-md-4">
@@ -71,7 +71,7 @@
                         @if(isset($tariff_info->firstPrices))
                             @foreach($tariff_info->firstPrices as $prices)
                                 <div class="price-info-item">
-                                    <p class="tariff___price">{{$prices->value }}{{ $prices->is_percent ? "%" : "" }}</p>
+                                    <p class="tariff___price">{{$prices->value}}{{ $prices->is_percent ? "%" : "₽" }}</p>
                                     <h4>{{ ($prices->level + 1)." уровень"}}</h4>
                                 </div>
                             @endforeach
@@ -116,15 +116,15 @@
                             $(".tariff_" + id).addClass("active_tariff");
                             $(".tariff___ref-sys").text(data.info.levels);
                             $(".tariff___name").text(data.info.name);
-                            $(".tariff___price").text(data.info.price);
+                            $(".tariff___price").text(data.info.price+"₽");
                             $(".tariff___term").text(data.info.term);
                             $(".tariff___description").text(data.info.description == null ? "У этого тарифа нет описания" : data.info.description);
 
                             var prices = ''
                             tmp = "";
                             data.prices.forEach(function (item, i, arr) {
-                                tmp = data.prices[i].is_percent ? "%" : "";
-                                prices += '<div class="price-info-item"><p class="tariff___price">' + data.prices[i].value + ' ' + tmp + '</p>' +
+                                tmp = data.prices[i].is_percent ? "%" : "₽";
+                                prices += '<div class="price-info-item"><p class="tariff___price">' + data.prices[i].value + tmp + '</p>' +
                                     '<h4>' + (data.prices[i].level + 1) + ' уровень</h4></div>';
 
                             });

@@ -28,7 +28,7 @@
                                     <label for="sum">
                                         Сумма пополения:
                                     </label>
-                                    <input type="number" name="count" class="form-control btn-flat" placeholder="500">
+                                    <input type="number" name="count" class="form-control btn-flat" placeholder="500₽">
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-main-carousel btn-md btn-flat">
@@ -75,7 +75,7 @@
                                         {{ $operation->getType->name }}
                                     </td>
                                     <td>
-                                        {{ $operation->value }}
+                                        {{ $operation->value }}₽
                                     </td>
                                     <td>
                                         {{ \Carbon\Carbon::parse($operation->time)->format('d.m.Y H:i:s') }}

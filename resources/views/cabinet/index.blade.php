@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-xs-12">
             <ul class="user-cabinet__menu">
-                <li>Баланс: {{ $user->balance }}</li>
+                <li>Баланс: {{ $user->balance }}₽</li>
                 @if(isset($user->subscribe_id))
                     <li>Ваш тариф: {{$user->subscription->name}}</li>
                     <li title="Срок действия тарифа">

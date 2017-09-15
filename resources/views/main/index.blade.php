@@ -175,7 +175,7 @@
                                     <h3>{{ $rate['name'] }}</h3>
                                 </div>
                                 <div class="rate__body">
-                                    <p class="rate__price">Цена: {{ $rate['price'] }}</p>
+                                    <p class="rate__price">Цена: {{ $rate['price'] }}₽</p>
                                     <p class="reate__price_p">Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
                                     <hr>
                                     @if(isset($rate['first_prices']))
@@ -185,7 +185,7 @@
                                                 <hr>
                                                 @continue
                                             @else
-                                                <p>{{ ($rate['first_prices'][$i]['level'] + 1)." уровень -" }} {{ $rate['first_prices'][$i]['is_percent'] ? $rate['first_prices'][$i]['value']."%" : $rate['first_prices'][$i]['value'] }}</p>
+                                                <p>{{ ($rate['first_prices'][$i]['level'] + 1)." уровень -" }} {{ $rate['first_prices'][$i]['is_percent'] ? $rate['first_prices'][$i]['value']."%" : $rate['first_prices'][$i]['value']."₽" }}</p>
                                                 <hr>
                                             @endif
                                         @endfor
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="rate__footer">
                                     <a href="{{ route('tariff.payment',['id'=>$rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                    <a href="{{ route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                    <a href="{{ Auth::check() ? route('tariff', ['id' => $rate['id']]) : route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
                                 </div>
                             </div>
                         @endforeach

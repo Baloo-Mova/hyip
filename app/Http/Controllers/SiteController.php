@@ -29,7 +29,7 @@ class SiteController extends Controller
         $subscriptions = Subscription::with(['firstPrices'])->get()->toArray();
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $shares = SocialNetworksShares::find(1);
-        $news = Article::blog()->orderBy('updated_at', 'asc')->limit(3)->get();
+        $news = Article::blog()->orderBy('updated_at', 'desc')->limit(3)->get();
         $email = Contact::email()->get();
         $phones = Contact::phones()->get();
         $slides = HeaderCarousel::where(['need_show' => 1])->get();
@@ -169,7 +169,7 @@ class SiteController extends Controller
     public function stock()
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
-        $stock = Article::stock()->orderBy('updated_at', 'asc')->paginate(10);
+        $stock = Article::stock()->orderBy('updated_at', 'desc')->paginate(10);
         $data = [
             'stock' => $stock,
             'contacts' => [
@@ -224,7 +224,7 @@ class SiteController extends Controller
     public function news()
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
-        $news = Article::blog()->orderBy('updated_at', 'asc')->paginate(10);
+        $news = Article::blog()->orderBy('updated_at', 'desc')->paginate(10);
         $data = [
             'news' => $news,
             'contacts' => [
@@ -257,7 +257,7 @@ class SiteController extends Controller
 
     public function questions()
     {
-        $faq = FAQ::paginate(15);
+        $faq = FAQ::orderBy('id', 'desc')->paginate(15);
         $social = SocialNetwork::where(['is_active' => 1])->get();
 
         $data = [

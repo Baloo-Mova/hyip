@@ -29,7 +29,7 @@
                         <tr class="item-{{ $item->id }}">
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->price }}</td>
+                            <td>{{ $item->price }}₽</td>
                             <td>{{ $item->term }}</td>
                             <td>{{ $item->is_active ? 'yes' : 'no' }}</td>
                             <td>

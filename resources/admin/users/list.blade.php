@@ -40,7 +40,7 @@
                     <td>{{$user->id}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->login}}</td>
-                    <td>{{$user->balance}}</td>
+                    <td>{{$user->balance}}₽</td>
                     <td>{{$user->ref_count}}</td>
                     <td>{{$user->is_confirm == 0 ? "Unconfirmed" : "Confirmed"}}</td>
                     <td>
