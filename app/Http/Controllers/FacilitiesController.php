@@ -6,10 +6,13 @@ use App\Http\Requests\Facilities\RefillRequest;
 use App\Models\PaymentsRequest;
 use App\Models\User;
 use App\Models\WalletProcesses;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\SocialNetwork;
 use App\Models\InputOutput;
+use App\Helpers\CPayeer;
+use Illuminate\Support\Facades\Validator;
 
 class FacilitiesController extends Controller
 {
@@ -18,6 +21,7 @@ class FacilitiesController extends Controller
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
         $operations = WalletProcesses::with('getType')->where(['from_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
+
         $data = [
             'contacts' => [
                 'social' => [
@@ -25,10 +29,12 @@ class FacilitiesController extends Controller
                 ]
             ]
         ];
+
         return view('cabinet.facilities.index', [
             'data' => $data,
             'type' => $type,
             'item' => $item,
+            'pay_systems' => config('payment.pay_systems'),
             'operations' => $operations
         ]);
     }
@@ -52,12 +58,20 @@ class FacilitiesController extends Controller
     {
         $user_id = \Auth::id();
 
-        $payment = PaymentsRequest::create([
+        $payment = WalletProcesses::create([
+                        'type_id' => WalletProcesses::INPUT,
+                        'from_id' => $user_id,
+                        'value' => $request->get('count'),
+                        'status' => 0,
+                        'time' => Carbon::now()
+                    ]);
+
+        /*PaymentsRequest::create([
             'user_id' => $user_id,
             'summ' => $request->get('count'),
             'status' => 0,
             'comment' => 'refill',
-        ]);
+        ]);*/
 
         $payment_config = config('payment');
 
@@ -106,7 +120,7 @@ class FacilitiesController extends Controller
             $sign_hash = strtoupper(hash('sha256', implode(':', $arHash)));
 
             if ($_POST['m_sign'] == $sign_hash && $_POST['m_status'] == 'success') {
-                $payment = PaymentsRequest::find($_POST['m_orderid']);
+                $payment = WalletProcesses::find($_POST['m_orderid']);
 
                 if (!isset($payment) || $payment->status == 1) {
                     exit($_POST['m_orderid'] . '|error');
@@ -130,8 +144,76 @@ class FacilitiesController extends Controller
     {
         if ($type == "success") {
             Session::flash('messages', ['Оплата успешна, средства зачислены на баланс.']);
-            return redirect()->route('facilities');
+            return redirect()->route('facilities', ['type' => 'input']);
         }
-        return redirect()->route('facilities')->withErrors('Ошибка оплаты');
+        return redirect()->route('facilities', ['type' => 'input'])->withErrors('Ошибка оплаты');
+    }
+
+    public function withdraw(Request $request)
+    {
+        $user = \Auth::user();
+        $payeer = new CPayeer(env("PAYEER_NUMBER"), env("PAYEER_API_ID"), env("PAYEER_API_KEY"));
+        if ($payeer->isAuth())
+        {
+           $balance = $payeer->getBalance()['balance'];
+        }
+        else
+        {
+            $balance = [];
+        }
+
+        if(count($balance) == 0){
+            return redirect()->route('facilities', ['type' => 'output'])->withErrors(['Ошибка настроек системы, обратитесь к поддержке!']);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'sum' => 'required|numeric|min:'.config('payment.min_sum').'|max:'.$user->balance,
+            'pay_system' => 'required',
+            'card_number' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('facilities', ['type' => 'output'])->withErrors($validator);
+        }
+
+        $sum = $request->get('sum');
+        $pay_system = $request->get('pay_system');
+        $card_number = $request->get('card_number');
+        $contact_person = $request->has('contact_person') ? $request->get('contact_person') : null;
+
+        if($balance['RUB']['DOSTUPNO'] < $sum){
+            return redirect()->route('facilities', ['type' => 'output'])->withErrors(['Ошибка настроек системы, обратитесь к поддержке!']);
+        }
+
+        $payment = WalletProcesses::create([
+            'type_id' => WalletProcesses::OUTPUT,
+            'from_id' => $user->id,
+            'value' => $sum,
+            'status' => 0,
+            'card_number' => $card_number,
+            'pay_system' => $pay_system,
+            'contact_person' => $contact_person,
+            'time' => Carbon::now()
+        ]);
+
+        $user->balance = $user->balance - $sum;
+        $user->save();
+
+        Session::flash('messages', ['Заявка на вывод успешно добавлена!']);
+        return redirect()->route('facilities', ['type' => 'output']);
+
+    }
+
+    public function getPaySystem($id)
+    {
+        $pay_system = config('payment.pay_systems')[$id];
+
+        if(count($pay_system['r_fields']) > 1){
+            return json_encode(["success" => true]);
+        }else{
+
+            return json_encode(["success" => false]);
+        }
+
     }
 }

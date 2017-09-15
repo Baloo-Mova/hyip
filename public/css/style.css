@@ -563,3 +563,13 @@ input, input:active, input:hover, input:focus {
     color: #00a157;
 }
 .jssocials-share-link { border-radius: 50%; }
+.has-error{
+    color: red;
+    border: 1px solid red;
+}
+.help-block{
+    color: red;
+}
+.contact_person__wrap{
+    display: none;
+}

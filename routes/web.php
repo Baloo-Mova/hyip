@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/operations', 'FacilitiesController@operations')->name('facilities.operations');
             Route::post('/refill', 'FacilitiesController@refill')->name('facilities.refill');
             Route::post('/refill/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');
+            Route::post('/withdraw', 'FacilitiesController@withdraw')->name('facilities.withdraw');
+            Route::get('/get-pay-system-info/{id}', 'FacilitiesController@getPaySystem')->name('facilities.get.pay.system');
         });
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile');
@@ -197,6 +199,12 @@ Route::group([
         Route::get('/', 'BlacklistController@index')->name('admin.blacklist');
         Route::get('{id}', 'BlacklistController@getEdit')->name('admin.blacklist.user');
         Route::post('{id}', 'BlacklistController@postEdit');
+    });
+
+    Route::group(['prefix' => 'withdraws'], function () {
+        Route::get('/{status}', 'WithdrawController@index')->name('admin.withdraws');
+        Route::get('/edit/{id}', 'WithdrawController@edit')->name('admin.withdraws.edit');
+        Route::post('/edit/{id}', 'WithdrawController@save')->name('admin.withdraws.save');
     });
 
 });

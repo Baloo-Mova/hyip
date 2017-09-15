@@ -25,16 +25,41 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WalletProcesses extends Model
 {
+    const REFERRALS = 1;
+    const INPUT = 2;
+    const OUTPUT = 3;
+
+    const STATUS_UNREAD = 0;
+    const STATUS_ACCEPT = 1;
+    const STATUS_DECLINE = 2;
+
     protected $table = 'wallet_processes';
     protected $fillable = [
         'wallet_id',
         'type_id',
         'time',
         'value',
+        'status',
+        'card_number',
+        'comment',
+        'pay_system',
+        'contact_person',
+        'from_id'
     ];
 
     public function getType()
     {
         return $this->hasOne(WalletProcessesType::class, 'id', 'type_id');
+    }
+
+    public static function hasWithdraws() {
+        return \App\Models\WalletProcesses::where(['type_id' => 3, 'status' => 0])->count();
+    }
+    public static function getWithdraws($status) {
+        if($status == 3){
+            return \App\Models\WalletProcesses::where(['type_id' => 3])->orderBy('time', 'desc')->get();
+        }else{
+            return \App\Models\WalletProcesses::where(['type_id' => 3, 'status' => $status])->orderBy('time', 'desc')->get();
+        }
     }
 }
