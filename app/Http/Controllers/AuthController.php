@@ -110,7 +110,6 @@ class AuthController extends Controller
             'ref_link' => $gen->uuid,
             'referral_id' => $referral_id,
             'last_activity' => Carbon::now(),
-
         ]);
 
 

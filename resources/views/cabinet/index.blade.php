@@ -8,9 +8,8 @@
             <div class="news__item user__item">
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <div>
-                            <img src="{{ asset('img/avatar.png') }}" alt="" class="user_avatar">
-                            <h4>{{ $user->login }}</h4>
+                        <div class="user-info__item">
+                            <h4>Рефферальная ссылка:</h4>
                             <h5 class="user__item_referal">{{route('ref.add',['id'=>$user->ref_link])}}</h5>
                         </div>
                     </div>

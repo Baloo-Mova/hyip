@@ -20,7 +20,7 @@ class FacilitiesController extends Controller
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
-        $operations = WalletProcesses::with('getType')->where(['from_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
+        $operations = WalletProcesses::with('getType')->where(['to_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
 
         $data = [
             'contacts' => [
@@ -59,12 +59,13 @@ class FacilitiesController extends Controller
         $user_id = \Auth::id();
 
         $payment = WalletProcesses::create([
-                        'type_id' => WalletProcesses::INPUT,
-                        'from_id' => $user_id,
-                        'value' => $request->get('count'),
-                        'status' => 0,
-                        'time' => Carbon::now()
-                    ]);
+            'type_id' => WalletProcesses::INPUT,
+            'from_id' => $user_id,
+            'to_id' => $user_id,
+            'value' => $request->get('count'),
+            'status' => 0,
+            'time' => Carbon::now()
+        ]);
 
         /*PaymentsRequest::create([
             'user_id' => $user_id,
@@ -153,21 +154,18 @@ class FacilitiesController extends Controller
     {
         $user = \Auth::user();
         $payeer = new CPayeer(env("PAYEER_NUMBER"), env("PAYEER_API_ID"), env("PAYEER_API_KEY"));
-        if ($payeer->isAuth())
-        {
-           $balance = $payeer->getBalance()['balance'];
-        }
-        else
-        {
+        if ($payeer->isAuth()) {
+            $balance = $payeer->getBalance()['balance'];
+        } else {
             $balance = [];
         }
 
-        if(count($balance) == 0){
+        if (count($balance) == 0) {
             return redirect()->route('facilities', ['type' => 'output'])->withErrors(['Ошибка настроек системы, обратитесь к поддержке!']);
         }
 
         $validator = Validator::make($request->all(), [
-            'sum' => 'required|numeric|min:'.config('payment.min_sum').'|max:'.$user->balance,
+            'sum' => 'required|numeric|min:' . config('payment.min_sum') . '|max:' . $user->balance,
             'pay_system' => 'required',
             'card_number' => 'required',
         ]);
@@ -181,12 +179,13 @@ class FacilitiesController extends Controller
         $card_number = $request->get('card_number');
         $contact_person = $request->has('contact_person') ? $request->get('contact_person') : null;
 
-        if($balance['RUB']['DOSTUPNO'] < $sum){
+        if ($balance['RUB']['DOSTUPNO'] < $sum) {
             return redirect()->route('facilities', ['type' => 'output'])->withErrors(['Ошибка настроек системы, обратитесь к поддержке!']);
         }
 
         $payment = WalletProcesses::create([
             'type_id' => WalletProcesses::OUTPUT,
+            'to_id' => $user->id,
             'from_id' => $user->id,
             'value' => $sum,
             'status' => 0,
@@ -208,9 +207,9 @@ class FacilitiesController extends Controller
     {
         $pay_system = config('payment.pay_systems')[$id];
 
-        if(count($pay_system['r_fields']) > 1){
+        if (count($pay_system['r_fields']) > 1) {
             return json_encode(["success" => true]);
-        }else{
+        } else {
 
             return json_encode(["success" => false]);
         }

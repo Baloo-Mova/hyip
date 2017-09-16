@@ -78,6 +78,7 @@ class User extends Authenticatable
         'ip',
         'is_banned',
         'auth_token',
+        'ref_count'
     ];
 
     /**
@@ -172,16 +173,28 @@ class User extends Authenticatable
     public function incrementReferrers()
     {
         $user = $this;
+        $i = 1;
         while (true) {
-
             if (!isset($user->referral_id)) {
                 return;
             }
 
             $ref = $user->referrer;
+
             if (!isset($ref)) {
                 return;
             }
+
+            Referrals::create([
+                'user_id' => $ref->id,
+                'user_ref' => $this->id,
+                'user_ref_name' => $this->login,
+                'user_from' => $user->id != $this->id ? $user->id : 0,
+                'earned' => 0,
+                'level' => $i
+            ]);
+
+            $i++;
 
             $ref->addReferr();
             $user = $ref;
@@ -224,7 +237,20 @@ class User extends Authenticatable
                     'time' => Carbon::now(),
                     'value' => $toIncrement,
                     'from_id' => $this->id,
+                    'status' => WalletProcesses::STATUS_ACCEPT,
+                    'to_id' => $userToPay->id
                 ]);
+
+                $referalLink = Referrals::where([
+                    'user_id' => $userToPay->id,
+                    'user_ref' => $this->id
+                ]);
+
+                if (isset($referalLink)) {
+                    $referalLink->increment('earned', $toIncrement);
+                    $referalLink->save();
+                }
+
                 $userToPay->increment('balance', $toIncrement);
                 $userToPay->save();
             }

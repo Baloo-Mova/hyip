@@ -3,30 +3,35 @@
 @section('content')
     @include('alerts')
 
+
+
+
     <h1 class="page-header">Рефералы</h1>
 
-        @if(count($referrals))
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Last activity</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($referrals as $key => $referral)
-                        <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td><a href="/cabinet/referrals/{{ $referral['id'] }}">{{ $referral['login'] }}</a></td>
-                            <td>{{ $referral['last_activity'] }}</td>
-                            <td><a href="/cabinet/dialogs/{{ $referral['id'] }}">send message</a></td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <div>Нет рефералов</div>
-        @endif
+    @if(count($referrals))
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID пользователя</th>
+                <th>Логин</th>
+                <th>Дата регистрации</th>
+                <th>Принес</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($referrals as $referral)
+                <tr>
+                    <td>{{ $referral->id }}</td>
+                    <td>{{ $referral->user_ref_name }}</td>
+                    <td>{{ $referral->created_at }}</td>
+                    <td>{{ $referral->earned }}</td>
+                    <td><a href="/cabinet/dialogs/{{ $referral['id'] }}">Отправить сообщение</a></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @else
+        <div>Нет рефералов</div>
+    @endif
 @endsection

@@ -44,7 +44,8 @@ class WalletProcesses extends Model
         'comment',
         'pay_system',
         'contact_person',
-        'from_id'
+        'from_id',
+        'to_id'
     ];
 
     public function getType()

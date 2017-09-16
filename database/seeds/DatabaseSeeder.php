@@ -20,5 +20,21 @@ class DatabaseSeeder extends Seeder
             ]);
         } catch (Exception $ex) {
         }
+
+        try {
+            \App\Models\WalletProcessesType::insert([
+                'id' => 2,
+                'name' => 'Пополнение'
+            ]);
+        } catch (Exception $ex) {
+        }
+
+        try {
+            \App\Models\WalletProcessesType::insert([
+                'id' => 3,
+                'name' => 'Вывод'
+            ]);
+        } catch (Exception $ex) {
+        }
     }
 }
