@@ -1,11 +1,16 @@
 <template>
     <div class="chat__header">
-        <h4>Чат с пользователем -</h4>
+        <h4>Чат с пользователем - {{ name }}</h4>
     </div>
 </template>
 
 <script>
     export default {
+        data(){
+            return{
+                name: window.user_name
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }

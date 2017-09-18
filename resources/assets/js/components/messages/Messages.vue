@@ -1,34 +1,48 @@
 <template>
     <div class="chat__messages">
-        <div class="from__message">
-            <p>
-                {{ message.message}}
-            </p>
-        </div>
-        <div class="from__message_info">
-            <p>
-                user - {{ message.created_at }}
-            </p>
-        </div>
-        <div class="clearfix"></div>
 
-        <!--<div class="to__message">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores deleniti dolor dolore, dolores enim est facilis harum hic magnam maiores minima minus necessitatibus obcaecati odio quam quasi quod repellat.
-            </p>
+        <div v-if="message.from_user != my_id">
+            <div class="from__message">
+                <p>
+                    {{ message.message}}
+                </p>
+            </div>
+            <div class="from__message_info">
+                <p>
+                    {{ user_id }} - {{ message.created_at }}
+                </p>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="to__message_info">
-            <p>
-                Вы - 08.09.17 12:44
-            </p>
+
+        <div v-else>
+            <div class="to__message">
+                <p>
+                    {{ message.message}}
+                </p>
+            </div>
+            <div class="to__message_info">
+                <p>
+                    Вы - {{ message.created_at}}
+                </p>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>-->
+
+
+
         
     </div>
 </template>
 
 <script>
     export default {
+        data(){
+            return{
+                my_id: window.my_id,
+                user_id: window.user_name
+            }
+        },
         props: ['message']
     }
 </script>

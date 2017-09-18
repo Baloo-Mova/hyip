@@ -16,8 +16,7 @@
         methods:{
             getMessages(){
                 axios.post("/cabinet/chat/get-messages", {
-                    my_id: 20,
-                    you_id: 21
+                    id: window.chat_id
                 })
                 .then((response) => {
                     this.messages = response.data;
@@ -28,7 +27,11 @@
             }
         },
         mounted() {
-            setInterval(this.getMessages, 1000);
+            this.getMessages();
+            setInterval(this.getMessages, 5000);
+            this.$root.$on('message_sended', section => {
+                this.getMessages();
+            });
         }
     }
 </script>

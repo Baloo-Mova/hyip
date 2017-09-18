@@ -22,17 +22,19 @@
                 var txt = this.text;
                 this.text = "";
                 axios.post("/cabinet/chat/send", {
-                    my_id: 20,
-                    you_id: 21,
+                    chat_id: window.chat_id,
+                    my_id: window.my_id,
                     text: txt
                 })
                 .then((response) => {
-                    console.log(response);
+                    this.$root.$emit('message_sended', "A");
                 })
                 .catch((error) => {
                     console.log(error);
                 });
             }
+        },
+        mounted(){
         }
     }
 </script>

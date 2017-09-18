@@ -32,26 +32,24 @@
                 <thead>
                 <tr>
                     <th>Отправитель</th>
-                    <th>Сообщение</th>
                     <th>Дата получения</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($messages as $message)
+                @forelse($chats as $chat)
                     <tr>
-                        <td>{{ $message->getFromUser->login }}</td>
-                        <td>{{ mb_substr($message->message, 0, 80) }}</td>
-                        <td>{{ $message->created_at}}</td>
+                        <td>{{ $chat->dialog_user->login }}</td>
+                        <td>{{ $chat->created_at}}</td>
                         <td>
-                            <a href="{{ route('chat', ['my_id' => $message->to_user, 'you_id' => $message->from_user]) }}">
+                            <a href="{{ route('chat', ['id' => $chat->id]) }}">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">Нет сообщений</td>
+                        <td colspan="4" class="text-center">Вы еще ни с кем не общались</td>
                     </tr>
                 @endforelse
                 </tbody>
@@ -67,7 +65,7 @@
 
             $(".open_chat").on("click", function (e) {
                 var to_user = $(".user_select").val();
-                $(location).attr('href', "{{ url('/cabinet/chat') }}/" + "{{ \Auth::user()->id }}" + "/" + to_user);
+                $(location).attr('href', "{{ url('/cabinet/dialogs/create-chat') }}/" + to_user);
             });
 
             var userselect = $(".user_select").select2({

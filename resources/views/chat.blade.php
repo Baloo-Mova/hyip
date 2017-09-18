@@ -21,6 +21,13 @@
 
 @include('partial.footer')
 
+<script>
+    window.chat_id = "{{ $chat->id }}";
+    window.creator_id = "{{ $chat->creator_id }}";
+    window.to_id = "{{ $chat->to_id }}";
+    window.my_id = "{{ \Auth::id() }}";
+    window.user_name = "{{ $chat->user_name->login }}";
+</script>
 <script src="../../../js/app.js" charset="utf-8"></script>
 </body>
 </html>

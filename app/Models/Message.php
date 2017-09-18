@@ -18,6 +18,7 @@ class Message extends Model
         'is_read',
         'from_delete',
         'to_delete',
+        'chat_id',
     ];
 
 

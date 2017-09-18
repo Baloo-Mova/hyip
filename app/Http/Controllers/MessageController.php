@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Message\CreateMessageRequest;
+use App\Models\Chats;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,7 +19,11 @@ class MessageController extends Controller
 
     public function index() {
         //TODO я писал логику получения сообщений в модели пользователя; пример отображения есть в ЛК пользователя;
-        $messages = Message::with('getFromUser')->where(['to_user' => \Auth::user()->id])->get();
+        $chats = Chats::where(['creator_id' => \Auth::user()->id])
+            ->orWhere(['to_id' => \Auth::user()->id])
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+            //Message::with('getFromUser')->where(['to_user' => \Auth::user()->id])->get();
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' =>[
@@ -28,7 +33,7 @@ class MessageController extends Controller
             ]
         ];
         return view('cabinet.mail.index',[
-                'messages' => isset($messages) ? $messages : [],
+                'chats' => isset($chats) ? $chats : [],
                 'data' => $data
             ]);
     }
@@ -148,8 +153,33 @@ class MessageController extends Controller
         return ;
     }
 
-    public function chat($my_id, $you_id)
+    public function chat($id)
     {
+        $social = SocialNetwork::where(['is_active' => 1])->get();
+        $shares = SocialNetworksShares::find(1);
+        $email = Contact::email()->get();
+        $phones = Contact::phones()->get();
+        $chat = Chats::find($id);
+        $data = [
+            'contacts' => [
+                'phones' => $phones,
+                'emails' => $email,
+                'social' => [
+                    'links' => $social,
+                    'share' => json_decode($shares->shares)
+                ]
+            ]
+        ];
+        return view('chat', ['data' => $data, 'chat' => $chat]);
+    }
+
+    public function createChat($id)
+    {
+        $chat = new Chats();
+        $chat->creator_id = \Auth::user()->id;
+        $chat->to_id = $id;
+        $chat->save();
+
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $shares = SocialNetworksShares::find(1);
         $email = Contact::email()->get();
@@ -164,23 +194,36 @@ class MessageController extends Controller
                 ]
             ]
         ];
-        return view('chat', ['data' => $data]);
+        return view('chat', ['data' => $data, 'chat_id' => $id]);
     }
 
     public function getMessages(Request $request)
     {
-        $messages = Message::where(['to_user' => $request->get('you_id'), 'from_user' => $request->get('my_id')])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $messages = Chats::find($request->get('id'))->get_messages;
         return $messages;
     }
 
     public function sendMessage(Request $request)
     {
+        $chat_id = $request->get('chat_id');
+        $my_id = $request->get('my_id');
+        $text = $request->get('text');
+
+        $chat = Chats::find($chat_id);
+
+        if($chat->creator_id == $my_id){
+            $from = $my_id;
+            $to = $chat->to_id;
+        }else{
+            $from = $chat->to_id;
+            $to = $my_id;
+        }
+
         $messages = Message::Create([
-            'from_user' => $request->get('my_id'),
-            'to_user' => $request->get('you_id'),
-            'message' => $request->get('text')
+            'from_user' => $from,
+            'to_user' => $to,
+            'message' => $text,
+            'chat_id' => $chat_id
         ]);
 
         return ['status' => 'OK'];

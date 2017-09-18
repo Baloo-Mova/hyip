@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', 'CabinetController@index')->name('cabinet');
         Route::get('/referrals', 'ReferralController@index')->name('referrals');
         Route::get('/get-user', 'MessageController@getUser')->name('dialogs.get.user');
-        Route::get('/chat/{my_id}/{you_id}', 'MessageController@chat')->name('chat');
+        Route::get('/chat/{id}', 'MessageController@chat')->name('chat');
         Route::post('/chat/get-messages', 'MessageController@getMessages')->name('chat.get.messages');
         Route::post('/chat/send', 'MessageController@sendMessage')->name('chat.send');
 
@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/', 'MessageController@index')->name('dialogs');
             Route::post('/create', 'MessageController@create')->name('dialogs.create');
             Route::get('{id}', 'MessageController@show')->name('dialogs.show');
+            Route::get('/create-chat/{id}', 'MessageController@createChat')->name('create.chat');
         });
         Route::group(['prefix' => 'facilities'], function () {
             Route::get('/{type}', 'FacilitiesController@index')->name('facilities');
