@@ -33,9 +33,9 @@ class Message extends Model
     }
 
 
-    public function from_user()
+    public function getFromUser()
     {
-        return $this->belongsTo( User::class, 'from_user' );
+        return $this->hasOne( User::class, 'id', 'from_user');
     }
 
     public function to_user()

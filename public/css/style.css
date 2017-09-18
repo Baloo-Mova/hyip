@@ -592,3 +592,12 @@ input, input:active, input:hover, input:focus {
 .user__item_referal{
     word-wrap: break-word;
 }
+.chat__wrap{
+    padding-top: 20px;
+    position: relative;
+    height: 100%;
+    padding-bottom: 120px;
+}
+.h100{
+    height: 100%;
+}

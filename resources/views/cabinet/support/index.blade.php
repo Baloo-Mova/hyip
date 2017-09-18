@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-12 col-md-4">
             <div class="news__item input-budjet__wrap">
                 <div class="input-budjet__header">
                     <h4>Обратиться в техподдержку</h4>

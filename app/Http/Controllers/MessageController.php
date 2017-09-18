@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SocialNetwork;
+use App\Models\SocialNetworksShares;
+use App\Models\Contact;
 
 class MessageController extends Controller
 {
@@ -16,7 +18,7 @@ class MessageController extends Controller
 
     public function index() {
         //TODO я писал логику получения сообщений в модели пользователя; пример отображения есть в ЛК пользователя;
-        $messages = Message::where(['to_user' => \Auth::user()->id])->get();
+        $messages = Message::with('getFromUser')->where(['to_user' => \Auth::user()->id])->get();
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' =>[
@@ -125,6 +127,25 @@ class MessageController extends Controller
             \Cache::forget( md5( $this->_cache_key_messages . $user2 . '_' . $user1 ));
         }
         return ;
+    }
+
+    public function chat($id)
+    {
+        $social = SocialNetwork::where(['is_active' => 1])->get();
+        $shares = SocialNetworksShares::find(1);
+        $email = Contact::email()->get();
+        $phones = Contact::phones()->get();
+        $data = [
+            'contacts' => [
+                'phones' => $phones,
+                'emails' => $email,
+                'social' => [
+                    'links' => $social,
+                    'share' => json_decode($shares->shares)
+                ]
+            ]
+        ];
+        return view('chat', ['data' => $data]);
     }
 
 }

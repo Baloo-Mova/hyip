@@ -85,6 +85,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
+Route::get('/chat/{id}', 'MessageController@chat')->name('chat');
+
+
 Route::group([
     'middleware' => 'admin',
     'prefix' => 'admin',

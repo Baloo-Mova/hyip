@@ -3,106 +3,43 @@
 @section('content')
     @include('alerts')
 
-    <h1 class="page-header">Сообщения</h1>
-    <div id="exTab2" class="">
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a  href="#incoming" data-toggle="tab">Входящие</a>
-            </li>
-            <li><a href="#read" data-toggle="tab">Прочитаные</a>
-            </li>
-            <li><a href="#unread" data-toggle="tab">Непрочитанные</a>
-            </li>
-            <li><a href="#write" data-toggle="tab">Написать</a>
-            </li>
-        </ul>
-
-        <div class="tab-content ">
-            <div class="tab-pane active" id="incoming">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Отправитель</th>
-                            <th>Сообщение</th>
-                            <th>Дата получения</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($messages as $message)
-                            <tr>
-                                <td>{{ $message->from_user }}</td>
-                                <td>{{ $message->message }}</td>
-                                <td>{{ $message->created_at}}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="text-center">Нет сообщений</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane" id="read">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Отправитель</th>
-                        <th>Сообщение</th>
-                        <th>Дата получения</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($messages as $message)
-                        @if($message->is_read != 1)
-                            @continue
-                        @endif
-                        <tr>
-                            <td>{{ $message->from_user }}</td>
-                            <td>{{ $message->message }}</td>
-                            <td>{{ $message->created_at}}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3" class="text-center">Нет сообщений</td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane" id="unread">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Отправитель</th>
-                        <th>Сообщение</th>
-                        <th>Дата получения</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($messages as $message)
-                        @if($message->is_read != 0)
-                            @continue
-                        @endif
-                        <tr>
-                            <td>{{ $message->from_user }}</td>
-                            <td>{{ $message->message }}</td>
-                            <td>{{ $message->created_at}}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3" class="text-center">Нет сообщений</td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane" id="write">
-                Написать
-            </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">Сообщения</h1>
         </div>
     </div>
-    <div id="dialog_list">
-        <!--@include('cabinet.mail.dialogs') -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Отправитель</th>
+                    <th>Сообщение</th>
+                    <th>Дата получения</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($messages as $message)
+                    <tr>
+                        <td>{{ $message->getFromUser->login }}</td>
+                        <td>{{ mb_substr($message->message, 0, 80) }}</td>
+                        <td>{{ $message->created_at}}</td>
+                        <td>
+                            <a href="{{ route('chat', ['id' => $message->id]) }}">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center">Нет сообщений</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
 @endsection
