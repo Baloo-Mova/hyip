@@ -43045,7 +43045,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.from__message{\n}\n.to__message{\n}\n", ""]);
+exports.push([module.i, "\n.from__message{\n    float: left;\n    text-align: left;\n    background-color: #A3E6A4;\n    padding: 10px;\n    margin: 20px;\n    margin-left: 0;\n    margin-bottom: 0;\n}\n.from__message_info{\n    text-align: left;\n    float: left;\n}\n.from__message_info p,\n.to__message_info p{\n    margin-bottom: 0;\n    font-size: 12px;\n    color: #222;\n}\n.to__message{\n    float: right;\n    padding: 10px;\n    margin: 20px;\n    margin-right: 0;\n    margin-bottom: 0;\n    background-color: #F1F1F4;\n}\n.to__message_info{\n    text-align: right;\n    float: right;\n}\n", ""]);
 
 // exports
 
@@ -43056,6 +43056,19 @@ exports.push([module.i, "\n.from__message{\n}\n.to__message{\n}\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43091,8 +43104,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "from__message"
   }, [_c('p', [_vm._v("\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dignissimos harum, iusto laudantium nisi obcaecati possimus quas recusandae rerum sunt. Consequuntur corporis cum facilis incidunt neque possimus quas rerum sunt.\n        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "from__message_info"
+  }, [_c('p', [_vm._v("\n            user - 08.09.17 12:44\n        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  }), _vm._v(" "), _c('div', {
     staticClass: "to__message"
-  }, [_c('p', [_vm._v("\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores deleniti dolor dolore, dolores enim est facilis harum hic magnam maiores minima minus necessitatibus obcaecati odio quam quasi quod repellat.\n        ")])])])
+  }, [_c('p', [_vm._v("\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores deleniti dolor dolore, dolores enim est facilis harum hic magnam maiores minima minus necessitatibus obcaecati odio quam quasi quod repellat.\n        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "to__message_info"
+  }, [_c('p', [_vm._v("\n            Вы - 08.09.17 12:44\n        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
