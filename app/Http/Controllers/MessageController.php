@@ -89,6 +89,25 @@ class MessageController extends Controller
         ]);
     }
 
+    public function getUser(Request $request)
+    {
+        $users = User::select(['id', 'login', 'email'])
+            ->where('login', 'like', '%' . $request->email['term'] . '%')
+            ->orWhere('email', 'like', '%' . $request->email['term'] . '%')
+            ->offset($request->page == null ? 0 : $request->page * 10)
+            ->limit(10)
+            ->get();
+        $response = [];
+        foreach ($users as $item) {
+            $response[] = [
+                'id' => $item->id,
+                'text' => $item->login . " " . $item->email
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     public function create(Request $request)
     {
         $validator = \Validator::make($request->all(), with(new CreateMessageRequest())->rules());
@@ -129,7 +148,7 @@ class MessageController extends Controller
         return ;
     }
 
-    public function chat($id)
+    public function chat($my_id, $you_id)
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $shares = SocialNetworksShares::find(1);
@@ -147,5 +166,25 @@ class MessageController extends Controller
         ];
         return view('chat', ['data' => $data]);
     }
+
+    public function getMessages(Request $request)
+    {
+        $messages = Message::where(['to_user' => $request->get('you_id'), 'from_user' => $request->get('my_id')])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return $messages;
+    }
+
+    public function sendMessage(Request $request)
+    {
+        $messages = Message::Create([
+            'from_user' => $request->get('my_id'),
+            'to_user' => $request->get('you_id'),
+            'message' => $request->get('text')
+        ]);
+
+        return ['status' => 'OK'];
+    }
+
 
 }

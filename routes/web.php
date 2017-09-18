@@ -15,6 +15,9 @@ Route::get('/payeer_395290401.txt', function () {
     return response()->download(storage_path("1.txt"));
 });
 
+
+Route::get('lang/{lang}', 'LanguageController@switchLang')->name('lang');
+
 Route::get('/', "SiteController@index")->name('index');
 Route::get('/referral/{id}', "SiteController@addReferral")->name('ref.add');
 Route::get('/about', "SiteController@about")->name('about');
@@ -51,10 +54,16 @@ Route::group(['middleware' => 'guest'], function () {
     });
 });
 
+
+
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'cabinet'], function () {
         Route::get('/', 'CabinetController@index')->name('cabinet');
         Route::get('/referrals', 'ReferralController@index')->name('referrals');
+        Route::get('/get-user', 'MessageController@getUser')->name('dialogs.get.user');
+        Route::get('/chat/{my_id}/{you_id}', 'MessageController@chat')->name('chat');
+        Route::post('/chat/get-messages', 'MessageController@getMessages')->name('chat.get.messages');
+        Route::post('/chat/send', 'MessageController@sendMessage')->name('chat.send');
 
         Route::group(['prefix' => 'dialogs'], function () {
             Route::get('/', 'MessageController@index')->name('dialogs');
@@ -84,9 +93,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
 });
-
-Route::get('/chat/{id}', 'MessageController@chat')->name('chat');
-
 
 Route::group([
     'middleware' => 'admin',

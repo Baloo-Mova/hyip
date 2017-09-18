@@ -302,3 +302,32 @@ td.day.active{
     top: 10px;
     right: 10px;
 }
+
+.countries_flag_header{
+    width: 16px !important;
+}
+.pb0{
+    padding-bottom: 0;
+}
+.nb li{
+    border: 0px !important;
+}
+.mt20{
+    margin-top: 20px;
+}
+.user_select{
+    width: 100%;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 0px;
+    height: 40px;
+    padding-top: 5px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 6px;
+}
+.select2-dropdown {
+    border-radius: 0px;
+}

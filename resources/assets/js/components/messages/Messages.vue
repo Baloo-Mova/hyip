@@ -2,17 +2,17 @@
     <div class="chat__messages">
         <div class="from__message">
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dignissimos harum, iusto laudantium nisi obcaecati possimus quas recusandae rerum sunt. Consequuntur corporis cum facilis incidunt neque possimus quas rerum sunt.
+                {{ message.message}}
             </p>
         </div>
         <div class="from__message_info">
             <p>
-                user - 08.09.17 12:44
+                user - {{ message.created_at }}
             </p>
         </div>
         <div class="clearfix"></div>
 
-        <div class="to__message">
+        <!--<div class="to__message">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores deleniti dolor dolore, dolores enim est facilis harum hic magnam maiores minima minus necessitatibus obcaecati odio quam quasi quod repellat.
             </p>
@@ -22,16 +22,14 @@
                 Вы - 08.09.17 12:44
             </p>
         </div>
-        <div class="clearfix"></div>
+        <div class="clearfix"></div>-->
         
     </div>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+        props: ['message']
     }
 </script>
 
@@ -44,6 +42,7 @@
         margin: 20px;
         margin-left: 0;
         margin-bottom: 0;
+        width: 96%;
     }
     .from__message_info{
         text-align: left;
@@ -62,9 +61,15 @@
         margin-right: 0;
         margin-bottom: 0;
         background-color: #F1F1F4;
+        width: 96%;
     }
     .to__message_info{
         text-align: right;
         float: right;
+    }
+    @media screen and (max-width: 760px){
+        .chat__messages{
+            padding-bottom: 100px;
+        }
     }
 </style>

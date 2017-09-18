@@ -1,13 +1,34 @@
 <template>
     <div class="chat__body">
-        <chat_messages></chat_messages>
+        <div class="chat__dialog">
+            <chat_messages v-for="message in messages" :message="message"></chat_messages>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
+        data(){
+            return{
+                messages: []
+            }
+        },
+        methods:{
+            getMessages(){
+                axios.post("/cabinet/chat/get-messages", {
+                    my_id: 20,
+                    you_id: 21
+                })
+                .then((response) => {
+                    this.messages = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+            setInterval(this.getMessages, 1000);
         }
     }
 </script>

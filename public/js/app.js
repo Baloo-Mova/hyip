@@ -1201,7 +1201,6 @@ Vue.component('chat_wrap', __webpack_require__(39));
 Vue.component('chat_header', __webpack_require__(45));
 Vue.component('chat_body', __webpack_require__(50));
 Vue.component('chat_footer', __webpack_require__(55));
-Vue.component('chat_dialog', __webpack_require__(60));
 Vue.component('chat_messages', __webpack_require__(65));
 
 var app = new Vue({
@@ -42681,10 +42680,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            messages: []
+        };
+    },
+
+    methods: {
+        getMessages: function getMessages() {
+            var _this = this;
+
+            axios.post("/cabinet/chat/get-messages", {
+                my_id: 20,
+                you_id: 21
+            }).then(function (response) {
+                _this.messages = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    },
     mounted: function mounted() {
-        console.log('Component mounted.');
+        setInterval(this.getMessages, 1000);
     }
 });
 
@@ -42695,7 +42716,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "chat__body"
-  }, [_c('chat_messages')], 1)
+  }, [_c('div', {
+    staticClass: "chat__dialog"
+  }, _vm._l((_vm.messages), function(message) {
+    return _c('chat_messages', {
+      attrs: {
+        "message": message
+      }
+    })
+  }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -42784,7 +42813,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.chat__footer{\n    background-color: #F2F2F2;\n    border-top: 1px solid #f1f1f1;\n    padding: 20px 10px;\n    text-align: left;\n    min-height: 150px;\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n}\ntextarea.form-control {\n    height: 110px;\n    resize: none;\n}\n@media screen and (max-width: 760px){\n.left_block{\n        padding-left: 0px !important;\n        padding-right: 0px !important;\n}\n.right_block{\n        padding-left: 0px !important;\n        padding-right: 0px !important;\n        margin-top: 10px;\n}\n.right_block button{\n        width: 100%;\n}\n}\n@media screen and (min-width: 760px){\n.left_block{\n        padding-left: 0px !important;\n}\n.right_block{\n        padding-left: 0px !important;\n        padding-right: 0px !important;\n        text-align: center;\n}\n.right_block button{\n        margin-top: 30px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.chat__footer{\n    background-color: #F2F2F2;\n    border-top: 1px solid #f1f1f1;\n    padding: 20px 10px;\n    text-align: left;\n    min-height: 150px;\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n}\ntextarea.form-control {\n    height: 110px;\n    resize: none;\n}\n@media screen and (max-width: 760px){\n.send__button{\n        width: 100%;\n        margin-top: 10px;\n}\n}\n@media screen and (min-width: 760px){\n.send__button{\n        position: absolute;\n        right: 40px;\n        top: 50px;\n        border-radius: 50% !important;\n        width: 45px;\n        height: 45px;\n        padding-top: 8px;\n        padding-left: 6px;\n}\ntextarea.form-control {\n        padding-right: 72px;\n}\n}\n", ""]);
 
 // exports
 
@@ -42806,10 +42835,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    data: function data() {
+        return {
+            text: ''
+        };
+    },
+
+    methods: {
+        sendMessage: function sendMessage() {
+            var txt = this.text;
+            this.text = "";
+            axios.post("/cabinet/chat/send", {
+                my_id: 20,
+                you_id: 21,
+                text: txt
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
     }
 });
 
@@ -42818,26 +42866,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "chat__footer"
-  }, [_c('div', {
-    staticClass: "col-xs-12 col-sm-10 col-md-10 left_block"
   }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.text),
+      expression: "text"
+    }],
     staticClass: "form-control btn-flat",
     attrs: {
-      "name": "",
-      "id": "",
-      "cols": "30",
-      "rows": "10"
+      "name": ""
+    },
+    domProps: {
+      "value": (_vm.text)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.sendMessage($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.text = $event.target.value
+      }
     }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 col-sm-2 col-md-2 right_block"
-  }, [_c('button', {
-    staticClass: "btn btn-flat btn-main-carousel"
-  }, [_vm._v("Отправить")])])])
-}]}
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-flat btn-main-carousel send__button",
+    on: {
+      "click": _vm.sendMessage
+    }
+  }, [_c('span', {
+    staticClass: "hidden-sm hidden-md hidden-lg"
+  }, [_vm._v("Отправить")]), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-paper-plane-o fa-2x hidden-xs",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -42847,126 +42915,11 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(61)
-}
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(63),
-  /* template */
-  __webpack_require__(64),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "C:\\wamp64\\www\\huip\\resources\\assets\\js\\components\\dialog\\Dialog.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Dialog.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3e296f97", Component.options)
-  } else {
-    hotAPI.reload("data-v-3e296f97", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(62);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("348aa226", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e296f97\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Dialog.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e296f97\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Dialog.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 63 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "chat__dialog"
-  }, [_c('chat_messages')], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3e296f97", module.exports)
-  }
-}
-
-/***/ }),
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
 /* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43045,7 +42998,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.from__message{\n    float: left;\n    text-align: left;\n    background-color: #A3E6A4;\n    padding: 10px;\n    margin: 20px;\n    margin-left: 0;\n    margin-bottom: 0;\n}\n.from__message_info{\n    text-align: left;\n    float: left;\n}\n.from__message_info p,\n.to__message_info p{\n    margin-bottom: 0;\n    font-size: 12px;\n    color: #222;\n}\n.to__message{\n    float: right;\n    padding: 10px;\n    margin: 20px;\n    margin-right: 0;\n    margin-bottom: 0;\n    background-color: #F1F1F4;\n}\n.to__message_info{\n    text-align: right;\n    float: right;\n}\n", ""]);
+exports.push([module.i, "\n.from__message{\n    float: left;\n    text-align: left;\n    background-color: #A3E6A4;\n    padding: 10px;\n    margin: 20px;\n    margin-left: 0;\n    margin-bottom: 0;\n    width: 96%;\n}\n.from__message_info{\n    text-align: left;\n    float: left;\n}\n.from__message_info p,\n.to__message_info p{\n    margin-bottom: 0;\n    font-size: 12px;\n    color: #222;\n}\n.to__message{\n    float: right;\n    padding: 10px;\n    margin: 20px;\n    margin-right: 0;\n    margin-bottom: 0;\n    background-color: #F1F1F4;\n    width: 96%;\n}\n.to__message_info{\n    text-align: right;\n    float: right;\n}\n@media screen and (max-width: 760px){\n.chat__messages{\n        padding-bottom: 100px;\n}\n}\n", ""]);
 
 // exports
 
@@ -43087,9 +43040,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+    props: ['message']
 });
 
 /***/ }),
@@ -43097,24 +43048,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "chat__messages"
   }, [_c('div', {
     staticClass: "from__message"
-  }, [_c('p', [_vm._v("\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dignissimos harum, iusto laudantium nisi obcaecati possimus quas recusandae rerum sunt. Consequuntur corporis cum facilis incidunt neque possimus quas rerum sunt.\n        ")])]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v("\n            " + _vm._s(_vm.message.message) + "\n        ")])]), _vm._v(" "), _c('div', {
     staticClass: "from__message_info"
-  }, [_c('p', [_vm._v("\n            user - 08.09.17 12:44\n        ")])]), _vm._v(" "), _c('div', {
-    staticClass: "clearfix"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "to__message"
-  }, [_c('p', [_vm._v("\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores deleniti dolor dolore, dolores enim est facilis harum hic magnam maiores minima minus necessitatibus obcaecati odio quam quasi quod repellat.\n        ")])]), _vm._v(" "), _c('div', {
-    staticClass: "to__message_info"
-  }, [_c('p', [_vm._v("\n            Вы - 08.09.17 12:44\n        ")])]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v("\n            user - " + _vm._s(_vm.message.created_at) + "\n        ")])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
   })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

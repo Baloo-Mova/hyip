@@ -10,3 +10,5 @@
     <link rel="stylesheet" href="{{asset('css/datepicker.css')}}">
     <script src="https://use.fontawesome.com/e761aabf16.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />

@@ -148,3 +148,6 @@ body {
 .tar{
     text-align: right;
 }
+.nb li{
+    border: 0px !important;
+}

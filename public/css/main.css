@@ -566,3 +566,9 @@ section h1{
 .left-text{
     text-align: left;
 }
+.countries_flag_header{
+    width: 16px !important;
+}
+.nb li{
+    border: 0px !important;
+}

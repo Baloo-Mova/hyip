@@ -8,6 +8,8 @@ class Message extends Model
 {
     protected $table = 'messages';
 
+    public $timestamps = true;
+
     protected $fillable = [
         'id',
         'from_user',

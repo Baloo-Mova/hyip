@@ -9,3 +9,5 @@
 <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('js/locales/bootstrap-datepicker.ru.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
