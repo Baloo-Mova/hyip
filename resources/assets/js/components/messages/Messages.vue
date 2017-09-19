@@ -2,7 +2,7 @@
     <div class="chat__messages">
 
         <div v-if="message.from_user != my_id">
-            <div class="from__message">
+            <div class="from__message" id="bottom">
                 <p>
                     {{ message.message}}
                 </p>
@@ -16,7 +16,7 @@
         </div>
 
         <div v-else>
-            <div class="to__message">
+            <div class="to__message" id="bottom">
                 <p>
                     {{ message.message}}
                 </p>

@@ -218,7 +218,7 @@
                             <div class="overflow news__overflow">
                                 <p>{!!  $news['content'] !!}</p>
                             </div>
-                            <a href="{{ route('news.show', ['uri' => $news['uri']]) }}" class="about__link">Читать далее...</a>
+                            <a href="{{ route('news') }}" class="about__link">Подробнее</a>
                         </div>
                     </div>
                 @endforeach

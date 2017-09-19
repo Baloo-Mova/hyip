@@ -199,8 +199,48 @@ class MessageController extends Controller
 
     public function getMessages(Request $request)
     {
-        $messages = Chats::find($request->get('id'))->get_messages;
+        $chatId = $request->get('chat_id');
+        $lastId = $request->get('last_id');
+        $pageNumber = $request->get('page');
+
+        $maxId = $lastId;
+        $skip = ($pageNumber - 1) * 10;
+
+        $messages = Message::where([
+                ['chat_id', '=', $chatId],
+                ['id', '>', $lastId]
+            ])->orderBy('created_at', 'desc')->limit(10)->get();
+
+        if (count($messages) > 0) {
+            $maxId = $messages[0]->id;
+        }
+
+        $count = Message::where(['chat_id' => $chatId])->count();
+
+        return [
+                'last_id' => $maxId,
+                'count' => $count,
+                'messages' => $messages
+            ];
+    }
+
+    public function getScrollMessages(Request $request)
+    {
+        $count = $request->get('count');
+        $chatId = $request->get('chat_id');
+        $take = $request->get('offset');
+
+        print_r($chatId);
+        dd(1);
+
+        $messages = Message::where(['chat_id' => $chatId])
+            ->orderBy('created_at', 'asc')
+            ->skip($count)
+            ->take($take)
+            ->get();
+
         return $messages;
+
     }
 
     public function sendMessage(Request $request)

@@ -14,25 +14,20 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(social_networks_share::class);
         try {
+            \App\Models\WalletProcessesType::truncate();
             \App\Models\WalletProcessesType::insert([
-                'id' => 1,
-                'name' => 'Рефферальные начисления'
-            ]);
-        } catch (Exception $ex) {
-        }
-
-        try {
-            \App\Models\WalletProcessesType::insert([
-                'id' => 2,
-                'name' => 'Пополнение'
-            ]);
-        } catch (Exception $ex) {
-        }
-
-        try {
-            \App\Models\WalletProcessesType::insert([
-                'id' => 3,
-                'name' => 'Вывод'
+                [
+                    'id' => 1,
+                    'name' => 'Рефферальные начисления'
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Ввод средств'
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'Вывод средств'
+                ]
             ]);
         } catch (Exception $ex) {
         }

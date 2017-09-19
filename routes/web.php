@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/get-user', 'MessageController@getUser')->name('dialogs.get.user');
         Route::get('/chat/{id}', 'MessageController@chat')->name('chat');
         Route::post('/chat/get-messages', 'MessageController@getMessages')->name('chat.get.messages');
+        Route::post('/chat/get-scroll-messages', 'MessageController@getScrollMessages')->name('chat.get.scroll.messages');
         Route::post('/chat/send', 'MessageController@sendMessage')->name('chat.send');
 
         Route::group(['prefix' => 'dialogs'], function () {

@@ -26,7 +26,7 @@
                                         {!!  $news['content'] !!}
                                     </p>
                                 </div>
-                                <a href="{{ route('news.show', ['uri' => $news['uri']]) }}" class="red-text">подробнее</a>
+                                <a href="{{ route('news.show', ['uri' => $news['uri']]) }}" class="red-text">Подробнее</a>
                             </div>
                         </div>
 

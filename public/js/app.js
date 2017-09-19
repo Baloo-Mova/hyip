@@ -1178,8 +1178,9 @@ module.exports = __webpack_require__(65);
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -42666,7 +42667,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.chat__body{\n    padding: 0px 10px;\n    text-align: left;\n    overflow-y: auto;\n    height: 70%;\n}\n", ""]);
+exports.push([module.i, "\n.chat__body{\n    padding: 0px 10px;\n    text-align: left;\n    overflow-y: scroll;\n    height: 70%;\n}\n", ""]);
 
 // exports
 
@@ -42689,7 +42690,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            messages: []
+            messages: [],
+            last_id: 0,
+            count: 0,
+            offset: 10,
+            messages_count_now: 0
         };
     },
 
@@ -42698,21 +42703,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post("/cabinet/chat/get-messages", {
-                id: window.chat_id
+                chat_id: window.chat_id,
+                last_id: this.last_id,
+                offset: this.offset,
+                page: 1
             }).then(function (response) {
-                _this.messages = response.data;
+                if (_this.count != response.data.count) {
+                    _this.messages = response.data.messages.concat(_this.messages);
+                    _this.messages_count_now += response.data.messages.length;
+                }
+                _this.last_id = response.data.last_id;
+                _this.count = response.data.count;
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        getScrollMessages: function getScrollMessages() {
+            var _this2 = this;
+
+            axios.post("/cabinet/chat/get-scroll-messages", {
+                chat_id: window.chat_id,
+                count: this.messages_count_now,
+                take: this.offset
+            }).then(function (response) {
+                _this2.messages = _this2.messages.concat(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        onScroll: function onScroll(event) {
+            var wrapper = event.target,
+                list = wrapper.firstElementChild,
+                scrollTop = wrapper.scrollTop,
+                wrapperHeight = wrapper.offsetHeight,
+                listHeight = list.offsetHeight,
+                diffHeight = listHeight - scrollTop - wrapperHeight;
+
+            if (diffHeight == 0) {
+                this.getScrollMessages();
+            }
         }
     },
     mounted: function mounted() {
-        var _this2 = this;
+        var _this3 = this;
 
         this.getMessages();
         setInterval(this.getMessages, 5000);
         this.$root.$on('message_sended', function (section) {
-            _this2.getMessages();
+            _this3.getMessages();
         });
     }
 });
@@ -42723,9 +42761,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "chat__body"
+    staticClass: "chat__body",
+    on: {
+      "scroll": _vm.onScroll
+    }
   }, [_c('div', {
-    staticClass: "chat__dialog"
+    staticClass: "messages"
   }, _vm._l((_vm.messages), function(message) {
     return _c('chat_messages', {
       attrs: {
@@ -43072,13 +43113,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "chat__messages"
   }, [(_vm.message.from_user != _vm.my_id) ? _c('div', [_c('div', {
-    staticClass: "from__message"
+    staticClass: "from__message",
+    attrs: {
+      "id": "bottom"
+    }
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.message.message) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "from__message_info"
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.user_id) + " - " + _vm._s(_vm.message.created_at) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
   })]) : _c('div', [_c('div', {
-    staticClass: "to__message"
+    staticClass: "to__message",
+    attrs: {
+      "id": "bottom"
+    }
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.message.message) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "to__message_info"
   }, [_c('p', [_vm._v("\n                Вы - " + _vm._s(_vm.message.created_at) + "\n            ")])]), _vm._v(" "), _c('div', {

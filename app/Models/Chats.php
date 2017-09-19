@@ -53,7 +53,7 @@ class Chats extends Model
 
     public function get_messages()
     {
-        return $this->hasMany(Message::class, 'chat_id', 'id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Message::class, 'chat_id', 'id')->orderBy('created_at', 'asc');
     }
 
 }

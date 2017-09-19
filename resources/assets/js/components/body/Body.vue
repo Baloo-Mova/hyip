@@ -1,7 +1,7 @@
 <template>
-    <div class="chat__body">
-        <div class="chat__dialog">
-            <chat_messages v-for="message in messages" :message="message"></chat_messages>
+    <div class="chat__body" @scroll="onScroll">
+        <div class="messages">
+            <chat_messages v-for="message in messages" :message="message" ></chat_messages>
         </div>
     </div>
 </template>
@@ -10,20 +10,57 @@
     export default {
         data(){
             return{
-                messages: []
+                messages: [],
+                last_id: 0,
+                count: 0,
+                offset: 10,
+                messages_count_now: 0
             }
         },
         methods:{
             getMessages(){
                 axios.post("/cabinet/chat/get-messages", {
-                    id: window.chat_id
+                    chat_id: window.chat_id,
+                    last_id: this.last_id,
+                    offset: this.offset,
+                    page: 1
                 })
                 .then((response) => {
-                    this.messages = response.data;
+                    if(this.count != response.data.count){
+                        this.messages = response.data.messages.concat(this.messages);
+                        this.messages_count_now += response.data.messages.length;
+                    }
+                    this.last_id = response.data.last_id;
+                    this.count = response.data.count;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+            },
+            getScrollMessages(){
+                axios.post("/cabinet/chat/get-scroll-messages", {
+                    chat_id: window.chat_id,
+                    count: this.messages_count_now,
+                    take: this.offset
+                })
+                .then((response) => {
+                    this.messages = this.messages.concat(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+            onScroll(event){
+                var wrapper = event.target,
+                    list = wrapper.firstElementChild,
+                    scrollTop = wrapper.scrollTop,
+                    wrapperHeight = wrapper.offsetHeight,
+                    listHeight = list.offsetHeight,
+                    diffHeight = listHeight - scrollTop - wrapperHeight;
+
+                if(diffHeight == 0){
+                    this.getScrollMessages();
+                }
             }
         },
         mounted() {
@@ -40,7 +77,7 @@
     .chat__body{
         padding: 0px 10px;
         text-align: left;
-        overflow-y: auto;
+        overflow-y: scroll;
         height: 70%;
     }
 </style>

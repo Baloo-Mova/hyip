@@ -56,7 +56,7 @@
                 <div class="news__item about-tariff__item">
                     <h3 class="tariff___name">{{ isset($tariff_info->name) ? $tariff_info->name : "" }}</h3>
                     <div class="col-xs-12 col-md-4">
-                        <p class="tariff___ref-sys">{{ isset($tariff_info->levels) ? $tariff_info->levels : "" }}</p>
+                        <p class="tariff___ref-sys">{{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} уровня</p>
                         <h4>Реферальная система</h4>
                     </div>
                     <div class="col-xs-12 col-md-4">
@@ -64,7 +64,7 @@
                         <h4>Цена</h4>
                     </div>
                     <div class="col-xs-12 col-md-4">
-                        <p class="tariff___term">{{ isset($tariff_info->term) ? $tariff_info->term : "" }}</p>
+                        <p class="tariff___term">{{ isset($tariff_info->term) ? $tariff_info->term : "" }} дней</p>
                         <h4>Срок действия</h4>
                     </div>
                     <div class="col-xs-12">
@@ -116,10 +116,10 @@
                                 $(this).hide();
                             });
                             $(".tariff_" + id).addClass("active_tariff");
-                            $(".tariff___ref-sys").text(data.info.levels);
+                            $(".tariff___ref-sys").text(data.info.levels+" уровня");
                             $(".tariff___name").text(data.info.name);
                             $(".tariff___price").text(data.info.price+"₽");
-                            $(".tariff___term").text(data.info.term);
+                            $(".tariff___term").text(data.info.term+" дней");
                             $(".tariff___description").text(data.info.description == null ? "У этого тарифа нет описания" : data.info.description);
 
                             var prices = ''
