@@ -194,7 +194,7 @@ class MessageController extends Controller
                 ]
             ]
         ];
-        return view('chat', ['data' => $data, 'chat_id' => $id]);
+        return redirect()->route('chat', ['chat_id' => $chat->id]);
     }
 
     public function getMessages(Request $request)
@@ -202,6 +202,7 @@ class MessageController extends Controller
         $chatId = $request->get('chat_id');
         $lastId = $request->get('last_id');
         $pageNumber = $request->get('page');
+        $user_id = $request->get('user_id');
 
         $maxId = $lastId;
         $skip = ($pageNumber - 1) * 10;
@@ -210,6 +211,8 @@ class MessageController extends Controller
                 ['chat_id', '=', $chatId],
                 ['id', '>', $lastId]
             ])->orderBy('created_at', 'desc')->limit(10)->get();
+
+        Message::where(['to_user' => $user_id, 'chat_id' => $chatId])->update(['is_read' => 1]);
 
         if (count($messages) > 0) {
             $maxId = $messages[0]->id;
@@ -228,15 +231,14 @@ class MessageController extends Controller
     {
         $count = $request->get('count');
         $chatId = $request->get('chat_id');
-        $take = $request->get('offset');
+        $take = $request->get('take');
 
-        print_r($chatId);
-        dd(1);
+
 
         $messages = Message::where(['chat_id' => $chatId])
-            ->orderBy('created_at', 'asc')
-            ->skip($count)
-            ->take($take)
+            ->orderBy('created_at', 'desc')
+            ->offset($count)
+            ->limit($take)
             ->get();
 
         return $messages;
@@ -256,7 +258,7 @@ class MessageController extends Controller
             $to = $chat->to_id;
         }else{
             $from = $chat->to_id;
-            $to = $my_id;
+            $to = $chat->creator_id;
         }
 
         $messages = Message::Create([

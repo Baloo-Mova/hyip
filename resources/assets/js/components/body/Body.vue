@@ -23,12 +23,15 @@
                     chat_id: window.chat_id,
                     last_id: this.last_id,
                     offset: this.offset,
+                    user_id: window.my_id,
                     page: 1
                 })
                 .then((response) => {
                     if(this.count != response.data.count){
                         this.messages = response.data.messages.concat(this.messages);
                         this.messages_count_now += response.data.messages.length;
+                        var container = document.querySelector(".chat__body");
+                        container.scrollTop = 0;
                     }
                     this.last_id = response.data.last_id;
                     this.count = response.data.count;
@@ -45,6 +48,7 @@
                 })
                 .then((response) => {
                     this.messages = this.messages.concat(response.data);
+                    this.messages_count_now += response.data.length;
                 })
                 .catch((error) => {
                     console.log(error);

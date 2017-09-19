@@ -56,4 +56,9 @@ class Chats extends Model
         return $this->hasMany(Message::class, 'chat_id', 'id')->orderBy('created_at', 'asc');
     }
 
+    public function hasUnreadMessages(){
+
+        return $this->hasMany(Message::class, 'chat_id', 'id')->where(['to_user' => \Auth::user()->id, 'is_read' => 0]);
+    }
+
 }

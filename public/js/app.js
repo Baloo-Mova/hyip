@@ -1178,9 +1178,8 @@ module.exports = __webpack_require__(65);
 
 /***/ }),
 /* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -42706,11 +42705,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 chat_id: window.chat_id,
                 last_id: this.last_id,
                 offset: this.offset,
+                user_id: window.my_id,
                 page: 1
             }).then(function (response) {
                 if (_this.count != response.data.count) {
                     _this.messages = response.data.messages.concat(_this.messages);
                     _this.messages_count_now += response.data.messages.length;
+                    var container = document.querySelector(".chat__body");
+                    container.scrollTop = 0;
                 }
                 _this.last_id = response.data.last_id;
                 _this.count = response.data.count;
@@ -42727,6 +42729,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 take: this.offset
             }).then(function (response) {
                 _this2.messages = _this2.messages.concat(response.data);
+                _this2.messages_count_now += response.data.length;
             }).catch(function (error) {
                 console.log(error);
             });

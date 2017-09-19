@@ -289,4 +289,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(WalletProcesses::class, 'from_id', 'id');
     }
+
+    public function hasMessages()
+    {
+        return $this->hasMany(Message::class, 'to_user', 'id')->where(['is_read' => 0]);
+    }
 }

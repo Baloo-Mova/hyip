@@ -31,15 +31,17 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Отправитель</th>
-                    <th>Дата получения</th>
+                    <th>Создатель</th>
+                    <th>Непрочитанных сообщений</th>
+                    <th>Дата создания</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @forelse($chats as $chat)
                     <tr>
-                        <td>{{ $chat->dialog_user->login }}</td>
+                        <td>{{ $chat->to_user->login }}</td>
+                        <td>{{ count($chat->hasUnreadMessages) }}</td>
                         <td>{{ $chat->created_at}}</td>
                         <td>
                             <a href="{{ route('chat', ['id' => $chat->id]) }}">
