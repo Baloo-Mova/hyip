@@ -103,7 +103,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>3 шага, чтобы начать зарабатывать</h1>
+                    <h1>{{ isset($data['threesteps']) ? $data['threesteps']->main_title : "3 шага, чтобы начать зарабатывать" }}</h1>
                 </div>
             </div>
             <div class="row">
@@ -115,13 +115,10 @@
                                     <span class="kostil_1">1.</span>
                                 </div>
                                 <div class="l-steps__item-about">
-                                    <a href="{{ route('register') }}" class="about__link">
-                                        <span class="js-translate">Register an account</span>
-                                    </a>
-                                    <span class="js-translate">&nbsp;and choose an investment portfolio</span>
+                                    {!! isset($data['threesteps']) ? $data['threesteps']->first_title : "" !!}
                                 </div>
                                 <div class="l-steps__item-description">
-                                    <span class="js-translate">On our website, you can find a convenient registration form consisting of several simple fields. Just in case, we use special technologies to correct any of your registration mistakes, even intentional.</span>
+                                    {!! isset($data['threesteps']) ? $data['threesteps']->first_text : "" !!}
                                 </div>
                             </div>
                         </div>
@@ -131,10 +128,10 @@
                                     <span>2.</span>
                                 </div>
                                 <div class="l-steps__item-about">
-                                    <span class="js-translate">Choose an investment portfolio that fits your needs</span>
+                                    {!! isset($data['threesteps']) ? $data['threesteps']->second_title : "" !!}
                                 </div>
                                 <div class="l-steps__item-description">
-                                    <span class="js-translate">Once in the back office, review the list of investment portfolios and choose one <br>to invest in.</span>
+                                    {!! isset($data['threesteps']) ? $data['threesteps']->second_text : "" !!}
                                 </div>
                             </div>
                         </div>
@@ -144,10 +141,10 @@
                                     <span>3.</span>
                                 </div>
                                 <div class="l-steps__item-about">
-                                    <span class="js-translate">Fund the account in a convenient way and buy a portfolio</span>
+                                    {!! isset($data['threesteps']) ? $data['threesteps']->third_title : "" !!}
                                 </div>
                                 <div class="l-steps__item-description">
-                                    <span class="js-translate">You can easily make a deposit to your account via bank transfer or electronic payment systems.</span>
+                                    {!! isset($data['threesteps']) ? $data['threesteps']->third_text : "" !!}
                                 </div>
                             </div>
                         </div>

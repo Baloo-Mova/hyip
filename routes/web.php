@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/chat/get-messages', 'MessageController@getMessages')->name('chat.get.messages');
         Route::post('/chat/get-scroll-messages', 'MessageController@getScrollMessages')->name('chat.get.scroll.messages');
         Route::post('/chat/send', 'MessageController@sendMessage')->name('chat.send');
+        Route::post('/referrals-search', 'ReferralController@search')->name('referrals.search');
 
         Route::group(['prefix' => 'dialogs'], function () {
             Route::get('/', 'MessageController@index')->name('dialogs');
@@ -114,6 +115,21 @@ Route::group([
     });
 
     Route::group(['namespace' => 'Content'], function () {
+
+        Route::group(['prefix' => 'about-project'], function () {
+            Route::get('/', 'AboutProjectController@index')->name('admin.about.project.index');
+            Route::get('/create', 'AboutProjectController@create')->name('admin.about.project.create');
+        });
+
+        Route::group(['prefix' => 'greetings'], function () {
+            Route::get('/', 'GreetingsController@index')->name('admin.greetings.index');
+            Route::get('/create', 'GreetingsController@create')->name('admin.greetings.create');
+        });
+
+        Route::group(['prefix' => 'three-steps'], function () {
+            Route::get('/', 'ThreeStepsController@index')->name('admin.three-steps.index');
+            Route::post('/', 'ThreeStepsController@save')->name('admin.three-steps.save');
+        });
 
         Route::group(['prefix' => 'input-output'], function () {
             Route::get('/', 'InputOutputController@index')->name('admin.input-output.index');

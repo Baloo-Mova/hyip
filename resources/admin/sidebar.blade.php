@@ -35,6 +35,12 @@
                     <a href='{{ route('admin.regulations.get') }}'>Regulations</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.input-output.index') active @endif">
                     <a href='{{ route('admin.input-output.index') }}'>Input/Output text</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.three-steps.index') active @endif">
+                    <a href='{{ route('admin.three-steps.index') }}'>3 steps text</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.greetings.index') active @endif">
+                    <a href='{{ route('admin.greetings.index') }}'>Greetings</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.about.project.index') active @endif">
+                    <a href='{{ route('admin.about.project.index') }}'>About project</a></li>
             </ul>
         </li>
     </ul>

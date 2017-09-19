@@ -175,10 +175,23 @@ class MessageController extends Controller
 
     public function createChat($id)
     {
-        $chat = new Chats();
-        $chat->creator_id = \Auth::user()->id;
-        $chat->to_id = $id;
-        $chat->save();
+        $user_id = \Auth::user()->id;
+
+        $chat = Chats::where([
+            ['creator_id', '=', $user_id],
+            ['to_id', '=', $id]
+        ])
+        ->orWhere([
+            ['creator_id', '=', $id],
+            ['to_id', '=', $user_id]
+        ])->first();
+
+        if(!isset($chat)){
+            $chat = new Chats();
+            $chat->creator_id = $user_id;
+            $chat->to_id = $id;
+            $chat->save();
+        }
 
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $shares = SocialNetworksShares::find(1);

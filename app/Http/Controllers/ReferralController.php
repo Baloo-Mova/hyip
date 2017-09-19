@@ -7,6 +7,9 @@ use App\Models\User;
 use App\Models\SocialNetwork;
 
 use Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ReferralController extends Controller
 {
@@ -21,10 +24,17 @@ class ReferralController extends Controller
             ]
         ];
 
-        $ref = Referrals::where(['user_id' => Auth::id()])->paginate(15);
+        $ref = Referrals::select(DB::raw('level, count(id) as count'))
+            ->where(['user_id' => Auth::id()])
+            ->groupBy('level')
+            ->get();
+        $count = Referrals::where(['user_id' => Auth::id()])->count();
+        $referrals = Referrals::where(['user_id' => Auth::id()])->paginate(15);
 
         return view('cabinet.referrals.index', [
-            'referrals' => $ref,
+            'referrals' => $referrals,
+            'info' => $ref,
+            'count' => $count,
             'data' => $data
         ]);
     }
@@ -48,5 +58,64 @@ class ReferralController extends Controller
         }
 
         return $referrals;
+    }
+
+    public function search(Request $request)
+    {
+        $where = ['user_id' => \Auth::id()];
+
+        if($request->has('level')){
+            $where[] = ['level', '=', $request->get('level')];
+            $search['level'] = $request->get('level');
+        }
+
+        if($request->has('user_ref_name')){
+            $where[] = ['user_ref_name', 'like', '%'.$request->get('user_ref_name').'%'];
+            $search['user_ref_name'] = $request->get('user_ref_name');
+        }
+
+        if($request->has('user_ref_phone')){
+            $where[] = ['user_ref_phone', 'like', '%'.$request->get('user_ref_phone').'%'];
+            $search['user_ref_phone'] = $request->get('user_ref_phone');
+        }
+
+        $daterange = $request->get('date_range');
+        if (isset($daterange)) {
+            $find = stripos($daterange, ' -');
+            $date_from = \Carbon\Carbon::parse(substr($daterange, 0, $find))->toDateTimeString();
+            $date_to = \Carbon\Carbon::parse(substr($daterange, $find + 3))->toDateTimeString();
+
+            $referrals = Referrals::where($where)->whereBetween('created_at', [$date_from, $date_to])->paginate(15);
+
+        }else{
+            $referrals = Referrals::where($where)->paginate(15);
+        }
+
+        $social = SocialNetwork::where(['is_active' => 1])->get();
+        $data = [
+            'contacts' => [
+                'social' => [
+                    'links' => $social
+                ]
+            ]
+        ];
+
+        $ref = Referrals::select(DB::raw('level, count(id) as count'))
+            ->where(['user_id' => Auth::id()])
+            ->groupBy('level')
+            ->get();
+        $count = Referrals::where(['user_id' => Auth::id()])->count();
+
+        $search['date_range'] = $request->get('date_range');
+
+        return view('cabinet.referrals.index', [
+            'referrals' => $referrals,
+            'info' => $ref,
+            'count' => $count,
+            'search' => $search,
+            'data' => $data
+        ]);
+
+
     }
 }

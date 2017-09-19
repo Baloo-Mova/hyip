@@ -11,6 +11,7 @@ use App\Models\MainPage\HeaderCarousel;
 use App\Models\Regulations;
 use App\Models\SocialNetwork;
 use App\Models\SocialNetworksShares;
+use App\Models\MainPage\ThreeSteps;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
@@ -33,6 +34,7 @@ class SiteController extends Controller
         $email = Contact::email()->get();
         $phones = Contact::phones()->get();
         $slides = HeaderCarousel::where(['need_show' => 1])->get();
+        $threeSteps = ThreeSteps::find(1);
         $data = [
             'carousel' => $slides,
             'greetings' => [
@@ -71,6 +73,7 @@ class SiteController extends Controller
                     'link' => '#'
                 ],
             ],
+            'threesteps' => $threeSteps,
             'rate' => $subscriptions,
             'paysystems' => [
                 'img/brand3.png',

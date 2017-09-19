@@ -101,6 +101,7 @@ class AuthController extends Controller
         $user = User::create([
             'login' => $request->get('login'),
             'ip' => $request->ip(),
+            'phone' => $request->get('phone'),
             'email' => $request->get('email'),
             'password' => \Hash::make($request->get('password')),
             'role' => 1,

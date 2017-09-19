@@ -188,7 +188,8 @@ class User extends Authenticatable
             Referrals::create([
                 'user_id' => $ref->id,
                 'user_ref' => $this->id,
-                'user_ref_name' => $this->login,
+                'user_ref_name' => $user->login,
+                'user_ref_phone' => $user->phone,
                 'user_from' => $user->id != $this->id ? $user->id : 0,
                 'earned' => 0,
                 'level' => $i
