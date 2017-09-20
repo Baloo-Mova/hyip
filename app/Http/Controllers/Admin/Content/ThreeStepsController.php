@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Content;
 
-use App\Models\ThreeSteps;
+use App\Models\MainPage\ThreeSteps;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
