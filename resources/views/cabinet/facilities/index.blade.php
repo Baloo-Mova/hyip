@@ -2,14 +2,14 @@
 
 @section('content')
     @include('alerts')
-    <h1 class="page-header">Ввод/вывод </h1>
+    <h1 class="page-header">@lang("messages.input_output") </h1>
     <div id="exTab2" class="">
         <ul class="nav nav-tabs">
             <li class="{{ $type == "input" ? "active" : "" }}">
-                <a href="#in" data-toggle="tab">Пополнить счет</a>
+                <a href="#in" data-toggle="tab">@lang("messages.replenish_an_account")</a>
             </li>
             <li class="{{ $type == "output" ? "active" : "" }}">
-                <a href="#out" data-toggle="tab">Вывести средства</a>
+                <a href="#out" data-toggle="tab">@lang("messages.withdraw_funds")</a>
             </li>
         </ul>
 
@@ -26,12 +26,12 @@
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <label for="sum">
-                                        Сумма пополения:
+                                        @lang("messages.amount_of_replenishment"):
                                     </label>
                                     <input type="number" name="count" class="form-control btn-flat" placeholder="500₽">
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-main-carousel btn-md btn-flat">
+                                    <input type="submit" class="btn btn-main-carousel btn-md btn-flat" value="@lang("messages.send")">
                                 </div>
                             </form>
                         </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                     <div class="news__item input-budjet__wrap p20">
-                        <label for="">Как пополнить счет:</label>
+                        <label for="">@lang("messages.how_to_replenish_an_account"):</label>
                         <p>{!! isset($item) ? $item->input_text : "" !!}</p>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <label for="sum">
-                                        Сумма вывода:
+                                        @lang("messages.sum_of_output"):
                                     </label>
                                     <input type="number" name="sum" id="sum"
                                            class="form-control btn-flat @if( is_error('sum') )has-error @endif" min="{{ config('payment.min_sum') }}" max="{{ \Auth::user()->balance }}" placeholder="500₽">
@@ -67,11 +67,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="pay_system">
-                                        Система вывода:
+                                        @lang("messages.output_system"):
                                     </label>
                                     <select name="pay_system" id="pay_system" class="pay_system form-control btn-flat @if( is_error('pay_system') )has-error @endif">
                                         @if(isset($pay_systems))
-                                            <option disabled selected>Выберите систему</option>
+                                            <option disabled selected>@lang("messages.choose_system")</option>
                                         @endif
                                         @forelse($pay_systems as $system)
                                             @if(mb_strtolower($system['name']) == 'bitcoin')
@@ -79,7 +79,7 @@
                                             @endif
                                             <option value="{{ $system['id'] }}">{{ $system['name'] }}</option>
                                         @empty
-                                            <option disabled selected>Список систем пуст</option>
+                                            <option disabled selected>@lang("messages.empty")</option>
                                         @endforelse
                                     </select>
                                     @if( is_error('pay_system') )
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="card_number">
-                                        Куда вывести:
+                                        @lang("messages.where_to_get"):
                                     </label>
                                     <input type="text" name="card_number"
                                            class="form-control form-control btn-flat @if( is_error('card_number') )has-error @endif">
@@ -107,7 +107,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-main-carousel btn-md btn-flat" {{ count($pay_systems) == 0 ? "disabled" : "" }}>
+                                    <input type="submit" class="btn btn-main-carousel btn-md btn-flat" {{ count($pay_systems) == 0 ? "disabled" : "" }} value="@lang("messages.send")">
                                 </div>
                             </form>
                         </div>
@@ -115,22 +115,22 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                     <div class="news__item input-budjet__wrap p20">
-                        <label for="">Как вывести средства:</label>
+                        <label for="">@lang("messages.how_to_withdraw_funds"):</label>
                         <p>{!! isset($item) ? $item->output_text : "" !!}</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12">
-                     <h4>История операций</h4>
+                     <h4>@lang("messages.operations_history")</h4>
                     <hr>
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Тип</th>
-                                <th>Сумма</th>
-                                <th>Статус</th>
-                                <th>Комментарий</th>
-                                <th>Дата</th>
+                                <th>@lang("messages.type")</th>
+                                <th>@lang("messages.sum")</th>
+                                <th>@lang("messages.status")</th>
+                                <th>@lang("messages.comment")</th>
+                                <th>@lang("messages.date")</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -5,20 +5,20 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h1 class="page-header">Профиль</h1>
+            <h1 class="page-header">@lang("messages.profile")</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-6">
             <div class="news__item profile__item">
                 <h4>
-                    Паспортные данные
+                    @lang("messages.passport_data")
                     @if($user->is_confirm)
-                        <div class="profile_status_ok profile_status" title="Документ не подтвержден">
+                        <div class="profile_status_ok profile_status" title="@lang("messages.document_verified")">
                             <i class="fa fa-check-square-o" aria-hidden="true"></i>
                         </div>
                     @else
-                        <div class="profile_status_not_ok profile_status" title="Документ не подтвержден">
+                        <div class="profile_status_not_ok profile_status" title="@lang("messages.document_not_verified")">
                             <i class="fa fa-window-close-o" aria-hidden="true"></i>
                         </div>
                     @endif
@@ -29,74 +29,74 @@
 
 
                 <div class="profile__item_passport_data_text">
-                    <p>Имя: {{ $passport_data->name }}</p>
-                    <p>Фамилия: {{ $passport_data->surname }}</p>
-                    <p>Отчество: {{ $passport_data->middleName }}</p>
-                    <p>Серия паспорта: {{ $passport_data->series }}</p>
-                    <p>Номер паспорта: {{ $passport_data->number }}</p>
-                    <p>Кем выдан: {{ $passport_data->issuedby }}</p>
-                    <p>Дата выдачи: {{ !empty($passport_data->dateofissue) ? \Carbon\Carbon::parse($passport_data->dateofissue)->format("d.m.Y") : "" }}</p>
+                    <p>@lang("messages.name"): {{ $passport_data->name }}</p>
+                    <p>@lang("messages.surname"): {{ $passport_data->surname }}</p>
+                    <p>@lang("messages.middlename"): {{ $passport_data->middleName }}</p>
+                    <p>@lang("messages.passport_series"): {{ $passport_data->series }}</p>
+                    <p>@lang("messages.passport_number"): {{ $passport_data->number }}</p>
+                    <p>@lang("messages.passport_issuedby"): {{ $passport_data->issuedby }}</p>
+                    <p>@lang("messages.passport_dateofissue"): {{ !empty($passport_data->dateofissue) ? \Carbon\Carbon::parse($passport_data->dateofissue)->format("d.m.Y") : "" }}</p>
                 </div>
                 <div class="profile__item_passport_data_form row">
                     <form action="{{ route('profile.edit') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group col-xs-12 @if( is_error('name') )has-error @endif">
-                            <label for="name">Имя</label>
+                            <label for="name">@lang("messages.name")</label>
                             <input type="text" class="form-control btn-flat" name="name" id="name"
-                                   placeholder="Ваше имя"
+                                   placeholder="@lang("messages.name")"
                                    value="{{ $passport_data->name  }}">
                             @if( is_error('name') )
                                 <span class="help-block">{{ $errors->first('name') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-xs-12 @if( is_error('surname') )has-error @endif">
-                            <label for="surname">Фамилия</label>
+                            <label for="surname">@lang("messages.surname")</label>
                             <input type="text" class="form-control btn-flat" name="surname" id="surname"
-                                   placeholder="Ваша фамилия"
+                                   placeholder="@lang("messages.surname")"
                                    value="{{  $passport_data->surname }}">
                             @if( is_error('surname') )
                                 <span class="help-block">{{ $errors->first('surname') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-xs-12 @if( is_error('middleName') )has-error @endif">
-                            <label for="middleName">Отчество</label>
+                            <label for="middleName">@lang("messages.middlename")</label>
                             <input type="text" class="form-control btn-flat" name="middleName" id="middleName"
-                                   placeholder="Ваше отчество" value="{{  $passport_data->middleName }}">
+                                   placeholder="@lang("messages.middlename")" value="{{  $passport_data->middleName }}">
                             @if( is_error('firdname') )
                                 <span class="help-block">{{ $errors->first('middleName') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-xs-12 col-md-3 @if( is_error('series') )has-error @endif">
-                            <label for="series">Серия паспорта</label>
+                            <label for="series">@lang("messages.passport_series")</label>
                             <input type="text" class="form-control btn-flat" name="series" id="series"
-                                   placeholder="Серия паспорта"
+                                   placeholder="@lang("messages.passport_series")"
                                    value="{{ $passport_data->series }}">
                             @if( is_error('series') )
                                 <span class="help-block">{{ $errors->first('series') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-xs-12 col-md-9 @if( is_error('number') )has-error @endif">
-                            <label for="number">Номер паспорта</label>
+                            <label for="number">@lang("messages.passport_number")</label>
                             <input type="text" class="form-control btn-flat" name="number" id="number"
-                                   placeholder="Номер паспорта"
+                                   placeholder="@lang("messages.passport_number")"
                                    value="{{  $passport_data->number  }}">
                             @if( is_error('number') )
                                 <span class="help-block">{{ $errors->first('number') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-xs-12 @if( is_error('issuedby') )has-error @endif">
-                            <label for="issuedby">Кем выдан</label>
+                            <label for="issuedby">@lang("messages.passport_issuedby")</label>
                             <input type="text" class="form-control btn-flat" name="issuedby" id="issuedby"
-                                   placeholder="Кем выдан  паспорт"
+                                   placeholder="@lang("messages.passport_issuedby")"
                                    value="{{  $passport_data->issuedby }}">
                             @if( is_error('issuedby') )
                                 <span class="help-block">{{ $errors->first('issuedby') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-xs-12 @if( is_error('dateofissue') )has-error @endif">
-                            <label for="dateofissue">Дата выдачи</label>
+                            <label for="dateofissue">@lang("messages.passport_dateofissue")</label>
                             <input type="text" class="form-control btn-flat datepicker" name="dateofissue"
-                                   id="dateofissue" placeholder="Дата выдачи паспорта"
+                                   id="dateofissue" placeholder="@lang("messages.passport_dateofissue")"
                                    value="{{  $passport_data->dateofissue }}">
                             @if( is_error('dateofissue') )
                                 <span class="help-block">{{ $errors->first('dateofissue') }}</span>
@@ -105,9 +105,8 @@
                         <input type="hidden" name="is_confirm"
                                value="{{ isset($passport_data->is_confirm) ? $passport_data->is_confirm : 0 }}">
                         <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-main-carousel btn-flat">Сохранить</button>
-                            <label for="file" class="passport_data_scans_label btn btn-main-carousel btn-flat">Загрузить
-                                сканы паспорта</label>
+                            <button type="submit" class="btn btn-main-carousel btn-flat">@lang("messages.save")</button>
+                            <label for="file" class="passport_data_scans_label btn btn-main-carousel btn-flat">@lang("messages.download_passport_scans")</label>
                             <input type="file" id="file" multiple name="scans[]" class="passport_data_scans_button">
                         </div>
                     </form>
@@ -124,12 +123,12 @@
                                  style="background-image: url({{ route('get.image', ['type' => 'scans', 'name' => $scan->preview]) }})">
                                 @if($user->is_confirm)
                                     <div class="profile_scan_status_ok profile_scan_status"
-                                         title="Документ не подтвержден">
+                                         title="@lang("messages.document_verified")">
                                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                     </div>
                                 @else
                                     <div class="profile_scan_status_not_ok profile_scan_status"
-                                         title="Документ не подтвержден">
+                                         title="@lang("messages.document_not_verified")">
                                         <i class="fa fa-window-close-o" aria-hidden="true"></i>
                                     </div>
                                 @endif
@@ -172,20 +171,20 @@
                     txt = "";
                 switch (filesNumb) {
                     case 0 :
-                        txt = "Загрузить сканы паспорта";
+                        txt = "{{ __("messages.download_passport_scans") }}";
                     case 1 :
-                        txt = "Выбран 1 файл";
+                        txt = "{{ __("messages.selected") }} 1 {{ __("messages.file") }}";
                 }
 
                 if (filesNumb == 0) {
-                    txt = "Загрузить сканы паспорта";
+                    txt = "{{ __("messages.download_passport_scans") }}";
                 } else {
                     if (filesNumb == 1) {
-                        txt = "Выбран 1 файл";
+                        txt = "{{ __("messages.selected") }} 1 {{ __("messages.file") }}";
                     } else if (filesNumb > 1 && filesNumb < 5) {
-                        txt = "Выбрано " + filesNumb + " файла";
+                        txt = "{{ __("messages.selected") }} " + filesNumb + " {{ __("messages.files") }}";
                     } else {
-                        txt = "Выбрано " + filesNumb + " файлов";
+                        txt = "{{ __("messages.selected") }} " + filesNumb + " {{ __("messages.files") }}";
                     }
                 }
 

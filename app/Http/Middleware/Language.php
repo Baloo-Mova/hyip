@@ -18,8 +18,8 @@ class Language
             App::setLocale(Session::get('applocale'));
         }
         else { // This is optional as Laravel will automatically set the fallback language if there is none specified
-            Session::put('applocale', Config::get('app.fallback_locale'));
-            App::setLocale(Config::get('app.fallback_locale'));
+            Session::put('applocale', 'ru');
+            App::setLocale('ru');
         }
         return $next($request);
     }

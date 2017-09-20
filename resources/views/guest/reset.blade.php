@@ -50,22 +50,22 @@
                 @endif
             </div>
             <div class="register-form__inputs">
-                <h4 class="text-center">Восстановление пароля</h4>
+                <h4 class="text-center">@lang("messages.password_recovery")</h4>
                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : false }}">
                     {!! Form::label('email', 'E-Mail', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Укажите Email Вашего аккаунта', 'required']) !!}
+                    {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => __("messages.enter_your_email"), 'required']) !!}
                 </div>
             </div>
 
             <div class="register-form__inputs-bottom">
                 <div class="register-form__inputs text-center">
-                    {!! Form::submit('Отправить', ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
+                    {!! Form::submit(__("messages.send"), ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
         <div class="register__add-buttons text-center">
-            <a href="{{ route('index') }}">Назад</a>
+            <a href="{{ route('index') }}">@lang("messages.home")</a>
         </div>
     </div>
 

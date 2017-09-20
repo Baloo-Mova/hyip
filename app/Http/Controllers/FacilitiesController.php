@@ -19,7 +19,7 @@ class FacilitiesController extends Controller
     public function index($type)
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
-        $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
+        $item = InputOutput::where(['need_show' => 1, 'lang' => Session::get("applocale")])->first();
         $operations = WalletProcesses::with('getType')->where(['to_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
 
         $data = [

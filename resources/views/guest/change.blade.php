@@ -50,31 +50,31 @@
                     @endif
             </div>
             <div class="register-form__inputs">
-                <h4 class="text-center">Восстановление пароля</h4>
+                <h4 class="text-center">@lang("messages.password_recovery")</h4>
                 <input type="hidden" name="token" value="{{ $token }}">
                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : false }}">
                     {!! Form::label('email', 'E-Mail', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', '', ['class' => 'form-control input_user_select', 'id' => 'email', 'placeholder' => 'Укажите Email Вашего аккаунта', 'required']) !!}
+                    {!! Form::email('email', '', ['class' => 'form-control input_user_select', 'id' => 'email', 'placeholder' => __("messages.enter_your_email"), 'required']) !!}
                 </div>
                 <div class="form-group has-feedback {{ $errors->has('passw') ? 'has-error' : false }}">
-                    {!! Form::label('passw', 'Пароль', ['class' => 'control-label']) !!}
-                    {!! Form::password('passw', ['class' => 'form-control input_user_select', 'id' => 'passw', 'placeholder' => 'Укажите Ваш новый пароль', 'required']) !!}
+                    {!! Form::label('passw', __("messages.password"), ['class' => 'control-label']) !!}
+                    {!! Form::password('passw', ['class' => 'form-control input_user_select', 'id' => 'passw', 'placeholder' => __("messages.enter_your_new_email"), 'required']) !!}
                 </div>
                 <div class="form-group has-feedback {{ $errors->has('passw2') ? 'has-error' : false }}">
-                    {!! Form::label('passw2', 'Повторите пароль', ['class' => 'control-label']) !!}
-                    {!! Form::password('passw2', ['class' => 'form-control input_user_select', 'id' => 'passw2', 'placeholder' => 'Повторите Ваш новый пароль', 'required']) !!}
+                    {!! Form::label('passw2', __("messages.repeat_password"), ['class' => 'control-label']) !!}
+                    {!! Form::password('passw2', ['class' => 'form-control input_user_select', 'id' => 'passw2', 'placeholder' => __("messages.repeat_your_new_email"), 'required']) !!}
                 </div>
             </div>
 
             <div class="register-form__inputs-bottom">
                 <div class="register-form__inputs text-center">
-                    {!! Form::submit('Сохранить', ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
+                    {!! Form::submit(__("messages.save"), ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
         <div class="register__add-buttons text-center">
-            <a href="{{ route('index') }}">Назад</a>
+            <a href="{{ route('index') }}">@lang("messages.home")</a>
         </div>
     </div>
 

@@ -42562,11 +42562,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            name: window.user_name
+            name: window.user_name,
+            title: window.main_title
         };
-    },
-    mounted: function mounted() {
-        console.log('Component mounted.');
     }
 });
 
@@ -42577,7 +42575,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "chat__header"
-  }, [_c('h4', [_vm._v("Чат с пользователем - " + _vm._s(_vm.name))])])
+  }, [_c('h4', [_vm._v(_vm._s(_vm.title) + " - " + _vm._s(_vm.name))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -43101,7 +43099,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             my_id: window.my_id,
-            user_id: window.user_name
+            user_id: window.user_name,
+            you: window.you
         };
     },
 
@@ -43131,7 +43130,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.message.message) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "to__message_info"
-  }, [_c('p', [_vm._v("\n                Вы - " + _vm._s(_vm.message.created_at) + "\n            ")])]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.you) + " - " + _vm._s(_vm.message.created_at) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
   })])])
 },staticRenderFns: []}

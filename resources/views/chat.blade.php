@@ -27,6 +27,8 @@
     window.to_id = "{{ $chat->to_id }}";
     window.my_id = "{{ \Auth::id() }}";
     window.user_name = "{{ $chat->user_name->login }}";
+    window.main_title = "{{ __("messages.chat_with_the_user") }}";
+    window.you = "{{ __("messages.you") }}";
 </script>
 <script src="../../../js/app.js" charset="utf-8"></script>
 </body>

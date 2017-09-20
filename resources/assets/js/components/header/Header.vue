@@ -1,6 +1,6 @@
 <template>
     <div class="chat__header">
-        <h4>Чат с пользователем - {{ name }}</h4>
+        <h4>{{ title }} - {{ name }}</h4>
     </div>
 </template>
 
@@ -8,11 +8,9 @@
     export default {
         data(){
             return{
-                name: window.user_name
+                name: window.user_name,
+                title: window.main_title
             }
-        },
-        mounted() {
-            console.log('Component mounted.')
         }
     }
 </script>

@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h1 class="page-header">Тарифы</h1>
+            <h1 class="page-header">@lang('messages.tariffs')</h1>
         </div>
     </div>
     <div class="row">
@@ -20,9 +20,12 @@
                             <h3>{{ $tariff['name'] }}</h3>
                         </div>
                         <div class="rate__body">
-                            <p class="rate__price">Цена: {{ $tariff['price'] }}₽</p>
-                            <p class="reate__price_p">Реферальная
-                                система: {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
+                            <p class="rate__price">@lang('messages.price'): {{ $tariff['price'] }}₽</p>
+                            @if(Session::get('applocale') != "en")
+                                <p class="reate__price_p">@lang('messages.ref_sys'): {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
+                            @else
+                                <p class="reate__price_p">@lang('messages.ref_sys'): {{ $tariff['levels']." ".__("messages.levels") }}</p>
+                            @endif
                             <hr>
                             @if(isset($tariff->firstPrices))
                                 @for($i = 0; $i < 3; $i++)
@@ -31,19 +34,19 @@
                                         <hr>
                                         @continue
                                     @else
-                                        <p>{{ ($tariff->firstPrices[$i]['level'] + 1)." уровень -" }} {{ $tariff->firstPrices[$i]['is_percent'] ? $tariff->firstPrices[$i]['value']."%" : $tariff->firstPrices[$i]['value']."₽" }}</p>
+                                        <p>{{ ($tariff->firstPrices[$i]['level'] + 1)." ".__("messages.level") }} {{ $tariff->firstPrices[$i]['is_percent'] ? $tariff->firstPrices[$i]['value']."%" : $tariff->firstPrices[$i]['value']."₽" }}</p>
                                         <hr>
                                     @endif
                                 @endfor
                             @endif
-                            <p>Срок действия: {{ $tariff['term'] }} дней</p>
+                            <p>@lang('messages.validity'): {{ $tariff['term'] }} @lang('messages.days')</p>
                         </div>
                         <div class="rate__footer">
                             <a href="{{ route('tariff.payment',['id'=>$tariff['id']]) }}"
-                               class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
+                               class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">@lang('messages.subscribe')</a>
                             <a href="#"
                                class="btn btn-main-carousel btn-md btn-flat rate-carousel__button tariff__choose"
-                               data-id="{{ $tariff['id'] }}">Подробнее</a>
+                               data-id="{{ $tariff['id'] }}">@lang('messages.more')</a>
                         </div>
                     </div>
                 @endforeach
@@ -56,20 +59,19 @@
                 <h3 class="tariff___name">{{ isset($tariff_info->name) ? $tariff_info->name : "" }}</h3>
                 <div class="col-xs-12 col-md-4">
                     <p class="tariff___ref-sys">
-                        {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} уровня
+                        {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} @lang('messages.level')
                     </p>
-                    <h4>Реферальная система</h4>
+                    <h4>@lang('messages.ref_sys')</h4>
                 </div>
                 <div class="col-xs-12 col-md-4">
                     <p class="tariff___price">{{ isset($tariff_info->price) ? $tariff_info->price."₽" : "" }}</p>
-                    <h4>Цена</h4>
+                    <h4>@lang('messages.price')</h4>
                 </div>
                 <div class="col-xs-12 col-md-4">
                     <p class="tariff___term">
-                        {{ isset($tariff_info->term) ? $tariff_info->term : "" }}
-                        дней
+                        {{ isset($tariff_info->term) ? $tariff_info->term : "" }} @lang('messages.days')
                     </p>
-                    <h4>Срок действия</h4>
+                    <h4>@lang('messages.validity')</h4>
                 </div>
                 <div class="col-xs-12">
                     <div class="info-carousel price-info__wrap">
@@ -77,7 +79,7 @@
                             @foreach($tariff_info->firstPrices as $prices)
                                 <div class="price-info-item">
                                     <p class="tariff___price">{{$prices->value}}{{ $prices->is_percent ? "%" : "₽" }}</p>
-                                    <h4>{{ ($prices->level + 1)." уровень"}}</h4>
+                                    <h4>{{ ($prices->level + 1)." ".__("messages.level")}}</h4>
                                 </div>
                             @endforeach
                         @endif
@@ -119,18 +121,18 @@
                                 $(this).hide();
                             });
                             $(".tariff_" + id).addClass("active_tariff");
-                            $(".tariff___ref-sys").text(data.info.levels+" уровня");
+                            $(".tariff___ref-sys").text(data.info.levels+" {{ __("messages.level") }}");
                             $(".tariff___name").text(data.info.name);
                             $(".tariff___price").text(data.info.price+"₽");
-                            $(".tariff___term").text(data.info.term+" дней");
-                            $(".tariff___description").text(data.info.description == null ? "У этого тарифа нет описания" : data.info.description);
+                            $(".tariff___term").text(data.info.term+" {{ __("messages.days") }}");
+                            $(".tariff___description").text(data.info.description == null ? "{{ __("messages.this_tariff_has_no_description") }}" : data.info.description);
 
                             var prices = ''
                             tmp = "";
                             data.prices.forEach(function (item, i, arr) {
                                 tmp = data.prices[i].is_percent ? "%" : "₽";
                                 prices += '<div class="price-info-item"><p class="tariff___price">' + data.prices[i].value + tmp + '</p>' +
-                                    '<h4>' + (data.prices[i].level + 1) + ' уровень</h4></div>';
+                                    '<h4>' + (data.prices[i].level + 1) + ' {{ __("messages.level") }}</h4></div>';
 
                             });
                             $(".info-carousel").html(prices);

@@ -123,7 +123,7 @@
                             $(".tariff___name").text(data.info.name);
                             $(".tariff___price").text(data.info.price+"₽");
                             $(".tariff___term").text(data.info.term+" {{ __("messages.days") }}");
-                            $(".tariff___description").text(data.info.description == null ? "У этого тарифа нет описания" : data.info.description);
+                            $(".tariff___description").text(data.info.description == null ? "{{ __("messages.this_tariff_has_no_description") }}" : data.info.description);
 
                             var prices = ''
                             tmp = "";

@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h1 class="page-header">Сообщения</h1>
+            <h1 class="page-header">@lang("messages.messages")</h1>
         </div>
     </div>
 
@@ -13,14 +13,14 @@
         <div class="col-xs-12 col-md-4">
             <div class="news__item input-budjet__wrap">
                 <div class="input-budjet__header">
-                    <h4>Найти пользователя</h4>
+                    <h4>@lang("messages.find_user")</h4>
                 </div>
                 <div class="input-budjet__body">
                     <select name="user_select" class="user_select" id="">
 
                     </select>
                     <br>
-                    <button type="submit" class="btn btn-main-carousel btn-flat mt20 open_chat">Открыть чат</button>
+                    <button type="submit" class="btn btn-main-carousel btn-flat mt20 open_chat">@lang("messages.open_chat")</button>
                 </div>
             </div>
         </div>
@@ -31,9 +31,9 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Создатель</th>
-                    <th>Непрочитанных сообщений</th>
-                    <th>Дата создания</th>
+                    <th>@lang("messages.creator")</th>
+                    <th>@lang("messages.unread_messages")</th>
+                    <th>@lang("messages.date_of_creation")</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -51,7 +51,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">Вы еще ни с кем не общались</td>
+                        <td colspan="4" class="text-center">@lang("messages.no_chat")</td>
                     </tr>
                 @endforelse
                 </tbody>
@@ -72,7 +72,7 @@
 
             var userselect = $(".user_select").select2({
                 allowClear: true,
-                placeholder: "Выберите пользователя",
+                placeholder: "{{ __("messages.select_user") }}",
                 minimumInputLength: 3,
                 ajax: {
                     url: "{{ route('dialogs.get.user') }}",

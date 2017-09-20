@@ -23,7 +23,7 @@
             </div>
             <div class="to__message_info">
                 <p>
-                    Вы - {{ message.created_at}}
+                    {{ you }} - {{ message.created_at}}
                 </p>
             </div>
             <div class="clearfix"></div>
@@ -40,7 +40,8 @@
         data(){
             return{
                 my_id: window.my_id,
-                user_id: window.user_name
+                user_id: window.user_name,
+                you: window.you
             }
         },
         props: ['message']

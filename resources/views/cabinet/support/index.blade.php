@@ -4,14 +4,14 @@
     @include('alerts')
     <div class="row">
         <div class="col-xs-12">
-            <h1 class="page-header">Поддержка</h1>
+            <h1 class="page-header">@lang("messages.support")</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-4">
             <div class="news__item input-budjet__wrap">
                 <div class="input-budjet__header">
-                    <h4>Обратиться в техподдержку</h4>
+                    <h4>@lang("messages.contact_technical_support")</h4>
                 </div>
                 <div class="input-budjet__body">
                     <form action="{{ route('create-feedback') }}" method="post">
@@ -19,11 +19,11 @@
                         <input type="hidden" class="form-control btn-flat" name="name" id="name" value="{{ $user->login }}">
                         <input type="hidden" class="form-control btn-flat" name="email" id="email" value="{{ $user->email }}">
                         <div class="form-group">
-                            <label for="question">Вопрос</label>
+                            <label for="question">@lang("messages.question")</label>
                             <textarea name="question" id="question" class="form-control contacts__textarea btn-flat"></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-main-carousel btn-flat">Отправить</button>
+                            <button type="submit" class="btn btn-main-carousel btn-flat">@lang("messages.send")</button>
                         </div>
                     </form>
                 </div>
@@ -35,10 +35,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Вопрос</th>
-                        <th>Ответ</th>
-                        <th>Статус</th>
-                        <th>Дата</th>
+                        <th>@lang("messages.question")</th>
+                        <th>@lang("messages.answer")</th>
+                        <th>@lang("messages.status")</th>
+                        <th>@lang("messages.date")</th>
                         <th></th>
                     </tr>
                 </thead>
