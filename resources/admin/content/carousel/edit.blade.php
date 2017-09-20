@@ -23,6 +23,21 @@
         <form action="" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="col-xs-12 col-md-4">
+                <div class="form-group @if( is_error('lang') )has-error @endif">
+                    <label for="lang">Language</label>
+                    <select name="lang" class="form-control" id="lang">
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        @foreach(config('languages') as $key=>$lang)
+                            <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
+                        @endforeach
+                    </select>
+                    @if( is_error('lang') )
+                        <span class="help-block">{{ $errors->first('lang') }}</span>
+                    @endif
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('text') )has-error @endif">
                     <label for="text">Slide text</label>
                     <textarea name="text" class="form-control" id="text">{{ isset($item) ? $item->text : "" }}</textarea>

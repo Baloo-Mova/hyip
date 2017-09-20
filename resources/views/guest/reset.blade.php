@@ -23,9 +23,9 @@
 
 
         <div class="register-form__wrap">
-            {!! Form::open(['url' => 'login', 'class' => 'form-signin']) !!}
+            {!! Form::open(['url' => '/password/reset-send', 'class' => 'form-signin']) !!}
             <div class="register-form__header">
-                <img src="img/logo.png" alt="">
+                <img src="{{ asset('img')."/logo.png" }}" alt="">
             </div>
             <div class="register-form__title">
                 @if(Session::get('errors'))
@@ -50,27 +50,22 @@
                 @endif
             </div>
             <div class="register-form__inputs">
+                <h4 class="text-center">Восстановление пароля</h4>
                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : false }}">
                     {!! Form::label('email', 'E-Mail', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'example@gmai.com', 'required']) !!}
-                </div>
-                <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : false }}">
-                    {!! Form::label('password', __('messages.password'), ['class' => 'control-label']) !!}
-                    {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => __('messages.password'), 'required']) !!}
+                    {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Укажите Email Вашего аккаунта', 'required']) !!}
                 </div>
             </div>
 
             <div class="register-form__inputs-bottom">
-                <div class="register-form__inputs">
-                    {!! Form::submit(__('messages.login'), ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
-                    <a href="{{route('register')}}" class="btn btn-lg btn-main-carousel btn-block register"> @lang("messages.register") </a>
+                <div class="register-form__inputs text-center">
+                    {!! Form::submit('Отправить', ['class' => 'btn btn-lg btn-main-carousel btn-block']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
         <div class="register__add-buttons text-center">
-            <a href="{{ route('password.reset') }}">@lang("messages.forgot_password")?</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="{{ route('index') }}">@lang("messages.home")</a>
+            <a href="{{ route('index') }}">Назад</a>
         </div>
     </div>
 
@@ -92,16 +87,4 @@
             float: right;
         }
     </style>
-@stop
-
-
-@section('js')
-    <script>
-        $(document).ready(function () {
-            $(".close").on("click", function () {
-                $(".hide-on-click").hide();
-            });
-        });
-
-    </script>
 @stop

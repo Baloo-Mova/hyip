@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 /**
  * App\Models\Article
@@ -40,7 +41,8 @@ class Article extends Model
         'photo',
         'preview',
         'published',
-        'type_id'
+        'type_id',
+        'lang'
     ];
 
 
@@ -51,11 +53,11 @@ class Article extends Model
 
     public function scopeBlog()
     {
-        return $this->where(['type_id' => 1, 'published' => 1]);
+        return $this->where(['type_id' => 1, 'published' => 1, 'lang' => Session::get('applocale')]);
     }
 
     public function scopeStock()
     {
-        return $this->where(['type_id' => 2, 'published' => 1]);
+        return $this->where(['type_id' => 2, 'published' => 1, 'lang' => Session::get('applocale')]);
     }
 }

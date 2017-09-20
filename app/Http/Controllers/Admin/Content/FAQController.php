@@ -18,6 +18,20 @@ class FAQController extends BaseController
         $this->_model = $model;
     }
 
+    public function indexList(Request $request)
+    {
+        $lang = $request->input('lang');
+        if(!isset($lang)){
+            $lang = "all";
+        }
+        if($lang == "all"){
+            $list = FAQ::paginate(15);
+        }else{
+            $list = FAQ::where(['lang' => $lang])->paginate(15);
+        }
+        return view('Admin::content.faq.list', ['items' => $list,'lang' => $lang]);
+    }
+
     public function postEdit(Request $request, $item_id = null )
     {
         $validator = \Validator::make($request->all(), with(new CreateFAQRequest())->rules());
@@ -35,6 +49,7 @@ class FAQController extends BaseController
         $item->fill([
             'question'  => $request->get('question'),
             'answer'    => $request->get('answer'),
+            'lang'    => $request->get('lang'),
         ]);
 
         $item->save();

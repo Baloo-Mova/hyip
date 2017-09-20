@@ -37,7 +37,7 @@ class SiteController extends Controller
         $news = Article::blog()->orderBy('updated_at', 'desc')->limit(3)->get();
         $email = Contact::email()->get();
         $phones = Contact::phones()->get();
-        $slides = HeaderCarousel::where(['need_show' => 1])->get();
+        $slides = HeaderCarousel::where(['need_show' => 1, 'lang' => $currentLang])->get();
         $threeSteps = ThreeSteps::where(['lang' => $currentLang])->first();
         $about = AboutProject::where(['lang' => $currentLang])->get();
         $greetings = Greetings::where(['lang' => $currentLang])->first();
@@ -81,7 +81,7 @@ class SiteController extends Controller
 
     public function about()
     {
-        $content = About::where(['id' => 1, 'is_active' => 1])->first();
+        $content = About::where(['is_active' => 1, 'lang' => Session::get('applocale')])->first();
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
             'contacts' => [
@@ -122,7 +122,7 @@ class SiteController extends Controller
     public function inputOutput($type)
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
-        $item = InputOutput::where(['id' => 1, 'need_show' => 1])->first();
+        $item = InputOutput::where(['need_show' => 1, 'lang' => Session::get('applocale')])->first();
         $data = [
             'input' => [
                 'title' => isset($item) ? $item->input_title : 'Пополнить счет',
@@ -232,7 +232,7 @@ class SiteController extends Controller
 
     public function questions()
     {
-        $faq = FAQ::orderBy('id', 'desc')->paginate(15);
+        $faq = FAQ::where(['lang' => Session::get('applocale')])->orderBy('id', 'desc')->paginate(15);
         $social = SocialNetwork::where(['is_active' => 1])->get();
 
         $data = [

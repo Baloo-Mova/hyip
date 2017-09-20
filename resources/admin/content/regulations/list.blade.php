@@ -4,11 +4,11 @@
     @include('Admin::alerts')
 
     <div>
-        <a href='{{ route('admin.faq.add') }}' class="btn-sm btn-primary pull-right">
+        <a href='{{ route('admin.regulations.add') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
             Add
         </a>
-        <h1 class="sub-header">FAQ</h1>
+        <h1 class="sub-header">Regulations</h1>
     </div>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -31,7 +31,7 @@
                         </form>
                     </tr>
                     <tr>
-                        <th>Question</th>
+                        <th>Title</th>
                         <th>Language</th>
                         <th>Published</th>
                         <th></th>
@@ -40,14 +40,14 @@
                 <tbody>
                     @forelse($items as $item)
                         <tr class="item-{{ $item->id }}">
-                            <td>{{ $item->question }}</td>
+                            <td>{{ $item->title }}</td>
                             <td>
                                 <img src="{{ asset('img/flags').'/'.$item->lang.'.svg' }}" alt="" class="countries_flag_header">
                                 {{ $item->lang }}
                             </td>
                             <td>{{ $item->is_active ? 'yes' : 'no' }}</td>
                             <td>
-                                <a href='{{ route('admin.faq.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href='{{ route('admin.regulations.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;
                                 <a onclick="deleteItem('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
@@ -69,7 +69,7 @@
 <script type="text/javascript">
     var deleteItem = function( id ) {
         if( typeof(id) != 'undefined' && id != '' && confirm('Delete a social faq?') ) {
-            document.location.href = "/admin/faq/delete/" + id;
+            document.location.href = "/admin/regulations/delete/" + id;
         }
     };
 </script>

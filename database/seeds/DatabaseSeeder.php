@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
         $this->call(AboutProjectSeeder::class);
         $this->call(ThreeStepsSeeder::class);
         $this->call(GreetingsSeeder::class);
+        $this->call(CarouselSeeder::class);
+        $this->call(FaqSeeder::class);
+        $this->call(ArticlesSeeder::class);
+        $this->call(AboutSeeder::class);
+        $this->call(RegulationsSeeder::class);
+        $this->call(InputOutputSeeder::class);
         try {
             \App\Models\WalletProcessesType::truncate();
             \App\Models\WalletProcessesType::insert([

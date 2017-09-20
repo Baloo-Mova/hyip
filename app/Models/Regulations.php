@@ -26,5 +26,6 @@ class Regulations extends Model
         'title',
         'content',
         'is_active',
+        'lang'
     ];
 }

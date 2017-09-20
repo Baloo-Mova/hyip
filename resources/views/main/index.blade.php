@@ -172,9 +172,13 @@
                                     <h3>{{ $rate['name'] }}</h3>
                                 </div>
                                 <div class="rate__body">
-                                    <p class="rate__price">Цена: {{ $rate['price'] }}₽</p>
-                                    <p class="reate__price_p">Реферальная система: {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
-                                    <hr>
+                                    <p class="rate__price">@lang('messages.price'): {{ $rate['price'] }}₽</p>
+                                    @if(Session::get('applocale') != "en")
+                                        <p class="reate__price_p">@lang('messages.ref_sys'): {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
+                                    @else
+                                        <p class="reate__price_p">@lang('messages.ref_sys'): {{ $rate['levels']." ".__("messages.levels") }}</p>
+                                    @endif
+                                        <hr>
                                     @if(isset($rate['first_prices']))
                                         @for($i = 0; $i < 3; $i++)
                                             @if(!isset($rate['first_prices'][$i]))
@@ -182,16 +186,16 @@
                                                 <hr>
                                                 @continue
                                             @else
-                                                <p>{{ ($rate['first_prices'][$i]['level'] + 1)." уровень -" }} {{ $rate['first_prices'][$i]['is_percent'] ? $rate['first_prices'][$i]['value']."%" : $rate['first_prices'][$i]['value']."₽" }}</p>
+                                                <p>{{ ($rate['first_prices'][$i]['level'] + 1)." ".__("messages.level") }} {{ $rate['first_prices'][$i]['is_percent'] ? $rate['first_prices'][$i]['value']."%" : $rate['first_prices'][$i]['value']."₽" }}</p>
                                                 <hr>
                                             @endif
                                         @endfor
                                     @endif
-                                    <p>Срок действия: {{ $rate['term'] }} дней</p>
+                                    <p>@lang('messages.validity'): {{ $rate['term'] }} @lang('messages.days')</p>
                                 </div>
                                 <div class="rate__footer">
-                                    <a href="{{ route('tariff.payment',['id'=>$rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Оформить подписку</a>
-                                    <a href="{{ Auth::check() ? route('tariff', ['id' => $rate['id']]) : route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">Подробнее</a>
+                                    <a href="{{ route('tariff.payment',['id'=>$rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">@lang('messages.subscribe')</a>
+                                    <a href="{{ Auth::check() ? route('tariff', ['id' => $rate['id']]) : route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">@lang('messages.more')</a>
                                 </div>
                             </div>
                         @endforeach
@@ -215,7 +219,7 @@
                             <div class="overflow news__overflow">
                                 <p>{!!  $news['content'] !!}</p>
                             </div>
-                            <a href="{{ route('news') }}" class="about__link">Подробнее</a>
+                            <a href="{{ route('news') }}" class="about__link">@lang('messages.more')</a>
                         </div>
                     </div>
                 @endforeach

@@ -6,18 +6,140 @@ use App\Http\Middleware\Users;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Mail\SubmitEmail;
+use App\Models\PasswordResets;
 use App\Models\User;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Faker\Generator;
 use Illuminate\Support\Facades\Mail;
+use PHPMailer\PHPMailer\PHPMailer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
     public function loginForm()
     {
         return view('guest.login');
+    }
+
+    public function resetPasswordForm()
+    {
+        return view('guest.reset');
+    }
+
+    public function resetSend(Request $request)
+    {
+        $email = $request->get('email');
+        if(!isset($email)){
+            return redirect(route('password.reset'))
+                ->withErrors(["Укажите E-mail"]);
+        }
+        $user = User::where('email', '=', $email)->first();
+        if(!isset($user)){
+            return redirect(route('password.reset'))
+                ->withErrors(["Пользователь с таким E-mail не существует!"]);
+        }
+
+        $token = uniqid();
+
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => bcrypt($token),
+            'created_at' => Carbon::now()
+        ]);
+
+        $url = url("/password/reset/t/" . $token);
+
+        $text = "Здравствуйте, ".$user->login." ! Вы запросили восстановление пароля, для этого перейдите по следующей ссылке: ".$url;
+
+        try {
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->Host = env("MAIL_HOST");
+            $mail->SMTPAuth = true;
+            $mail->Username = env("MAIL_USERNAME");
+            $mail->Password = env("MAIL_PASSWORD");
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = env("MAIL_PORT");
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom(env("NO_REPLY_EMAIL"));
+            $mail->addAddress($email);
+
+            $mail->Subject = "Восстановление пароля";
+            $mail->Body = $text;
+            if(preg_match("/<[^<]+>/", $text, $m) != 0){
+                $mail->IsHTML(true);
+            }
+
+            $mail->send();
+        } catch (\Exception $ex) {
+            return redirect(route('password.reset'))
+                ->withErrors(["Ошибка!"]);
+        }
+
+        Session::flash('messages', ['Инструкции по восстановлению пароля, отправлены Вам на Email.']);
+        return redirect()->route('password.reset');
+    }
+
+    public function checkToken($token)
+    {
+        return view('guest.change', ['token' => $token]);
+    }
+
+    public function resetSave(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required',
+            'email' => 'required',
+            'passw' => 'required',
+            'passw2' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('password.reset.check', ['token' => $request->get('token')]))
+                ->withErrors($validator);
+        }
+
+        $token = $request->get('token');
+        $email = $request->get('email');
+        $passw = $request->get('passw');
+        $passw2 = $request->get('passw2');
+
+        if($passw != $passw2){
+            return redirect(route('password.reset.check', ['token' => $request->get('token')]))
+                ->withErrors(["Пароли не совпадают"]);
+        }
+
+        $check = PasswordResets::where(['email' => $email])->first();
+
+        if(!isset($check)){
+            return redirect(route('password.reset.check', ['token' => $request->get('token')]))
+                ->withErrors(["Пользователь с таким Email не найден!"]);
+        }
+
+        $user = User::where(['email' => $email])->first();
+
+        if(!isset($user)){
+            return redirect(route('password.reset.check', ['token' => $request->get('token')]))
+                ->withErrors(["Пользователь с таким Email не найден!"]);
+        }
+
+        if(!Hash::check($token, $check->token)){
+            return redirect(route('password.reset.check', ['token' => $request->get('token')]))
+                ->withErrors(["Неверный токен!"]);
+        }
+
+        $check->delete();
+        $user->password = bcrypt($passw);
+        $user->save();
+
+        Session::flash('messages', ['Пароль успешно изменен, теперь Вы можете авторизироваться.']);
+        return redirect()->route('login');
+
     }
 
     public function login(Request $request)

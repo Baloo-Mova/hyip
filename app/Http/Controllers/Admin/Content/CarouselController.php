@@ -19,6 +19,20 @@ class CarouselController extends BaseController
         $this->_model = $model;
     }
 
+    public function indexList(Request $request)
+    {
+        $lang = $request->input('lang');
+        if(!isset($lang)){
+            $lang = "all";
+        }
+        if($lang == "all"){
+            $list = HeaderCarousel::paginate(15);
+        }else{
+            $list = HeaderCarousel::where(['lang' => $lang])->paginate(15);
+        }
+        return view('Admin::content.carousel.list', ['items' => $list,'lang' => $lang]);
+    }
+
     public function getAdd()
     {
         return view('Admin::content.carousel.edit');
@@ -58,6 +72,7 @@ class CarouselController extends BaseController
         $carousel->text = $request->get('text');
         $carousel->background_file = isset($filename) ? $filename : $request->get('file');
         $carousel->need_show = $request->has('need_show') ? 1 : 0;
+        $carousel->lang = $request->get('lang');
         $carousel->buttons = json_encode($buttons);
 
         $carousel->save();

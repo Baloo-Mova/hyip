@@ -4,6 +4,11 @@
     @include('Admin::alerts')
 
         <div>
+            <a href="{{ route('admin.regulations.list') }}" class="btn-sm btn-primary pull-right">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                &nbsp;&nbsp;
+                back to list
+            </a>
             <h3 class="sub-header">
                 @if( empty($item->id) )
                     Create regulations
@@ -14,9 +19,13 @@
         </div>
 
     <div class="row">
-        <form method="POST" class="form" enctype="multipart/form-data">
+        <form method="POST" action="{{ empty($item->id) ? route('admin.regulations.save') : route('admin.regulations.save.edit', ['id' => $item->id]) }}" class="form" enctype="multipart/form-data">
 
             {{ csrf_field() }}
+
+            @if(isset($item->id))
+                <input type="hidden" name="id" value="{{ $item->id }}">
+            @endif
 
             <div class="col-md-12">
                 <div class="form-group @if( is_error('title') )has-error @endif">
@@ -31,6 +40,18 @@
                     >
                     @if( is_error('title') )
                         <span class="help-block">{{ $errors->first('title') }}</span>
+                    @endif
+                </div>
+                <div class="form-group @if( is_error('lang') )has-error @endif">
+                    <label for="lang">Language</label>
+                    <select name="lang" class="form-control" id="lang">
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        @foreach(config('languages') as $key=>$lang)
+                            <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
+                        @endforeach
+                    </select>
+                    @if( is_error('lang') )
+                        <span class="help-block">{{ $errors->first('lang') }}</span>
                     @endif
                 </div>
                 <div class="form-group">

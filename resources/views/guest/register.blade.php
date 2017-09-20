@@ -46,24 +46,24 @@
                 </div>
                 <div class="register-form__inputs">
                     <div class="form-group has-feedback {{ $errors->has('login') ? 'has-error' : false }}">
-                        {!! Form::label('login', 'Логин', ['class' => 'control-label']) !!}
-                        {!! Form::text('login', '', ['class' => 'form-control', 'id' => 'login', 'placeholder' => 'Логин', 'required', 'autofocus']) !!}
+                        {!! Form::label('login', __('messages.login'), ['class' => 'control-label']) !!}
+                        {!! Form::text('login', '', ['class' => 'form-control', 'id' => 'login', 'placeholder' => __('messages.login'), 'required', 'autofocus']) !!}
                     </div>
                     <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : false }}">
                         {!! Form::label('email', 'E-Mail', ['class' => 'control-label']) !!}
                         {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'mail@example.com', 'required']) !!}
                     </div>
                     <div class="form-group has-feedback {{ $errors->has('phone') ? 'has-error' : false }}">
-                        {!! Form::label('phone', 'Телефон', ['class' => 'control-label']) !!}
+                        {!! Form::label('phone', __('messages.phone'), ['class' => 'control-label']) !!}
                         {!! Form::text('phone', '', ['class' => 'form-control', 'id' => 'phone', 'placeholder' => '77777777777', 'required']) !!}
                     </div>
                     <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : false }}">
-                        {!! Form::label('password', 'Пароль', ['class' => 'control-label']) !!}
-                        {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => 'Пароль', 'required']) !!}
+                        {!! Form::label('password', __('messages.password'), ['class' => 'control-label']) !!}
+                        {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => __('messages.password'), 'required']) !!}
                     </div>
                     <div class="form-group has-feedback {{ $errors->has('confirm_password') ? 'has-error' : false }}">
-                        {!! Form::label('confirm-password', 'Повторите пароль', ['class' => 'control-label']) !!}
-                        {!! Form::password('confirm_password', ['class' => 'form-control', 'id' => 'confirm-password', 'placeholder' => 'Пароль', 'required']) !!}
+                        {!! Form::label('confirm-password', __('messages.confirm_password'), ['class' => 'control-label']) !!}
+                        {!! Form::password('confirm_password', ['class' => 'form-control', 'id' => 'confirm-password', 'placeholder' => __('messages.password'), 'required']) !!}
                     </div>
                     <div class="form-group has-feedback">
                         @if(isset($user))
@@ -79,11 +79,11 @@
                         <div class="form-group has-feedback {{ $errors->has('confirm_regulations') ? 'has-error' : false }}">
                             <label for="">
                                 <input type="checkbox" name="confirm_regulations" class="confirm_regulations">
-                                Я подтверждаю, что внимательно прочел(-ла) и понял(-а) содержание всего <a
-                                        href="{{ route('terms.of.use') }}" target="_blank" class="red-text">текста</a>
+                                @lang('messages.register_long_text') <a
+                                        href="{{ route('terms.of.use') }}" target="_blank" class="red-text">@lang('messages.text')</a>
                             </label>
                         </div>
-                        {!! Form::submit('Регистрация', ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
+                        {!! Form::submit(__('messages.register'), ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
 
 
                         {!! Form::close() !!}
@@ -92,7 +92,7 @@
 
             </div>
             <div class="register__add-buttons text-center">
-                <a href="{{ route('index') }}">Главная</a>
+                <a href="{{ route('index') }}">@lang('messages.home')</a>
             </div>
 
         </div>

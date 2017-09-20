@@ -18,6 +18,20 @@ class AboutController extends BaseController
         $this->_model = $model;
     }
 
+    public function indexList(Request $request)
+    {
+        $lang = $request->input('lang');
+        if(!isset($lang)){
+            $lang = "all";
+        }
+        if($lang == "all"){
+            $list = About::paginate(15);
+        }else{
+            $list = About::where(['lang' => $lang])->paginate(15);
+        }
+        return view('Admin::content.about.list', ['items' => $list,'lang' => $lang]);
+    }
+
     public function postEdit(Request $request, $item_id = null )
     {
         $validator = \Validator::make($request->all(), with(new CreateAboutRequest())->rules());
@@ -45,6 +59,7 @@ class AboutController extends BaseController
             'title'     => $request->get('title'),
             'uri'       => $request->get('uri'),
             'content'   => $request->get('content'),
+            'lang'   => $request->get('lang'),
         ]);
 
         $item->save();

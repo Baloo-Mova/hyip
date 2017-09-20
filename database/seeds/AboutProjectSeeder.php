@@ -12,6 +12,7 @@ class AboutProjectSeeder extends Seeder
     public function run()
     {
         try {
+            \App\Models\MainPage\AboutProject::truncate();
             \App\Models\MainPage\AboutProject::insert([
                 [
                     'image' => '15058969421bff03673.jpg',

@@ -18,6 +18,20 @@ class BlogController extends BaseController
         $this->_model = $model;
     }
 
+    public function indexList(Request $request)
+    {
+        $lang = $request->input('lang');
+        if(!isset($lang)){
+            $lang = "all";
+        }
+        if($lang == "all"){
+            $list = Article::paginate(15);
+        }else{
+            $list = Article::where(['lang' => $lang])->paginate(15);
+        }
+        return view('Admin::content.blog.list', ['items' => $list,'lang' => $lang]);
+    }
+
     public function postEdit(Request $request, $article_id = null )
     {
         $validator = \Validator::make($request->all(), with(new CreateArticleRequest())->rules());
@@ -52,6 +66,7 @@ class BlogController extends BaseController
             'title'     => $request->get('title'),
             'uri'       => $request->get('uri'),
             'content'   => $request->get('content'),
+            'lang'      => $request->get('lang'),
         ]);
 
         $article->save();

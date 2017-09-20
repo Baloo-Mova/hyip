@@ -26,5 +26,6 @@ class FAQ extends Model
         'question',
         'answer',
         'is_active',
+        'lang'
     ];
 }

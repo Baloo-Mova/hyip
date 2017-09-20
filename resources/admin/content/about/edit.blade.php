@@ -24,6 +24,8 @@
 
             {{ csrf_field() }}
 
+
+
             <div class="col-md-6">
                 <div class="form-group @if( is_error('title') )has-error @endif">
                     <label for="edit-form-title">* Title</label>
@@ -37,6 +39,19 @@
                     >
                     @if( is_error('title') )
                         <span class="help-block">{{ $errors->first('title') }}</span>
+                    @endif
+                </div>
+
+                <div class="form-group @if( is_error('lang') )has-error @endif">
+                    <label for="lang">Language</label>
+                    <select name="lang" class="form-control" id="lang">
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        @foreach(config('languages') as $key=>$lang)
+                            <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
+                        @endforeach
+                    </select>
+                    @if( is_error('lang') )
+                        <span class="help-block">{{ $errors->first('lang') }}</span>
                     @endif
                 </div>
 

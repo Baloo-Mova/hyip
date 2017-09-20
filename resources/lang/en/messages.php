@@ -21,6 +21,33 @@ return [
     'question' => 'Question',
     'send' => 'Send',
 
+    'price' => 'Price',
+    'ref_sys' => 'Referral system',
+    'validity' => 'Validity',
+    'days' => 'days',
+    'subscribe' => 'Subscribe',
+    'more' => 'More',
+    'level' => 'level',
+    'levels' => 'levels',
+    'text' => 'text',
+    'phone' => 'Phone',
+    'password' => 'Password',
+    'confirm_password' => 'Confirm password',
+    'forgot_password' => 'Forgot your password',
+
+    /*
+     * Pages titles
+     */
+    'stocks' => 'Stocks',
+    'input_output' => 'Input/output',
+    'tariffs' => 'Tariffs',
+
+    /*
+     * Register
+     */
+
+    'register_long_text' => 'I confirm that I have carefully read and understood the contents of all',
+
     /*
      * Footer
      */

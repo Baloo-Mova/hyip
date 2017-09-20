@@ -9,12 +9,24 @@
         </h3>
     </div>
 
-    <form action="" method="post">
+    <form action="{{ empty($item->id) ? route('admin.input-output.save') : route('admin.input-output.save.edit', ['id' => $item->id]) }}" method="post">
 
         {{ csrf_field() }}
 
         <div class="row">
             <div class="col-xs-12 col-md-12">
+                <div class="form-group @if( is_error('lang') )has-error @endif">
+                    <label for="lang">Language</label>
+                    <select name="lang" class="form-control" id="lang">
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        @foreach(config('languages') as $key=>$lang)
+                            <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
+                        @endforeach
+                    </select>
+                    @if( is_error('lang') )
+                        <span class="help-block">{{ $errors->first('lang') }}</span>
+                    @endif
+                </div>
                 <div class="form-group @if( is_error('input_title') )has-error @endif">
                     <label for="input_title">Input title</label>
                     <input type="text"

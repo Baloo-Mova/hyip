@@ -15,5 +15,6 @@ class InputOutput extends Model
         'output_title',
         'output_text',
         'need_show',
+        'lang'
     ];
 }

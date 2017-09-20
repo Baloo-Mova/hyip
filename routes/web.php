@@ -52,6 +52,13 @@ Route::group(['middleware' => 'guest'], function () {
         Route::get('/', 'AuthController@loginForm')->name('login');
         Route::post('/', 'AuthController@login');
     });
+
+    Route::group(['prefix' => 'password'], function () {
+        Route::get('/reset', 'AuthController@resetPasswordForm')->name('password.reset');
+        Route::get('/reset/t/{token}', 'AuthController@checkToken')->name('password.reset.check');
+        Route::post('/reset-send', 'AuthController@resetSend')->name('password.reset.send');
+        Route::post('/reset-save', 'AuthController@resetSave')->name('password.reset.save');
+    });
 });
 
 
@@ -147,11 +154,15 @@ Route::group([
 
         Route::group(['prefix' => 'input-output'], function () {
             Route::get('/', 'InputOutputController@index')->name('admin.input-output.index');
-            Route::post('/', 'InputOutputController@save');
+            Route::get('/create', 'InputOutputController@create')->name('admin.input-output.create');
+            Route::post('/save', 'InputOutputController@save')->name('admin.input-output.save');
+            Route::get('/edit/{id}', 'InputOutputController@edit')->name('admin.input-output.edit');
+            Route::get('/delete/{id}', 'InputOutputController@delete')->name('admin.input-output.delete');
+            Route::post('/save-edit', 'InputOutputController@save')->name('admin.input-output.save.edit');
         });
 
         Route::group(['prefix' => 'carousel'], function () {
-            Route::get('/', 'CarouselController@index')->name('admin.carousel.list');
+            Route::get('/', 'CarouselController@indexList')->name('admin.carousel.list');
             Route::post('add', 'CarouselController@postAdd');
             Route::get('add', 'CarouselController@getAdd')->name('admin.carousel.add');
             Route::get('{id}', 'CarouselController@getEdit')->name('admin.carousel.get');
@@ -172,7 +183,7 @@ Route::group([
         });
 
         Route::group(['prefix' => 'faq'], function () {
-            Route::get('/', 'FAQController@index')->name('admin.faq.list');
+            Route::get('/', 'FAQController@indexList')->name('admin.faq.list');
             Route::post('add', 'FAQController@postAdd');
             Route::get('add', 'FAQController@getAdd')->name('admin.faq.add');
             Route::get('{id}', 'FAQController@getEdit')->name('admin.faq.get');
@@ -181,7 +192,7 @@ Route::group([
         });
 
         Route::group(['prefix' => 'blog'], function () {
-            Route::get('/', 'BlogController@index')->name('admin.articles.list');
+            Route::get('/', 'BlogController@indexList')->name('admin.articles.list');
             Route::post('add', 'BlogController@postAdd');
             Route::get('add', 'BlogController@getAdd')->name('admin.articles.add');
             Route::get('{id}', 'BlogController@getEdit')->name('admin.articles.get');
@@ -200,7 +211,7 @@ Route::group([
         });
 
         Route::group(['prefix' => 'about'], function () {
-            Route::get('/', 'AboutController@index')->name('admin.about-notations.list');
+            Route::get('/', 'AboutController@indexList')->name('admin.about-notations.list');
             Route::post('add', 'AboutController@postAdd');
             Route::get('add', 'AboutController@getAdd')->name('admin.about-notations.add');
             Route::get('{id}', 'AboutController@getEdit')->name('admin.about-notations.get');
@@ -210,8 +221,12 @@ Route::group([
         });
 
         Route::group(['prefix' => 'regulations'], function () {
-            Route::get('/', 'RegulationsController@index')->name('admin.regulations.get');
-            Route::post('/', 'RegulationsController@postEdit');
+            Route::get('/', 'RegulationsController@indexList')->name('admin.regulations.list');
+            Route::get('/add', 'RegulationsController@getAdd')->name('admin.regulations.add');
+            Route::post('/add', 'RegulationsController@save')->name('admin.regulations.save');
+            Route::get('{id}', 'RegulationsController@getEdit')->name('admin.regulations.get');
+            Route::post('{id}', 'RegulationsController@save')->name('admin.regulations.save.edit');
+            Route::get('delete/{id}', 'RegulationsController@delete')->name('admin.regulations.delete');
         });
     });
 

@@ -28,5 +28,6 @@ class HeaderCarousel extends Model
         'button_title',
         'button_link',
         'show_button',
+        'lang',
     ];
 }

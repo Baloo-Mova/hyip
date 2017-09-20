@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Вопрос-ответ</h1>
+                <h1>@lang('messages.question_answer')</h1>
                 <hr>
             </div>
         </div>

@@ -31,6 +31,19 @@
                     @endif
                 </div>
 
+                <div class="form-group @if( is_error('lang') )has-error @endif">
+                    <label for="lang">Language</label>
+                    <select name="lang" class="form-control" id="lang">
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        @foreach(config('languages') as $key=>$lang)
+                            <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
+                        @endforeach
+                    </select>
+                    @if( is_error('lang') )
+                        <span class="help-block">{{ $errors->first('lang') }}</span>
+                    @endif
+                </div>
+
                 <div class="form-group @if( is_error('image') ) has-error @endif" id="article-edit-image">
                     {!! Form::label('image', 'Image') !!}
                     @if( !empty($item->photo) )

@@ -12,6 +12,7 @@ class GreetingsSeeder extends Seeder
     public function run()
     {
         try {
+            \App\Models\MainPage\Greetings::truncate();
             \App\Models\MainPage\Greetings::insert([
                 [
                     'image' => '150589720525f445c4.jpg',

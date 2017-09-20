@@ -12,6 +12,7 @@ class ThreeStepsSeeder extends Seeder
     public function run()
     {
         try {
+            \App\Models\MainPage\ThreeSteps::truncate();
             \App\Models\MainPage\ThreeSteps::insert([
                     [
                         'main_title' => '3 шага, чтобы начать зарабатывать',

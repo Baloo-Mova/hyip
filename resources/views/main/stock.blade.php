@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Акции</h1>
+                <h1>@lang('messages.stocks')</h1>
                 <hr>
             </div>
         </div>
@@ -26,7 +26,7 @@
                                         {!!  $stock['content'] !!}
                                     </p>
                                 </div>
-                                <a href="{{ route('stock.show', ['uri' => $stock['uri']]) }}" class="red-text">подробнее</a>
+                                <a href="{{ route('stock.show', ['uri' => $stock['uri']]) }}" class="red-text">@lang('messages.more')</a>
                             </div>
                         </div>
 

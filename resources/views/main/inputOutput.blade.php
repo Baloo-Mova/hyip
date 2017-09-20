@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-header">Ввод/вывод </h1>
+                <h1 class="page-header">@lang('messages.input_output')</h1>
             </div>
         </div>
         <div class="row">

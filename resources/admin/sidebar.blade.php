@@ -32,7 +32,7 @@
                 <li class="@if( Route::currentRouteName() == 'admin.about-notations.list') active @endif">
                     <a href='{{ route('admin.about-notations.list') }}'>About</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.regulations.get') active @endif">
-                    <a href='{{ route('admin.regulations.get') }}'>Regulations</a></li>
+                    <a href='{{ route('admin.regulations.list') }}'>Regulations</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.input-output.index') active @endif">
                     <a href='{{ route('admin.input-output.index') }}'>Input/Output text</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.three-steps.index') active @endif">

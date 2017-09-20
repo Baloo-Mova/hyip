@@ -32,5 +32,6 @@ class About extends Model
         'content',
         'img',
         'is_active',
+        'lang'
     ];
 }

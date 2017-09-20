@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Контакты</h1>
+                <h1>@lang('messages.feedback')</h1>
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <ul class="contacts__ul">
-                        <li><h4>Телефоны:</h4></li>
+                        <li><h4>@lang('messages.phones'):</h4></li>
                         @foreach($data['contacts']['phones'] as $phone)
                             <li>
                                 {{ $phone->value }}
@@ -38,15 +38,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Форма связи</h1>
+                    <h1>@lang('messages.feedback')</h1>
                 </div>
             </div>
             <div class="row">
                 <form action="{{ route('create-feedback') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group @if( is_error('name') )has-error @endif col-xs-12 col-md-6">
-                        <label for="name">Имя</label>
-                        <input type="text" class="form-control btn-flat input-lg" name="name" id="name" placeholder="Ваше имя">
+                        <label for="name">@lang('messages.name')</label>
+                        <input type="text" class="form-control btn-flat input-lg" name="name" id="name" placeholder="@lang('messages.your_name')">
                         @if( is_error('name') )
                             <span class="help-block">{{ $errors->first('name') }}</span>
                         @endif
@@ -60,14 +60,14 @@
                         @endif
                     </div>
                     <div class="form-group @if( is_error('question') )has-error @endif col-xs-12">
-                        <label for="question">Вопрос</label>
+                        <label for="question">@lang('messages.question')</label>
                         <textarea name="question" id="question" class="form-control contacts__textarea btn-flat" rows="15"></textarea>
                         @if( is_error('question') )
                             <span class="help-block">{{ $errors->first('question') }}</span>
                         @endif
                     </div>
                     <div class="form-group col-xs-12">
-                        <button type="submit" class="btn btn-flat btn-main-carousel btn-lg">Отправить</button>
+                        <button type="submit" class="btn btn-flat btn-main-carousel btn-lg">@lang('messages.send')</button>
                     </div>
                 </form>
             </div>

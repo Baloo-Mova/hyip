@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Regulations\CreateRegulationsRequest;
 use App\Models\Regulations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class RegulationsController extends BaseController
 {
@@ -18,33 +20,53 @@ class RegulationsController extends BaseController
         $this->_model = $model;
     }
 
-    protected function index()
+    public function indexList(Request $request)
     {
-        return view('Admin::' . $this->_view . '.edit', [
-            'item' => $this->_model->first(),
-        ]);
+        $lang = $request->input('lang');
+        if(!isset($lang)){
+            $lang = "all";
+        }
+        if($lang == "all"){
+            $list = Regulations::paginate(15);
+        }else{
+            $list = Regulations::where(['lang' => $lang])->paginate(15);
+        }
+        return view('Admin::content.regulations.list', ['items' => $list,'lang' => $lang]);
     }
 
-    public function postEdit(Request $request)
+    public function save(Request $request)
     {
-        $validator = \Validator::make($request->all(), with(new CreateRegulationsRequest())->rules());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
-        }
-
-        if( !($item = $this->_model->first()) ) {
-            $item = $this->_model;
-        }
-
-        $item->fill([
-            'title'     => $request->get('title'),
-            'content'   => $request->get('content'),
-            'is_active' => $request->get('is_active') ? $request->get('is_active') : 0,
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'content' => 'required',
+            'lang' => 'required',
         ]);
 
+        if ($validator->fails()) {
+            if(!$request->has('id')){
+                return redirect(route('admin.regulations.create'))
+                    ->withErrors($validator)
+                    ->withInput();
+            }else{
+                return redirect(route('admin.regulations.edit', ['id' => $request->get('id')]))
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        }
+
+        if(!$request->has('id')){
+            $item = new Regulations();
+        }else{
+            $item = Regulations::find($request->get('id'));
+        }
+
+        $item->title = $request->get('title');
+        $item->content = $request->get('content');
+        $item->is_active = $request->has('is_active') ? 1 : 0;
+        $item->lang = $request->get('lang');
         $item->save();
 
-        return redirect()->route('admin.regulations.get')->with('messages', ['Update successful']);
+        return redirect()->route('admin.regulations.list', ['item' => $item])->with('messages', ['Изменения успешно внесены!']);
+
     }
 }
