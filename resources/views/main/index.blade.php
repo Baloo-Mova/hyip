@@ -30,15 +30,15 @@
                 <div class="col-xs-12">
                     <div class="greetings__wrap row">
                         <div class="col-xs-12">
-                            <h1 class="greetings_title">WELCOME TO {{ env("APP_NAME") }}</h1>
+                            <h1 class="greetings_title">{{ $data['greetings']['main_title'] }}</h1>
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <div class="greetings_img_wrap">
-                                <img src="{{ $data['greetings']['img'] }}" alt="" class="greetings_img">
+                                <img src="{{ route('get.image', ['type' => 'greetings', 'name' => $data['greetings']['image']]) }}" alt="" class="greetings_img">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <h4 class="greetings_subtitle">Trust Management</h4>
+                            <h4 class="greetings_subtitle">{{ $data['greetings']['sub_title'] }}</h4>
                             <p class="greetings_txt">
                                 {{ $data['greetings']['description'] }}
                             </p>
@@ -53,7 +53,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>О проекте</h1>
+                    <h1>@lang('messages.about_project')</h1>
                 </div>
             </div>
             @foreach($data['about'] as $key=>$about)
@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-4">
                             <div class="about__img">
-                                <img src="{{ $about['img'] }}" alt="">
+                                <img src="{{ route('get.image', ['type' => 'aboutproject', 'name' => $about['image']]) }}" alt="">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-8">
@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-4 col-md-push-8">
                             <div class="about__img">
-                                <img src="{{ $about['img'] }}" alt="">
+                                <img src="{{ route('get.image', ['type' => 'aboutproject', 'name' => $about['image']]) }}" alt="">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-8 col-md-pull-4">
@@ -93,7 +93,7 @@
             @endforeach
             <div class="row">
                 <div class="col-xs-12 about__register-wrap">
-                    <a href="{{ route('register') }}" class="btn btn-main-carousel btn-lg btn-flat">Регистрация</a>
+                    <a href="{{ route('register') }}" class="btn btn-main-carousel btn-lg btn-flat">@lang('messages.register')</a>
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Тарифы</h1>
+                    <h1>@lang('messages.tariffs')</h1>
                 </div>
             </div>
             <div class="row">
@@ -204,7 +204,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Новости</h1>
+                    <h1>@lang('messages.news')</h1>
                 </div>
             </div>
             <div class="row text-center">
@@ -237,7 +237,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Контакты</h1>
+                    <h1>@lang('messages.contacts')</h1>
                 </div>
             </div>
             <div class="row">
@@ -245,7 +245,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <ul class="contacts__ul">
-                                <li><h4>Телефоны:</h4></li>
+                                <li><h4>@lang('messages.phones'):</h4></li>
                                 @foreach($data['contacts']['phones'] as $phone)
                                     <li>
                                         {{ $phone->value }}
@@ -262,7 +262,7 @@
                             </ul>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <h4>Поделиться:</h4>
+                            <h4>@lang('messages.share'):</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
                                 @if($soc->need_show == 0)
                                     @continue
@@ -278,8 +278,8 @@
                     <form action="{{ route('create-feedback') }}" method="post">
                         {{ csrf_field() }}
                         <div class="form-group @if( is_error('name') )has-error @endif">
-                            <label for="name">Имя</label>
-                            <input type="text" class="form-control btn-flat" name="name" id="name" placeholder="Ваше имя">
+                            <label for="name">@lang('messages.name')</label>
+                            <input type="text" class="form-control btn-flat" name="name" id="name" placeholder="@lang('messages.your_name')">
                             @if( is_error('name') )
                                 <span class="help-block">{{ $errors->first('name') }}</span>
                             @endif
@@ -293,14 +293,14 @@
                             @endif
                         </div>
                         <div class="form-group @if( is_error('question') )has-error @endif">
-                            <label for="question">Вопрос</label>
+                            <label for="question">@lang('messages.question')</label>
                             <textarea name="question" id="question" class="form-control contacts__textarea btn-flat"></textarea>
                             @if( is_error('question') )
                                 <span class="help-block">{{ $errors->first('question') }}</span>
                             @endif
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-main-carousel btn-flat">Отправить</button>
+                            <button type="submit" class="btn btn-main-carousel btn-flat">@lang('messages.send')</button>
                         </div>
                     </form>
                 </div>

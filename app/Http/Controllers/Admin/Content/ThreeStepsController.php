@@ -10,10 +10,37 @@ use Illuminate\Support\Facades\Session;
 
 class ThreeStepsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $text = ThreeSteps::find(1);
-        return view('Admin::content.three-steps.index', ['item' => $text]);
+        $lang = $request->input('lang');
+        if(!isset($lang)){
+            $lang = "all";
+        }
+        if($lang == "all"){
+            $list = ThreeSteps::paginate(15);
+        }else{
+            $list = ThreeSteps::where(['lang' => $lang])->paginate(15);
+        }
+        return view('Admin::content.three-steps.index', ['list' => $list, 'lang' => $lang]);
+    }
+
+    public function create()
+    {
+        return view('Admin::content.three-steps.edit');
+    }
+
+    public function edit($id)
+    {
+        $item = ThreeSteps::find($id);
+        return view('Admin::content.three-steps.edit', ['item' => $item]);
+    }
+
+    public function delete($id)
+    {
+        $item = ThreeSteps::find($id);
+        $item->delete();
+        Session::flash('messages', ['Запись успешно удалена!']);
+        return redirect()->route('admin.three-steps.index');
     }
 
     public function save(Request $request)
@@ -26,6 +53,7 @@ class ThreeStepsController extends Controller
             'second_text' => 'required',
             'third_title' => 'required',
             'third_text' => 'required',
+            'lang' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -47,6 +75,7 @@ class ThreeStepsController extends Controller
         $text->second_text = $request->get('second_text');
         $text->third_title = $request->get('third_title');
         $text->third_text = $request->get('third_text');
+        $text->lang = $request->get('lang');
         $text->save();
 
         Session::flash('messages', ['Изменения успешно внесены!']);

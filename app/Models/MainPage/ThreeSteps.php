@@ -18,6 +18,7 @@ class ThreeSteps extends Model
         'second_text',
         'third_title',
         'third_text',
+        'lang',
     ];
 
 }

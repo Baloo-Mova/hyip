@@ -15,7 +15,7 @@ class CreateAboutProjectTable extends Migration
     {
         Schema::create('about_project', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('title');
             $table->text('description');
             $table->string('lang');

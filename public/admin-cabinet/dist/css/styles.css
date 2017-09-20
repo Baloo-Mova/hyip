@@ -151,3 +151,6 @@ body {
 .nb li{
     border: 0px !important;
 }
+.countries_flag_header{
+     width: 16px !important;
+ }

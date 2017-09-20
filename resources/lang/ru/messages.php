@@ -3,11 +3,31 @@
 return [
 
     /*
+     * Main page titles
+     */
+    'contacts' => 'Контакты',
+    'about_project' => 'О проекте',
+
+
+    /*
      * Common Phrases
      */
     'exit' => 'Выйти',
     'register' => 'Регистрация',
     'login' => 'Войти',
+    'phones' => 'Телефоны',
+    'share' => 'Поделиться',
+    'name' => 'Имя',
+    'your_name' => 'Ваше имя',
+    'question' => 'Вопрос',
+    'send' => 'Отправить',
+
+    /*
+     * Footer
+     */
+
+    'privacy_policy' => 'Политика конфиденциальности',
+    'copiright' => 'Все права защищены',
 
     /*
      * Main menu section

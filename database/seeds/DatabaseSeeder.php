@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class);
         $this->call(social_networks_share::class);
+        $this->call(AboutProjectSeeder::class);
+        $this->call(ThreeStepsSeeder::class);
+        $this->call(GreetingsSeeder::class);
         try {
             \App\Models\WalletProcessesType::truncate();
             \App\Models\WalletProcessesType::insert([

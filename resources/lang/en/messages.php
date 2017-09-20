@@ -3,11 +3,30 @@
 return [
 
     /*
+     * Main page titles
+     */
+    'contacts' => 'Contacts',
+    'about_project' => 'About project',
+
+    /*
      * Common Phrases
      */
     'exit' => 'Exit',
     'register' => 'Register',
     'login' => 'Login',
+    'phones' => 'Phones',
+    'share' => 'Share',
+    'name' => 'Name',
+    'your_name' => 'Your name',
+    'question' => 'Question',
+    'send' => 'Send',
+
+    /*
+     * Footer
+     */
+
+    'privacy_policy' => 'Privacy policy',
+    'copiright' => 'All rights reserved',
 
 
     /*

@@ -22,6 +22,7 @@ class CreateThreeStepsTable extends Migration
             $table->text('second_text')->nullable();
             $table->string('third_title')->nullable();
             $table->text('third_text')->nullable();
+            $table->string('lang')->nullable();
         });
     }
 

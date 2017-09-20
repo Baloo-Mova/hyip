@@ -119,16 +119,30 @@ Route::group([
         Route::group(['prefix' => 'about-project'], function () {
             Route::get('/', 'AboutProjectController@index')->name('admin.about.project.index');
             Route::get('/create', 'AboutProjectController@create')->name('admin.about.project.create');
+            Route::post('/save', 'AboutProjectController@save')->name('admin.about.project.save');
+            Route::get('/edit/{id}', 'AboutProjectController@edit')->name('admin.about.project.edit');
+            Route::get('/delete-img/{id}', 'AboutProjectController@deleteImg')->name('admin.about.project.delete.img');
+            Route::get('/delete/{id}', 'AboutProjectController@delete')->name('admin.about.project.delete');
+            Route::post('/save-edit', 'AboutProjectController@save')->name('admin.about.project.save.edit');
         });
 
         Route::group(['prefix' => 'greetings'], function () {
             Route::get('/', 'GreetingsController@index')->name('admin.greetings.index');
             Route::get('/create', 'GreetingsController@create')->name('admin.greetings.create');
+            Route::post('/save', 'GreetingsController@save')->name('admin.greetings.save');
+            Route::get('/edit/{id}', 'GreetingsController@edit')->name('admin.greetings.edit');
+            Route::get('/delete-img/{id}', 'GreetingsController@deleteImg')->name('admin.greetings.delete.img');
+            Route::get('/delete/{id}', 'GreetingsController@delete')->name('admin.greetings.delete');
+            Route::post('/save-edit', 'GreetingsController@save')->name('admin.greetings.save.edit');
         });
 
         Route::group(['prefix' => 'three-steps'], function () {
             Route::get('/', 'ThreeStepsController@index')->name('admin.three-steps.index');
-            Route::post('/', 'ThreeStepsController@save')->name('admin.three-steps.save');
+            Route::get('/create', 'ThreeStepsController@create')->name('admin.three-steps.create');
+            Route::post('/save', 'ThreeStepsController@save')->name('admin.three-steps.save');
+            Route::get('/edit/{id}', 'ThreeStepsController@edit')->name('admin.three-steps.edit');
+            Route::get('/delete/{id}', 'ThreeStepsController@delete')->name('admin.three-steps.delete');
+            Route::post('/save-edit', 'ThreeStepsController@save')->name('admin.three-steps.save.edit');
         });
 
         Route::group(['prefix' => 'input-output'], function () {

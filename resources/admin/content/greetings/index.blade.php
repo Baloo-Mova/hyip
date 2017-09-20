@@ -25,11 +25,14 @@
                         @foreach($list as $item)
                             <tr>
                                 <td>{{ $item->main_title }}</td>
-                                <td>{{ $item->lang }}</td>
                                 <td>
-                                    <a href='{{ route('admin.social-networks.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <img src="{{ asset('img/flags').'/'.$item->lang.'.svg' }}" alt="" class="countries_flag_header">
+                                    {{ $item->lang }}
+                                </td>
+                                <td>
+                                    <a href='{{ route('admin.greetings.edit', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     &nbsp;&nbsp;&nbsp;
-                                    <a href="{{ route('admin.social-networks.delete', ['id' => $item->id]) }}" onclick="return confirm('Delete this item?')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <a href="{{ route('admin.greetings.delete', ['id' => $item->id]) }}" onclick="return confirm('Delete this item?')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach

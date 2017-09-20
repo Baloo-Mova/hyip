@@ -2,112 +2,69 @@
 
 @section('content')
     @include('Admin::alerts')
-
     <div>
-        <h3 class="sub-header">
-            Three steps text
-        </h3>
+        <a href='{{ route('admin.three-steps.create') }}' class="btn-sm btn-primary pull-right">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>
+            Add
+        </a>
+        <h1 class="sub-header">Three steps text</h1>
     </div>
 
-    <form action="" method="post">
-
-        {{ csrf_field() }}
-
-        <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <div class="form-group @if( is_error('input_title') )has-error @endif">
-                    <label for="main_title">Main title</label>
-                    <input type="text"
-                           name="main_title"
-                           value="{{ !empty($item->main_title) ? $item->main_title : '' }}"
-                           id="main_title"
-                           class="form-control"
-                           required
-                    >
-                    @if( is_error('main_title') )
-                        <span class="help-block">{{ $errors->first('main_title') }}</span>
-                    @endif
-                </div>
-            </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <form action="" method="get">
+                    <th></th>
+                    <th class="w200">
+                        <select name="lang" class="form-control" id="lang">
+                            <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>All languages</option>
+                            @foreach(config('languages') as $key=>$item)
+                                <option value="{{ $key }}" {{ isset($lang) && $lang == $key ? "selected" : "" }}>{{ $item }}</option>
+                            @endforeach
+                        </select>
+                    </th>
+                    <th>
+                        <button type="submit" class="btn btn-primary">Select</button>
+                    </th>
+                </form>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <th class="w200">Lang</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (count($list))
+                @foreach($list as $item)
+                    <tr>
+                        <td>{{ $item->main_title }}</td>
+                        <td class="w200">
+                            <img src="{{ asset('img/flags').'/'.$item->lang.'.svg' }}" alt="" class="countries_flag_header">
+                            {{ $item->lang }}
+                        </td>
+                        <td>
+                            <a href='{{ route('admin.three-steps.edit', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="{{ route('admin.three-steps.delete', ['id' => $item->id]) }}" onclick="return confirm('Delete this item?')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td class="text-center" colspan="3">No items</td>
+                </tr>
+            @endif
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            {{ $list->links() }}
         </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <div class="form-group @if( is_error('first_title') )has-error @endif">
-                    <label for="first_title">First title</label>
-                    <input type="text"
-                           name="first_title"
-                           value="{{ !empty($item->first_title) ? $item->first_title : '' }}"
-                           id="first_title"
-                           class="form-control"
-                           required
-                    >
-                    @if( is_error('first_title') )
-                        <span class="help-block">{{ $errors->first('first_title') }}</span>
-                    @endif
-                </div>
-                <div class="form-group @if( is_error('first_text') )has-error @endif">
-                    <label for="first_text">First text</label>
-                    <textarea name="first_text" id="first_text" class="form-control" rows="10">{{ !empty($item->first_text) ? $item->first_text : '' }}</textarea>
-                    @if( is_error('first_text') )
-                        <span class="help-block">{{ $errors->first('first_text') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="form-group @if( is_error('second_title') )has-error @endif">
-                    <label for="second_title">Second title</label>
-                    <input type="text"
-                           name="second_title"
-                           value="{{ !empty($item->second_title) ? $item->second_title : '' }}"
-                           id="second_title"
-                           class="form-control"
-                           required
-                    >
-                    @if( is_error('second_title') )
-                        <span class="help-block">{{ $errors->first('second_title') }}</span>
-                    @endif
-                </div>
-                <div class="form-group @if( is_error('second_text') )has-error @endif">
-                    <label for="second_text">Second text</label>
-                    <textarea name="second_text" id="second_text" class="form-control" rows="10">{{ !empty($item->second_text) ? $item->second_text : '' }}</textarea>
-                    @if( is_error('second_text') )
-                        <span class="help-block">{{ $errors->first('second_text') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="form-group @if( is_error('third_title') )has-error @endif">
-                    <label for="third_title">Third title</label>
-                    <input type="text"
-                           name="third_title"
-                           value="{{ !empty($item->third_title) ? $item->third_title : '' }}"
-                           id="third_title"
-                           class="form-control"
-                           required
-                    >
-                    @if( is_error('third_title') )
-                        <span class="help-block">{{ $errors->first('third_title') }}</span>
-                    @endif
-                </div>
-                <div class="form-group @if( is_error('third_text') )has-error @endif">
-                    <label for="third_text">Third text</label>
-                    <textarea name="third_text" id="third_text" class="form-control" rows="10">{{ !empty($item->third_text) ? $item->third_text : '' }}</textarea>
-                    @if( is_error('third_text') )
-                        <span class="help-block">{{ $errors->first('third_text') }}</span>
-                    @endif
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-main-carousel btn-flat ">Save</button>
-                </div>
-            </div>
-        </div>
-
-    </form>
-
+    </div>
 @endsection
+
+@push('footer-scripts')
+@endpush
