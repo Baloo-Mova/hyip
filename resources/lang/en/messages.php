@@ -97,6 +97,7 @@ return [
     'contact_technical_support' => 'Contact technical support',
     'answer' => 'Answer',
     'view_a_post' => 'view a post',
+    'no_items' => 'No items',
 
 
     /*

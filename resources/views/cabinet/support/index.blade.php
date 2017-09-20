@@ -58,7 +58,7 @@
                 @empty
                     <tr>
                         <td colspan="4" class="text-center">
-                            Нет запросов
+                            @lang("messages.no_items")
                         </td>
                     </tr>
                 @endforelse

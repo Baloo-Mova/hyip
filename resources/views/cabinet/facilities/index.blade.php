@@ -155,7 +155,7 @@
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-center">
-                                        <p>Нет операций</p>
+                                        <p>@lang("messages.no_items")</p>
                                     </td>
                                 </tr>
                             @endforelse

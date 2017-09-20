@@ -85,7 +85,7 @@
                     @else
                         <tr>
                             <td colspan="6" class="text-center">
-                                Нет рефералов
+                                @lang("messages.no_items")
                             </td>
                         </tr>
                     @endif

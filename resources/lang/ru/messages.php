@@ -98,6 +98,7 @@ return [
     'contact_technical_support' => 'Обратиться в техподдержку',
     'answer' => 'Ответ',
     'view_a_post' => 'посмотреть запись',
+    'no_items' => 'Нет записей',
 
     /*
      * Pages titles
