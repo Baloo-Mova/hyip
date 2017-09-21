@@ -26,6 +26,6 @@ class FeedbackController
         ]);
 
 
-        return redirect()->back()->with('messages', ['Created successful']);
+        return redirect()->back()->with('messages', [__("messages.created_successful")]);
     }
 }

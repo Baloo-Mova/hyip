@@ -108,6 +108,15 @@ return [
     'insufficient_funds' => 'Недостаточно средств.',
     'refill' => 'Пополните',
     'bill_please' => 'пожалуйста счет',
+    'no_item_controller' => 'Записи с таким ID не существует!',
+    'changes_successfully_controller' => 'Изменения успешно внесены.',
+    'created_successful' => 'Успешно создано',
+    'payment_successful' => 'Оплата успешна, средства зачислены на баланс.',
+    'payment_error' => 'Ошибка оплаты',
+    'system_settings_error' => 'Ошибка настроек системы, обратитесь к поддержке!',
+    'request_output_successfully' => 'Заявка на вывод успешно добавлена!',
+    'email_not_verified' => 'Ваш email не подтвержден!',
+    'specify_email' => 'Укажите E-mail',
 
     /*
      * Pages titles

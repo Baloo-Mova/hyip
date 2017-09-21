@@ -246,8 +246,6 @@ class MessageController extends Controller
         $chatId = $request->get('chat_id');
         $take = $request->get('take');
 
-
-
         $messages = Message::where(['chat_id' => $chatId])
             ->orderBy('created_at', 'desc')
             ->offset($count)

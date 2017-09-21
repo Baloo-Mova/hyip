@@ -107,6 +107,15 @@ return [
     'insufficient_funds' => 'Insufficient funds.',
     'refill' => 'Refill',
     'bill_please' => 'bill, please',
+    'no_item_controller' => 'Entries with this ID do not exist!',
+    'changes_successfully_controller' => 'Changes successfully made!',
+    'created_successful' => 'Created successful',
+    'payment_successful' => 'The payment is successful, the funds are credited to the balance.',
+    'payment_error' => 'Payment error',
+    'system_settings_error' => 'Error setting system, please contact support!',
+    'request_output_successfully' => 'Request for output successfully added!',
+    'email_not_verified' => 'Your email is not confirmed!',
+    'specify_email' => 'Specify E-mail',
 
 
     /*

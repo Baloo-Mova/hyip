@@ -144,10 +144,10 @@ class FacilitiesController extends Controller
     public function getResultRefill(Request $request, $type)
     {
         if ($type == "success") {
-            Session::flash('messages', ['Оплата успешна, средства зачислены на баланс.']);
+            Session::flash('messages', [__("messages.created_successful")]);
             return redirect()->route('facilities', ['type' => 'input']);
         }
-        return redirect()->route('facilities', ['type' => 'input'])->withErrors('Ошибка оплаты');
+        return redirect()->route('facilities', ['type' => 'input'])->withErrors(__("messages.payment_error"));
     }
 
     public function withdraw(Request $request)
@@ -161,7 +161,7 @@ class FacilitiesController extends Controller
         }
 
         if (count($balance) == 0) {
-            return redirect()->route('facilities', ['type' => 'output'])->withErrors(['Ошибка настроек системы, обратитесь к поддержке!']);
+            return redirect()->route('facilities', ['type' => 'output'])->withErrors([__("messages.system_settings_error")]);
         }
 
         $validator = Validator::make($request->all(), [
@@ -180,7 +180,7 @@ class FacilitiesController extends Controller
         $contact_person = $request->has('contact_person') ? $request->get('contact_person') : null;
 
         if ($balance['RUB']['DOSTUPNO'] < $sum) {
-            return redirect()->route('facilities', ['type' => 'output'])->withErrors(['Ошибка настроек системы, обратитесь к поддержке!']);
+            return redirect()->route('facilities', ['type' => 'output'])->withErrors([__("messages.system_settings_error")]);
         }
 
         $payment = WalletProcesses::create([
@@ -198,7 +198,7 @@ class FacilitiesController extends Controller
         $user->balance = $user->balance - $sum;
         $user->save();
 
-        Session::flash('messages', ['Заявка на вывод успешно добавлена!']);
+        Session::flash('messages', [__("messages.system_settings_error")]);
         return redirect()->route('facilities', ['type' => 'output']);
 
     }

@@ -103,7 +103,7 @@ class ProfileController extends Controller
         $confirm->user_id = \Auth::user()->id;
         $confirm->save();
 
-        Session::flash('messages', ['Изменения успешно внесены!']);
+        Session::flash('messages', [__("messages.changes_successfully_controller")]);
         return back();
 
     }

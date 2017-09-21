@@ -36,12 +36,12 @@ class AuthController extends Controller
         $email = $request->get('email');
         if(!isset($email)){
             return redirect(route('password.reset'))
-                ->withErrors(["Укажите E-mail"]);
+                ->withErrors([__("messages.specify_email")]);
         }
         $user = User::where('email', '=', $email)->first();
         if(!isset($user)){
             return redirect(route('password.reset'))
-                ->withErrors(["Пользователь с таким E-mail не существует!"]);
+                ->withErrors([__("messages.user_email_dont_exist")"Пользователь с таким E-mail не существует!"]);
         }
 
         $token = uniqid();

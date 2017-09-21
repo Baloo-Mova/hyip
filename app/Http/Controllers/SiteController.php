@@ -163,7 +163,7 @@ class SiteController extends Controller
         $stock = Article::whereUri($uri)->first();
         if(!isset($stock)){
             return redirect(route('stock'))
-                ->withErrors('Записи с таким ID не существует!')
+                ->withErrors(__("messages.no_item_controller"))
                 ->withInput();
         }
         $data = [
@@ -183,7 +183,7 @@ class SiteController extends Controller
         $social = SocialNetwork::where(['is_active' => 1])->get();
         if(!isset($news)){
             return redirect(route('news'))
-                ->withErrors('Записи с таким ID не существует!')
+                ->withErrors(__("messages.no_item_controller"))
                 ->withInput();
         }
         $data = [

@@ -30,7 +30,7 @@ class CabinetController extends Controller
         ]);
 
         if (Auth::user()->status == 0) {
-            $response = $response->withErrors(['email' => 'Ваш email не подтвержден!']);
+            $response = $response->withErrors(['email' => __("messages.email_not_verified")]);
         }
         
         return $response;
