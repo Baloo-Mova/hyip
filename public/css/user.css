@@ -20,7 +20,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 1;
     display: block;
     padding: 0px 20px;
     overflow-x: hidden;
@@ -187,6 +187,10 @@
     }
     .modal-dialog {
         width: 620px;
+    }
+    .chat__wrap_wrapper{
+        width: 70%;
+        margin: 0px auto;
     }
 }
 .input-budjet__wrap{

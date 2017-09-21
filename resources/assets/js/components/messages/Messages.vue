@@ -84,7 +84,7 @@
     }
     @media screen and (max-width: 760px){
         .chat__messages{
-            padding-bottom: 100px;
+            padding-bottom: 10px;
         }
     }
 </style>

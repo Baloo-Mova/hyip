@@ -17,6 +17,7 @@ footer{
     text-align: center;
     color: #fff;
     padding: 20px 0px;
+    z-index: 2;
 }
 section{
     padding: 20px 0px;
@@ -388,8 +389,16 @@ section h1{
     .modal-dialog {
         width: 620px;
     }
+    .chat_body{
+        padding-top: 80px !important;
+    }
 }
 
+@media screen and (min-width: 768px) {
+    .chat_body{
+        padding-top: 130px !important;
+    }
+}
 
 @media screen and (min-width: 1024px) {
     .news__item{
@@ -485,6 +494,9 @@ section h1{
     }
     .price-info-item {
         width: 30.333%;
+    }
+    .chat_body{
+        padding-top: 130px !important;
     }
 }
 .news_title img{

@@ -18,10 +18,6 @@
 <div class="user__sidebar__wrap">
     <i class="fa fa-bars phpdebugbar-fa-2x user__sidebar__call" aria-hidden="true"></i>
 </div>
-
-{{--<nav class="navbar navbar-default navbar-static-top">
-    @include('partial.usermainmenu')
-</nav>--}}
 @include('partial.usermainmenu')
 
 <div class="container-fluid">
