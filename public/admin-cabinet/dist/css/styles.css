@@ -174,3 +174,8 @@ body {
 .select2-dropdown {
     border-radius: 0px !important;
 }
+.bonus_item{
+    border: 1px solid #ccc;
+    padding: 15px;
+    height: 250px;
+}

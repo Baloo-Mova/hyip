@@ -63,7 +63,7 @@
                         </form>
                         <tr>
                             <th>@lang("messages.Level")</th>
-                            <th>@lang("messages.login")</th>
+                            <th>@lang("messages.user_login")</th>
                             <th>@lang("messages.phone")</th>
                             <th>@lang("messages.date_of_registration")</th>
                             <th>@lang("messages.brought")</th>

@@ -38,6 +38,7 @@ class BonusController extends Controller
 
         $user_id = $request->get('user');
         $amount = $request->get('amount');
+        $comment = $request->get('comment');
 
         $user = User::find($user_id);
 
@@ -54,6 +55,7 @@ class BonusController extends Controller
         $log->time = Carbon::now();
         $log->value = $amount;
         $log->from_id = 1;
+        $log->comment = isset($comment) ? $comment : null;
         $log->status = WalletProcesses::STATUS_ACCEPT;
         $log->to_id = $user_id;
         $log->save();

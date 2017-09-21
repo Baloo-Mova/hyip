@@ -130,6 +130,7 @@ return [
     'password_changed' => 'The password has been successfully changed, now you can log in.',
     'incorrect_passsword' => 'Incorrect password',
     'email_is_verified' => 'Email successfully verified',
+    'user_login' => 'Login',
 
 
     /*

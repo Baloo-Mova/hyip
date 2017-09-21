@@ -131,6 +131,7 @@ return [
     'password_changed' => 'Пароль успешно изменен, теперь Вы можете авторизироваться.',
     'incorrect_password' => 'Неверный пароль',
     'email_is_verified' => 'Email успешно подтвержден',
+    'user_login' => 'Логин',
 
     /*
      * Pages titles
