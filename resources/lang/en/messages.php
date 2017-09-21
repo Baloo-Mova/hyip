@@ -116,6 +116,16 @@ return [
     'request_output_successfully' => 'Request for output successfully added!',
     'email_not_verified' => 'Your email is not confirmed!',
     'specify_email' => 'Specify E-mail',
+    'user_email_dont_exist' => 'A user with such an E-mail does not exist!',
+    'hello' => 'Hello',
+    'recovery_email_text' => 'You requested password recovery, please follow this link',
+    'instructions_sent' => 'Instructions for password recovery are sent to you by Email.',
+    'error' => 'Error',
+    'passwords_dont_match' => 'Passwords do not match',
+    'error_token' => 'Invalid token!',
+    'password_changed' => 'The password has been successfully changed, now you can log in.',
+    'incorrect_passsword' => 'Incorrect password',
+    'email_is_verified' => 'Email successfully verified',
 
 
     /*

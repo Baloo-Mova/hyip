@@ -117,6 +117,16 @@ return [
     'request_output_successfully' => 'Заявка на вывод успешно добавлена!',
     'email_not_verified' => 'Ваш email не подтвержден!',
     'specify_email' => 'Укажите E-mail',
+    'user_email_dont_exist' => 'Пользователь с таким E-mail не существует!',
+    'hello' => 'Здравствуйте',
+    'recovery_email_text' => 'Вы запросили восстановление пароля, для этого перейдите по следующей ссылке',
+    'instructions_sent' => 'Инструкции по восстановлению пароля, отправлены Вам на Email.',
+    'error' => 'Ошибка',
+    'passwords_dont_match' => 'Пароли не совпадают',
+    'error_token' => 'Неверный токен!',
+    'password_changed' => 'Пароль успешно изменен, теперь Вы можете авторизироваться.',
+    'incorrect_password' => 'Неверный пароль',
+    'email_is_verified' => 'Email успешно подтвержден',
 
     /*
      * Pages titles

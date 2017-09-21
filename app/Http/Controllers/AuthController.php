@@ -41,7 +41,7 @@ class AuthController extends Controller
         $user = User::where('email', '=', $email)->first();
         if(!isset($user)){
             return redirect(route('password.reset'))
-                ->withErrors([__("messages.user_email_dont_exist")"Пользователь с таким E-mail не существует!"]);
+                ->withErrors([__("messages.user_email_dont_exist")]);
         }
 
         $token = uniqid();
@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         $url = url("/password/reset/t/" . $token);
 
-        $text = "Здравствуйте, ".$user->login." ! Вы запросили восстановление пароля, для этого перейдите по следующей ссылке: ".$url;
+        $text = __("messages.hello").", ".$user->login." ! ".__("messages.recovery_email_text").": ".$url;
 
         try {
             $mail = new PHPMailer;
@@ -69,7 +69,7 @@ class AuthController extends Controller
             $mail->setFrom(env("NO_REPLY_EMAIL"));
             $mail->addAddress($email);
 
-            $mail->Subject = "Восстановление пароля";
+            $mail->Subject = __("messages.password_recovery");
             $mail->Body = $text;
             if(preg_match("/<[^<]+>/", $text, $m) != 0){
                 $mail->IsHTML(true);
@@ -78,10 +78,10 @@ class AuthController extends Controller
             $mail->send();
         } catch (\Exception $ex) {
             return redirect(route('password.reset'))
-                ->withErrors(["Ошибка!"]);
+                ->withErrors([__("messages.error")]);
         }
 
-        Session::flash('messages', ['Инструкции по восстановлению пароля, отправлены Вам на Email.']);
+        Session::flash('messages', [__("messages.instructions_sent")]);
         return redirect()->route('password.reset');
     }
 
@@ -111,33 +111,33 @@ class AuthController extends Controller
 
         if($passw != $passw2){
             return redirect(route('password.reset.check', ['token' => $request->get('token')]))
-                ->withErrors(["Пароли не совпадают"]);
+                ->withErrors([__("messages.passwords_dont_match")]);
         }
 
         $check = PasswordResets::where(['email' => $email])->first();
 
         if(!isset($check)){
             return redirect(route('password.reset.check', ['token' => $request->get('token')]))
-                ->withErrors(["Пользователь с таким Email не найден!"]);
+                ->withErrors([__("messages.user_email_dont_exist")]);
         }
 
         $user = User::where(['email' => $email])->first();
 
         if(!isset($user)){
             return redirect(route('password.reset.check', ['token' => $request->get('token')]))
-                ->withErrors(["Пользователь с таким Email не найден!"]);
+                ->withErrors([__("messages.user_email_dont_exist")]);
         }
 
         if(!Hash::check($token, $check->token)){
             return redirect(route('password.reset.check', ['token' => $request->get('token')]))
-                ->withErrors(["Неверный токен!"]);
+                ->withErrors([__("messages.error_token")]);
         }
 
         $check->delete();
         $user->password = bcrypt($passw);
         $user->save();
 
-        Session::flash('messages', ['Пароль успешно изменен, теперь Вы можете авторизироваться.']);
+        Session::flash('messages', [__("messages.password_changed")]);
         return redirect()->route('login');
 
     }
@@ -183,7 +183,7 @@ class AuthController extends Controller
         }
 
 
-        return redirect()->back()->withInput($request->all())->withErrors(['password' => ['Incorrect password']]);
+        return redirect()->back()->withInput($request->all())->withErrors(['password' => [__("messages.incorrect_password")]]);
     }
 
     public function registerForm(Request $request)
@@ -262,9 +262,7 @@ class AuthController extends Controller
                 $user->status = 1;
                 $user->save();
 
-                \Session::flash('messages', [
-                    'Email успешно подтвержден'
-                ]);
+                \Session::flash('messages', [__("messages.email_is_verified")]);
 
             }
         }
