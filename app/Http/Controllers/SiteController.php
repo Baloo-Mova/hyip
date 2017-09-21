@@ -55,6 +55,7 @@ class SiteController extends Controller
                 'img/brand9.png',
             ],
             'news' => $news,
+            'user' => \Auth::user(),
             'contacts' => [
                 'phones' => $phones,
                 'emails' => $email,

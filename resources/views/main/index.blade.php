@@ -1,6 +1,46 @@
 @extends('main')
 
 @section('content')
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content btn-flat">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@lang("messages.subscribe_tariff")</h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center modal_tariff_name "></h3>
+                    <div class="col-xs-12 col-md-4 text-center">
+                        <p class="tariff___ref-sys">
+                            <span class="modal_tariff_levels"></span> @lang('messages.levelss')
+                        </p>
+                        <label>@lang('messages.ref_sys')</label>
+                    </div>
+                    <div class="col-xs-12 col-md-4 text-center">
+                        <p class="tariff___price">
+                            <span class="modal_tariff_price"></span>₽
+                        </p>
+                        <label>@lang('messages.price')</label>
+                    </div>
+                    <div class="col-xs-12 col-md-4 text-center">
+                        <p class="tariff___term ">
+                            <span class="modal_tariff_validity"></span> @lang('messages.days')
+                        </p>
+                        <label>@lang('messages.validity')</label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">@lang("messages.cansel")</button>
+                    <a href="" class="btn btn-main-carousel btn-flat modal_tariff_subscribe">@lang("messages.subscribe")</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
     <section id="home">
         <div class="container-fluid">
             <div id="" class="row ">
@@ -194,8 +234,21 @@
                                     <p>@lang('messages.validity'): {{ $rate['term'] }} @lang('messages.days')</p>
                                 </div>
                                 <div class="rate__footer">
-                                    <a href="{{ route('tariff.payment',['id'=>$rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">@lang('messages.subscribe')</a>
-                                    <a href="{{ Auth::check() ? route('tariff', ['id' => $rate['id']]) : route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">@lang('messages.more')</a>
+                                    @if(isset($data['user']->subscribe_id) && $data['user']->subscribe_id == $rate['id'] )
+                                        <a class="btn btn-primary btn-md btn-flat rate-carousel__button">@lang('messages.subscribed')</a>
+                                    @else
+                                        <a href=""
+                                           class="btn btn-main-carousel btn-md btn-flat rate-carousel__button subscribe__button"
+                                           data-toggle="modal"
+                                           data-target="#myModal"
+                                           data-price="{{ $rate['price'] }}"
+                                           data-name="{{ $rate['name'] }}"
+                                           data-levels="{{ $rate['levels'] }}"
+                                           data-validity="{{ $rate['term'] }}"
+                                           data-id="{{ $rate['id'] }}"
+                                        >@lang('messages.subscribe')</a>
+                                    @endif
+                                        <a href="{{ Auth::check() ? route('tariff', ['id' => $rate['id']]) : route('about.tariffs', ['id' => $rate['id']]) }}" class="btn btn-main-carousel btn-md btn-flat rate-carousel__button">@lang('messages.more')</a>
                                 </div>
                             </div>
                         @endforeach
@@ -316,6 +369,21 @@
 @section('js')
     <script>
         $(document).ready(function () {
+
+            $(".subscribe__button").on("click", function(){
+                var price = $(this).data("price"),
+                    name = $(this).data("name"),
+                    levels = $(this).data("levels"),
+                    validity = $(this).data("validity"),
+                    id = $(this).data("id");
+
+                $(".modal_tariff_name").text(name);
+                $(".modal_tariff_price").text(price);
+                $(".modal_tariff_levels").text(levels);
+                $(".modal_tariff_validity").text(validity);
+                $(".modal_tariff_subscribe").prop("href", "{{ url('/cabinet/tariff/buy') }}"+"/"+id);
+            });
+
             var is_three = false;
             $(".main-carousel").owlCarousel({
                 items: 1,

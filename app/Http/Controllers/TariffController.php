@@ -26,6 +26,7 @@ class TariffController extends Controller
         ];
         return view('cabinet.tariff.index', [
             'data' => $data,
+            'user' => \Auth::user(),
             'tariffs' => $tariffs,
             'tariff_info' => isset($tariff) ? $tariff : "",
             "subscription" => isset($subscriptionPrices) ? $subscriptionPrices : ""
@@ -45,7 +46,7 @@ class TariffController extends Controller
 
         if ($user->balance < $subscription->price) {
             return back()->withErrors([
-                'Не достаточно средств. <a href="' . route('facilities', ['type' => 'input']) . '">Пополните</a> пожалуйста счет.'
+                __("messages.insufficient_funds").' <a href="' . route('facilities', ['type' => 'input']) . '">'.__("messages.refill").'</a>, '.__("messages.bill_please").' .'
             ]);
         }
 
@@ -57,7 +58,7 @@ class TariffController extends Controller
         $user->balance = $user->balance - $subscription->price;
         $user->save();
 
-        \Session::flash('messages', ['Вы успешно подписались на тариф ' . $subscription->name . '. Приятного заработка!']);
+        \Session::flash('messages', [__("messages.success_subscribe") ." ". $subscription->name . '. '.__("messages.nice_earning")]);
 
         return redirect(route('tariff', ['index' => -1]));
     }

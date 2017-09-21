@@ -385,6 +385,9 @@ section h1{
     .price-info-item {
         width: 49%;
     }
+    .modal-dialog {
+        width: 620px;
+    }
 }
 
 
@@ -578,4 +581,8 @@ section h1{
     -khtml-user-select: text !important;
     -webkit-user-select: text !important;
     user-select: text !important;
+}
+.modal_tariff_name{
+    margin-top: 10px;
+    margin-bottom: 30px;
 }

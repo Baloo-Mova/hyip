@@ -185,6 +185,9 @@
         margin-right: -2px;
         min-width: 127px;
     }
+    .modal-dialog {
+        width: 620px;
+    }
 }
 .input-budjet__wrap{
     margin: 20px 0px;
@@ -340,4 +343,8 @@ td.day.active{
     -khtml-user-select: text !important;
     -webkit-user-select: text !important;
     user-select: text !important;
+}
+.modal_tariff_name{
+    margin-top: 10px;
+    margin-bottom: 30px;
 }

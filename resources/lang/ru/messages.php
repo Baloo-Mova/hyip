@@ -99,6 +99,15 @@ return [
     'answer' => 'Ответ',
     'view_a_post' => 'посмотреть запись',
     'no_items' => 'Нет записей',
+    'subscribed' => 'Ваш тариф',
+    'cansel' => 'Отмена',
+    'subscribe_tariff' => 'Подписка на тариф',
+    'levelss' => 'уровня',
+    'success_subscribe' => 'Вы успешно подписались на тариф',
+    'nice_earning' => 'Приятного заработка!',
+    'insufficient_funds' => 'Недостаточно средств.',
+    'refill' => 'Пополните',
+    'bill_please' => 'пожалуйста счет',
 
     /*
      * Pages titles

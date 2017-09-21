@@ -98,6 +98,15 @@ return [
     'answer' => 'Answer',
     'view_a_post' => 'view a post',
     'no_items' => 'No items',
+    'subscribed' => 'You tariff',
+    'cansel' => 'Cansel',
+    'subscribe_tariff' => 'Subscribe tariff',
+    'levelss' => 'levels',
+    'success_subscribe' => 'You have successfully subscribed to',
+    'nice_earning' => 'Have a nice earning!',
+    'insufficient_funds' => 'Insufficient funds.',
+    'refill' => 'Refill',
+    'bill_please' => 'bill, please',
 
 
     /*
