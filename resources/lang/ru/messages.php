@@ -2,6 +2,10 @@
 
 return [
 
+    'level_1' => 'уровень',
+    'level_2-4' => 'уровня',
+    'level_5' => 'уровней',
+
     /*
      * Main page titles
      */

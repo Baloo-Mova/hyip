@@ -14,8 +14,7 @@
                 <div class="modal-body">
                     <h3 class="text-center modal_tariff_name "></h3>
                     <div class="col-xs-12 col-md-4 text-center">
-                        <p class="tariff___ref-sys">
-                            <span class="modal_tariff_levels"></span> @lang('messages.levelss')
+                        <p class="tariff___ref-sys modal_tariff_levels">
                         </p>
                         <label>@lang('messages.ref_sys')</label>
                     </div>
@@ -110,7 +109,11 @@
                 <h3 class="tariff___name">{{ isset($tariff_info->name) ? $tariff_info->name : "" }}</h3>
                 <div class="col-xs-12 col-md-4">
                     <p class="tariff___ref-sys">
-                        {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} @lang('messages.level')
+                        @if(Session::get('applocale') != "en" && isset($tariff_info->levels))
+                            {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} {{ $tariff_info->levels == 1 ? "уровень" : ($tariff_info->levels > 1 && $tariff_info->levels < 5 ? "уровня" : "уровней" ) }}
+                        @else
+                            {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} @lang('messages.level')
+                        @endif
                     </p>
                     <h4>@lang('messages.ref_sys')</h4>
                 </div>
@@ -161,9 +164,21 @@
                     validity = $(this).data("validity"),
                     id = $(this).data("id");
 
+                var lev = "";
+
+                if(levels == 1){
+                    lev = "{{ __('messages.level_1') }}";
+                }else{
+                    if(levels > 1 && levels < 5){
+                        lev = "{{ __('messages.level_2-4') }}";
+                    }else{
+                        lev = "{{ __('messages.level_5') }}";
+                    }
+                }
+
                     $(".modal_tariff_name").text(name);
                     $(".modal_tariff_price").text(price);
-                    $(".modal_tariff_levels").text(levels);
+                    $(".modal_tariff_levels").text(levels+ " "+lev);
                     $(".modal_tariff_validity").text(validity);
                     $(".modal_tariff_subscribe").prop("href", "{{ url('/cabinet/tariff/buy') }}"+"/"+id);
             });
@@ -186,7 +201,20 @@
                                 $(this).hide();
                             });
                             $(".tariff_" + id).addClass("active_tariff");
-                            $(".tariff___ref-sys").text(data.info.levels+" {{ __("messages.level") }}");
+
+                            var lev = "";
+
+                            if(data.info.levels == 1){
+                                lev = "{{ __('messages.level_1') }}";
+                            }else{
+                                if(data.info.levels > 1 && data.info.levels < 5){
+                                    lev = "{{ __('messages.level_2-4') }}";
+                                }else{
+                                    lev = "{{ __('messages.level_5') }}";
+                                }
+                            }
+
+                            $(".tariff___ref-sys").text(data.info.levels+" "+lev);
                             $(".tariff___name").text(data.info.name);
                             $(".tariff___price").text(data.info.price+"₽");
                             $(".tariff___term").text(data.info.term+" {{ __("messages.days") }}");

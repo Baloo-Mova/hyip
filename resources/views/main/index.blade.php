@@ -13,8 +13,7 @@
                 <div class="modal-body">
                     <h3 class="text-center modal_tariff_name "></h3>
                     <div class="col-xs-12 col-md-4 text-center">
-                        <p class="tariff___ref-sys">
-                            <span class="modal_tariff_levels"></span> @lang('messages.levelss')
+                        <p class="tariff___ref-sys modal_tariff_levels">
                         </p>
                         <label>@lang('messages.ref_sys')</label>
                     </div>
@@ -377,9 +376,21 @@
                     validity = $(this).data("validity"),
                     id = $(this).data("id");
 
+                var lev = "";
+
+                if(levels == 1){
+                    lev = "{{ __('messages.level_1') }}";
+                }else{
+                    if(levels > 1 && levels < 5){
+                        lev = "{{ __('messages.level_2-4') }}";
+                    }else{
+                        lev = "{{ __('messages.level_5') }}";
+                    }
+                }
+
                 $(".modal_tariff_name").text(name);
                 $(".modal_tariff_price").text(price);
-                $(".modal_tariff_levels").text(levels);
+                $(".modal_tariff_levels").text(levels+" "+lev);
                 $(".modal_tariff_validity").text(validity);
                 $(".modal_tariff_subscribe").prop("href", "{{ url('/cabinet/tariff/buy') }}"+"/"+id);
             });
