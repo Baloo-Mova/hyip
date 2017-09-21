@@ -7,14 +7,14 @@
             <a href="{{ route('admin.articles.list') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
-                back to list
+                назад
             </a>
 
             <h3 class="sub-header">
                 @if( empty($item->id) )
-                    Create article
+                    Добавить запись
                 @else
-                    Edit article
+                    Редактировать запись
                 @endif
             </h3>
         </div>
@@ -24,7 +24,7 @@
 
             <div class="col-md-6">
                 <div class="form-group @if( is_error('title') )has-error @endif">
-                    {!! Form::label('edit-form-title', '* Title') !!}
+                    {!! Form::label('edit-form-title', '* Заголовок') !!}
                     {!! Form::text('title', !empty($old_input['title']) ? $old_input['title'] : $item->title, ['id' => 'edit-form-title', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
                     @if( is_error('title') )
                         <span class="help-block">{{ $errors->first('title') }}</span>
@@ -32,9 +32,9 @@
                 </div>
 
                 <div class="form-group @if( is_error('lang') )has-error @endif">
-                    <label for="lang">Language</label>
+                    <label for="lang">Язык</label>
                     <select name="lang" class="form-control" id="lang">
-                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Выберите язык</option>
                         @foreach(config('languages') as $key=>$lang)
                             <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
                         @endforeach
@@ -45,13 +45,13 @@
                 </div>
 
                 <div class="form-group @if( is_error('image') ) has-error @endif" id="article-edit-image">
-                    {!! Form::label('image', 'Image') !!}
+                    {!! Form::label('image', 'Картинка') !!}
                     @if( !empty($item->photo) )
                         <div style="width: 110px;">
                             <div style="width: 100px; margin: 0 auto; padding: 0;">
                                 <img src="{{ route('get.image', ['type' => 'blog', 'name' => $item->photo]) }}" width="100px" />
                             </div>
-                            <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteArticleImage()">Delete</button>
+                            <button class="btn btn-primary" style="margin: 0 auto;" type="button" onclick="deleteArticleImage()">Удалить</button>
                         </div>
                     @else
                         {!! Form::file('image', []) !!}
@@ -71,13 +71,13 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    {!! Form::label('edit-form-content', '* Content') !!}
+                    {!! Form::label('edit-form-content', '* Текст') !!}
                     {!! Form::textarea('content', !empty($old_input['content']) ? $old_input['content'] : $item->content, ['cols' => '8', 'rows' => '5', 'id' => 'edit-form-content', 'class' => 'form-control', 'required' => 'required']) !!}
                 </div>
                 @if(!empty($item->id))
                     <div class="form-group">
                         {!! Form::checkbox('published', 1, !empty($old_input['published']) || !empty($item->published) ? true : false) !!}
-                        {!! Form::label('published', 'Published') !!}
+                        {!! Form::label('published', 'Активна') !!}
                     </div>
                 @endif
             </div>
@@ -92,7 +92,7 @@
         </div>
 
             <div class="col-md-12" style="margin-top: 25px;">
-                {!! Form::customButton('Save', 'btn btn-primary', 'fa-floppy-o') !!}
+                {!! Form::customButton('Сохранить', 'btn btn-primary', 'fa-floppy-o') !!}
             </div>
 
         {!! Form::close() !!}

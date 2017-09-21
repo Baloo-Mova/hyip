@@ -6,9 +6,9 @@
     <div>
         <a href='{{ route('admin.contacts.add') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add
+            Добавить
         </a>
-        <h1 class="sub-header">Contacts</h1>
+        <h1 class="sub-header">Контакты</h1>
     </div>
 
     @if (count($items))
@@ -16,9 +16,9 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Value</th>
-                        <th>Type</th>
-                        <th>Date</th>
+                        <th>Запись</th>
+                        <th>Тип</th>
+                        <th>Дата</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -26,7 +26,7 @@
                     @foreach($items as $item)
                         <tr class="item-{{ $item->id }}">
                             <td>{{ $item->value }}</td>
-                            <td>{{ $item->type_id == 1 ? "Email" : "Phone"}}</td>
+                            <td>{{ $item->type_id == 1 ? "Email" : "Телефон"}}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>
                                 <a href='{{ route('admin.contacts.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -42,13 +42,13 @@
             </div>
         </div>
     @else
-        <div>No contacts</div>
+        <div>Нет контактов</div>
     @endif
 
 @push('footer-scripts')
     <script type="text/javascript">
         var deleteContacts = function( id ) {
-            if( typeof(id) != 'undefined' && id != '' && confirm('Delete a contact?') ) {
+            if( typeof(id) != 'undefined' && id != '' && confirm('Удалить контакт?') ) {
                 document.location.href = "/admin/contacts/delete/" + id;
             }
         };

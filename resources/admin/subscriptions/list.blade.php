@@ -6,9 +6,9 @@
     <div>
         <a href='{{ route('admin-add-subscription') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add
+            Добавить
         </a>
-        <h1 class="sub-header">Subscriptions</h1>
+        <h1 class="sub-header">Тарифы</h1>
     </div>
 
     @if (count($items))
@@ -17,10 +17,10 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Term</th>
-                        <th>Active</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Срок действия</th>
+                        <th>Включен</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -31,7 +31,7 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->price }}₽</td>
                             <td>{{ $item->term }}</td>
-                            <td>{{ $item->is_active ? 'yes' : 'no' }}</td>
+                            <td>{{ $item->is_active ? 'да' : 'нет' }}</td>
                             <td>
                                 <a href='{{ route('admin-get-subscription', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;
@@ -46,7 +46,7 @@
             </div>
         </div>
     @else
-        <div>No subscriptions</div>
+        <div>Нет тарифов</div>
     @endif
 
 @push('footer-scripts')

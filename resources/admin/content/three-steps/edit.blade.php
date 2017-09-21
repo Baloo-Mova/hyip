@@ -5,7 +5,7 @@
 
     <div>
         <h3 class="sub-header">
-            Three steps text
+            Текст 3 шага
         </h3>
     </div>
 
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('input_title') )has-error @endif">
-                    <label for="main_title">Main title</label>
+                    <label for="main_title">Заголовк</label>
                     <input type="text"
                            name="main_title"
                            value="{{ !empty($item->main_title) ? $item->main_title : '' }}"
@@ -38,9 +38,9 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('lang') )has-error @endif">
-                    <label for="lang">Language</label>
+                    <label for="lang">Язык</label>
                     <select name="lang" class="form-control" id="lang">
-                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Выберите язык</option>
                         @foreach(config('languages') as $key=>$lang)
                             <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
                         @endforeach
@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('first_title') )has-error @endif">
-                    <label for="first_title">First title</label>
+                    <label for="first_title">Первый заголовк</label>
                     <input type="text"
                            name="first_title"
                            value="{{ !empty($item->first_title) ? $item->first_title : '' }}"
@@ -68,7 +68,7 @@
                     @endif
                 </div>
                 <div class="form-group @if( is_error('first_text') )has-error @endif">
-                    <label for="first_text">First text</label>
+                    <label for="first_text">Первый текст</label>
                     <textarea name="first_text" id="first_text" class="form-control" rows="10">{{ !empty($item->first_text) ? $item->first_text : '' }}</textarea>
                     @if( is_error('first_text') )
                         <span class="help-block">{{ $errors->first('first_text') }}</span>
@@ -77,7 +77,7 @@
             </div>
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('second_title') )has-error @endif">
-                    <label for="second_title">Second title</label>
+                    <label for="second_title">Второй заголовок</label>
                     <input type="text"
                            name="second_title"
                            value="{{ !empty($item->second_title) ? $item->second_title : '' }}"
@@ -90,7 +90,7 @@
                     @endif
                 </div>
                 <div class="form-group @if( is_error('second_text') )has-error @endif">
-                    <label for="second_text">Second text</label>
+                    <label for="second_text">Второй текст</label>
                     <textarea name="second_text" id="second_text" class="form-control" rows="10">{{ !empty($item->second_text) ? $item->second_text : '' }}</textarea>
                     @if( is_error('second_text') )
                         <span class="help-block">{{ $errors->first('second_text') }}</span>
@@ -99,7 +99,7 @@
             </div>
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('third_title') )has-error @endif">
-                    <label for="third_title">Third title</label>
+                    <label for="third_title">Третий заголовк</label>
                     <input type="text"
                            name="third_title"
                            value="{{ !empty($item->third_title) ? $item->third_title : '' }}"
@@ -112,7 +112,7 @@
                     @endif
                 </div>
                 <div class="form-group @if( is_error('third_text') )has-error @endif">
-                    <label for="third_text">Third text</label>
+                    <label for="third_text">Третий текст</label>
                     <textarea name="third_text" id="third_text" class="form-control" rows="10">{{ !empty($item->third_text) ? $item->third_text : '' }}</textarea>
                     @if( is_error('third_text') )
                         <span class="help-block">{{ $errors->first('third_text') }}</span>
@@ -125,7 +125,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-main-carousel btn-flat ">Save</button>
+                    <button type="submit" class="btn btn-main-carousel btn-flat ">Сохранить</button>
                 </div>
             </div>
         </div>

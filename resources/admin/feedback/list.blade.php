@@ -4,7 +4,7 @@
     @include('Admin::alerts')
 
     <div>
-        <h1 class="sub-header">Feedback</h1>
+        <h1 class="sub-header">Обратная связь</h1>
     </div>
 
     <div>
@@ -20,9 +20,9 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Date</th>
+                        <th>Имя</th>
+                        <th>Статус</th>
+                        <th>Дата</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -31,7 +31,7 @@
                         <tr class="item-{{ $item->id }}">
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->is_read ? $item->is_reply ? 'Is reply' : 'Is read' : 'Is new' }}</td>
+                            <td>{{ $item->is_read ? $item->is_reply ? 'Отвеченное' : 'Прочтенное' : 'Новое' }}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>
                                 <a href='{{ route('admin-get-feedback', ['type' => str_replace('admin/feedback/', '', $current_uri),'id' => $item->id]) }}'><i class="fa fa-book" aria-hidden="true"></i></a>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         @else
-            <div>No feedback</div>
+            <div>Нет сообщений</div>
         @endif
 
 

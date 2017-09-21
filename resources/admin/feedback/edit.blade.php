@@ -7,11 +7,11 @@
             <a href="{{ route('admin-feedback-list', ['type' => explode('/', str_replace('admin/feedback/', '', $current_uri))[0]]) }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
-                back to list
+                назад
             </a>
 
             <h3 class="sub-header">
-                Send answer
+                Отправить сообщение
             </h3>
         </div>
 
@@ -19,7 +19,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                {!! Form::label('name', 'Name') !!}
+                {!! Form::label('name', 'Имя') !!}
                 {!! Form::text('name', $item->name, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
             </div>
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                {!! Form::label('', 'Question') !!}
+                {!! Form::label('', 'Вопрос') !!}
                 {!! Form::textarea('', $item->question, ['cols' => '8', 'rows' => '5', 'class' => 'form-control', 'readonly' => 'readonly']) !!}
             </div>
         </div>
@@ -40,13 +40,13 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    {!! Form::label('answer', 'Answer') !!}
+                    {!! Form::label('answer', 'Ответ') !!}
                     {!! Form::textarea('answer', !empty($item->answer) ? $item->answer : '', ['cols' => '8', 'rows' => '5', 'id' => 'answer', 'class' => 'form-control', 'required' => 'required', !empty($item->answer) ? 'readonly="readonly"' : '']) !!}
                 </div>
             </div>
 
             <div class="col-md-12" style="margin-top: 25px;">
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="submit" class="btn btn-primary">Отправить</button>
             </div>
 
         {!! Form::close() !!}

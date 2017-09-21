@@ -4,7 +4,7 @@
     @include('Admin::alerts')
 
     <div>
-        <h1 class="sub-header">Blacklist</h1>
+        <h1 class="sub-header">Черный список</h1>
     </div>
 
     <div class="table-responsive">
@@ -12,9 +12,9 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Login</th>
+                    <th>Логин</th>
                     <th>Email</th>
-                    <th>Date of registration</th>
+                    <th>Дата регистрации</th>
                     <th></th>
                 </tr>
             </thead>

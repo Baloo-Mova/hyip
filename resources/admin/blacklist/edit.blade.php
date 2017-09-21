@@ -7,11 +7,11 @@
             <a href="{{ route('admin.blacklist') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
-                back to list
+                назад
             </a>
 
             <h3 class="sub-header">
-                Banned user
+                Пользователи в черном листе
             </h3>
         </div>
 
@@ -22,7 +22,7 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="login">Login</label>
+                    <label for="login">Логин</label>
                     <input type="text"
                            value="{{ $item->login }}"
                            id="login"
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">Phone</label>
+                    <label for="phone">Телефон</label>
                     <input type="text"
                            value="{{ $item->phone }}"
                            id="phone"
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="balance">Balance</label>
+                    <label for="balance">Баланс</label>
                     <input type="text"
                            value="{{ $item->balance }}"
                            id="balance"
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="referrer-email">Referrer</label>
+                    <label for="referrer-email">Реферрер</label>
                     <input type="text"
                            value="{{ !empty($item->referrer) ? $item->referrer->email : '' }}"
                            id="referrer-email"
@@ -87,7 +87,7 @@
                            id="banned"
                            @if($item->is_banned) checked @endif
                     >
-                    <label for="banned">Banned</label>
+                    <label for="banned">Забанен</label>
                 </div>
             </div>
 
@@ -95,7 +95,7 @@
                 <button class="btn btn-primary">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                     &nbsp;&nbsp;
-                    Save
+                    Сохранить
                 </button>
             </div>
 

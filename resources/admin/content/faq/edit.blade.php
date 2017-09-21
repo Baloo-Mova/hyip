@@ -7,14 +7,14 @@
             <a href="{{ route('admin.faq.list') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
-                back to list
+                назад
             </a>
 
             <h3 class="sub-header">
                 @if( empty($item->id) )
-                    Create FAQ
+                    Создать Вопрос-ответ
                 @else
-                    Edit FAQ
+                    Редактировать Вопрос-ответ
                 @endif
             </h3>
         </div>
@@ -27,9 +27,9 @@
             <div class="col-md-12">
 
                 <div class="form-group @if( is_error('lang') )has-error @endif">
-                    <label for="lang">Language</label>
+                    <label for="lang">Язык</label>
                     <select name="lang" class="form-control" id="lang">
-                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Выберите язык</option>
                         @foreach(config('languages') as $key=>$lang)
                             <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
                         @endforeach
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="form-group @if( is_error('question') )has-error @endif">
-                    <label for="edit-form-question">* Question</label>
+                    <label for="edit-form-question">* Вопрос</label>
                     <input type="text"
                            name="question"
                            value="{{ !empty($item->question) ? $item->question : '' }}"
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="form-group @if( is_error('answer') )has-error @endif">
-                    <label for="edit-form-answer">* Answer</label>
+                    <label for="edit-form-answer">* Ответ</label>
                     <textarea name="answer"
                               id="edit-from-answer"
                               cols="8"
@@ -75,14 +75,14 @@
                                {{ !empty($old_input['is_active']) || !empty($item->is_active) ? 'checked="checked"' : '' }}
                                value="1"
                                id="edit-form-active">
-                        <label for="edit-form-active">Published</label>
+                        <label for="edit-form-active">Активен</label>
                     </div>
                 @endif
 
                 <button class="btn btn-primary">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                     &nbsp;&nbsp;
-                    Save
+                    Сохранить
                 </button>
             </div>
 

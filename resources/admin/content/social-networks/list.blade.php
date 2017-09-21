@@ -5,9 +5,9 @@
     <div>
         <a href='{{ route('admin.social-networks.add') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add
+            Добавить
         </a>
-        <h1 class="sub-header">Social networks</h1>
+        <h1 class="sub-header">Ссылки соц. сетей</h1>
     </div>
 
     @if (count($items))
@@ -16,9 +16,9 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Icon</th>
-                    <th>Date</th>
+                    <th>Название</th>
+                    <th>Иконка</th>
+                    <th>Дата</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -34,7 +34,7 @@
                         <td>
                             <a href='{{ route('admin.social-networks.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;&nbsp;&nbsp;
-                            <a href="{{ route('admin.social-networks.delete', ['id' => $item->id]) }}" onclick="return confirm('Delete this item?')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="{{ route('admin.social-networks.delete', ['id' => $item->id]) }}" onclick="return confirm('Удалить эту запись?')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -45,7 +45,7 @@
             </div>
         </div>
     @else
-        <div>No items</div>
+        <div>Нет ссылок</div>
     @endif
 @endsection
 

@@ -5,7 +5,7 @@
 
     <div>
         <h3 class="sub-header">
-            Social networks share links
+            Ссылки соц.сетей поделиться
         </h3>
     </div>
 
@@ -17,7 +17,7 @@
             <div class="col-xs-12 col-md-4">
                 <div class="help_block h180">
                     <div class="form-group @if( is_error('text') )has-error @endif">
-                        <label for="text">Share text</label>
+                        <label for="text">Текст</label>
                         <textarea name="text" id="text" class="form-control">{{ !empty($item->text) ? $item->text : '' }}</textarea>
                         @if( is_error('name') )
                             <span class="help-block">{{ $errors->first('name') }}</span>
@@ -79,11 +79,11 @@
                         <div class="help_block">
                             <input type="hidden" name="name[{{$key}}]" value="{{$key}}">
                             <div class="form-group">
-                                <label for="link[{{$key}}]">{{$key}} link</label>
+                                <label for="link[{{$key}}]">{{$key}} ссылка</label>
                                 <input type="text" name="link[{{$key}}]" class="form-control" value="{{ !empty($share->link) ? $share->link : '' }}">
                             </div>
                             <div class="form-group">
-                                <label for="icon[{{$key}}]">{{$key}} icon</label>
+                                <label for="icon[{{$key}}]">{{$key}} иконка</label>
                                 <select name="icon[{{$key}}]" id="icon[{{$key}}]" class="form-control">
                                     <option disabled {{ !empty($share->icon) ? "" : "selected" }}></option>
                                     <option value="demo-icon icon-vk" {{ !empty($share->icon) && $share->icon == "demo-icon icon-vk" ? "selected" : "" }}>
@@ -104,7 +104,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="color[{{$key}}]">{{$key}} icon color</label>
+                                <label for="color[{{$key}}]">{{$key}} цвет иконки</label>
                                 <select name="color[{{$key}}]" id="color[{{$key}}]" class="form-control">
                                     <option disabled {{ !empty($share->color) ? "" : "selected" }}></option>
                                     <option value="vk_color" class="vk_color" {{ !empty($share->color) && $share->color == "vk_color" ? "selected" : "" }}>
@@ -127,7 +127,7 @@
                             <div class="form-group">
                                 <label for="need_show[{{$key}}]">
                                     <input type="checkbox" name="need_show[{{$key}}]" id="need_show[{{$key}}]" {{ !empty($share) && $share->need_show == 1 ? "checked" : "" }}>
-                                    Need show
+                                    Активна
                                 </label>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
         <div class="row mt20">
             <div class="col-xs-12 col-md-12">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-main-carousel btn-flat ">Save</button>
+                    <button type="submit" class="btn btn-main-carousel btn-flat ">Сохранить</button>
                 </div>
             </div>
         </div>

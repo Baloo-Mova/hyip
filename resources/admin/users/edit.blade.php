@@ -4,7 +4,7 @@
     @include('Admin::alerts')
 
     <div>
-        <h1 class="sub-header">Edit user by ID: {{$user->id}}</h1>
+        <h1 class="sub-header">Редактировать пользователя ID: {{$user->id}}</h1>
     </div>
     <div class="col-xs-12 col-lg-6">
         <div class="box">
@@ -13,7 +13,7 @@
                 <form action="{{route('admin-users-update',['id'=>$user->id])}}" method="post">
                     {{csrf_field()}}
                     <div class="form-group">
-                        <label>Login</label>
+                        <label>Логин</label>
                         <input name="login" value="{{$user->login}}" class="form-control">
                     </div>
                     <div class="form-group">
@@ -21,11 +21,11 @@
                         <input name="email" value="{{$user->email}}" type="email" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
+                        <label>Телефон</label>
                         <input name="phone" value="{{$user->phone}}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label>Role</label>
+                        <label>Роль</label>
                         <select name="role" class="form-control">
                             @foreach($roles as $state)
                                 @if($user->role == $state['id'])
@@ -37,11 +37,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Balance</label>
+                        <label>Баланс</label>
                         <input name="balance" value="{{$user->balance}}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="">Is Banned</label>
+                        <label for="">Забанен</label>
                         <select name="is_banned" class="form-control">
                             @foreach($banState as $state)
                                 @if($user->is_banned == $state['id'])
@@ -54,8 +54,8 @@
                     </div>
 
 
-                    <input type="submit" class="btn btn-primary" value="Update">
-                    <a href="{{route('admin-users-list')}}" class="btn btn-default" style="float: right;"> Back</a>
+                    <input type="submit" class="btn btn-primary" value="Сохранить">
+                    <a href="{{route('admin-users-list')}}" class="btn btn-default" style="float: right;"> Назад</a>
                 </form>
             </div>
         </div>

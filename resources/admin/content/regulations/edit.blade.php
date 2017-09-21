@@ -7,13 +7,13 @@
             <a href="{{ route('admin.regulations.list') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
-                back to list
+                назад
             </a>
             <h3 class="sub-header">
                 @if( empty($item->id) )
-                    Create regulations
+                    Создать запись
                 @else
-                    Edit regulations
+                    Редактировать запись
                 @endif
             </h3>
         </div>
@@ -29,7 +29,7 @@
 
             <div class="col-md-12">
                 <div class="form-group @if( is_error('title') )has-error @endif">
-                    <label for="edit-form-title">* Title</label>
+                    <label for="edit-form-title">* Заголовок</label>
                     <input type="text"
                            name="title"
                            value="{{ !empty($old_input['title']) ? $old_input['title'] : $item->title }}"
@@ -43,9 +43,9 @@
                     @endif
                 </div>
                 <div class="form-group @if( is_error('lang') )has-error @endif">
-                    <label for="lang">Language</label>
+                    <label for="lang">Язык</label>
                     <select name="lang" class="form-control" id="lang">
-                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Выберите язык</option>
                         @foreach(config('languages') as $key=>$lang)
                             <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
                         @endforeach
@@ -55,7 +55,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="edit-form-content">* Content</label>
+                    <label for="edit-form-content">* Текст</label>
                     <textarea name="content"
                               required
                               id="edit-form-content"
@@ -67,7 +67,7 @@
                            value="1"
                            {{ !empty($old_input['is_active']) || !empty($item->is_active) ? 'checked' : '' }}
                            id="edit-form-active">
-                    <label for="edit-form-active">Published</label>
+                    <label for="edit-form-active">Активен</label>
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                 <button class="btn btn-primary">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                     &nbsp;&nbsp;
-                    Save
+                    Сохранить
                 </button>
             </div>
 

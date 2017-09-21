@@ -7,13 +7,13 @@
         <a href="{{ route('admin.greetings.index') }}" class="btn-sm btn-primary pull-right">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
             &nbsp;&nbsp;
-            back to list
+            назад
         </a>
         <h3 class="sub-header">
             @if( empty($item->id) )
-                Create Greetings
+                Создать приветствие
             @else
-                Edit Greetings
+                Редактировать приветствие
             @endif
         </h3>
     </div>
@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('main_title') )has-error @endif">
-                    <label for="main_title">Main title</label>
+                    <label for="main_title">Заголовок</label>
                     <input type="text"
                            name="main_title"
                            value="{{ !empty($item->main_title) ? $item->main_title : '' }}"
@@ -43,7 +43,7 @@
                     @endif
                 </div>
                 <div class="form-group @if( is_error('image') )has-error @endif">
-                    <label for="image">Image</label>
+                    <label for="image">Картинка</label>
                     <br>
                     @if(isset($item) && isset($item->image))
                         <img src="{{ route('get.image', ['type' => 'greetings', 'name' => $item->image]) }}" alt="" style="width: 100px;">
@@ -58,7 +58,7 @@
                     @endif
                 </div>
                 <div class="form-group @if( is_error('sub_title') )has-error @endif">
-                    <label for="sub_title">Subtitle</label>
+                    <label for="sub_title">Подзаголовк</label>
                     <input type="text"
                            name="sub_title"
                            value="{{ !empty($item->sub_title) ? $item->sub_title : '' }}"
@@ -72,16 +72,16 @@
                     @endif
                 </div>
                 <div class="form-group @if( is_error('description') )has-error @endif">
-                    <label for="description">Text</label>
+                    <label for="description">Текст</label>
                     <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ !empty($item->description) ? $item->description : '' }}</textarea>
                     @if( is_error('description') )
                         <span class="help-block">{{ $errors->first('description') }}</span>
                     @endif
                 </div>
                 <div class="form-group @if( is_error('lang') )has-error @endif">
-                    <label for="lang">Language</label>
+                    <label for="lang">Язык</label>
                     <select name="lang" class="form-control" id="lang">
-                        <option disabled {{ !empty($item) ? "" : "selected" }}>Choose a language</option>
+                        <option disabled {{ !empty($item) ? "" : "selected" }}>Выберите язык</option>
                         @foreach(config('languages') as $key=>$lang)
                             <option value="{{ $key }}" {{ !empty($item->lang) && $item->lang == $key  ? "selected" : "" }}>{{ $lang }}</option>
                         @endforeach
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-main-carousel btn-flat ">{{ empty($item->id) ? "Create" : "Edit" }}</button>
+                    <button type="submit" class="btn btn-main-carousel btn-flat ">{{ empty($item->id) ? "Создать" : "Редактировать" }}</button>
                 </div>
             </div>
 

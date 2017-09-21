@@ -14,7 +14,7 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-                <span>Конент</span>
+                <span>Контент</span>
             </a>
             <ul class="treeview-menu menu-open">
                 <li class="@if( Route::currentRouteName() == 'admin.carousel.list') active @endif">

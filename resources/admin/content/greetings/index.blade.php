@@ -5,9 +5,9 @@
     <div>
         <a href='{{ route('admin.greetings.create') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add
+            Добавить
         </a>
-        <h1 class="sub-header">Greetings</h1>
+        <h1 class="sub-header">Приветствие</h1>
     </div>
 
 
@@ -15,8 +15,8 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Main title</th>
-                    <th>Lang</th>
+                    <th>Заголовк</th>
+                    <th>Язык</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -38,7 +38,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td class="text-center" colspan="3">No items</td>
+                            <td class="text-center" colspan="3">Нет записей</td>
                         </tr>
                     @endif
                 </tbody>

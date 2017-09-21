@@ -6,9 +6,9 @@
     <div>
         <a href='{{ route('admin.carousel.add') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add
+            Добавить
         </a>
-        <h1 class="sub-header">Carousel</h1>
+        <h1 class="sub-header">Карусель</h1>
     </div>
 
 
@@ -20,7 +20,7 @@
                             <th></th>
                             <th class="w200">
                                 <select name="lang" class="form-control" id="lang">
-                                    <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>All languages</option>
+                                    <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>Все языки</option>
                                     @foreach(config('languages') as $key=>$item)
                                         <option value="{{ $key }}" {{ isset($lang) && $lang == $key ? "selected" : "" }}>{{ $item }}</option>
                                     @endforeach
@@ -28,14 +28,14 @@
                             </th>
                             <th></th>
                             <th>
-                                <button type="submit" class="btn btn-primary">Select</button>
+                                <button type="submit" class="btn btn-primary">Выбрать</button>
                             </th>
                         </form>
                     </tr>
                     <tr>
-                        <th>Text</th>
-                        <th>Language</th>
-                        <th>Background image</th>
+                        <th>Текст</th>
+                        <th>Язык</th>
+                        <th>Изображение слайда</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -61,7 +61,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center" colspan="4">No items</td>
+                            <td class="text-center" colspan="4">Нет слайдов</td>
                         </tr>
                     @endforelse
                 </tbody>

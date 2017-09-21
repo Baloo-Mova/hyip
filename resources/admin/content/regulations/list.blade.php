@@ -6,9 +6,9 @@
     <div>
         <a href='{{ route('admin.regulations.add') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add
+            Добавить
         </a>
-        <h1 class="sub-header">Regulations</h1>
+        <h1 class="sub-header">Нормативно-правовые акты</h1>
     </div>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -18,7 +18,7 @@
                             <th></th>
                             <th class="w200">
                                 <select name="lang" class="form-control" id="lang">
-                                    <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>All languages</option>
+                                    <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>Все языки</option>
                                     @foreach(config('languages') as $key=>$item)
                                         <option value="{{ $key }}" {{ isset($lang) && $lang == $key ? "selected" : "" }}>{{ $item }}</option>
                                     @endforeach
@@ -26,14 +26,14 @@
                             </th>
                             <th></th>
                             <th>
-                                <button type="submit" class="btn btn-primary">Select</button>
+                                <button type="submit" class="btn btn-primary">Выбрать</button>
                             </th>
                         </form>
                     </tr>
                     <tr>
-                        <th>Title</th>
-                        <th>Language</th>
-                        <th>Published</th>
+                        <th>Заголовок</th>
+                        <th>Язык</th>
+                        <th>Активен</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -54,7 +54,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center">No items</td>
+                            <td colspan="4" class="text-center">Нет записей</td>
                         </tr>
                     @endforelse
                 </tbody>

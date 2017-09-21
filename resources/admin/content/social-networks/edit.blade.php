@@ -7,13 +7,13 @@
         <a href="{{ route('admin.social-networks.list') }}" class="btn-sm btn-primary pull-right">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
             &nbsp;&nbsp;
-            back to list
+            назад
         </a>
         <h3 class="sub-header">
             @if( empty($item->id) )
-                Create Social network
+                Создать ссылку соц.сети
             @else
-                Edit Social network
+                Редактировать ссылку соц.сети
             @endif
         </h3>
     </div>
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('name') )has-error @endif">
-                    <label for="name">Name</label>
+                    <label for="name">Название</label>
                     <input type="text"
                            name="name"
                            value="{{ !empty($item->name) ? $item->name : '' }}"
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="form-group @if( is_error('link') )has-error @endif">
-                    <label for="link">Link</label>
+                    <label for="link">Ссылка</label>
                     <input type="text"
                            name="link"
                            value="{{ !empty($item->link) ? $item->link : '' }}"
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="form-group @if( is_error('icon') )has-error @endif">
-                    <label for="icon">Icon</label>
+                    <label for="icon">Иконка</label>
                     <input type="text"
                            name="icon"
                            value="{{ !empty($item->icon) ? $item->icon : '' }}"
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-main-carousel btn-flat ">{{ empty($item->id) ? "Create" : "Edit" }}</button>
+                    <button type="submit" class="btn btn-main-carousel btn-flat ">{{ empty($item->id) ? "Создать" : "Редактировать" }}</button>
                 </div>
             </div>
 

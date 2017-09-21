@@ -23,18 +23,18 @@
     @endif
 
     <div>
-        <h1 class="sub-header">Dashboard</h1>
+        <h1 class="sub-header">Администрирование</h1>
     </div>
 
-    <h3>Users</h3>
+    <h3>Пользователи</h3>
     @if (count($users))
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Active</th>
-                        <th>Banned</th>
-                        <th>All</th>
+                        <th>Активных</th>
+                        <th>Забаненных</th>
+                        <th>Всех</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,14 +50,14 @@
         <div>No users</div>
     @endif
 
-    <h3>Subscriptions</h3>
+    <h3>Тарифы</h3>
     @if (count($subscriptions))
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Active</th>
+                    <th>Название</th>
+                    <th>Включен</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -65,7 +65,7 @@
                     @foreach($group as $subscription)
                         <tr>
                             <td><a href="{{ route('admin-get-subscription', ['id' => $subscription->id]) }}">{{ $subscription->name }}</a></td>
-                            <td>{{ $subscription->is_active ? 'Yes' : 'No' }}</td>
+                            <td>{{ $subscription->is_active ? 'Да' : 'Нет' }}</td>
                         </tr>
                     @endforeach
                 @endforeach

@@ -5,9 +5,9 @@
     <div>
         <a href='{{ route('admin.input-output.create') }}' class="btn-sm btn-primary pull-right">
             <i class="fa fa-plus-square" aria-hidden="true"></i>
-            Add
+            Добавить
         </a>
-        <h1 class="sub-header">Input/output text</h1>
+        <h1 class="sub-header">Ввод/вывод</h1>
     </div>
 
     <div class="table-responsive">
@@ -18,20 +18,20 @@
                     <th></th>
                     <th class="w200">
                         <select name="lang" class="form-control" id="lang">
-                            <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>All languages</option>
+                            <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>Все языки</option>
                             @foreach(config('languages') as $key=>$item)
                                 <option value="{{ $key }}" {{ isset($lang) && $lang == $key ? "selected" : "" }}>{{ $item }}</option>
                             @endforeach
                         </select>
                     </th>
                     <th>
-                        <button type="submit" class="btn btn-primary">Select</button>
+                        <button type="submit" class="btn btn-primary">Выбрать</button>
                     </th>
                 </form>
             </tr>
             <tr>
-                <th>Title</th>
-                <th class="w200">Lang</th>
+                <th>Заголовок</th>
+                <th class="w200">Язык</th>
                 <th></th>
             </tr>
             </thead>
@@ -53,7 +53,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td class="text-center" colspan="3">No items</td>
+                    <td class="text-center" colspan="3">Нет записей</td>
                 </tr>
             @endif
             </tbody>

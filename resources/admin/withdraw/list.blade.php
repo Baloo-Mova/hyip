@@ -4,7 +4,7 @@
     @include('Admin::alerts')
 
     <div>
-        <h1 class="sub-header">Withdraws</h1>
+        <h1 class="sub-header">Заявки на вывод</h1>
     </div>
 
     <div class="table-responsive">
@@ -16,10 +16,10 @@
                     <th></th>
                     <th class="w200">
                         <select name="status" id="" class="form-control status">
-                            <option value="0" {{ $status == 0 ? "selected" : "" }}>Unread</option>
-                            <option value="1" {{ $status == 1 ? "selected" : "" }}>Accepted</option>
-                            <option value="2" {{ $status == 2 ? "selected" : "" }}>Declined</option>
-                            <option value="3" {{ $status == 3 ? "selected" : "" }}>All</option>
+                            <option value="0" {{ $status == 0 ? "selected" : "" }}>Новая</option>
+                            <option value="1" {{ $status == 1 ? "selected" : "" }}>Принята</option>
+                            <option value="2" {{ $status == 2 ? "selected" : "" }}>Отклонена</option>
+                            <option value="3" {{ $status == 3 ? "selected" : "" }}>Все</option>
                         </select>
                     </th>
                     <th>
@@ -27,10 +27,10 @@
                 </tr>
                 <tr>
                     <th>Id</th>
-                    <th>Value</th>
-                    <th>User id</th>
-                    <th>Status</th>
-                    <th class="tar">Time</th>
+                    <th>Сумма</th>
+                    <th>Пользователь id</th>
+                    <th>Статус</th>
+                    <th class="tar">Время</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,11 +39,11 @@
                     <td>{{ $withdraw->id }}</td>
                     <td>{{ $withdraw->value }}₽</td>
                     <td>{{ $withdraw->from_id }}</td>
-                    <td>{{ ($withdraw->status == 0) ? "Unread" : (($withdraw->status == 1) ? "Accepted" : "Declined") }}</td>
+                    <td>{{ ($withdraw->status == 0) ? "Новая" : (($withdraw->status == 1) ? "Принята" : "Отклонена") }}</td>
                     <td class="tar">{{ \Carbon\Carbon::parse($withdraw->time)->format('d.m.Y H:i') }}</td>
                     <td>
                         @if($withdraw->status == 0)
-                            <a title="Edit" href="{{ route('admin.withdraws.edit', ['id' => $withdraw->id]) }}"><i
+                            <a title="Редактировать" href="{{ route('admin.withdraws.edit', ['id' => $withdraw->id]) }}"><i
                                         class="fa fa-edit"></i></a>
                         @endif
                     </td>
