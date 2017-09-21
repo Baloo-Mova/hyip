@@ -158,3 +158,19 @@ body {
 .countries_flag_header{
      width: 16px !important;
  }
+.user_select{
+    width: 100% !important;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff !important;
+    border: 1px solid #aaa !important;
+    border-radius: 0px !important;
+    height: 35px !important;
+    padding-top: 7px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 6px !important;
+}
+.select2-dropdown {
+    border-radius: 0px !important;
+}

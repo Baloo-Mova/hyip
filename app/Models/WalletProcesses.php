@@ -28,6 +28,7 @@ class WalletProcesses extends Model
     const REFERRALS = 1;
     const INPUT = 2;
     const OUTPUT = 3;
+    const BONUS = 4;
 
     const STATUS_UNREAD = 0;
     const STATUS_ACCEPT = 1;
@@ -62,5 +63,15 @@ class WalletProcesses extends Model
         }else{
             return \App\Models\WalletProcesses::where(['type_id' => 3, 'status' => $status])->orderBy('time', 'desc')->get();
         }
+    }
+
+    public function scopeBonuses()
+    {
+        return $this->where(['type_id' => $this::BONUS])->orderBy("created_at", "desc");
+    }
+
+    public function users()
+    {
+        return $this->hasOne(User::class, 'id', 'to_id');
     }
 }

@@ -121,6 +121,13 @@ Route::group([
         Route::get('delete/{id}', 'SubscriptionController@delete');
     });
 
+    Route::group(['prefix' => 'bonus'], function () {
+        Route::get('/', 'BonusController@index')->name('admin.bonus.index');
+        Route::get('/create', 'BonusController@create')->name('admin.bonus.create');
+        Route::post('/create', 'BonusController@save')->name('admin.bonus.save');
+        Route::get('/get-user', 'BonusController@getUser')->name('admin.get.user');
+    });
+
     Route::group(['namespace' => 'Content'], function () {
 
         Route::group(['prefix' => 'about-project'], function () {

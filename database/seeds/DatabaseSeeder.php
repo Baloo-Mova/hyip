@@ -36,6 +36,10 @@ class DatabaseSeeder extends Seeder
                 [
                     'id' => 3,
                     'name' => 'Вывод средств'
+                ],
+                [
+                    'id' => 4,
+                    'name' => 'Бонус'
                 ]
             ]);
         } catch (Exception $ex) {

@@ -5,6 +5,8 @@
         <li class="@if( preg_match('/^admin\/subscriptions/i', $current_uri) ) active @endif"><a
                     href='{{ route('admin-subscriptions-list') }}'>Тарифы</a></li>
         <li class="@if( preg_match('/^admin\/users/i', $current_uri) ) active @endif"><a href='{{ route('admin-users-list') }}'>Пользователи @if (\App\Models\UserConfirm::hasUnread()) <span class="title_unread" style="background: red">new</span>@endif</a></li>
+        <li class="@if( preg_match('/^admin\/bonus/i', $current_uri) ) active @endif"><a
+                    href='{{ route('admin.bonus.index') }}'>Бонусы</a></li>
         <li class="@if( preg_match('/^admin\/withdraws/i', $current_uri) ) active @endif"><a href='{{ route('admin.withdraws', ['status' => 0]) }}'>Заявки на вывод @if (\App\Models\WalletProcesses::hasWithdraws()) <span class="title_unread" style="background: red">new</span>@endif</a></li>
         <li class="@if( preg_match('/^admin\/sending-messages/i', $current_uri) ) active @endif"><a href='{{ route('admin.sending-messages') }}'>Сообщения</a></li>
         <li class="@if( preg_match('/^admin\/feedback/i', $current_uri) ) active @endif"><a href='{{ route('admin-feedback-list', ['type' => 'users']) }}'>Обратная связь @if (\App\Models\Feedback::hasUnreadFeedback()) <span class="title_unread" style="background: red">new</span>@endif</a></li>

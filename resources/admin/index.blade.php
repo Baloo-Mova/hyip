@@ -26,6 +26,7 @@
     @stack('header-scripts')
     @yield('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -55,6 +56,7 @@
 <script src="{{asset('/admin-cabinet/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/admin-cabinet/js/adminlte.js')}}"></script>
 <script src="{{asset('/admin-cabinet/js/app.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 @stack('footer-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
 @yield('js')
