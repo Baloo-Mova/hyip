@@ -118,6 +118,11 @@ Route::group([
         Route::get('/get-up', 'SettingsController@fromMaintenance')->name('admin.up.site');
     });
 
+    Route::group(['prefix' => 'money-history'], function () {
+        Route::get('/', 'MoneyHistoryController@index')->name('admin.money.history.index');
+        Route::post('/', 'MoneyHistoryController@find')->name('admin.money.history.find');
+    });
+
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::get('/', 'SubscriptionController@index')->name('admin-subscriptions-list');
         Route::get('/delete-img/{id}', 'SubscriptionController@deleteImg')->name('admin.tariff.delete.image');
