@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Cabinet\UserUpdateRequest;
 use App\Models\User;
+use App\Models\WalletProcesses;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\SocialNetwork;
+use App\Models\Referrals;
+use Illuminate\Support\Facades\DB;
 
 use Auth, Validator;
 
@@ -15,6 +18,20 @@ class CabinetController extends Controller
     public function index(Request $request)
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
+        $count = Referrals::where(['user_id' => Auth::id()])->count();
+        $ref = Referrals::select(DB::raw('level, count(id) as count, sum(earned) as sum'))
+            ->where(['user_id' => Auth::id()])
+            ->groupBy('level')
+            ->get();
+        $sum_all = 0;
+        if(!isset($ref)){
+            $sum_all = 0;
+        }else{
+            foreach ($ref as $r){
+                $sum_all += $r->sum;
+            }
+        }
+        $sum_out = WalletProcesses::where(['from_id' => \Auth::id(), 'status' => 0])->first();
         $data = [
             'contacts' => [
                 'social' => [
@@ -26,6 +43,10 @@ class CabinetController extends Controller
         $response = view('cabinet.index', [
             'user' => \Auth::user(),
             'data' => $data,
+            'count' => $count,
+            'info' => $ref,
+            'sum_all' => $sum_all,
+            'sum_out' => isset($sum_out) ? $sum_out->value : 0,
             'payedForDiff' =>Carbon::now()->diff(Carbon::parse(Auth::user()->subscribedFor))
         ]);
 

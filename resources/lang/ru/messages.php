@@ -132,6 +132,10 @@ return [
     'incorrect_password' => 'Неверный пароль',
     'email_is_verified' => 'Email успешно подтвержден',
     'user_login' => 'Логин',
+    'total_earned' => 'Заработано всего',
+    'means_application_withdrawal' => 'Средств в заявке на вывод',
+    'who_invited' => 'Кто пригласил',
+    'continue' => 'Продлить',
 
     /*
      * Pages titles

@@ -112,6 +112,12 @@ Route::group([
 
     Route::get('/', 'DashboardController@index')->name('admin-dashboard');
 
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/', 'SettingsController@index')->name('admin.settings.index');
+        Route::get('/get-down', 'SettingsController@toMaintenance')->name('admin.down.site');
+        Route::get('/get-up', 'SettingsController@fromMaintenance')->name('admin.up.site');
+    });
+
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::get('/', 'SubscriptionController@index')->name('admin-subscriptions-list');
         Route::post('add', 'SubscriptionController@postAdd');

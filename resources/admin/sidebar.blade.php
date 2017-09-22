@@ -2,6 +2,8 @@
     <ul class="nav nav-sidebar tree">
         <li class="@if( $current_uri == 'admin' ) active @endif"><a href='{{ route('admin-dashboard') }}'>Главная</a>
         </li>
+        <li class="@if( preg_match('/^admin\/settings/i', $current_uri) ) active @endif"><a
+                    href='{{ route('admin.settings.index') }}'>Настройки</a></li>
         <li class="@if( preg_match('/^admin\/subscriptions/i', $current_uri) ) active @endif"><a
                     href='{{ route('admin-subscriptions-list') }}'>Тарифы</a></li>
         <li class="@if( preg_match('/^admin\/users/i', $current_uri) ) active @endif"><a href='{{ route('admin-users-list') }}'>Пользователи @if (\App\Models\UserConfirm::hasUnread()) <span class="title_unread" style="background: red">new</span>@endif</a></li>

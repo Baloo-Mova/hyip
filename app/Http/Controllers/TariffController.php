@@ -12,7 +12,16 @@ class TariffController extends Controller
     public function index($id)
     {
         $tariffs = Subscription::where('is_active', 1)->with(['firstPrices'])->get();
-        $tariff = Subscription::find($id);
+
+        if($id != -1){
+            $tariff = Subscription::find($id);
+        }else{
+            $uid = \Auth::user()->subscribe_id;
+            if(isset($uid)){
+                $tariff = Subscription::find($uid);
+            }
+        }
+
         $social = SocialNetwork::where(['is_active' => 1])->get();
         if (isset($tariff)) {
             $subscriptionPrices = $tariff->firstPrices;

@@ -12,16 +12,21 @@
         <div class="col-xs-12">
             <div class="news__item refferals__wrap">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-12 col-md-2 col-md-offset-4">
                         <p class="tariff___price f40">{{ $count }}</p>
                         <h4>@lang("messages.total_referrals")</h4>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <p class="tariff___price f40">{{ $sum_all }}₽</p>
+                        <h4>@lang("messages.total_earned")</h4>
                     </div>
                     <div class="col-xs-12">
                         <div class="info-carousel price-info__wrap">
                             @foreach($info as $item)
                                 <div class="price-info-item">
                                     <p class="tariff___price">{{$item->count}}</p>
-                                    <h4>@lang("messages.referrals") {{ $item->level}} @lang("messages.level")</h4>
+                                    <h4>@lang("messages.referrals") {{ $item->level}} @lang("messages.level_2-4")</h4>
+                                    <p class="tariff___price">{{$item->sum}}₽</p>
                                 </div>
                             @endforeach
                         </div>
@@ -47,6 +52,7 @@
                                 <td>
                                     <input type="text" class="form-control btn-flat input_user_select" name="user_ref_name" value="{{ isset($search['user_ref_name']) ? $search['user_ref_name'] : "" }}">
                                 </td>
+                                <th></th>
                                 <td>
                                     <input type="text" class="form-control btn-flat input_user_select" name="user_ref_phone" value="{{ isset($search['user_ref_phone']) ? $search['user_ref_phone'] : "" }}">
                                 </td>
@@ -64,6 +70,7 @@
                         <tr>
                             <th>@lang("messages.Level")</th>
                             <th>@lang("messages.user_login")</th>
+                            <th>@lang("messages.who_invited")</th>
                             <th>@lang("messages.phone")</th>
                             <th>@lang("messages.date_of_registration")</th>
                             <th>@lang("messages.brought")</th>
@@ -76,6 +83,7 @@
                             <tr>
                                 <td>{{ $referral->level }}</td>
                                 <td>{{ $referral->user_ref_name }}</td>
+                                <td>{{ $referral->user_from == 0 ? "" : $referral->user_from }}</td>
                                 <td>{{ $referral->user_ref_phone }}</td>
                                 <td>{{ \Carbon\Carbon::parse($referral->created_at)->format('d.m.Y') }}</td>
                                 <td>{{ $referral->earned }}₽</td>

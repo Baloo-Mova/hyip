@@ -35,4 +35,39 @@
             </div>
         </div>
     </div>
+
+   <div class="row">
+       <div class="col-xs-12">
+           <div class="news__item refferals__wrap">
+               <div class="row">
+                   <div class="col-xs-4">
+                       <p class="tariff___price f40">{{ $sum_all }}₽</p>
+                       <h4>@lang("messages.total_earned")</h4>
+                   </div>
+                   <div class="col-xs-4">
+                       <p class="tariff___price f40">{{ $count }}</p>
+                       <h4>@lang("messages.total_referrals")</h4>
+                   </div>
+                   <div class="col-xs-4">
+                       <p class="tariff___price f40">{{ $sum_out }}₽</p>
+                       <h4>@lang("messages.means_application_withdrawal")</h4>
+                   </div>
+                   <div class="col-xs-12">
+                       <div class="info-carousel price-info__wrap">
+                           @foreach($info as $item)
+                               <div class="price-info-item">
+                                   <p class="tariff___price">{{$item->count}}</p>
+                                   <h4>@lang("messages.referrals") {{ $item->level}} @lang("messages.level_2-4")</h4>
+                               </div>
+                           @endforeach
+                       </div>
+                   </div>
+               </div>
+               <div class="row">
+
+               </div>
+           </div>
+       </div>
+   </div>
+
 @endsection

@@ -18,4 +18,8 @@ class Referrals extends Model
 
     public $timestamps = true;
     public $table='referrals';
+
+   /* public function invited(){
+        $this->hasOne(User::class, 'user_from', 'id');
+    }*/
 }

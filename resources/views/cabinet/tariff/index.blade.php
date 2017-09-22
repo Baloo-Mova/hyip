@@ -50,7 +50,9 @@
         <div class="col-xs-12">
             <div class="owl-carousel rate-carousel">
                 @foreach($tariffs as $tariff)
-                    <div class="rate-carousel-item rate-carousel-item--info-page tariff_{{ $tariff['id'] }} {{ !empty($tariff_info) && $tariff_info->id == $tariff['id']  ? "active_tariff" : "" }}">
+                    <div class="rate-carousel-item rate-carousel-item--info-page tariff_{{ $tariff['id'] }}
+                    {{ !empty($tariff_info) && $tariff_info->id == $tariff['id']  ? "active_tariff" : "" }}
+                         {{  isset($user->subscribe_id) && $user->subscribe_id == $tariff['id'] ? "active_tariff" : "" }}">
                         <div class="rate__img">
                             <img src="{{ asset('img/'.random_int(1,3).'.jpg') }}" class="" alt="">
                         </div>
@@ -81,7 +83,16 @@
                         </div>
                         <div class="rate__footer">
                             @if(isset($user->subscribe_id) && $user->subscribe_id == $tariff['id'] )
-                                <a class="btn btn-primary btn-md btn-flat rate-carousel__button">@lang('messages.subscribed')</a>
+                                <a href=""
+                                   class="btn btn-main-carousel btn-md btn-flat rate-carousel__button subscribe__button"
+                                   data-toggle="modal"
+                                   data-target="#myModal"
+                                   data-price="{{ $tariff['price'] }}"
+                                   data-name="{{ $tariff['name'] }}"
+                                   data-levels="{{ $tariff['levels'] }}"
+                                   data-validity="{{ $tariff['term'] }}"
+                                   data-id="{{ $tariff['id'] }}"
+                                >@lang('messages.continue')</a>
                             @else
                                 <a href=""
                                    class="btn btn-main-carousel btn-md btn-flat rate-carousel__button subscribe__button"
@@ -106,7 +117,7 @@
     <div class="row about-tariff__wrap {{ empty($tariff_info) ? "hidden" : "" }}">
         <div class="col-xs-12">
             <div class="news__item about-tariff__item">
-                <h3 class="tariff___name">{{ isset($tariff_info->name) ? $tariff_info->name : "" }}</h3>
+                <h3 class="tariff___name">{{ isset($tariff_info->name) ? $tariff_info->name : "" }} </h3>
                 <div class="col-xs-12 col-md-4">
                     <p class="tariff___ref-sys">
                         @if(Session::get('applocale') != "en" && isset($tariff_info->levels))

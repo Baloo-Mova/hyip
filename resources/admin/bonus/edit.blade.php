@@ -21,14 +21,17 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="bonus_item">
-                    <div class="form-group">
+                    <div class="form-group @if( is_error('bonus_type') )has-error @endif">
                         <label for="bonus_type1">
-                            <input type="radio" id="bonus_type1" name="bonus_type"> Пользователям из списка
+                            <input type="radio" class="bonus_item_radio" id="bonus_type1" name="bonus_type" value="1"> Пользователям из списка
                         </label>
+                        @if( is_error('user') )
+                            <span class="help-block">{{ $errors->first('bonus_type') }}</span>
+                        @endif
                     </div>
                     <div class="form-group @if( is_error('user') )has-error @endif">
                         <label for="user">Пользователь</label>
-                        <select class="user_select" name="user" id="user">
+                        <select class="user_select" name="user[]" id="user" multiple="multiple">
 
                         </select>
                         @if( is_error('user') )
@@ -37,17 +40,20 @@
                     </div>
                     <div class="form-group">
                         <label for="all_users">
-                            <input type="checkbox" id="all_users" name="all_users"> Всем пользователям
+                            <input type="checkbox" class="all_users" id="all_users" name="all_users"> Всем пользователям
                         </label>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-md-4">
                 <div class="bonus_item">
-                    <div class="form-group">
+                    <div class="form-group @if( is_error('bonus_type') )has-error @endif">
                         <label for="bonus_type3">
-                            <input type="radio" id="bonus_type3" name="bonus_type"> За период
+                            <input type="radio" class="bonus_item_radio" id="bonus_type3" name="bonus_type" value="2"> За период
                         </label>
+                        @if( is_error('user') )
+                            <span class="help-block">{{ $errors->first('bonus_type') }}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="period">Период</label>
@@ -57,24 +63,27 @@
             </div>
             <div class="col-xs-12 col-md-4">
                 <div class="bonus_item">
-                    <div class="form-group">
+                    <div class="form-group @if( is_error('bonus_type') )has-error @endif">
                         <label for="bonus_type4">
-                            <input type="radio" id="bonus_type4" name="bonus_type"> Оплатившим подписку
+                            <input type="radio" class="bonus_item_radio" id="bonus_type4" name="bonus_type" value="3"> Оплатившим подписку
                         </label>
+                        @if( is_error('user') )
+                            <span class="help-block">{{ $errors->first('bonus_type') }}</span>
+                        @endif
                     </div>
                     <div class="form-group">
-                        <label for="bonus_type4">
-                            <label for="tariff">Подписка</label>
-                            <select name="tariff" id="tariff">
-
-                            </select>
-                        </label>
+                        <label for="tariff">Подписка</label>
+                        <select id="tariff" class="tariff_select" name="tariff[]" multiple="multiple">
+                            @foreach($rates as $rate)
+                                <option value="{{ $rate->id }}">{{ $rate->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt20">
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('amount') )has-error @endif">
                     <label for="amount">Сумма ₽</label>
@@ -93,12 +102,9 @@
 
         <div class="row">
             <div class="col-xs-12 col-md-4">
-                <div class="form-group @if( is_error('amount') )has-error @endif">
+                <div class="form-group">
                     <label for="comment">Комментарий</label>
                     <textarea name="comment" id="comment" class="form-control" rows="6"></textarea>
-                    @if( is_error('comment') )
-                        <span class="help-block">{{ $errors->first('comment') }}</span>
-                    @endif
                 </div>
             </div>
         </div>
@@ -119,9 +125,22 @@
     <script>
         $("document").ready(function () {
 
+            $(".user_select").on("change",function () {
+               $(".all_users").prop("checked", false);
+            });
+
+            $(".bonus_item").on("click", function () {
+                var item = $(this).find(".bonus_item_radio");
+                $(item).prop("checked", true);
+            });
+
+            $(".tariff_select").select2({
+                placeholder: "Выберите пользователя",
+            });
+
             var userselect = $(".user_select").select2({
                 allowClear: true,
-                placeholder: "{{ __("messages.select_user") }}",
+                placeholder: "Выберите пользователя",
                 minimumInputLength: 3,
                 ajax: {
                     url: "{{ route('admin.get.user') }}",

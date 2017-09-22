@@ -131,6 +131,10 @@ return [
     'incorrect_passsword' => 'Incorrect password',
     'email_is_verified' => 'Email successfully verified',
     'user_login' => 'Login',
+    'total_earned' => 'Earned total',
+    'means_application_withdrawal' => 'Means in the application for withdrawal',
+    'who_invited' => 'Who invited',
+    'continue' => 'Continue',
 
 
     /*

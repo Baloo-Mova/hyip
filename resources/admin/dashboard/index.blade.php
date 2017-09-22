@@ -32,17 +32,43 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Активных</th>
+                        <th>Всего</th>
                         <th>Забаненных</th>
-                        <th>Всех</th>
+                        <th>Активных</th>
+                        <th>Неактивных</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>{{ $users['all_users'] }}</td>
+                        <td>{{ $users['banned'] }}</td>
                         <td>{{ $users['active'] }}</td>
                         <td>{{ $users['all_users'] - $users['active'] }}</td>
-                        <td>{{ $users['all_users'] }}</td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+    @else
+        <div>No users</div>
+    @endif
+
+    <h3>Выплаты</h3>
+    @if (count($withdraws))
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Всего выплат</th>
+                    <th>Всего выплачено</th>
+                    <th>Всего ожидает выплаты</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ $withdraws['all'] }}₽</td>
+                    <td>{{ $withdraws['paid_out'] }}₽</td>
+                    <td>{{ $withdraws['expects'] }}₽</td>
+                </tr>
                 </tbody>
             </table>
         </div>

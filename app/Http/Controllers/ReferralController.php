@@ -24,10 +24,19 @@ class ReferralController extends Controller
             ]
         ];
 
-        $ref = Referrals::select(DB::raw('level, count(id) as count'))
+        $ref = Referrals::select(DB::raw('level, count(id) as count, sum(earned) as sum'))
             ->where(['user_id' => Auth::id()])
             ->groupBy('level')
             ->get();
+        $sum_all = 0;
+        if(!isset($ref)){
+            $sum_all = 0;
+        }else{
+            foreach ($ref as $r){
+                $sum_all += $r->sum;
+            }
+        }
+
         $count = Referrals::where(['user_id' => Auth::id()])->count();
         $referrals = Referrals::where(['user_id' => Auth::id()])->paginate(15);
 
@@ -35,7 +44,8 @@ class ReferralController extends Controller
             'referrals' => $referrals,
             'info' => $ref,
             'count' => $count,
-            'data' => $data
+            'data' => $data,
+            'sum_all' => $sum_all
         ]);
     }
 

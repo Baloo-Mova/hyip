@@ -90,9 +90,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function scopeActive()
+    public function scopeBanned()
     {
-        return $this->where('is_banned', 0);
+        return $this->where('is_banned', 1);
+    }
+
+    public function invited()
+    {
+        $this->hasOne(Referrals::class, 'id', 'user_from');
     }
 
 
@@ -294,5 +299,10 @@ class User extends Authenticatable
     public function hasMessages()
     {
         return $this->hasMany(Message::class, 'to_user', 'id')->where(['is_read' => 0]);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role_id;
     }
 }

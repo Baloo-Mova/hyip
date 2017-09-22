@@ -67,7 +67,7 @@ class WalletProcesses extends Model
 
     public function scopeBonuses()
     {
-        return $this->where(['type_id' => $this::BONUS])->orderBy("created_at", "desc");
+        return $this->where(['type_id' => $this::BONUS])->orderBy("time", "asc");
     }
 
     public function users()

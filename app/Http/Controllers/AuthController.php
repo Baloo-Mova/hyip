@@ -175,6 +175,7 @@ class AuthController extends Controller
                 'password' => $request->get('password')
             ])) {
                 $user->update([
+                    'last_activity' => Carbon::now(),
                     'auth_token' => str_random(32)
                 ]);
                 $request->session()->regenerate();
