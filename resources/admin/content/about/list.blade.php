@@ -8,7 +8,7 @@
         <i class="fa fa-plus-square" aria-hidden="true"></i>
         Add
     </a>
-    <h1 class="sub-header">About notations</h1>
+    <h1 class="sub-header">О компании</h1>
     </div>
         <div class="table-responsive">
             <table class="table table-striped">
