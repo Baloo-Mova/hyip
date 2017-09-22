@@ -41,11 +41,18 @@ class SubscriptionController extends BaseController
             $subscription = $this->_model;
         }
 
+        if ($request->hasFile('image')) {
+            $origext  = $request->file('image')->getClientOriginalExtension();
+            $filename = generate_file_name(".{$origext}");
+            \Storage::disk('uploads')->put("tariff/$filename", file_get_contents($request->file('image')->getRealPath()));
+        }
+
         $subscription->fill([
             'name'          => $request->get('name'),
             'price'         => $request->get('price'),
             'term'          => $request->get('term'),
             'description'   => $request->get('description'),
+            'image'         => isset($filename) ? $filename : $request->get('image'),
             'is_active'     => $request->get('is_active') ? $request->get('is_active') : 0,
             'levels'        => $request->get('levels'),
         ]);
@@ -69,5 +76,63 @@ class SubscriptionController extends BaseController
         }
 
         return redirect()->route('admin-get-subscription', ['id' => $subscription->id])->with('messages', ['Created successful']);
+    }
+
+    public function enable($id)
+    {
+        $tariff = Subscription::find($id);
+        if (!isset($tariff)) {
+            return redirect()->route('admin-subscriptions-list')->withErrors(['Такого тарифа не существует!']);
+        }
+        $tariff->is_active = 1;
+        $tariff->save();
+        return redirect()->route('admin-subscriptions-list')->withMessages(['Тариф успешно активирован!']);
+    }
+
+    public function disable($id)
+    {
+        $tariff = Subscription::find($id);
+        if (!isset($tariff)) {
+            return redirect()->route('admin-subscriptions-list')->withErrors(['Такого тарифа не существует!']);
+        }
+        $tariff->is_active = 0;
+        $tariff->save();
+        return redirect()->route('admin-subscriptions-list')->withMessages(['Тариф успешно деактивирован!']);
+    }
+
+    public function deleteImg($id = null)
+    {
+        $tariff = Subscription::find($id);
+
+        if(!isset($tariff)){
+            return redirect(route('admin-subscriptions-list'))
+                ->withErrors('Записи с таким ID не существует!');
+        }
+
+        \Storage::disk('uploads')->delete("tariff/$tariff->image");
+
+        $tariff->image = null;
+        $tariff->save();
+
+        return redirect()->route('admin-get-subscription', ['item' => $tariff]);
+    }
+
+    public function deleteItem($id)
+    {
+        $tariff = Subscription::find($id);
+
+        if(!isset($tariff)){
+            return redirect(route('admin-subscriptions-list'))
+                ->withErrors('Записи с таким ID не существует!');
+        }
+
+        if(isset($tariff->image)){
+            \Storage::disk('uploads')->delete("tariff/$tariff->image");
+        }
+
+        $tariff->delete();
+
+        return redirect()->route('admin-subscriptions-list')
+                ->withMessages(['Запись удалена!']);
     }
 }

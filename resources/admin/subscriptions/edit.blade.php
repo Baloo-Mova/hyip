@@ -20,7 +20,7 @@
         </div>
 
     <div class="row">
-        {!! Form::open(['class' => 'form']) !!}
+        {!! Form::open(['class' => 'form', 'files' => true]) !!}
 
             <div class="col-xs-12 col-md-6" id="form-container">
                 <div class="form-group @if( is_error('name') )has-error @endif">
@@ -28,6 +28,19 @@
                     {!! Form::text('name', !empty($item->name) ? $item->name : '', ['id' => 'edit-form-name', 'class' => 'form-control', 'maxlength' => "255", 'required' => 'required' ]) !!}
                     @if( is_error('name') )
                         <span class="help-block">{{ $errors->first('name') }}</span>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="file">Картинка тарифа</label>
+                    <br>
+                    @if(isset($item) && isset($item->image))
+                        <img src="{{ route('get.image', ['type' => 'tariff', 'name' => $item->image]) }}" alt="" style="width: 100px;">
+                        <input type="hidden" name="image" value="{{ $item->image }}">
+                        <br>
+                        <a href="{{ route('admin.tariff.delete.image', ['id' => $item->id]) }}" class="btn btn-primary mt10">Удалить</a>
+                    @else
+                        <input type="file" name="image">
                     @endif
                 </div>
 

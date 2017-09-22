@@ -136,6 +136,7 @@ return [
     'means_application_withdrawal' => 'Средств в заявке на вывод',
     'who_invited' => 'Кто пригласил',
     'continue' => 'Продлить',
+    'tariff_not_find' => 'Тариф не найден',
 
     /*
      * Pages titles

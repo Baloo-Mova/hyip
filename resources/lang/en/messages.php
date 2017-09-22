@@ -135,6 +135,7 @@ return [
     'means_application_withdrawal' => 'Means in the application for withdrawal',
     'who_invited' => 'Who invited',
     'continue' => 'Continue',
+    'tariff_not_find' => 'Тариф не найден',
 
 
     /*

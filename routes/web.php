@@ -120,11 +120,14 @@ Route::group([
 
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::get('/', 'SubscriptionController@index')->name('admin-subscriptions-list');
+        Route::get('/delete-img/{id}', 'SubscriptionController@deleteImg')->name('admin.tariff.delete.image');
         Route::post('add', 'SubscriptionController@postAdd');
         Route::get('add', 'SubscriptionController@getAdd')->name('admin-add-subscription');
         Route::get('{id}', 'SubscriptionController@getEdit')->name('admin-get-subscription');
         Route::post('{id}', 'SubscriptionController@postEdit');
-        Route::get('delete/{id}', 'SubscriptionController@delete');
+        Route::get('delete/{id}', 'SubscriptionController@deleteItem');
+        Route::get('/disable-tariff/{id}', 'SubscriptionController@disable')->name('admin.subscription.disable');
+        Route::get('/enable-tariff/{id}', 'SubscriptionController@enable')->name('admin.subscription.enable');
     });
 
     Route::group(['prefix' => 'bonus'], function () {

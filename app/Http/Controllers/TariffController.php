@@ -47,7 +47,7 @@ class TariffController extends Controller
         $subscription = Subscription::with(['prices'])->find($id);
 
         if (!isset($subscription) || $subscription->is_active == 0) {
-            return back()->withErrors(['Тариф не найден']);
+            return back()->withErrors([__("messages.tariff_notfind")]);
         }
 
         $user = \Auth::user();

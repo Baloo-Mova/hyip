@@ -205,7 +205,7 @@
                         @foreach($data['rate'] as $rate)
                             <div class="rate-carousel-item">
                                 <div class="rate__img">
-                                    <img src="img/{{ random_int(1,3) }}.jpg" class="" alt="">
+                                    <img src="{{ route('get.image', ['type' => 'tariff', 'name' => $rate['image']]) }}" class="" alt="">
                                 </div>
                                 <div class="rate__title">
                                     <h3>{{ $rate['name'] }}</h3>

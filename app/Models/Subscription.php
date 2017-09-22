@@ -39,6 +39,7 @@ class Subscription extends Model
         'price',
         'term',
         'description',
+        'image',
         'is_active',
     ];
 

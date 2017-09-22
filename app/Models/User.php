@@ -190,12 +190,23 @@ class User extends Authenticatable
                 return;
             }
 
+            if($user->id != $this->id){
+                $user_from_name = User::find($user->id)->login;
+                $user_from = $user->id;
+            }else{
+                $user_from_name =  null;
+                $user_from = 0;
+            }
+
+
+
             Referrals::create([
                 'user_id' => $ref->id,
                 'user_ref' => $this->id,
                 'user_ref_name' => $user->login,
                 'user_ref_phone' => $user->phone,
-                'user_from' => $user->id != $this->id ? $user->id : 0,
+                'user_from' => $user_from,
+                'user_from_name' => $user_from_name,
                 'earned' => 0,
                 'level' => $i
             ]);

@@ -12,6 +12,7 @@ class Referrals extends Model
         'user_from',
         'user_ref_name',
         'user_ref_phone',
+        'user_from_name',
         'level',
         'earned',
     ];

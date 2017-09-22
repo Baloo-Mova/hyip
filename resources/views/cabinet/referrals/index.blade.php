@@ -83,7 +83,7 @@
                             <tr>
                                 <td>{{ $referral->level }}</td>
                                 <td>{{ $referral->user_ref_name }}</td>
-                                <td>{{ $referral->user_from == 0 ? "" : $referral->user_from }}</td>
+                                <td>{{ $referral->user_from == 0 ? "" : $referral->user_ref_name }}</td>
                                 <td>{{ $referral->user_ref_phone }}</td>
                                 <td>{{ \Carbon\Carbon::parse($referral->created_at)->format('d.m.Y') }}</td>
                                 <td>{{ $referral->earned }}₽</td>

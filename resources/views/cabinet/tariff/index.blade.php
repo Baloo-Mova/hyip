@@ -54,7 +54,7 @@
                     {{ !empty($tariff_info) && $tariff_info->id == $tariff['id']  ? "active_tariff" : "" }}
                          {{  isset($user->subscribe_id) && $user->subscribe_id == $tariff['id'] ? "active_tariff" : "" }}">
                         <div class="rate__img">
-                            <img src="{{ asset('img/'.random_int(1,3).'.jpg') }}" class="" alt="">
+                            <img src="{{ route('get.image', ['type' => 'tariff', 'name' => $tariff['image']]) }}" class="" alt="">
                         </div>
                         <div class="rate__title">
                             <h3>{{ $tariff['name'] }}</h3>

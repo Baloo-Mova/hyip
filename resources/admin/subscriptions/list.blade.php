@@ -35,6 +35,13 @@
                             <td>
                                 <a href='{{ route('admin-get-subscription', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;
+                                @if($item->is_active == 1)
+                                <a href='{{ route('admin.subscription.disable', ['id' => $item->id]) }}' title="Выключить тариф"><i class="fa fa-stop" aria-hidden="true"></i></a>
+                                &nbsp;&nbsp;&nbsp;
+                                @else
+                                <a href='{{ route('admin.subscription.enable', ['id' => $item->id]) }}' title="Включить тариф"><i class="fa fa-play" aria-hidden="true"></i></a>
+                                    &nbsp;&nbsp;&nbsp;
+                                @endif
                                 <a onclick="deleteSubscription('{{ $item->id }}')" style="cursor: pointer;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
@@ -53,7 +60,7 @@
     <script type="text/javascript">
         var deleteSubscription = function( id ) {
             if( typeof(id) != 'undefined' && id != '' && confirm('Delete a subscription?') ) {
-                document.location.href = "/admin/subscription/delete/" + id;
+                document.location.href = "/admin/subscriptions/delete/" + id;
             }
         };
     </script>
