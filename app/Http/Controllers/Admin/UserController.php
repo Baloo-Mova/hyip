@@ -7,7 +7,10 @@ use App\Models\Subscription;
 use App\Models\SubscriptionPrice;
 use App\Models\User;
 use App\Models\UserConfirm;
+use App\Models\UsersPageSettings;
 use Illuminate\Http\Request;
+use App\Models\Referrals;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends BaseController
 {
@@ -21,6 +24,41 @@ class UserController extends BaseController
     }
 
     public function index()
+    {
+        $levels = UsersPageSettings::orderBy('value', 'asc')->get();
+
+        $table1 = [];
+
+        foreach ($levels as $level){
+            $count = User::where([
+                ['ref_count', '>', '0'],
+                ['ref_count', '>=', $level->value],
+                    ])->count();
+            $table1[] = [
+                'level' => $level->value,
+                'value' => $count
+            ];
+        }
+
+        $maxLevel = DB::table('referrals')->max('level');
+
+        $table2 = [];
+        foreach (range(1, $maxLevel) as $item){
+            $count = Referrals::where(['level' => $item])->distinct('user_id')->count('user_id');
+            $table2[] = [
+                'level' => $item." ступень",
+                'value' => $count
+            ];
+        }
+
+        return view('Admin::' . $this->_view . '.index',[
+            'table1' => $table1,
+            'table2' => $table2
+        ]);
+    }
+
+
+    public function userList()
     {
         $users = User::with('confirmed')->paginate(15);
         return view('Admin::' . $this->_view . '.list', [

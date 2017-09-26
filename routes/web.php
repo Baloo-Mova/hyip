@@ -255,7 +255,9 @@ Route::group([
     });
 
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UserController@index')->name('admin-users-list');
+        Route::get('/index', 'UserController@index')->name('admin.users.index');
+
+        Route::get('/', 'UserController@userList')->name('admin-users-list');
         Route::post('/', 'UserController@search')->name('admin-users-list-search');
         Route::get('/{id}/remove', ['uses' => 'UserController@remove', 'as' => 'admin-users-delete']);
         Route::get('/{id}/edit', ['uses' => 'UserController@edit', 'as' => 'admin-users-edit']);
