@@ -169,7 +169,7 @@ return [
     'what_is_white_coin' => 'Что такое White coin?',
     'how_we_are_working' => 'Как мы работаем?',
     'our_goals' => 'Наши цели',
-    'why_we' => 'Почесу мы?',
+    'why_we' => 'Почему мы?',
     'how_to_earn' => 'Как зарабатывать?',
     'documents' => 'Документы',
     'stocks' => 'Акции',

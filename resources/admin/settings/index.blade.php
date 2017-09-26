@@ -27,6 +27,10 @@
         </div>
     </form>
 
+    <hr>
+
+    <a href="{{ route('admin.settings.users') }}" class="btn btn-flat btn-primary">Настройки страницы пользователей</a>
+
 @stop
 
 

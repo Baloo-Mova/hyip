@@ -106,7 +106,7 @@
                 <div class="news__item about-tariff__item">
                     <h3 class="tariff___name">{{ isset($tariff_info->name) ? $tariff_info->name : "" }}</h3>
                     <div class="col-xs-12 col-md-4">
-                        <p class="tariff___price">
+                        <p class="tariff___ref-sys">
                         @if(Session::get('applocale') != "en" && isset($tariff_info->levels))
                             {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} {{ $tariff_info->levels == 1 ? "уровень" : ($tariff_info->levels > 1 && $tariff_info->levels < 5 ? "уровня" : "уровней" ) }}
                         @else

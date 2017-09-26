@@ -224,7 +224,6 @@
                                     lev = "{{ __('messages.level_5') }}";
                                 }
                             }
-
                             $(".tariff___ref-sys").text(data.info.levels+" "+lev);
                             $(".tariff___name").text(data.info.name);
                             $(".tariff___price").text(data.info.price+"₽");

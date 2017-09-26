@@ -116,6 +116,9 @@ Route::group([
         Route::get('/', 'SettingsController@index')->name('admin.settings.index');
         Route::get('/get-down', 'SettingsController@toMaintenance')->name('admin.down.site');
         Route::get('/get-up', 'SettingsController@fromMaintenance')->name('admin.up.site');
+        Route::get('/users', 'SettingsController@users')->name('admin.settings.users');
+        Route::post('/users', 'SettingsController@usersSave')->name('admin.settings.users.save');
+        Route::get('/users-level-delete/{id}', 'SettingsController@usersLevelDelete')->name('admin.settings.users.level.delete');
     });
 
     Route::group(['prefix' => 'money-history'], function () {
