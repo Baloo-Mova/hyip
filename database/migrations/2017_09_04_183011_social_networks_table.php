@@ -20,6 +20,7 @@ class SocialNetworksTable extends Migration
             $table->string('img')->nullable();
             $table->string('black_img')->nullable();
             $table->boolean('is_active')->default(1);
+            $table->string('icon');
             $table->timestamps();
         });
     }
