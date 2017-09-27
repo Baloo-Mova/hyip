@@ -21,6 +21,6 @@ class Referrals extends Model
     public $table='referrals';
 
     public function getUser(){
-        $this->hasOne(User::class, 'user_id');
+        $this->hasOne(User::class, 'user_id', 'id');
     }
 }

@@ -152,6 +152,9 @@ body {
 .h180{
     height: 180px;
 }
+.w100{
+    width: 100px;
+}
 .w200{
     width: 200px;
 }
@@ -202,4 +205,7 @@ body {
 .bonus_item:hover{
     cursor: pointer;
     border: 2px solid #ccc;
+}
+.p20{
+    padding: 10px 20px 20px 0px;
 }

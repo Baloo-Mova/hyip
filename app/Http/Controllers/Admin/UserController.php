@@ -13,6 +13,8 @@ use App\Models\Referrals;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\PassportData;
+use Carbon\Carbon;
+use App\Models\WalletProcesses;
 
 class UserController extends BaseController
 {
@@ -64,10 +66,42 @@ class UserController extends BaseController
         $user = User::find($user_id);
         $passportData = PassportData::where('user_id', '=', $user_id)->first();
         $scans = $user->scans;
+        $count = Referrals::where(['user_id' => $user_id])->count();
+        $active = Carbon::now()->subDays(3) < $user->last_activity ? 1 : 0;
+        $ref = Referrals::select(DB::raw('level, count(id) as count, sum(earned) as sum'))
+            ->where(['user_id' => $user_id])
+            ->groupBy('level')
+            ->get();
+        $reftmp = Referrals::where(['user_ref' => $user_id])->first();
+        $refjoin = Referrals::where(['user_id' => $user_id])->get();
+        if(!isset($reftmp)){
+            $refName = "";
+        }else{
+            $refName = isset($reftmp->user_from_name) ? $reftmp->user_from_name : User::where(['id' => $reftmp->user_id])->select('login')->first()->login;
+            if(!isset($refName)){
+                $refName = "";
+            }
+        }
+        $sum_all = 0;
+        if(!isset($ref)){
+            $sum_all = 0;
+        }else{
+            foreach ($ref as $r){
+                $sum_all += $r->sum;
+            }
+        }
+        $paid_out = WalletProcesses::where(['type_id' => 3, 'status' => 1, 'to_id' => $user_id])->sum('value');
         return view('Admin::' . $this->_view . '.info',[
             'user' => $user,
             'passport_data' => json_decode($passportData->passport_data),
+            'active' => $active,
             'scans' => $scans,
+            'paid_out' => $paid_out,
+            'ref' => $ref,
+            'sum_all' => $sum_all,
+            'count' => $count,
+            'ref_name' => $refName,
+            'refjoin' => $refjoin,
             'type' => $type,
             'val' => $val
         ]);
