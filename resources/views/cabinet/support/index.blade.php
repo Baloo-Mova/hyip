@@ -46,7 +46,7 @@
                 @forelse($feedbacks as $feedback)
                     <tr>
                         <td>{{ mb_substr($feedback->question, 0, 80)  }}</td>
-                        <td>{{ isset($feedback->answer) ? mb_substr($feedback->answer, 0, 80) : "-"  }}</td>
+                        <td>{!! isset($feedback->answer) ? mb_substr($feedback->answer, 0, 80) : "-" !!} </td>
                         <td>{{ $feedback->is_reply == 0 ? "Новый" : "Прочтен"  }}</td>
                         <td>{{ \Carbon\Carbon::parse($feedback->created_at)->format("d.m.Y h:i")  }}</td>
                         <td>

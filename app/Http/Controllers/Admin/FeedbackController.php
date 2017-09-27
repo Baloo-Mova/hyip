@@ -6,6 +6,8 @@ use App\Http\Requests\Feedback\AnswerToFeedbackRequest;
 use App\Models\Feedback;
 use App\Mail\MailFeedback;
 use Illuminate\Http\Request;
+use PHPMailer\PHPMailer\PHPMailer;
+use Illuminate\Support\Facades\Session;
 
 class FeedbackController extends BaseController
 {
@@ -57,7 +59,7 @@ class FeedbackController extends BaseController
         ]);
     }
 
-    public function sendEmail(Request $request, $id)
+    public function sendEmail(Request $request, $type, $id)
     {
         $validator = \Validator::make($request->all(), with(new AnswerToFeedbackRequest())->rules());
 
@@ -72,23 +74,49 @@ class FeedbackController extends BaseController
             ]);
         }
 
-        try{
-            \Mail::to($feedback->email, $feedback->name)
-                ->send(new MailFeedback($request->get('answer')));
+        $text = $request->get('answer');
 
-            $feedback->update([
-                'is_reply'  => 1,
-                'answer'    => $request->get('answer'),
-            ]);
+        $feedback->update([
+            'is_reply'  => 1,
+            'answer'    => $request->get('answer'),
+        ]);
 
-            return redirect()->route('admin-feedback-list')->with('messages', ['Send to E-mail']);
-        } catch ( \Exception $e ) {
-            $error = $e->getMessage();
+        try {
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->Host = env("MAIL_HOST");
+            $mail->SMTPAuth = true;
+            $mail->Username = env("MAIL_USERNAME");
+            $mail->Password = env("MAIL_PASSWORD");
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = env("MAIL_PORT");
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom(env("NO_REPLY_EMAIL"));
+            $mail->addAddress($feedback->email);
+
+            $mail->Subject = "Сообщение от техподдержки";
+            $mail->Body = $text;
+            if(preg_match("/<[^<]+>/", $text, $m) != 0){
+                $mail->IsHTML(true);
+            }
+
+            $mail->send();
+        } catch (\Exception $ex) {
+            return redirect(route('admin-feedback-list', ['type' => $type, 'id' => $id]))
+                ->withErrors(['Сообщение не отправлено!']);
         }
 
-        return response()->json( [
-            'error' => $error
-        ] );
+        Session::flash('messages', ["Сообщение отправлено"]);
+        return redirect(route('admin-feedback-list', ['type' => $type, 'id' => $id]))
+            ->with('messages', ['Сообщение отправлено!']);
 
+    }
+
+    public function deleteMessage($item_id)
+    {
+        $feedback = Feedback::find($item_id);
+        $feedback->delete();
+        Session::flash('messages', ["Сообщение удалено"]);
+        return back();
     }
 }

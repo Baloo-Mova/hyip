@@ -137,6 +137,7 @@ return [
     'who_invited' => 'Кто пригласил',
     'continue' => 'Продлить',
     'tariff_not_find' => 'Тариф не найден',
+    'support_message' => 'Сообщение техподдержке',
 
     /*
      * Pages titles

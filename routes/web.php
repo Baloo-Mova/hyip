@@ -274,8 +274,9 @@ Route::group([
 
     Route::group(['prefix' => 'feedback'], function () {
         Route::get('{type}', 'FeedbackController@index')->name('admin-feedback-list');
-        Route::get('{type}/{id}', 'FeedbackController@show')->name('admin-get-feedback');
-        Route::post('{type}/{id}', 'FeedbackController@sendEmail');
+        Route::get('/show/{type}/{id}', 'FeedbackController@show')->name('admin-get-feedback');
+        Route::post('/show/{type}/{id}', 'FeedbackController@sendEmail');
+        Route::get('/delete/{id}', 'FeedbackController@deleteMessage');
     });
 
     Route::group(['prefix' => 'blacklist'], function () {
