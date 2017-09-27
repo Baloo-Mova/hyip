@@ -137,6 +137,8 @@ return [
     'continue' => 'Continue',
     'tariff_not_find' => 'Tariff not found',
     'support_message' => 'Support message',
+    'send_successful' => 'Message sent successfully',
+    'send_successful_message' => 'Message sent',
 
 
     /*

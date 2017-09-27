@@ -138,6 +138,8 @@ return [
     'continue' => 'Продлить',
     'tariff_not_find' => 'Тариф не найден',
     'support_message' => 'Сообщение техподдержке',
+    'send_successful' => 'Сообщение успешно отправлено',
+    'send_successful_message' => 'Сообщение отправлено',
 
     /*
      * Pages titles
