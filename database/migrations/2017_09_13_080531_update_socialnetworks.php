@@ -14,7 +14,7 @@ class UpdateSocialnetworks extends Migration
     public function up()
     {
         Schema::table('social_networks', function (Blueprint $table) {
-            $table->string('icon')->change();
+            $table->string('icon');
         });
     }
 
