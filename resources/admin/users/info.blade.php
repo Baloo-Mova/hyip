@@ -17,7 +17,7 @@
                            ])}}"
                    class="btn {{ $user->is_banned == 1 ? 'btn-success':'btn-warning' }}">
                     <i class="fa {{ $user->is_banned == 1 ? 'fa-unlock green':'fa-lock red'}} "></i>
-                    {{ $user->is_banned == 1 ? 'Розбанить этого пользователя':'Забанить этого пользователя'}}
+                    {{ $user->is_banned == 1 ? 'Розбанить пользователя':'Забанить пользователя'}}
                 </a>
             </h3>
         </div>
@@ -106,7 +106,7 @@
                             <td>{{ $passport_data->series }}</td>
                         </tr>
                         <tr>
-                            <td>Еомер паспорта</td>
+                            <td>Номер паспорта</td>
                             <td>{{ $passport_data->number }}</td>
                         </tr>
                         <tr>
@@ -137,7 +137,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12">
             <table class="table table-striped">
                 <thead>
                     <th colspan="2">Рефералы</th>
@@ -145,20 +145,24 @@
                 <tbody>
                     <tr>
                         <td>Всего рефералов</td>
-                        <td>{{ $count }}</td>
+                        @if(count($ref) > 0)
+                            @foreach($ref as $r)
+                                    <td>Рефералов {{ $r->level }} уровня</td>
+                            @endforeach
+                        @endif
                     </tr>
-                    @if(count($ref) > 0)
-                        @foreach($ref as $r)
-                            <tr>
-                                <td>Рефералов {{ $r->level }} уровня</td>
+                    <tr>
+                        <td>{{ $count }}</td>
+                        @if(count($ref) > 0)
+                            @foreach($ref as $r)
                                 <td>{{ $r->count }}</td>
-                            </tr>
-                        @endforeach
-                    @endif
+                            @endforeach
+                        @endif
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12">
             <table class="table table-striped">
                 <thead>
                 <th colspan="2">Рефералы подробнее</th>
@@ -183,6 +187,9 @@
                     @endif
                 </tbody>
             </table>
+        </div>
+        <div class="col-xs-12 text-center">
+            {{ $refjoin->links() }}
         </div>
     </div>
 

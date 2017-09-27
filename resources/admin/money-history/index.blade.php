@@ -81,7 +81,7 @@
                             <td>{{ isset($item->pay_system) ? $pay_systems[$item->pay_system]['name'] : "" }}</td>
                             <td>{{ isset($item->card_number) ? $item->card_number : "" }}</td>
                             <td>{{ ($item->status == 0) ? "Новая" : (($item->status == 1) ? "Принята" : "Отклонена") }}</td>
-                            <td>{{ $item->to_id == 0 ? "" : $item->users->login }}</td>
+                            <td>{{ $item->to_id == 0 ? "" : $item->users['login'] }}</td>
                             <td  colspan="2">{{ \Carbon\Carbon::parse($item->time)->format("d.m.Y H:i") }}</td>
                         </tr>
                     @empty

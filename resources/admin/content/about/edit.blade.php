@@ -7,14 +7,14 @@
             <a href="{{ route('admin.about-notations.list') }}" class="btn-sm btn-primary pull-right">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 &nbsp;&nbsp;
-                back to list
+                назад
             </a>
 
             <h3 class="sub-header">
                 @if( empty($item->id) )
-                    Create about notation
+                    Добавить контент "О компании"
                 @else
-                    Edit about notation
+                    Редактировать контент "О компании"
                 @endif
             </h3>
         </div>

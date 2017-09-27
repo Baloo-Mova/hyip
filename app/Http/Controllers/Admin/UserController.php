@@ -73,7 +73,7 @@ class UserController extends BaseController
             ->groupBy('level')
             ->get();
         $reftmp = Referrals::where(['user_ref' => $user_id])->first();
-        $refjoin = Referrals::where(['user_id' => $user_id])->get();
+        $refjoin = Referrals::where(['user_id' => $user_id])->paginate(15);
         if(!isset($reftmp)){
             $refName = "";
         }else{
