@@ -6,6 +6,7 @@
         <div class="col-xs-12">
             <h1 class="page-header">@lang("messages.support_message")
                 <small>{{ \Carbon\Carbon::parse($feedback->created_at)->format("d.m.Y h:i")  }}</small>
+                <a href="{{ route('support') }}" class="btn btn-main-carousel pull-right btn-flat">Назад</a>
             </h1>
         </div>
     </div>
