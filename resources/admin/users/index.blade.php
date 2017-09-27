@@ -24,7 +24,13 @@
                     @forelse($table1 as $t1)
                         <tr>
                             <td>{{ $t1['level'] }}</td>
-                            <td>{{ $t1['value'] }}</td>
+                            <td>
+                                @if($t1['value'] > 0)
+                                    <a href="{{ route('admin-users-list', ['type' => 1, 'val' => $t1['level']]) }}">{{ $t1['value'] }}</a>
+                                @else
+                                    {{ $t1['value'] }}
+                                @endif
+                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -42,12 +48,14 @@
                 <tbody>
                     <tr>
                         @foreach($table2 as $t2)
-                            <td>{{ $t2['level'] }}</td>
+                            <td>{{ $t2['level'] }} ступень</td>
                         @endforeach
                     </tr>
                     <tr>
                         @foreach($table2 as $t2)
-                            <td>{{ $t2['value'] }}</td>
+                            <td>
+                                <a href="{{ route('admin-users-list', ['type' => 2, 'val' => $t2['level']]) }}">{{ $t2['value'] }}</a>
+                            </td>
                         @endforeach
                     </tr>
                 </tbody>

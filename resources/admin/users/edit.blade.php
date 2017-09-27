@@ -4,6 +4,7 @@
     @include('Admin::alerts')
 
     <div>
+        <a href="{{route('admin-users-list', ['type' => $type, 'val' => $val])}}" class="btn btn-primary pull-right" style="float: right;"> Назад</a>
         <h1 class="sub-header">Редактировать пользователя ID: {{$user->id}}</h1>
     </div>
     <div class="col-xs-12 col-lg-6">
@@ -55,7 +56,6 @@
 
 
                     <input type="submit" class="btn btn-primary" value="Сохранить">
-                    <a href="{{route('admin-users-list')}}" class="btn btn-default" style="float: right;"> Назад</a>
                 </form>
             </div>
         </div>

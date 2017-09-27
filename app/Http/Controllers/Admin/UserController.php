@@ -11,6 +11,8 @@ use App\Models\UsersPageSettings;
 use Illuminate\Http\Request;
 use App\Models\Referrals;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Models\PassportData;
 
 class UserController extends BaseController
 {
@@ -46,7 +48,7 @@ class UserController extends BaseController
         foreach (range(1, $maxLevel) as $item){
             $count = Referrals::where(['level' => $item])->distinct('user_id')->count('user_id');
             $table2[] = [
-                'level' => $item." ступень",
+                'level' => $item,
                 'value' => $count
             ];
         }
@@ -57,12 +59,40 @@ class UserController extends BaseController
         ]);
     }
 
-
-    public function userList()
+    public function userInfo($user_id, $type, $val)
     {
-        $users = User::with('confirmed')->paginate(15);
+        $user = User::find($user_id);
+        $passportData = PassportData::where('user_id', '=', $user_id)->first();
+        $scans = $user->scans;
+        return view('Admin::' . $this->_view . '.info',[
+            'user' => $user,
+            'passport_data' => json_decode($passportData->passport_data),
+            'scans' => $scans,
+            'type' => $type,
+            'val' => $val
+        ]);
+    }
+
+    public function userList($type, $val)
+    {
+        if($type == 1){ //number
+            $users = User::where([
+                ['ref_count', '>', '0'],
+                ['ref_count', '>=', $val],
+            ])->paginate(15);
+        }else{ //value
+            $ref = Referrals::select(DB::raw('user_id'))
+                ->where(['level' => $val])
+                ->distinct('user_id')
+                ->get()
+                ->toArray();
+            $users = User::whereIn('id', array_column($ref, 'user_id'))->paginate(15);
+        }
+
         return view('Admin::' . $this->_view . '.list', [
-            'users' =>$users,
+            'users' => $users,
+            'type' => $type,
+            'val' => $val
         ]);
     }
 
@@ -70,6 +100,8 @@ class UserController extends BaseController
     {
         $where = [];
         $search = [];
+        $type = $request->get('type');
+        $val = $request->get('val');
         if($request->has('id')){
             $where[] = ['id', '=', $request->get('id')];
             $search['id'] = $request->get('id');
@@ -82,11 +114,19 @@ class UserController extends BaseController
             $where[] = ['login', 'like', '%'.$request->get('login').'%'];
             $search['login'] = $request->get('login');
         }
+        if($type == 1){
+            $where[] = ['ref_count', '>', '0'];
+            $where[] = ['ref_count', '>=', $val];
+        }else{
+
+        }
         $users = User::where($where)->paginate(25);
 
         return view('Admin::' . $this->_view . '.list', [
             'search' => $search,
             'users' => $users,
+            'type' => $type,
+            'val' => $val
         ]);
     }
 
@@ -96,15 +136,19 @@ class UserController extends BaseController
 
         $user->delete();
 
+        Session::flash('messages', ['Пользователь успешно удален!']);
         return back();
     }
 
-    public function edit($id)
+    public function userEdit($id, $type, $val)
     {
+
         $user = User::findOrFail($id);
 
         return view('Admin::' . $this->_view . '.edit', [
             'user' => $user,
+            'val' => $val,
+            'type' => $type,
             'banState' => [
                 [
                     'id' => 0,
@@ -135,30 +179,34 @@ class UserController extends BaseController
         $user->fill($request->all());
         $user->save();
 
-
-        \Session::flash('messages', ['Edit Successful']);
+        Session::flash('messages', ['Пользователь успешно отредактирован!']);
         return back();
     }
 
-    public function ban(Request $request, $id, $type)
+    public function ban(Request $request, $id, $type, $list_type, $val)
     {
         $user = User::findOrFail($id);
 
         $user->is_banned = $type;
         $user->save();
 
-        return redirect(route('admin-users-list'));
+        return redirect(route('admin-users-list', [
+            'type' => $list_type,
+            'val' => $val
+        ]));
 
     }
 
-    public function confirm($id)
+    public function confirm($id, $type, $val)
     {
         $user = User::find($id);
         $data = $user->passportData;
         $scans = $user->scans;
         return view('Admin::' . $this->_view . '.confirm', [
             'data' => $data,
-            'scans' => $scans
+            'scans' => $scans,
+            'type' => $type,
+            'val' => $val
         ]);
     }
 
@@ -167,17 +215,27 @@ class UserController extends BaseController
         $user_id = $request->get('user_id');
         $is_confirm = $request->get('is_confirm');
 
+        $type = $request->get('type');
+        $val = $request->get('val');
+
         if($is_confirm == 1){
             $user = User::find($user_id);
             $user->is_confirm = 1;
             $user->save();
+            Session::flash('messages', ['Вы подтвердили данные пользователя!']);
+        }else{
+            Session::flash('messages', ['Вы не подтвердили данные пользователя!']);
         }
 
         $conf = UserConfirm::where(['user_id' => $user_id, 'is_read' => 0])->first();
         $conf->is_read = 1;
         $conf->save();
 
-        return redirect(route('admin-users-list'));
+
+        return redirect(route('admin-users-list', [
+            'type' => $type,
+            'val' => $val
+        ]));
 
     }
 

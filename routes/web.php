@@ -256,15 +256,15 @@ Route::group([
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/index', 'UserController@index')->name('admin.users.index');
-
-        Route::get('/', 'UserController@userList')->name('admin-users-list');
-        Route::post('/', 'UserController@search')->name('admin-users-list-search');
-        Route::get('/{id}/remove', ['uses' => 'UserController@remove', 'as' => 'admin-users-delete']);
-        Route::get('/{id}/edit', ['uses' => 'UserController@edit', 'as' => 'admin-users-edit']);
-        Route::post('/{id}/edit', ['uses' => 'UserController@update', 'as' => 'admin-users-update']);
-        Route::get('/{id}/ban/{type}', ['uses' => 'UserController@ban', 'as' => 'admin-users-ban']);
-        Route::get('/confirm/{id}', ['uses' => 'UserController@confirm', 'as' => 'admin-users-confirm']);
-        Route::post('/confirm/{id}', ['uses' => 'UserController@confirmSave', 'as' => 'admin-users-confirm.save']);
+        Route::get('/list/{type}/{val}', 'UserController@userList')->name('admin-users-list');
+        Route::get('/user-info/{user_id}/{type}/{val}', 'UserController@userInfo')->name('admin.users.info');
+        Route::post('/search', 'UserController@search')->name('admin-users-list-search');
+        Route::get('/remove/{id}/remove', ['uses' => 'UserController@remove', 'as' => 'admin-users-delete']);
+        Route::get('/edit/{id}/{type}/{val}', ['uses' => 'UserController@userEdit', 'as' => 'admin.users.edit']);
+        Route::post('/edit/{id}', ['uses' => 'UserController@update', 'as' => 'admin-users-update']);
+        Route::get('/ban/{id}/{type}/{list_type}/{val}', ['uses' => 'UserController@ban', 'as' => 'admin-users-ban']);
+        Route::get('/confirm/{id}/{type}/{val}', ['uses' => 'UserController@confirm', 'as' => 'admin-users-confirm']);
+        Route::post('/confirm/{id}/{type}/{val}', ['uses' => 'UserController@confirmSave', 'as' => 'admin-users-confirm.save']);
     });
 
     Route::group(['prefix' => 'sending-messages'], function () {

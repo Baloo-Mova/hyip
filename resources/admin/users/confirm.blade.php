@@ -33,12 +33,16 @@
                     <hr>
                     <form action="" method="post" class="inline-form">
                         {{ csrf_field() }}
+                        <input type="hidden" name="type" value="{{ $type }}">
+                        <input type="hidden" name="val" value="{{ $val }}">
                         <input type="hidden" name="user_id" value="{{ $data->user_id }}">
                         <input type="hidden" name="is_confirm" value="1">
                         <button type="submit" class="btn btn-success btn-flat">Подтвердить</button>
                     </form>
                     <form action="" method="post" class="inline-form">
                         {{ csrf_field() }}
+                        <input type="hidden" name="type" value="{{ $type }}">
+                        <input type="hidden" name="val" value="{{ $val }}">
                         <input type="hidden" name="user_id" value="{{ $data->user_id }}">
                         <input type="hidden" name="is_confirm" value="0">
                         <button type="submit" class="btn btn-warning btn-flat">Отклонить</button>

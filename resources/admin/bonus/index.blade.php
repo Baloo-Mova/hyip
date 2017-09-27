@@ -31,7 +31,7 @@
                 <tbody>
                     @forelse($list as $item)
                         <tr>
-                            <td>{{ $item->users->login }}</td>
+                            <td>{{ $item->users['login'] }}</td>
                             <td>{{ $item->value }}₽</td>
                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format("d.m.Y H:i") }}</td>
                         </tr>
