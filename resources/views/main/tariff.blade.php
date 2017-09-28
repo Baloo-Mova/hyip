@@ -128,8 +128,8 @@
                             @if(isset($tariff_info->firstPrices))
                                 @foreach($tariff_info->firstPrices as $prices)
                                     <div class="price-info-item">
-                                        <p class="tariff___price">{{$prices->value}}{{ $prices->is_percent ? "%" : "₽" }}</p>
-                                        <h4>{{ ($prices->level + 1)." ".__("messages.level")}}</h4>
+                                        <p class="tariff___price">{{$prices->value}}{{ $prices->is_percent == 1 ? "%" : "₽" }}</p>
+                                        <h4>{{ intval($prices->level + 1)." ".__("messages.level")}}</h4>
                                     </div>
                                 @endforeach
                             @endif
