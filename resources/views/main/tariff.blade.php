@@ -218,9 +218,9 @@
                             var prices = ''
                             tmp = "";
                             data.prices.forEach(function (item, i, arr) {
-                                tmp = data.prices[i].is_percent ? "%" : "₽";
+                                tmp = data.prices[i].is_percent == 1 ? "%" : "₽";
                                 prices += '<div class="price-info-item"><p class="tariff___price">' + data.prices[i].value + tmp + '</p>' +
-                                    '<h4>' + (data.prices[i].level + 1) + ' {{ __("messages.level") }}</h4></div>';
+                                    '<h4>' + (parseInt(data.prices[i].level) + 1) + ' {{ __("messages.level") }}</h4></div>';
 
                             });
                             $(".info-carousel").html(prices);

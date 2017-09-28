@@ -143,8 +143,8 @@
                         @if(isset($tariff_info->firstPrices))
                             @foreach($tariff_info->firstPrices as $prices)
                                 <div class="price-info-item">
-                                    <p class="tariff___price">{{$prices->value}}{{ $prices->is_percent ? "%" : "₽" }}</p>
-                                    <h4>{{ ($prices->level + 1)." ".__("messages.level")}}</h4>
+                                    <p class="tariff___price">{{$prices->value}}{{ $prices->is_percent==1 ? "%" : "₽" }}</p>
+                                    <h4>{{ intval($prices->level + 1)." ".__("messages.level")}}</h4>
                                 </div>
                             @endforeach
                         @endif
@@ -233,9 +233,9 @@
                             var prices = ''
                             tmp = "";
                             data.prices.forEach(function (item, i, arr) {
-                                tmp = data.prices[i].is_percent ? "%" : "₽";
+                                tmp = data.prices[i].is_percent == 1 ? "%" : "₽";
                                 prices += '<div class="price-info-item"><p class="tariff___price">' + data.prices[i].value + tmp + '</p>' +
-                                    '<h4>' + (data.prices[i].level + 1) + ' {{ __("messages.level") }}</h4></div>';
+                                    '<h4>' + (parseInt(data.prices[i].level) + 1) + ' {{ __("messages.level") }}</h4></div>';
 
                             });
                             $(".info-carousel").html(prices);
