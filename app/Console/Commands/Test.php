@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\CPayeer;
 use App\Mail\SubmitEmail;
 use App\Models\User;
 use Faker\Factory;
