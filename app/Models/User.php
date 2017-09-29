@@ -250,7 +250,6 @@ class User extends Authenticatable
             if (isset($priceNow)) {
                 $toIncrement = $priceNow->is_percent ? ($subscription->price * $priceNow->value) / 100 : $priceNow->value;
                 WalletProcesses::insert([
-                    'wallet_id' => 0,
                     'type_id' => WalletProcessesType::REFERRAL,
                     'time' => Carbon::now(),
                     'value' => $toIncrement,
@@ -262,15 +261,13 @@ class User extends Authenticatable
                 $referalLink = Referrals::where([
                     'user_id' => $userToPay->id,
                     'user_ref' => $this->id
-                ]);
+                ])->first();
 
                 if (isset($referalLink)) {
                     $referalLink->increment('earned', $toIncrement);
-                    $referalLink->save();
                 }
 
                 $userToPay->increment('balance', $toIncrement);
-                $userToPay->save();
             }
 
             $userToPay = $userToPay->referrer;

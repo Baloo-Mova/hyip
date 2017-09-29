@@ -43,8 +43,11 @@ class Test extends Command
      */
     public function handle()
     {
-        $user = User::find(20)->with('isConfirmed');
-        $user->password = bcrypt('418390');
-        $user->save();
+        $payeer = new CPayeer(env("PAYEER_NUMBER"), env("PAYEER_API_ID"), env("PAYEER_API_KEY"));
+        if ($payeer->isAuth()) {
+            $balance = $payeer->getBalance()['balance'];
+        } else {
+            $balance = [];
+        }
     }
 }
