@@ -23,7 +23,7 @@ class WithdrawController extends Controller
     {
         $withdraw = WalletProcesses::find($id);
         if(!isset($withdraw)){
-            return redirect()->route('admin.withdraws')->withErrors(['Записи с таким ID не найдено!']);
+            return redirect()->route('admin.withdraws', ['status' => 3])->withErrors(['Записи с таким ID не найдено!']);
         }
 
         return view('Admin::withdraw.edit', [
@@ -37,6 +37,12 @@ class WithdrawController extends Controller
         $wid = $request->get('wid');
 
         $withdraw = WalletProcesses::find($wid);
+        if(!isset($withdraw)){
+            return redirect()->route('admin.withdraws', ['status' => 3])->withErrors(['Записи с таким ID не найдено!']);
+        }
+        if($withdraw->status != 0){
+            return redirect()->route('admin.withdraws', ['status' => 3])->withErrors(['Эта заявка уже обработана!']);
+        }
         if($request->has('decline')){
             return $this->decline($wid, $comment, $withdraw, ['Отказ выполнен успешно!']);
         }
