@@ -95,7 +95,7 @@ class WithdrawController extends Controller
                 $withdraw->status = 1;
                 $withdraw->save();
 
-                return redirect()->route('admin.withdraws')->with('messages', ['Оплата успешно произведена!']);
+                return redirect()->route('admin.withdraws', ['status' => 3])->with('messages', ['Оплата успешно произведена!']);
             }
             else
             {
@@ -119,6 +119,6 @@ class WithdrawController extends Controller
         $user->balance = $user->balance + $withdraw->value;
         $user->save();
 
-        return redirect()->route('admin.withdraws')->with('messages', $message);
+        return redirect()->route('admin.withdraws', ['status' => 3])->with('messages', $message);
     }
 }
