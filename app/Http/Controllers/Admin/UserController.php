@@ -47,12 +47,15 @@ class UserController extends BaseController
         $maxLevel = DB::table('referrals')->max('level');
 
         $table2 = [];
-        foreach (range(1, $maxLevel) as $item){
-            $count = Referrals::where(['level' => $item])->distinct('user_id')->count('user_id');
-            $table2[] = [
-                'level' => $item,
-                'value' => $count
-            ];
+
+        if(isset($maxLevel) && $maxLevel > 0){
+            foreach (range(1, $maxLevel) as $item){
+                $count = Referrals::where(['level' => $item])->distinct('user_id')->count('user_id');
+                $table2[] = [
+                    'level' => $item,
+                    'value' => $count
+                ];
+            }
         }
 
         $users = User::paginate(15);

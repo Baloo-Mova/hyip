@@ -46,18 +46,24 @@
         <div class="col-xs-12 col-md-4">
             <table class="table table-striped user_levels_table">
                 <tbody>
-                    <tr>
-                        @foreach($table2 as $t2)
-                            <td>{{ $t2['level'] }} ступень</td>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        @foreach($table2 as $t2)
-                            <td>
-                                <a href="{{ route('admin-users-list', ['type' => 2, 'val' => $t2['level']]) }}">{{ $t2['value'] }}</a>
-                            </td>
-                        @endforeach
-                    </tr>
+                    @if(count($table2) > 0)
+                        <tr>
+                            @foreach($table2 as $t2)
+                                <td>{{ $t2['level'] }} ступень</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            @foreach($table2 as $t2)
+                                <td>
+                                    <a href="{{ route('admin-users-list', ['type' => 2, 'val' => $t2['level']]) }}">{{ $t2['value'] }}</a>
+                                </td>
+                            @endforeach
+                        </tr>
+                    @else
+                        <tr>
+                            <td class="text-center">Рефералов пока нет</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
