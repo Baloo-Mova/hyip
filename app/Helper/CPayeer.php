@@ -64,8 +64,7 @@ class CPayeer
         curl_setopt($handler, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($handler, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($handler, CURLOPT_USERAGENT, $this->agent);
-        curl_setopt($handler, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($handler, CURLOPT_PROXY, '127.0.0.1:8888');
+        curl_setopt($handler, CURLOPT_RETURNTRANSFER, 1); 
 
         $content = curl_exec($handler);
         //print_r($content);
