@@ -209,3 +209,6 @@ body {
 .p20{
     padding: 10px 20px 20px 0px;
 }
+.search_td {
+    width: 130px;
+}

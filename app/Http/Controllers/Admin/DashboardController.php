@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $users['banned']    = User::banned()->count();
 
         $dt = Carbon::now()->subDays(3);
-        $users['active']    = User::where('last_activity', '>', $dt)->count();
+        $users['active']    = User::whereNotNull('subscribe_id')->count();
 
         $withdraws['all'] = WalletProcesses::where(['status' => 1])->sum('value');
         $withdraws['paid_out'] = WalletProcesses::where(['type_id' => 3, 'status' => 1])->sum('value');

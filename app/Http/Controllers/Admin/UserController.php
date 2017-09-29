@@ -47,17 +47,23 @@ class UserController extends BaseController
         $maxLevel = DB::table('referrals')->max('level');
 
         $table2 = [];
-        foreach (range(1, $maxLevel) as $item){
-            $count = Referrals::where(['level' => $item])->distinct('user_id')->count('user_id');
-            $table2[] = [
-                'level' => $item,
-                'value' => $count
-            ];
+
+        if(isset($maxLevel) && $maxLevel > 0){
+            foreach (range(1, $maxLevel) as $item){
+                $count = Referrals::where(['level' => $item])->distinct('user_id')->count('user_id');
+                $table2[] = [
+                    'level' => $item,
+                    'value' => $count
+                ];
+            }
         }
+
+        $users = User::paginate(15);
 
         return view('Admin::' . $this->_view . '.index',[
             'table1' => $table1,
-            'table2' => $table2
+            'table2' => $table2,
+            'users' => $users
         ]);
     }
 
@@ -93,7 +99,7 @@ class UserController extends BaseController
         $paid_out = WalletProcesses::where(['type_id' => 3, 'status' => 1, 'to_id' => $user_id])->sum('value');
         return view('Admin::' . $this->_view . '.info',[
             'user' => $user,
-            'passport_data' => json_decode($passportData->passport_data),
+            'passport_data' => isset($passportData) ? json_decode($passportData->passport_data) : null,
             'active' => $active,
             'scans' => $scans,
             'paid_out' => $paid_out,
@@ -148,13 +154,45 @@ class UserController extends BaseController
             $where[] = ['login', 'like', '%'.$request->get('login').'%'];
             $search['login'] = $request->get('login');
         }
-        if($type == 1){
-            $where[] = ['ref_count', '>', '0'];
-            $where[] = ['ref_count', '>=', $val];
-        }else{
-
+        if($request->has('ref_name')){
+            $where[] = ['ref_name', 'like', '%'.$request->get('ref_name').'%'];
+            $search['ref_name'] = $request->get('ref_name');
         }
-        $users = User::where($where)->paginate(25);
+        if($request->has('is_confirm')){
+            $isConfirm = $request->get('is_confirm');
+            if($isConfirm == 1){
+                $where[] = ['is_confirm', '=', 1];
+            }
+            if($isConfirm == 0){
+                $where[] = ['is_confirm', '=', 0];
+            }
+            $search['is_confirm'] = $isConfirm;
+        }
+        if($request->has('is_active')) {
+            $isActive = $request->get('is_active');
+            $search['is_active'] = $isActive;
+        }else{
+            $isActive = null;
+        }
+
+        switch ($type){
+            case 1:
+                $where[] = ['ref_count', '>', '0'];
+                $where[] = ['ref_count', '>=', $val];
+                $users = $this->findUsers($where, $isActive, null);
+                break;
+            case 2:
+                $ref = Referrals::select(DB::raw('user_id'))
+                    ->where(['level' => $val])
+                    ->distinct('user_id')
+                    ->get()
+                    ->toArray();
+                $users = $this->findUsers($where, $isActive, $ref);
+                break;
+            case 'all':
+                $users = $this->findUsers($where, $isActive, null);
+                break;
+        }
 
         return view('Admin::' . $this->_view . '.list', [
             'search' => $search,
@@ -162,6 +200,43 @@ class UserController extends BaseController
             'type' => $type,
             'val' => $val
         ]);
+    }
+
+    protected function findUsers($where, $isActive, $ref)
+    {
+        if(isset($ref)){
+            if(isset($isActive)){
+                switch ($isActive){
+                    case 0:
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNull('subscribe_id')->paginate(15);
+                        break;
+                    case 1:
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        break;
+                    case 2:
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+                        break;
+                }
+            }else{
+                return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+            }
+        }else{
+            if(isset($isActive)){
+                switch ($isActive){
+                    case 0:
+                        return User::where($where)->whereNull('subscribe_id')->paginate(15);
+                        break;
+                    case 1:
+                        return User::where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        break;
+                    case 2:
+                        return User::where($where)->paginate(15);
+                        break;
+                }
+            }else{
+                return User::where($where)->paginate(15);
+            }
+        }
     }
 
     public function remove($id)
@@ -224,6 +299,10 @@ class UserController extends BaseController
         $user->is_banned = $type;
         $user->save();
 
+        if($list_type == 'all'){
+            return redirect(route('admin.users.index'));
+        }
+
         return redirect(route('admin-users-list', [
             'type' => $list_type,
             'val' => $val
@@ -236,6 +315,7 @@ class UserController extends BaseController
         $user = User::find($id);
         $data = $user->passportData;
         $scans = $user->scans;
+
         return view('Admin::' . $this->_view . '.confirm', [
             'data' => $data,
             'scans' => $scans,
@@ -264,6 +344,10 @@ class UserController extends BaseController
         $conf = UserConfirm::where(['user_id' => $user_id, 'is_read' => 0])->first();
         $conf->is_read = 1;
         $conf->save();
+
+        if($type == 'all'){
+            return redirect(route('admin.users.index'));
+        }
 
 
         return redirect(route('admin-users-list', [
