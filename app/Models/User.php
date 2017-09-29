@@ -261,7 +261,7 @@ class User extends Authenticatable
                 $referalLink = Referrals::where([
                     'user_id' => $userToPay->id,
                     'user_ref' => $this->id
-                ]);
+                ])->first();
 
                 if (isset($referalLink)) {
                     $referalLink->increment('earned', $toIncrement);
