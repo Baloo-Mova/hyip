@@ -55,9 +55,12 @@ class UserController extends BaseController
             ];
         }
 
+        $users = User::paginate(15);
+
         return view('Admin::' . $this->_view . '.index',[
             'table1' => $table1,
-            'table2' => $table2
+            'table2' => $table2,
+            'users' => $users
         ]);
     }
 
@@ -93,7 +96,7 @@ class UserController extends BaseController
         $paid_out = WalletProcesses::where(['type_id' => 3, 'status' => 1, 'to_id' => $user_id])->sum('value');
         return view('Admin::' . $this->_view . '.info',[
             'user' => $user,
-            'passport_data' => json_decode($passportData->passport_data),
+            'passport_data' => isset($passportData) ? json_decode($passportData->passport_data) : null,
             'active' => $active,
             'scans' => $scans,
             'paid_out' => $paid_out,
@@ -148,13 +151,74 @@ class UserController extends BaseController
             $where[] = ['login', 'like', '%'.$request->get('login').'%'];
             $search['login'] = $request->get('login');
         }
+
+
         if($type == 1){
             $where[] = ['ref_count', '>', '0'];
             $where[] = ['ref_count', '>=', $val];
-        }else{
 
+            if($request->has('is_active')){
+                $isActive = $request->get('is_active');
+                $search['is_active'] = $request->get('is_active');
+
+                switch ($isActive){
+                    case 0:
+                        $users = User::where($where)->whereNull('subscribe_id')->paginate(15);
+                        break;
+                    case 1:
+                        $users = User::where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        break;
+                    case 2:
+                        $users = User::where($where)->paginate(15);
+                        break;
+                }
+            }else{
+                $users = User::where($where)->paginate(15);
+            }
+        }elseif($type == 2){
+            $ref = Referrals::select(DB::raw('user_id'))
+                ->where(['level' => $val])
+                ->distinct('user_id')
+                ->get()
+                ->toArray();
+            if($request->has('is_active')){
+                $isActive = $request->get('is_active');
+                $search['is_active'] = $request->get('is_active');
+
+                switch ($isActive){
+                    case 0:
+                        $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNull('subscribe_id')->paginate(15);
+                        break;
+                    case 1:
+                        $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        break;
+                    case 2:
+                        $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+                        break;
+                }
+            }else{
+                $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+            }
+        }else{
+            if($request->has('is_active')){
+                $isActive = $request->get('is_active');
+                $search['is_active'] = $request->get('is_active');
+
+                switch ($isActive){
+                    case 0:
+                        $users = User::where($where)->whereNull('subscribe_id')->paginate(15);
+                        break;
+                    case 1:
+                        $users = User::where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        break;
+                    case 2:
+                        $users = User::where($where)->paginate(15);
+                        break;
+                }
+            }else{
+                $users = User::where($where)->paginate(15);
+            }
         }
-        $users = User::where($where)->paginate(25);
 
         return view('Admin::' . $this->_view . '.list', [
             'search' => $search,
@@ -224,6 +288,10 @@ class UserController extends BaseController
         $user->is_banned = $type;
         $user->save();
 
+        if($list_type == 'all'){
+            return redirect(route('admin.users.index'));
+        }
+
         return redirect(route('admin-users-list', [
             'type' => $list_type,
             'val' => $val
@@ -236,6 +304,7 @@ class UserController extends BaseController
         $user = User::find($id);
         $data = $user->passportData;
         $scans = $user->scans;
+
         return view('Admin::' . $this->_view . '.confirm', [
             'data' => $data,
             'scans' => $scans,
@@ -264,6 +333,10 @@ class UserController extends BaseController
         $conf = UserConfirm::where(['user_id' => $user_id, 'is_read' => 0])->first();
         $conf->is_read = 1;
         $conf->save();
+
+        if($type == 'all'){
+            return redirect(route('admin.users.index'));
+        }
 
 
         return redirect(route('admin-users-list', [

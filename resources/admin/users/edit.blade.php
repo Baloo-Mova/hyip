@@ -4,7 +4,11 @@
     @include('Admin::alerts')
 
     <div>
-        <a href="{{route('admin-users-list', ['type' => $type, 'val' => $val])}}" class="btn btn-primary pull-right" style="float: right;"> Назад</a>
+        @if($type == 'all')
+            <a href="{{ route('admin.users.index') }}" class="btn btn-primary pull-right">Назад</a>
+        @else
+            <a href="{{route('admin-users-list', ['type' => $type, 'val' => $val])}}" class="btn btn-primary pull-right" style="float: right;"> Назад</a>
+        @endif
         <h1 class="sub-header">Редактировать пользователя ID: {{$user->id}}</h1>
     </div>
     <div class="col-xs-12 col-lg-6">

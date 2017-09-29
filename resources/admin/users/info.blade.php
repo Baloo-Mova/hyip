@@ -6,7 +6,11 @@
     <div class="row">
         <div class="col-xs-12">
             <h3 class="sub-header">
-                <a href="{{route('admin-users-list', ['type' => $type, 'val' => $val])}}" class="btn btn-primary pull-right" style="float: right;"> Назад</a>
+                @if($type == 'all')
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-primary pull-right">Назад</a>
+                @else
+                    <a href="{{route('admin-users-list', ['type' => $type, 'val' => $val])}}" class="btn btn-primary pull-right" style="float: right;"> Назад</a>
+                @endif
                 Просмотр пользователя - {{ $user->login }}
                 <a title="{{ $user->is_banned == 1 ? 'Розбанить':'Забанить'}}"
                    href="{{route('admin-users-ban', [
@@ -48,7 +52,7 @@
                     </tr>
                     <tr>
                         <td>Активность</td>
-                        <td class="{{ $active == 1 ? "text-success" : "text-danger" }}">{{ $active == 1 ? "Активен" : "Не активен" }}</td>
+                        <td class="{{ isset($user->subscribe_id) ? "text-success" : "text-danger" }}">{{ isset($user->subscribe_id) ? "Активен" : "Не активен" }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -62,7 +66,7 @@
                 <tbody>
                     <tr>
                         <td>Тариф</td>
-                        <td>{{ $user->subscription->name }}</td>
+                        <td>{{ isset($uer->subscribe_id) ? $user->subscription->name : "" }}</td>
                     </tr>
                     <tr>
                         <td>Денег заработано</td>
