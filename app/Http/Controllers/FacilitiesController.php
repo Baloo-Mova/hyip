@@ -198,7 +198,7 @@ class FacilitiesController extends Controller
         $user->balance = $user->balance - $sum;
         $user->save();
 
-        Session::flash('messages', [__("messages.system_settings_error")]);
+        Session::flash('messages', [__("messages.request_output_successfully")]);
         return redirect()->route('facilities', ['type' => 'output']);
 
     }
