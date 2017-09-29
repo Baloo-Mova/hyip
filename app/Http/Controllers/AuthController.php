@@ -228,6 +228,7 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => \Hash::make($request->get('password')),
             'role' => 1,
+            'ref_name' => $ref->login,
             'ref_count' => 0,
             'balance' => 0,
             'status' => 0,

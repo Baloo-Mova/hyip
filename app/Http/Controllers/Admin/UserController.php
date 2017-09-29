@@ -154,73 +154,44 @@ class UserController extends BaseController
             $where[] = ['login', 'like', '%'.$request->get('login').'%'];
             $search['login'] = $request->get('login');
         }
-
-
-        if($type == 1){
-            $where[] = ['ref_count', '>', '0'];
-            $where[] = ['ref_count', '>=', $val];
-
-            if($request->has('is_active')){
-                $isActive = $request->get('is_active');
-                $search['is_active'] = $request->get('is_active');
-
-                switch ($isActive){
-                    case 0:
-                        $users = User::where($where)->whereNull('subscribe_id')->paginate(15);
-                        break;
-                    case 1:
-                        $users = User::where($where)->whereNotNull('subscribe_id')->paginate(15);
-                        break;
-                    case 2:
-                        $users = User::where($where)->paginate(15);
-                        break;
-                }
-            }else{
-                $users = User::where($where)->paginate(15);
+        if($request->has('ref_name')){
+            $where[] = ['ref_name', 'like', '%'.$request->get('ref_name').'%'];
+            $search['ref_name'] = $request->get('ref_name');
+        }
+        if($request->has('is_confirm')){
+            $isConfirm = $request->get('is_confirm');
+            if($isConfirm == 1){
+                $where[] = ['is_confirm', '=', 1];
             }
-        }elseif($type == 2){
-            $ref = Referrals::select(DB::raw('user_id'))
-                ->where(['level' => $val])
-                ->distinct('user_id')
-                ->get()
-                ->toArray();
-            if($request->has('is_active')){
-                $isActive = $request->get('is_active');
-                $search['is_active'] = $request->get('is_active');
-
-                switch ($isActive){
-                    case 0:
-                        $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNull('subscribe_id')->paginate(15);
-                        break;
-                    case 1:
-                        $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNotNull('subscribe_id')->paginate(15);
-                        break;
-                    case 2:
-                        $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
-                        break;
-                }
-            }else{
-                $users = User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+            if($isConfirm == 0){
+                $where[] = ['is_confirm', '=', 0];
             }
+            $search['is_confirm'] = $isConfirm;
+        }
+        if($request->has('is_active')) {
+            $isActive = $request->get('is_active');
+            $search['is_active'] = $isActive;
         }else{
-            if($request->has('is_active')){
-                $isActive = $request->get('is_active');
-                $search['is_active'] = $request->get('is_active');
+            $isActive = null;
+        }
 
-                switch ($isActive){
-                    case 0:
-                        $users = User::where($where)->whereNull('subscribe_id')->paginate(15);
-                        break;
-                    case 1:
-                        $users = User::where($where)->whereNotNull('subscribe_id')->paginate(15);
-                        break;
-                    case 2:
-                        $users = User::where($where)->paginate(15);
-                        break;
-                }
-            }else{
-                $users = User::where($where)->paginate(15);
-            }
+        switch ($type){
+            case 1:
+                $where[] = ['ref_count', '>', '0'];
+                $where[] = ['ref_count', '>=', $val];
+                $users = $this->findUsers($where, $isActive, null);
+                break;
+            case 2:
+                $ref = Referrals::select(DB::raw('user_id'))
+                    ->where(['level' => $val])
+                    ->distinct('user_id')
+                    ->get()
+                    ->toArray();
+                $users = $this->findUsers($where, $isActive, $ref);
+                break;
+            case 'all':
+                $users = $this->findUsers($where, $isActive, null);
+                break;
         }
 
         return view('Admin::' . $this->_view . '.list', [
@@ -229,6 +200,43 @@ class UserController extends BaseController
             'type' => $type,
             'val' => $val
         ]);
+    }
+
+    protected function findUsers($where, $isActive, $ref)
+    {
+        if(isset($ref)){
+            if(isset($isActive)){
+                switch ($isActive){
+                    case 0:
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNull('subscribe_id')->paginate(15);
+                        break;
+                    case 1:
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        break;
+                    case 2:
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+                        break;
+                }
+            }else{
+                return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+            }
+        }else{
+            if(isset($isActive)){
+                switch ($isActive){
+                    case 0:
+                        return User::where($where)->whereNull('subscribe_id')->paginate(15);
+                        break;
+                    case 1:
+                        return User::where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        break;
+                    case 2:
+                        return User::where($where)->paginate(15);
+                        break;
+                }
+            }else{
+                return User::where($where)->paginate(15);
+            }
+        }
     }
 
     public function remove($id)
