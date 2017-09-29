@@ -265,11 +265,9 @@ class User extends Authenticatable
 
                 if (isset($referalLink)) {
                     $referalLink->increment('earned', $toIncrement);
-                    $referalLink->save();
                 }
 
                 $userToPay->increment('balance', $toIncrement);
-                $userToPay->save();
             }
 
             $userToPay = $userToPay->referrer;
