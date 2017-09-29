@@ -249,7 +249,6 @@ class User extends Authenticatable
             if (isset($priceNow)) {
                 $toIncrement = $priceNow->is_percent ? ($subscription->price * $priceNow->value) / 100 : $priceNow->value;
                 WalletProcesses::insert([
-                    'wallet_id' => 0,
                     'type_id' => WalletProcessesType::REFERRAL,
                     'time' => Carbon::now(),
                     'value' => $toIncrement,
