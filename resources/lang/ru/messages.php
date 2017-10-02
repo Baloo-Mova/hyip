@@ -140,6 +140,7 @@ return [
     'support_message' => 'Сообщение техподдержке',
     'send_successful' => 'Сообщение успешно отправлено',
     'send_successful_message' => 'Сообщение отправлено',
+    'no_balance' => 'У Вас на балансе недосточно средств',
 
     /*
      * Pages titles

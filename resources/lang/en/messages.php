@@ -139,6 +139,7 @@ return [
     'support_message' => 'Support message',
     'send_successful' => 'Message sent successfully',
     'send_successful_message' => 'Message sent',
+    'no_balance' => 'You have insufficient funds on your balance sheet',
 
 
     /*

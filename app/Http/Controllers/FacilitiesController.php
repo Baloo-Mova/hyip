@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Facilities\RefillRequest;
 use App\Models\PaymentsRequest;
+use App\Models\Settings;
 use App\Models\User;
 use App\Models\WalletProcesses;
 use Carbon\Carbon;
@@ -21,6 +22,7 @@ class FacilitiesController extends Controller
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $item = InputOutput::where(['need_show' => 1, 'lang' => Session::get("applocale")])->first();
         $operations = WalletProcesses::with('getType')->where(['to_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
+        $settings = Settings::find(1);
 
         $data = [
             'contacts' => [
@@ -35,7 +37,8 @@ class FacilitiesController extends Controller
             'type' => $type,
             'item' => $item,
             'pay_systems' => config('payment.pay_systems'),
-            'operations' => $operations
+            'operations' => $operations,
+            'settings' => $settings
         ]);
     }
 
@@ -67,6 +70,8 @@ class FacilitiesController extends Controller
             'time' => Carbon::now()
         ]);
 
+        $settings = Settings::find(1);
+
         /*PaymentsRequest::create([
             'user_id' => $user_id,
             'summ' => $request->get('count'),
@@ -76,12 +81,12 @@ class FacilitiesController extends Controller
 
         $payment_config = config('payment');
 
-        $m_shop = $payment_config['m_shop'];
+        $m_shop = $settings->payeer_m_shop;
         $m_orderid = $payment->id;
         $m_amount = number_format($request->get('count'), 2, '.', '');
         $m_curr = $payment_config['m_curr'];
         $m_desc = base64_encode('Пополнение баланса');
-        $m_key = $payment_config['m_key'];
+        $m_key = $settings->payeer_m_key;
 
         $arHash = [
             $m_shop,
@@ -101,9 +106,9 @@ class FacilitiesController extends Controller
     {
 
         if (!in_array($_SERVER['REMOTE_ADDR'], ['185.71.65.92', '185.71.65.189', '149.202.17.210'])) return;
-
+        $settings = Settings::find(1);
         if (isset($_POST['m_operation_id']) && isset($_POST['m_sign'])) {
-            $m_key = config('payment.m_key');
+            $m_key = $settings->payeer_m_key;
             $arHash = array(
                 $_POST['m_operation_id'],
                 $_POST['m_operation_ps'],
@@ -153,7 +158,8 @@ class FacilitiesController extends Controller
     public function withdraw(Request $request)
     {
         $user = \Auth::user();
-        $payeer = new CPayeer(env("PAYEER_NUMBER"), env("PAYEER_API_ID"), env("PAYEER_API_KEY"));
+        $settings = Settings::find(1);
+        $payeer = new CPayeer($settings->payeer_number, $settings->payeer_api_id, $settings->payeer_api_key);
         if ($payeer->isAuth()) {
             $balance = $payeer->getBalance()['balance'];
         } else {
@@ -165,7 +171,7 @@ class FacilitiesController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'sum' => 'required|numeric|min:' . config('payment.min_sum') . '|max:' . $user->balance,
+            'sum' => 'required|numeric|min:' . $settings->min_sum . '|max:' . $settings->max_sum,
             'pay_system' => 'required',
             'card_number' => 'required',
         ]);
@@ -178,6 +184,11 @@ class FacilitiesController extends Controller
         $pay_system = $request->get('pay_system');
         $card_number = $request->get('card_number');
         $contact_person = $request->has('contact_person') ? $request->get('contact_person') : null;
+
+
+        if($user->balance < $sum){
+            return redirect()->route('facilities', ['type' => 'output'])->withErrors([__("messages.no_balance")]);
+        }
 
         if ($balance['RUB']['DOSTUPNO'] < $sum) {
             return redirect()->route('facilities', ['type' => 'output'])->withErrors([__("messages.system_settings_error")]);

@@ -60,7 +60,7 @@
                                         @lang("messages.sum_of_output"):
                                     </label>
                                     <input type="number" name="sum" id="sum"
-                                           class="form-control btn-flat @if( is_error('sum') )has-error @endif" min="{{ config('payment.min_sum') }}" max="{{ \Auth::user()->balance }}" placeholder="500₽">
+                                           class="form-control btn-flat @if( is_error('sum') )has-error @endif" min="{{ $settings->min_sum }}" placeholder="500₽">
                                     @if( is_error('sum') )
                                         <span class="help-block">{{ $errors->first('sum') }}</span>
                                     @endif

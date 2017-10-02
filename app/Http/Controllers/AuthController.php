@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Mail\SubmitEmail;
 use App\Models\PasswordResets;
+use App\Models\Settings;
 use App\Models\User;
 use Carbon\Carbon;
 use Faker\Factory;
@@ -56,17 +57,18 @@ class AuthController extends Controller
 
         $text = __("messages.hello").", ".$user->login." ! ".__("messages.recovery_email_text").": ".$url;
 
+        $settings = Settings::find(1);
         try {
             $mail = new PHPMailer;
             $mail->isSMTP();
-            $mail->Host = env("MAIL_HOST");
+            $mail->Host = $settings->smtp;
             $mail->SMTPAuth = true;
-            $mail->Username = env("MAIL_USERNAME");
-            $mail->Password = env("MAIL_PASSWORD");
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = env("MAIL_PORT");
+            $mail->Username = $settings->smtp_login;
+            $mail->Password = $settings->smtp_pasw;
+            $mail->SMTPSecure = $settings->smtp_secure;
+            $mail->Port = $settings->smtp_port;
             $mail->CharSet = 'UTF-8';
-            $mail->setFrom(env("NO_REPLY_EMAIL"));
+            $mail->setFrom($settings->smtp_login);
             $mail->addAddress($email);
 
             $mail->Subject = __("messages.password_recovery");

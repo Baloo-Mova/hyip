@@ -118,7 +118,7 @@
             <form action="{{ route('admin.settings.save') }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="admin_ips">SMTP</label>
+                    <label for="admin_ips">Список IP (каждый с новой строки)</label>
                     <textarea name="admin_ips" id="admin_ips" rows="10" class="form-control">{!! isset($admin_ips) ? $admin_ips : ""  !!} </textarea>
                 </div>
                 <div class="form-group">
