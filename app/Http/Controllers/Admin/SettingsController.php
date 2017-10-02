@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Settings;
 use App\Models\UsersPageSettings;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
@@ -15,8 +16,29 @@ class SettingsController extends Controller
 
     public function index()
     {
+        $settings = Settings::find(1);
         $state = Application::getInstance()->isDownForMaintenance();
-        return view("Admin::settings.index", ['state' => $state]);
+        $admin_ips = json_decode($settings->admin_ips, true);
+        return view("Admin::settings.index", [
+            'state' => $state,
+            'settings' => $settings,
+            'admin_ips' => implode(PHP_EOL, $admin_ips )
+        ]);
+    }
+
+    public function save(Request $request)
+    {
+        $settings = Settings::find(1);
+        if($request->has('admin_ips')){
+            $ips = explode("\r\n", trim($request->get('admin_ips')));
+            $settings->admin_ips = json_encode($ips);
+        }else{
+            $settings->fill($request->all());
+        }
+        $settings->save();
+
+        Session::flash('messages', ['Настройки успешно сохранены!']);
+        return back();
     }
 
     public function toMaintenance()

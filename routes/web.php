@@ -114,6 +114,7 @@ Route::group([
 
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'SettingsController@index')->name('admin.settings.index');
+        Route::post('/save-settings', 'SettingsController@save')->name('admin.settings.save');
         Route::get('/get-down', 'SettingsController@toMaintenance')->name('admin.down.site');
         Route::get('/get-up', 'SettingsController@fromMaintenance')->name('admin.up.site');
         Route::get('/users', 'SettingsController@users')->name('admin.settings.users');
