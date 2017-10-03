@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Regulations whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Regulations whereTitle($value)
  * @mixin \Eloquent
+ * @property string|null $lang
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Regulations whereLang($value)
  */
 class Regulations extends Model
 {

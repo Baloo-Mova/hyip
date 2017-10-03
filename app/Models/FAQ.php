@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FAQ whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FAQ whereQuestion($value)
  * @mixin \Eloquent
+ * @property string|null $lang
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FAQ whereLang($value)
  */
 class FAQ extends Model
 {

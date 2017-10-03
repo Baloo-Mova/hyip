@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\About whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\About whereUri($value)
  * @mixin \Eloquent
+ * @property string|null $lang
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\About whereLang($value)
  */
 class About extends Model
 {

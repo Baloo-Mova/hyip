@@ -58,16 +58,19 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Всего выплат</th>
-                    <th>Всего выплачено</th>
-                    <th>Всего ожидает выплаты</th>
+                    <th>Всего на выплату</th>
+                    <th>Выплачено</th>
+                    <th>Ожидает выплаты</th>
+                    <th>Заработано</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{ $withdraws['all'] }}₽</td>
-                    <td>{{ $withdraws['paid_out'] }}₽</td>
-                    <td>{{ $withdraws['expects'] }}₽</td>
+
+                    <td>{{ $withdraws['all'] }} ₽</td>
+                    <td>{{ $withdraws['paid_out'] }} ₽</td>
+                    <td>{{ $withdraws['expects'] }} ₽</td>
+                    <td>{{ $withdraws['earned'] }} ₽</td>
                 </tr>
                 </tbody>
             </table>

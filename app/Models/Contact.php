@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact whereValue($value)
  * @mixin \Eloquent
+ * @property int $type_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact email()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact phones()
  */
 class Contact extends Model
 {

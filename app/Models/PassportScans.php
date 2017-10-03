@@ -20,6 +20,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PassportScans whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PassportScans whereUserId($value)
  * @mixin \Eloquent
+ * @property string|null $photo
+ * @property string|null $preview
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PassportScans wherePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PassportScans wherePreview($value)
  */
 class PassportScans extends Model
 {
