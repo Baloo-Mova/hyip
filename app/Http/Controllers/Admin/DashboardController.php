@@ -19,8 +19,9 @@ class DashboardController extends Controller
         $dt = Carbon::now()->subDays(3);
         $users['active'] = User::whereNotNull('subscribe_id')->count();
 
-        $withdraws['all'] = WalletProcesses::whereIn('type_id', [WalletProcesses::REFERRALS, WalletProcesses::BONUS])->sum('value');
+
         $withdraws['paid_out'] = WalletProcesses::where(['type_id' => WalletProcesses::OUTPUT, 'status' => WalletProcesses::STATUS_ACCEPT])->sum('value');
+        $withdraws['all'] = WalletProcesses::whereIn('type_id', [WalletProcesses::REFERRALS, WalletProcesses::BONUS])->sum('value') - $withdraws['paid_out'];
         $withdraws['expects'] = WalletProcesses::where(['type_id' => WalletProcesses::OUTPUT, 'status' => WalletProcesses::STATUS_UNREAD])->sum('value');
         $withdraws['earned'] = $settings->received;
 
