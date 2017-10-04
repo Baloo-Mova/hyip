@@ -16,6 +16,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\HeaderCarousel whereNeedShow($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\HeaderCarousel whereText($value)
  * @mixin \Eloquent
+ * @property string|null $button_title
+ * @property string|null $button_link
+ * @property int $show_button
+ * @property string|null $buttons
+ * @property string|null $lang
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\HeaderCarousel whereButtonLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\HeaderCarousel whereButtonTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\HeaderCarousel whereButtons($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\HeaderCarousel whereLang($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\HeaderCarousel whereShowButton($value)
  */
 class HeaderCarousel extends Model
 {

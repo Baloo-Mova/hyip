@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereTerm($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $image
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereImage($value)
  */
 class Subscription extends Model
 {

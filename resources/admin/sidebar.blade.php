@@ -5,7 +5,7 @@
         <li class="@if( preg_match('/^admin\/settings/i', $current_uri) ) active @endif"><a
                     href='{{ route('admin.settings.index') }}'>Настройки</a></li>
         <li class="@if( preg_match('/^admin\/money-history/i', $current_uri) ) active @endif"><a
-                    href='{{ route('admin.money.history.index') }}'>Операции с платежными системами</a></li>
+                    href='{{ route('admin.money.history.index') }}'>Движения средств</a></li>
         <li class="@if( preg_match('/^admin\/subscriptions/i', $current_uri) ) active @endif"><a
                     href='{{ route('admin-subscriptions-list') }}'>Тарифы</a></li>
         <li class="@if( preg_match('/^admin\/users/i', $current_uri) ) active @endif"><a href='{{ route('admin.users.index') }}'>Пользователи @if (\App\Models\UserConfirm::hasUnread()) <span class="title_unread" style="background: red">new</span>@endif</a></li>

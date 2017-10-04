@@ -55,6 +55,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $status
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereStatus($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PassportScans[] $scans
+ * @property string|null $ref_name
+ * @property int $is_confirm Верификация доков админом
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserConfirm[] $confirmed
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $hasMessages
+ * @property-read \App\Models\PassportData $passportData
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SubscriptionPrice[] $prices
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WalletProcesses[] $processes
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User banned()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereIsConfirm($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRefName($value)
  */
 class User extends Authenticatable
 {
@@ -191,14 +201,13 @@ class User extends Authenticatable
                 return;
             }
 
-            if($user->id != $this->id){
+            if ($user->id != $this->id) {
                 $user_from_name = User::find($user->id)->login;
                 $user_from = $user->id;
-            }else{
-                $user_from_name =  null;
+            } else {
+                $user_from_name = null;
                 $user_from = 0;
             }
-
 
 
             Referrals::create([
@@ -226,6 +235,10 @@ class User extends Authenticatable
 
     public function payToReferrals(Subscription $subscription)
     {
+
+        $tarifCost = $subscription->price;
+        $summPayed = 0;
+
         $prices = $subscription->prices;
         if ($this->referral_id == null) {
             return;
@@ -268,11 +281,15 @@ class User extends Authenticatable
                 }
 
                 $userToPay->increment('balance', $toIncrement);
+                $summPayed += $toIncrement;
             }
 
             $userToPay = $userToPay->referrer;
             $iterator++;
         }
+
+        $settings = Settings::find(1);
+        $settings->increment('received', $tarifCost - $summPayed);
     }
 
     /**

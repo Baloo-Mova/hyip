@@ -22,6 +22,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereWalletId($value)
  * @mixin \Eloquent
+ * @property int $from_id
+ * @property int $status
+ * @property string|null $card_number
+ * @property string|null $pay_system
+ * @property string|null $contact_person
+ * @property string|null $comment
+ * @property int $to_id
+ * @property-read \App\Models\User $users
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses bonuses()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereCardNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereContactPerson($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereFromId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses wherePaySystem($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletProcesses whereToId($value)
  */
 class WalletProcesses extends Model
 {

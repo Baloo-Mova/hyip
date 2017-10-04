@@ -29,6 +29,11 @@ use Illuminate\Support\Facades\Session;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUri($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereTypeId($value)
  * @mixin \Eloquent
+ * @property int $type_id 1 - новость, 2 - акция
+ * @property string|null $lang
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article blog()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article stock()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereLang($value)
  */
 class Article extends Model
 {
