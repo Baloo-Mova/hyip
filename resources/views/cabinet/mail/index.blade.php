@@ -67,7 +67,7 @@
 
             $(".open_chat").on("click", function (e) {
                 var to_user = $(".user_select").val();
-                $(location).attr('href', "{{ url('/admin/logs/create-chat') }}/" + to_user);
+                $(location).attr('href', "{{ url('/cabinet/dialogs/create-chat') }}/" + to_user);
             });
 
             var userselect = $(".user_select").select2({
