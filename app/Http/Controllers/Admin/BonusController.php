@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Bonus;
 use App\Models\Subscription;
+use App\Models\SubscriptionsLog;
 use App\Models\WalletProcesses;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,10 +49,7 @@ class BonusController extends Controller
                 $users = $this->allUsers($request->has('all_users'), $request, $amount);
                 break;
             case 2:
-                $users = $this->usersToPeriod($request->get('period'), $amount);
-                break;
-            case 3:
-                $users = $this->usersToTariff($request->get('tariff'), $amount);
+                $users = $this->usersToTariff($request->get('tariff'), $request->get('period'), $amount);
                 break;
         }
 
@@ -89,10 +87,15 @@ class BonusController extends Controller
         return User::whereBetween('created_at', [$date_from, $date_to])->get();
     }
 
-    protected function usersToTariff($tariff, $amount)
+    protected function usersToTariff($tariff, $period, $amount)
     {
-        User::whereIn('subscribe_id', $tariff)->update(['balance' => DB::raw('balance +'.$amount)]);
-        return User::whereIn('subscribe_id', $tariff)->get();
+        $find = stripos($period, ' -');
+        $date_from = \Carbon\Carbon::parse(substr($period, 0, $find))->toDateTimeString();
+        $date_to = \Carbon\Carbon::parse(substr($period, $find + 3))->toDateTimeString();
+        $ids = SubscriptionsLog::whereIn('subscribe_id', $tariff)->whereBetween('created_at', [$date_from, $date_to])->distinct('user_id')->get(['user_id'])->toArray();
+
+        User::whereIn('id', array_column($ids, 'user_id'))->update(['balance' => DB::raw('balance +'.$amount)]);
+        return User::whereIn('id', array_column($ids, 'user_id'))->get();
     }
 
     protected function allUsers($type, $request, $amount)

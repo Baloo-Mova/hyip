@@ -49,23 +49,7 @@
                 <div class="bonus_item">
                     <div class="form-group @if( is_error('bonus_type') )has-error @endif">
                         <label for="bonus_type3">
-                            <input type="radio" class="bonus_item_radio" id="bonus_type3" name="bonus_type" value="2"> За период
-                        </label>
-                        @if( is_error('user') )
-                            <span class="help-block">{{ $errors->first('bonus_type') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="period">Период</label>
-                        <input type="text" id="period" class="form-control btn-flat input_user_select date_range" name="period">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="bonus_item">
-                    <div class="form-group @if( is_error('bonus_type') )has-error @endif">
-                        <label for="bonus_type4">
-                            <input type="radio" class="bonus_item_radio" id="bonus_type4" name="bonus_type" value="3"> Оплатившим подписку
+                            <input type="radio" class="bonus_item_radio" id="bonus_type3" name="bonus_type" value="2"> По подписке и периоду
                         </label>
                         @if( is_error('user') )
                             <span class="help-block">{{ $errors->first('bonus_type') }}</span>
@@ -78,6 +62,10 @@
                                 <option value="{{ $rate->id }}">{{ $rate->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="period">По подписке и периоду</label>
+                        <input type="text" id="period" class="form-control btn-flat input_user_select date_range" name="period">
                     </div>
                 </div>
             </div>
@@ -135,7 +123,7 @@
             });
 
             $(".tariff_select").select2({
-                placeholder: "Выберите пользователя",
+                placeholder: "Выберите подписку",
             });
 
             var userselect = $(".user_select").select2({

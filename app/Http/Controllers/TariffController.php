@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
+use App\Models\SubscriptionsLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\SocialNetwork;
@@ -66,6 +67,12 @@ class TariffController extends Controller
         $user->subscribe_id = $subscription->id;
         $user->balance = $user->balance - $subscription->price;
         $user->save();
+
+        $log = new SubscriptionsLog();
+        $log->user_id = $user->id;
+        $log->subscribe_id = $subscription->id;
+        $log->price = $subscription->price;
+        $log->save();
 
         \Session::flash('messages', [__("messages.success_subscribe") ." ". $subscription->name . '. '.__("messages.nice_earning")]);
 
