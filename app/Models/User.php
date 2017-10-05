@@ -238,54 +238,55 @@ class User extends Authenticatable
 
         $tarifCost = $subscription->price;
         $summPayed = 0;
-
+        $needProcessRefferals = true;
         $prices = $subscription->prices;
         if ($this->referral_id == null) {
-            return;
+            $needProcessRefferals = false;
         }
 
         $iterator = 0;
         $userToPay = $this->referrer;
-
-        while (true) {
-            if (!isset($userToPay)) {
-                break;
-            }
-            if ($iterator > count($prices)) {
-                break;
-            }
-
-            if (!isset($userToPay->subscribe_id)) {
-                $userToPay = $userToPay->referrer;
-                continue;
-            }
-            $priceNow = $this->findPriceByLevel($iterator, $userToPay->prices);
-            if (isset($priceNow)) {
-                $toIncrement = $priceNow->is_percent ? ($subscription->price * $priceNow->value) / 100 : $priceNow->value;
-                WalletProcesses::insert([
-                    'type_id' => WalletProcessesType::REFERRAL,
-                    'time' => Carbon::now(),
-                    'value' => $toIncrement,
-                    'from_id' => $this->id,
-                    'status' => WalletProcesses::STATUS_ACCEPT,
-                    'to_id' => $userToPay->id
-                ]);
-
-                $referalLink = Referrals::where([
-                    'user_id' => $userToPay->id,
-                    'user_ref' => $this->id
-                ])->first();
-
-                if (isset($referalLink)) {
-                    $referalLink->increment('earned', $toIncrement);
+        if ($needProcessRefferals) {
+            while (true) {
+                if (!isset($userToPay)) {
+                    break;
+                }
+                if ($iterator > count($prices)) {
+                    break;
                 }
 
-                $userToPay->increment('balance', $toIncrement);
-                $summPayed += $toIncrement;
-            }
+                if (!isset($userToPay->subscribe_id)) {
+                    $userToPay = $userToPay->referrer;
+                    continue;
+                }
+                $priceNow = $this->findPriceByLevel($iterator, $userToPay->prices);
+                if (isset($priceNow)) {
+                    $toIncrement = $priceNow->is_percent ? ($subscription->price * $priceNow->value) / 100 : $priceNow->value;
+                    WalletProcesses::insert([
+                        'type_id' => WalletProcessesType::REFERRAL,
+                        'time' => Carbon::now(),
+                        'value' => $toIncrement,
+                        'from_id' => $this->id,
+                        'status' => WalletProcesses::STATUS_ACCEPT,
+                        'to_id' => $userToPay->id
+                    ]);
 
-            $userToPay = $userToPay->referrer;
-            $iterator++;
+                    $referalLink = Referrals::where([
+                        'user_id' => $userToPay->id,
+                        'user_ref' => $this->id
+                    ])->first();
+
+                    if (isset($referalLink)) {
+                        $referalLink->increment('earned', $toIncrement);
+                    }
+
+                    $userToPay->increment('balance', $toIncrement);
+                    $summPayed += $toIncrement;
+                }
+
+                $userToPay = $userToPay->referrer;
+                $iterator++;
+            }
         }
 
         $settings = Settings::find(1);
