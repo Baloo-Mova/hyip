@@ -316,6 +316,7 @@ class UserController extends BaseController
         $data = $user->passportData;
         $scans = $user->scans;
 
+
         return view('Admin::' . $this->_view . '.confirm', [
             'data' => $data,
             'scans' => $scans,
@@ -338,12 +339,13 @@ class UserController extends BaseController
             $user->save();
             Session::flash('messages', ['Вы подтвердили данные пользователя!']);
         }else{
+            $user = User::find($user_id);
+            $user->is_confirm = 0;
+            $user->save();
             Session::flash('messages', ['Вы не подтвердили данные пользователя!']);
         }
 
-        $conf = UserConfirm::where(['user_id' => $user_id, 'is_read' => 0])->first();
-        $conf->is_read = 1;
-        $conf->save();
+        UserConfirm::where(['user_id' => $user_id])->delete();
 
         if($type == 'all'){
             return redirect(route('admin.users.index'));
