@@ -61,6 +61,7 @@ class TariffController extends Controller
         }
 
         $user->payToReferrals($subscription);
+
         $user->subscribedFor = $user->subscribe_id != $subscription->id ?
             Carbon::now()->addDays($subscription->term) :
             Carbon::parse($user->subscribedFor)->addDays($subscription->term);
