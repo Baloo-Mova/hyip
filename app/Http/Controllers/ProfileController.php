@@ -105,6 +105,7 @@ class ProfileController extends Controller
 
         $user = \Auth::user();
         $user->is_confirm = 0;
+        $user->confirmed_date = Carbon::now();
         $user->save();
 
         Session::flash('messages', [__("messages.changes_successfully_controller")]);

@@ -89,7 +89,8 @@ class User extends Authenticatable
         'is_banned',
         'auth_token',
         'ref_count',
-        'ref_name'
+        'ref_name',
+        'confirmed_date'
     ];
 
     /**

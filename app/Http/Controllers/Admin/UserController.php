@@ -58,7 +58,7 @@ class UserController extends BaseController
             }
         }
 
-        $users = User::paginate(15);
+        $users = User::orderBy('confirmed_date', 'desc')->paginate(15);
 
         return view('Admin::' . $this->_view . '.index',[
             'table1' => $table1,
@@ -126,7 +126,7 @@ class UserController extends BaseController
                 ->distinct('user_id')
                 ->get()
                 ->toArray();
-            $users = User::whereIn('id', array_column($ref, 'user_id'))->paginate(15);
+            $users = User::whereIn('id', array_column($ref, 'user_id'))->orderBy('confirmed_date', 'desc')->paginate(15);
         }
 
         return view('Admin::' . $this->_view . '.list', [
@@ -208,33 +208,33 @@ class UserController extends BaseController
             if(isset($isActive)){
                 switch ($isActive){
                     case 0:
-                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNull('subscribe_id')->paginate(15);
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNull('subscribe_id')->orderBy('confirmed_date', 'desc')->paginate(15);
                         break;
                     case 1:
-                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->whereNotNull('subscribe_id')->orderBy('confirmed_date', 'desc')->paginate(15);
                         break;
                     case 2:
-                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+                        return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->orderBy('confirmed_date', 'desc')->paginate(15);
                         break;
                 }
             }else{
-                return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->paginate(15);
+                return User::whereIn('id', array_column($ref, 'user_id'))->where($where)->orderBy('confirmed_date', 'desc')->paginate(15);
             }
         }else{
             if(isset($isActive)){
                 switch ($isActive){
                     case 0:
-                        return User::where($where)->whereNull('subscribe_id')->paginate(15);
+                        return User::where($where)->whereNull('subscribe_id')->orderBy('confirmed_date', 'desc')->paginate(15);
                         break;
                     case 1:
-                        return User::where($where)->whereNotNull('subscribe_id')->paginate(15);
+                        return User::where($where)->whereNotNull('subscribe_id')->orderBy('confirmed_date', 'desc')->paginate(15);
                         break;
                     case 2:
-                        return User::where($where)->paginate(15);
+                        return User::where($where)->orderBy('confirmed_date', 'desc')->paginate(15);
                         break;
                 }
             }else{
-                return User::where($where)->paginate(15);
+                return User::where($where)->orderBy('confirmed_date', 'desc')->paginate(15);
             }
         }
     }
@@ -336,11 +336,13 @@ class UserController extends BaseController
         if($is_confirm == 1){
             $user = User::find($user_id);
             $user->is_confirm = 1;
+            $user->confirmed_date = null;
             $user->save();
             Session::flash('messages', ['Вы подтвердили данные пользователя!']);
         }else{
             $user = User::find($user_id);
             $user->is_confirm = 0;
+            $user->confirmed_date = null;
             $user->save();
             Session::flash('messages', ['Вы не подтвердили данные пользователя!']);
         }
