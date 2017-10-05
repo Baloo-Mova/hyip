@@ -40,7 +40,7 @@
                                 </select>
                             </th>
                             <th>
-                                <input type="text" class="form-control" name="card_number" value="{{ isset($search['card_number']) ? $search['card_number'] : "" }}">
+                                <input type="text" class="form-control" name="card_number" value="{{ isset($search['card_number']) ? $search['card_number'] : "" }}" placeholder="Номер карты или счета">
                             </th>
                             <th>
                                 <select name="status" id="" class="form-control">
@@ -56,7 +56,7 @@
                                 </select>
                             </th>
                             <th>
-                                <input type="text" name="time" class="form-control date_range" value="{{ isset($search['time']) ? $search['time'] : "" }}">
+                                <input type="text" name="time" class="form-control date_range" value="{{ isset($search['time']) ? $search['time'] : "" }}" placeholder="{{ \Carbon\Carbon::now()->format("d.m.Y") }} - {{ \Carbon\Carbon::now()->format("d.m.Y") }}">
                             </th>
                             <th>
                                 <button type="submit" class="btn btn-flat btn-primary">Найти</button>

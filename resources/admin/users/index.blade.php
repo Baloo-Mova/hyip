@@ -78,10 +78,10 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="type" value="all">
                         <input type="hidden" name="val" value="all">
-                        <th class="w100"><input type="text" name="id" class="form-control" value="{{ isset($search['id']) ? $search['id'] : "" }}"></th>
-                        <th><input type="text" name="email" class="form-control" value="{{ isset($search['email']) ? $search['email'] : "" }}"></th>
-                        <th><input type="text" name="login" class="form-control" value="{{ isset($search['login']) ? $search['login'] : "" }}"></th>
-                        <th><input type="text" name="ref_name" class="form-control" value="{{ isset($search['ref_name']) ? $search['ref_name'] : "" }}"></th>
+                        <th class="w100"><input type="text" name="id" class="form-control" value="{{ isset($search['id']) ? $search['id'] : "" }}" placeholder="ID пользователя"></th>
+                        <th><input type="text" name="email" class="form-control" value="{{ isset($search['email']) ? $search['email'] : "" }}" placeholder="email@gmail.com"></th>
+                        <th><input type="text" name="login" class="form-control" value="{{ isset($search['login']) ? $search['login'] : "" }}" placeholder="логин"></th>
+                        <th><input type="text" name="ref_name" class="form-control" value="{{ isset($search['ref_name']) ? $search['ref_name'] : "" }}" placeholder="Кто пригласил"></th>
                         <th>
                             <select name="is_active" id="" class="form-control">
                                 <option value="2" {{ isset($search['is_active']) && $search['is_active'] == 2 ? "selected" : "" }}>Все пользователи</option>
