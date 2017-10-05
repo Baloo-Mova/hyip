@@ -100,6 +100,14 @@ class ReferralController extends Controller
         }else{
             $referrals = Referrals::where($where)->paginate(15);
         }
+        $sum_all = 0;
+        if(!isset($ref)){
+            $sum_all = 0;
+        }else{
+            foreach ($ref as $r){
+                $sum_all += $r->sum;
+            }
+        }
 
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $data = [
@@ -110,10 +118,20 @@ class ReferralController extends Controller
             ]
         ];
 
-        $ref = Referrals::select(DB::raw('level, count(id) as count'))
+        $ref = Referrals::select(DB::raw('level, count(id) as count, sum(earned) as sum'))
             ->where(['user_id' => Auth::id()])
             ->groupBy('level')
             ->get();
+
+        $sum_all = 0;
+        if(!isset($ref)){
+            $sum_all = 0;
+        }else{
+            foreach ($ref as $r){
+                $sum_all += $r->sum;
+            }
+        }
+
         $count = Referrals::where(['user_id' => Auth::id()])->count();
 
         $search['date_range'] = $request->get('date_range');
@@ -123,7 +141,8 @@ class ReferralController extends Controller
             'info' => $ref,
             'count' => $count,
             'search' => $search,
-            'data' => $data
+            'data' => $data,
+            'sum_all' => $sum_all
         ]);
 
 

@@ -66,7 +66,7 @@
                 <tbody>
                     <tr>
                         <td>Тариф</td>
-                        <td>{{ isset($uer->subscribe_id) ? $user->subscription->name : "" }}</td>
+                        <td>{{ isset($user->subscribe_id) ? $user->subscription->name : "" }}</td>
                     </tr>
                     <tr>
                         <td>Денег заработано</td>
