@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-6">
             <div class="news__item input-budjet__wrap">
                 <div class="input-budjet__header">
                     <h4>@lang("messages.contact_technical_support")</h4>
@@ -20,7 +20,7 @@
                         <input type="hidden" class="form-control btn-flat" name="email" id="email" value="{{ $user->email }}">
                         <div class="form-group">
                             <label for="question">@lang("messages.question")</label>
-                            <textarea name="question" id="question" class="form-control contacts__textarea btn-flat"></textarea>
+                            <textarea name="question" rows="10" id="question" class="form-control contacts__textarea btn-flat"></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-main-carousel btn-flat">@lang("messages.send")</button>
