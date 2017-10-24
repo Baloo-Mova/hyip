@@ -18,6 +18,15 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Тип платежа</th>
+                        <th>Сумма</th>
+                        <th>Платежная система</th>
+                        <th>Счет или карта перевода</th>
+                        <th>Статус</th>
+                        <th>Пользователь</th>
+                        <th colspan="2">Дата</th>
+                    </tr>
+                    <tr>
                         <form action="" method="post">
 
                             {{ csrf_field() }}
@@ -28,6 +37,7 @@
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}" {{ isset($search['type_id']) && $search['type_id'] == $type->id ? "selected" : "" }}>{{ $type->name }}</option>
                                     @endforeach
+                                        <option value="">Все</option>
                                 </select>
                             </th>
                             <th></th>
@@ -37,6 +47,7 @@
                                     @foreach($pay_systems as $system)
                                         <option value="{{ $system['id'] }}"  {{ isset($search['pay_system']) && $search['pay_system'] == $system['id'] ? "selected" : "" }}>{{ $system['name'] }}</option>
                                     @endforeach
+                                    <option value="">Все</option>
                                 </select>
                             </th>
                             <th>
@@ -46,8 +57,9 @@
                                 <select name="status" id="" class="form-control">
                                     <option {{ isset($search['status']) ? "" : "selected" }} disabled>Выберите статус</option>
                                     <option value="0" {{ isset($search['status']) && $search['status'] == 0 ? "selected" : "" }}>Новая</option>
-                                    <option value="1" {{ isset($search['status']) && $search['status'] == 0 ? "selected" : "" }}>Принята</option>
-                                    <option value="2" {{ isset($search['status']) && $search['status'] == 0 ? "selected" : "" }}>Отклонена</option>
+                                    <option value="1" {{ isset($search['status']) && $search['status'] == 1 ? "selected" : "" }}>Принята</option>
+                                    <option value="2" {{ isset($search['status']) && $search['status'] == 2 ? "selected" : "" }}>Отклонена</option>
+                                    <option value="">Все</option>
                                 </select>
                             </th>
                             <th>

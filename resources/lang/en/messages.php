@@ -2,6 +2,14 @@
 
 return [
 
+    'days_1' => 'day',
+    'days_2' => 'days',
+    'days_5' => 'days',
+
+    'levels_1' => 'level',
+    'levels_2' => 'levels',
+    'levels_5' => 'levels',
+
     'level_1' => 'level',
     'level_2-4' => 'levels',
     'level_5' => 'levels',
@@ -185,6 +193,10 @@ return [
     'question_answer' => 'Question-answer',
     'feedback' => 'Feedback',
     'personal_area' => 'Personal area',
-    'history_operations' => 'Operations history'
+    'history_operations' => 'Operations history',
+
+    "banned" => 'Banned',
+    'active' => 'Active',
+    'non_active' => 'Inactive',
 
 ];

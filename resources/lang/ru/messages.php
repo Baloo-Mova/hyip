@@ -2,6 +2,14 @@
 
 return [
 
+    'days_1' => 'день',
+    'days_2' => 'дня',
+    'days_5' => 'дней',
+
+    'levels_1' => 'уровень',
+    'levels_2' => 'уровня',
+    'levels_5' => 'уровней',
+
     'level_1' => 'уровень',
     'level_2-4' => 'уровня',
     'level_5' => 'уровней',
@@ -185,6 +193,9 @@ return [
     'question_answer' => 'Вопрос-ответ',
     'feedback' => 'Обратная связь',
     'personal_area' => 'Личный кабинет',
-    'history_operations' => 'История операций'
+    'history_operations' => 'История операций',
+    "banned" => 'Бан',
+    'active' => 'Активен',
+    'non_active' => 'Неактивен',
 
 ];

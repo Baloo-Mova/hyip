@@ -14,6 +14,12 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Заголовок</th>
+                        <th>Язык</th>
+                        <th>Активна</th>
+                        <th></th>
+                    </tr>
+                    <tr>
                         <form action="" method="get">
                             <th></th>
                             <th class="w200">
@@ -31,9 +37,9 @@
                         </form>
                     </tr>
                     <tr>
-                        <th>Title</th>
-                        <th>Language</th>
-                        <th>Published</th>
+                        <th>Заголовок</th>
+                        <th>Язык</th>
+                        <th>Активна</th>
                         <th></th>
                     </tr>
                 </thead>

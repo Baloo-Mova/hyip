@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-xs-12 col-md-4 text-center">
                         <p class="tariff___term ">
-                            <span class="modal_tariff_validity"></span> @lang('messages.days')
+                            <span class="modal_tariff_validity"></span>
                         </p>
                         <label>@lang('messages.validity')</label>
                     </div>
@@ -212,12 +212,8 @@
                                 </div>
                                 <div class="rate__body">
                                     <p class="rate__price">@lang('messages.price'): {{ $rate['price'] }}₽</p>
-                                    @if(Session::get('applocale') != "en")
-                                        <p class="reate__price_p">@lang('messages.ref_sys'): {{ $rate['levels'] }} {{ $rate['levels'] == 1 ? "уровень" : ($rate['levels'] > 1 && $rate['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
-                                    @else
-                                        <p class="reate__price_p">@lang('messages.ref_sys'): {{ $rate['levels']." ".__("messages.levels") }}</p>
-                                    @endif
-                                        <hr>
+                                    <p class="reate__price_p">@lang('messages.ref_sys'): {{ $rate['levels']." ".pluralForm($rate['levels'], __("messages.levels_1"), __("messages.levels_2"), __("messages.levels_5")) }}</p>
+                                    <hr>
                                     @if(isset($rate['first_prices']))
                                         @for($i = 0; $i < 3; $i++)
                                             @if(!isset($rate['first_prices'][$i]))
@@ -230,7 +226,7 @@
                                             @endif
                                         @endfor
                                     @endif
-                                    <p>@lang('messages.validity'): {{ $rate['term'] }} @lang('messages.days')</p>
+                                    <p>@lang('messages.validity'): {{ $rate['term']." ".pluralForm($rate['term'], __("messages.days_1"), __("messages.days_2"), __("messages.days_5")) }} </p>
                                 </div>
                                 <div class="rate__footer">
                                     @if(isset($data['user']->subscribe_id) && $data['user']->subscribe_id == $rate['id'] )
@@ -363,6 +359,19 @@
             </div>
         </div>
     </section>
+
+    <?php
+    function pluralForm($n, $form1, $form2, $form5)
+    {
+        $n = abs($n) % 100;
+        $n1 = $n % 10;
+        if ($n > 10 && $n < 20) return $form5;
+        if ($n1 > 1 && $n1 < 5) return $form2;
+        if ($n1 == 1) return $form1;
+        return $form5;
+    }
+    ?>
+
 @endsection
 
 @section('js')
@@ -390,10 +399,31 @@
 
                 $(".modal_tariff_name").text(name);
                 $(".modal_tariff_price").text(price);
-                $(".modal_tariff_levels").text(levels+" "+lev);
-                $(".modal_tariff_validity").text(validity);
+                $(".modal_tariff_levels").text(levels+" "+getNumEnding(levels, ['{{ __("messages.levels_1") }}', '{{ __("messages.levels_2") }}', '{{ __("messages.levels_5") }}']));
+                $(".modal_tariff_validity").text(validity+" "+getNumEnding(validity, ['{{ __("messages.days_1") }}', '{{ __("messages.days_2") }}', '{{ __("messages.days_5") }}']));
                 $(".modal_tariff_subscribe").prop("href", "{{ url('/cabinet/tariff/buy') }}"+"/"+id);
             });
+
+            function getNumEnding(iNumber, aEndings)
+            {
+                var sEnding, i;
+                iNumber = iNumber % 100;
+                if (iNumber>=11 && iNumber<=19) {
+                    sEnding=aEndings[2];
+                }
+                else {
+                    i = iNumber % 10;
+                    switch (i)
+                    {
+                        case (1): sEnding = aEndings[0]; break;
+                        case (2):
+                        case (3):
+                        case (4): sEnding = aEndings[1]; break;
+                        default: sEnding = aEndings[2];
+                    }
+                }
+                return sEnding;
+            }
 
             var is_three = false;
             $(".main-carousel").owlCarousel({

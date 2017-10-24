@@ -74,6 +74,17 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Логин</th>
+                    <th>Кто пригласил</th>
+                    <th>Активен ли</th>
+                    <th>Баланс</th>
+                    <th>Количество рефералов</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+                <tr>
                     <form action="{{ route('admin-users-list-search') }}" method="post">
                         {{ csrf_field() }}
                         <input type="hidden" name="type" value="all">

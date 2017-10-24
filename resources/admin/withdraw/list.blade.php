@@ -11,6 +11,13 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Id</th>
+                    <th>Сумма</th>
+                    <th>Пользователь id</th>
+                    <th>Статус</th>
+                    <th class="tar">Время</th>
+                </tr>
+                <tr>
                     <th></th>
                     <th></th>
                     <th></th>

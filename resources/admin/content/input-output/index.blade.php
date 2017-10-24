@@ -13,27 +13,32 @@
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
-            <tr>
-                <form action="" method="get">
+                <tr>
+                    <th>Заголовок</th>
+                    <th class="w200">Язык</th>
                     <th></th>
-                    <th class="w200">
-                        <select name="lang" class="form-control" id="lang">
-                            <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>Все языки</option>
-                            @foreach(config('languages') as $key=>$item)
-                                <option value="{{ $key }}" {{ isset($lang) && $lang == $key ? "selected" : "" }}>{{ $item }}</option>
-                            @endforeach
-                        </select>
-                    </th>
-                    <th>
-                        <button type="submit" class="btn btn-primary">Выбрать</button>
-                    </th>
-                </form>
-            </tr>
-            <tr>
-                <th>Заголовок</th>
-                <th class="w200">Язык</th>
-                <th></th>
-            </tr>
+                </tr>
+                <tr>
+                    <form action="" method="get">
+                        <th></th>
+                        <th class="w200">
+                            <select name="lang" class="form-control" id="lang">
+                                <option value="all" {{ isset($lang) && $lang == "all" ? "selected" : "" }}>Все языки</option>
+                                @foreach(config('languages') as $key=>$item)
+                                    <option value="{{ $key }}" {{ isset($lang) && $lang == $key ? "selected" : "" }}>{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </th>
+                        <th>
+                            <button type="submit" class="btn btn-primary">Выбрать</button>
+                        </th>
+                    </form>
+                </tr>
+                <tr>
+                    <th>Заголовок</th>
+                    <th class="w200">Язык</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
             @if (count($list))

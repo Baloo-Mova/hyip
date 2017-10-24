@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-xs-12 col-md-4 text-center">
                         <p class="tariff___term ">
-                            <span class="modal_tariff_validity"></span> @lang('messages.days')
+                            <span class="modal_tariff_validity"></span>
                         </p>
                         <label>@lang('messages.validity')</label>
                     </div>
@@ -60,11 +60,7 @@
                             </div>
                             <div class="rate__body">
                                 <p class="rate__price">@lang('messages.price'): {{ $tariff['price'] }}₽</p>
-                                @if(Session::get('applocale') != "en")
-                                    <p class="reate__price_p">@lang('messages.ref_sys'): {{ $tariff['levels'] }} {{ $tariff['levels'] == 1 ? "уровень" : ($tariff['levels'] > 1 && $tariff['levels'] < 5 ? "уровня" : "уровней" ) }}</p>
-                                @else
-                                    <p class="reate__price_p">@lang('messages.ref_sys'): {{ $tariff['levels']." ".__("messages.levels") }}</p>
-                                @endif
+                                <p class="reate__price_p">@lang('messages.ref_sys'): {{ $tariff['levels']." ".pluralForm($tariff['levels'], __("messages.levels_1"), __("messages.levels_2"), __("messages.levels_5")) }}</p>
 
                                 <hr>
                                 @if(isset($tariff->firstPrices))
@@ -79,7 +75,7 @@
                                         @endif
                                     @endfor
                                 @endif
-                                <p>@lang('messages.validity'): {{ $tariff['term'] }} @lang('messages.days')</p>
+                                <p>@lang('messages.validity'): {{ $tariff['term']." ".pluralForm($tariff['term'], __("messages.days_1"), __("messages.days_2"), __("messages.days_5")) }} </p>
                             </div>
                             <div class="rate__footer">
                                 <a href=""
@@ -106,13 +102,8 @@
                 <div class="news__item about-tariff__item">
                     <h3 class="tariff___name">{{ isset($tariff_info->name) ? $tariff_info->name : "" }}</h3>
                     <div class="col-xs-12 col-md-4">
-                        <p class="tariff___ref-sys">
-                        @if(Session::get('applocale') != "en" && isset($tariff_info->levels))
-                            {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} {{ $tariff_info->levels == 1 ? "уровень" : ($tariff_info->levels > 1 && $tariff_info->levels < 5 ? "уровня" : "уровней" ) }}
-                        @else
-                            {{ isset($tariff_info->levels) ? $tariff_info->levels : "" }} @lang('messages.level')
-                        @endif
-                        </p>
+                        <p class="tariff___ref-sys">{{ isset($tariff_info->levels) ? $tariff_info->levels." ".pluralForm($tariff_info->levels, __("messages.levels_1"), __("messages.levels_2"), __("messages.levels_5")) : "" }}</p>
+
                         <h4>@lang('messages.ref_sys')</h4>
                     </div>
                     <div class="col-xs-12 col-md-4">
@@ -120,7 +111,9 @@
                         <h4>@lang('messages.price')</h4>
                     </div>
                     <div class="col-xs-12 col-md-4">
-                        <p class="tariff___term">{{ isset($tariff_info->term) ? $tariff_info->term : "" }} @lang('messages.days')</p>
+                        <p class="tariff___term">
+                            {{ isset($tariff_info->term) ? $tariff_info->term." ".pluralForm($tariff_info->term, __("messages.days_1"), __("messages.days_2"), __("messages.days_5")) : "" }}
+                        </p>
                         <h4>@lang('messages.validity')</h4>
                     </div>
                     <div class="col-xs-12">
@@ -145,6 +138,19 @@
             </div>
         </div>
     </div>
+
+    <?php
+        function pluralForm($n, $form1, $form2, $form5)
+        {
+            $n = abs($n) % 100;
+            $n1 = $n % 10;
+            if ($n > 10 && $n < 20) return $form5;
+            if ($n1 > 1 && $n1 < 5) return $form2;
+            if ($n1 == 1) return $form1;
+            return $form5;
+        }
+    ?>
+
 @endsection
 
 @section('js')
@@ -174,10 +180,31 @@
 
                 $(".modal_tariff_name").text(name);
                 $(".modal_tariff_price").text(price);
-                $(".modal_tariff_levels").text(levels+" "+lev);
-                $(".modal_tariff_validity").text(validity);
+                $(".modal_tariff_levels").text(levels+" "+getNumEnding(levels, ['{{ __("messages.levels_1") }}', '{{ __("messages.levels_2") }}', '{{ __("messages.levels_5") }}']));
+                $(".modal_tariff_validity").text(validity+" "+getNumEnding(validity, ['{{ __("messages.days_1") }}', '{{ __("messages.days_2") }}', '{{ __("messages.days_5") }}']));
                 $(".modal_tariff_subscribe").prop("href", "{{ url('/cabinet/tariff/buy') }}"+"/"+id);
             });
+
+            function getNumEnding(iNumber, aEndings)
+            {
+                var sEnding, i;
+                iNumber = iNumber % 100;
+                if (iNumber>=11 && iNumber<=19) {
+                    sEnding=aEndings[2];
+                }
+                else {
+                    i = iNumber % 10;
+                    switch (i)
+                    {
+                        case (1): sEnding = aEndings[0]; break;
+                        case (2):
+                        case (3):
+                        case (4): sEnding = aEndings[1]; break;
+                        default: sEnding = aEndings[2];
+                    }
+                }
+                return sEnding;
+            }
 
 
             $(".tariff__choose").on("click", function (e) {
@@ -209,10 +236,10 @@
                                 }
                             }
 
-                            $(".tariff___ref-sys").text(data.info.levels+" "+lev);
+                            $(".tariff___ref-sys").text(data.info.levels+" "+getNumEnding(data.info.levels, ['{{ __("messages.levels_1") }}', '{{ __("messages.levels_2") }}', '{{ __("messages.levels_5") }}']));
                             $(".tariff___name").text(data.info.name);
                             $(".tariff___price").text(data.info.price+"₽");
-                            $(".tariff___term").text(data.info.term+" {{ __("messages.days") }}");
+                            $(".tariff___term").text(data.info.term+" "+getNumEnding(data.info.term, ['{{ __("messages.days_1") }}', '{{ __("messages.days_2") }}', '{{ __("messages.days_5") }}']));
                             $(".tariff___description").text(data.info.description == null ? "{{ __("messages.this_tariff_has_no_description") }}" : data.info.description);
 
                             var prices = ''

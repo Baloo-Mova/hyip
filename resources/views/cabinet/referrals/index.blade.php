@@ -43,23 +43,33 @@
         <div class="col-xs-12">
                 <table class="table table-striped">
                     <thead>
+                        <tr>
+                            <th>@lang("messages.Level")</th>
+                            <th>@lang("messages.user_login")</th>
+                            <th>@lang("messages.who_invited")</th>
+                            <th>@lang("messages.status")</th>
+                            <th>@lang("messages.phone")</th>
+                            <th>@lang("messages.date_of_registration")</th>
+                            <th>@lang("messages.brought")</th>
+                            <th></th>
+                        </tr>
                         <form action="{{ route('referrals.search') }}" method="post">
                             {{ csrf_field() }}
                             <tr>
                                 <td>
-                                    <input type="text" class="form-control btn-flat input_user_select" name="level" value="{{ isset($search['level']) ? $search['level'] : "" }}">
+                                    <input type="text" class="form-control btn-flat input_user_select" name="level" value="{{ isset($search['level']) ? $search['level'] : "" }}" placeholder="1">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control btn-flat input_user_select" name="user_ref_name" value="{{ isset($search['user_ref_name']) ? $search['user_ref_name'] : "" }}">
+                                    <input type="text" class="form-control btn-flat input_user_select" name="user_ref_name" value="{{ isset($search['user_ref_name']) ? $search['user_ref_name'] : "" }}" placeholder="login">
                                 </td>
                                 <th></th>
                                 <th>
                                 </th>
                                 <td>
-                                    <input type="text" class="form-control btn-flat input_user_select" name="user_ref_phone" value="{{ isset($search['user_ref_phone']) ? $search['user_ref_phone'] : "" }}">
+                                    <input type="text" class="form-control btn-flat input_user_select" name="user_ref_phone" value="{{ isset($search['user_ref_phone']) ? $search['user_ref_phone'] : "" }}" placeholder="0991122123">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control btn-flat input_user_select date_range" name="date_range" value="{{ isset($search['date_range']) ? $search['date_range'] : "" }}">
+                                    <input type="text" class="form-control btn-flat input_user_select date_range" name="date_range" value="{{ isset($search['date_range']) ? $search['date_range'] : "" }}" placeholder="01.10.2017 - 22.11.2017">
                                 </td>
                                 <td>
                                 </td>
@@ -73,7 +83,7 @@
                             <th>@lang("messages.Level")</th>
                             <th>@lang("messages.user_login")</th>
                             <th>@lang("messages.who_invited")</th>
-                            <th>@lang("messages.tariff")</th>
+                            <th>@lang("messages.status")</th>
                             <th>@lang("messages.phone")</th>
                             <th>@lang("messages.date_of_registration")</th>
                             <th>@lang("messages.brought")</th>
@@ -87,7 +97,11 @@
                                 <td>{{ $referral->level }}</td>
                                 <td>{{ $referral->user_ref_name }}</td>
                                 <td>{{ $referral->user_from == 0 ? "" : $referral->user_ref_name }}</td>
-                                <td>{{ isset($referral->refer->subscription) ? $referral->refer->subscription->name : "" }}</td>
+                                @if(isset($referral->refer->is_banned) && $referral->refer->is_banned)
+                                    <td>@lang("messages.banned")</td>
+                                @else
+                                    <td>{{ isset($referral->refer->subscription) ? __("messages.active")." (".$referral->refer->subscription->name.")" : __("messages.non_active") }}</td>
+                                @endif
                                 <td>{{ $referral->user_ref_phone }}</td>
                                 <td>{{ \Carbon\Carbon::parse($referral->created_at)->format('d.m.Y') }}</td>
                                 <td>{{ $referral->earned }}₽</td>

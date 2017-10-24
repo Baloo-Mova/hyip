@@ -44,11 +44,18 @@ class Test extends Command
      */
     public function handle()
     {
-        $payeer = new CPayeer(env("PAYEER_NUMBER"), env("PAYEER_API_ID"), env("PAYEER_API_KEY"));
-        if ($payeer->isAuth()) {
-            $balance = $payeer->getBalance()['balance'];
-        } else {
-            $balance = [];
+        for ($i = 0; $i < 31; $i++){
+            echo $i." ".$this->pluralForm($i, 'уровень', 'уровня', 'уровней').PHP_EOL;
         }
+    }
+
+    protected function pluralForm($n, $form1, $form2, $form5)
+    {
+        $n = abs($n) % 100;
+        $n1 = $n % 10;
+        if ($n > 10 && $n < 20) return $form5;
+        if ($n1 > 1 && $n1 < 5) return $form2;
+        if ($n1 == 1) return $form1;
+        return $form5;
     }
 }

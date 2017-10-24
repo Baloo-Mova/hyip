@@ -14,6 +14,11 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Заголовок</th>
+                        <th class="w200">Язык</th>
+                        <th></th>
+                    </tr>
+                    <tr>
                         <form action="" method="get">
                             <th></th>
                             <th class="w200">

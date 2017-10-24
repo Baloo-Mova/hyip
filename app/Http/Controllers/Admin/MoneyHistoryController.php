@@ -49,6 +49,11 @@ class MoneyHistoryController extends Controller
             $search['to_id'] = $request->get('to_id');
         }
 
+        if($request->has('status')){
+            $where[] = ['status', '=', $request->get('status')];
+            $search['status'] = $request->get('status');
+        }
+
         $daterange = $request->get('time');
         if (isset($daterange)) {
             $find = stripos($daterange, ' -');
