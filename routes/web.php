@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/create-chat/{id}', 'MessageController@createChat')->name('create.chat');
         });
         Route::group(['prefix' => 'facilities'], function () {
-            Route::get('/{type}', 'FacilitiesController@index')->name('facilities');
+            Route::get('/actions/{type}', 'FacilitiesController@index')->name('facilities');
             Route::get('/operations', 'FacilitiesController@operations')->name('facilities.operations');
             Route::post('/refill', 'FacilitiesController@refill')->name('facilities.refill');
             Route::post('/refill/{type}', 'FacilitiesController@getResultRefill')->name('facilities.refill.result');

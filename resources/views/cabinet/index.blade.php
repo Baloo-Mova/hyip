@@ -27,7 +27,11 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="user-info__item">
-                            <p class="tariff___term">{{ isset($user->subscribe_id) ? $payedForDiff->days. '  '.$payedForDiff->h.':'.$payedForDiff->i : "-"}}</p>
+                            <?php
+                                $hours = $payedForDiff->h < 10 ? '0'.$payedForDiff->h : $payedForDiff->h;
+                                $minutes = $payedForDiff->i < 10 ? '0'.$payedForDiff->i : $payedForDiff->i;
+                            ?>
+                            <p class="tariff___term">{{ isset($user->subscribe_id) ? $payedForDiff->days. ' дн.  '.$hours.':'.$minutes : "-"}}</p>
                             <h4>@lang("messages.tariff_expires_in"):</h4>
                         </div>
                     </div>

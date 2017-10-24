@@ -139,7 +139,7 @@
                         <li><a href="{{ route('about', ['#documents']) }}" data-anchor="documents" class="about_menu_a">@lang('messages.documents')</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ route('stock') }}">@lang('messages.home')</a></li>
+                <li><a href="{{ route('stock') }}">@lang('messages.stocks')</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@lang('messages.partners') <span class="caret"></span></a>
                     <ul class="dropdown-menu">

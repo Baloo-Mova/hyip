@@ -40,7 +40,7 @@
                 <tbody>
                 @forelse($chats as $chat)
                     <tr>
-                        <td>{{ $chat->to_user->login }}</td>
+                        <td>{{ $chat->to_user->role == 2 ? 'ADMIN' : $chat->to_user->login }}</td>
                         <td>{{ count($chat->hasUnreadMessages) }}</td>
                         <td>{{ $chat->created_at}}</td>
                         <td>

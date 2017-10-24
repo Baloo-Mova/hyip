@@ -7,6 +7,7 @@
                     {{ message.message}}
                 </p>
             </div>
+            <div class="clearfix"></div>
             <div class="from__message_info">
                 <p>
                     {{ user_id }} - {{ message.created_at }}
@@ -21,6 +22,7 @@
                     {{ message.message}}
                 </p>
             </div>
+            <div class="clearfix"></div>
             <div class="to__message_info">
                 <p>
                     {{ you }} - {{ message.created_at}}
@@ -53,11 +55,10 @@
         float: left;
         text-align: left;
         background-color: #A3E6A4;
-        padding: 10px;
+        padding: 15px;
         margin: 20px;
         margin-left: 0;
-        margin-bottom: 0;
-        width: 96%;
+        margin-bottom: 5px;
     }
     .from__message_info{
         text-align: left;
@@ -71,12 +72,16 @@
     }
     .to__message{
         float: right;
-        padding: 10px;
+        padding: 15px;
         margin: 20px;
         margin-right: 0;
-        margin-bottom: 0;
+        margin-bottom: 5px;
         background-color: #F1F1F4;
-        width: 96%;
+        text-align: right;
+    }
+    .to__message p,
+    .from__message p{
+        margin-bottom: 0;
     }
     .to__message_info{
         text-align: right;

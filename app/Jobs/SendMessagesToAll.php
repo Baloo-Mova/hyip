@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Settings;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -87,7 +88,9 @@ class SendMessagesToAll implements ShouldQueue
                         'from_user' => $chat->creator_id,
                         'to_user' => $chat->to_id,
                         'message' => $this->message,
-                        'chat_id' => $chat->id
+                        'chat_id' => $chat->id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
                     ];
 
 

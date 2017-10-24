@@ -43046,7 +43046,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.from__message{\n    float: left;\n    text-align: left;\n    background-color: #A3E6A4;\n    padding: 10px;\n    margin: 20px;\n    margin-left: 0;\n    margin-bottom: 0;\n    width: 96%;\n}\n.from__message_info{\n    text-align: left;\n    float: left;\n}\n.from__message_info p,\n.to__message_info p{\n    margin-bottom: 0;\n    font-size: 12px;\n    color: #222;\n}\n.to__message{\n    float: right;\n    padding: 10px;\n    margin: 20px;\n    margin-right: 0;\n    margin-bottom: 0;\n    background-color: #F1F1F4;\n    width: 96%;\n}\n.to__message_info{\n    text-align: right;\n    float: right;\n}\n@media screen and (max-width: 760px){\n.chat__messages{\n        padding-bottom: 10px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.from__message{\n    float: left;\n    text-align: left;\n    background-color: #A3E6A4;\n    padding: 15px;\n    margin: 20px;\n    margin-left: 0;\n    margin-bottom: 5px;\n}\n.from__message_info{\n    text-align: left;\n    float: left;\n}\n.from__message_info p,\n.to__message_info p{\n    margin-bottom: 0;\n    font-size: 12px;\n    color: #222;\n}\n.to__message{\n    float: right;\n    padding: 15px;\n    margin: 20px;\n    margin-right: 0;\n    margin-bottom: 5px;\n    background-color: #F1F1F4;\n    text-align: right;\n}\n.to__message p,\n.from__message p{\n    margin-bottom: 0;\n}\n.to__message_info{\n    text-align: right;\n    float: right;\n}\n@media screen and (max-width: 760px){\n.chat__messages{\n        padding-bottom: 10px;\n}\n}\n", ""]);
 
 // exports
 
@@ -43057,6 +43057,8 @@ exports.push([module.i, "\n.from__message{\n    float: left;\n    text-align: le
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -43120,6 +43122,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "bottom"
     }
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.message.message) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  }), _vm._v(" "), _c('div', {
     staticClass: "from__message_info"
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.user_id) + " - " + _vm._s(_vm.message.created_at) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
@@ -43129,6 +43133,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "bottom"
     }
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.message.message) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  }), _vm._v(" "), _c('div', {
     staticClass: "to__message_info"
   }, [_c('p', [_vm._v("\n                " + _vm._s(_vm.you) + " - " + _vm._s(_vm.message.created_at) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"

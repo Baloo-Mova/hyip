@@ -41,7 +41,7 @@
     window.creator_id = "{{ $chat->creator_id }}";
     window.to_id = "{{ $chat->to_id }}";
     window.my_id = "{{ \Auth::id() }}";
-    window.user_name = "{{ $chat->user_name->login }}";
+    window.user_name = "{{ $chat->user_name->role == 2 ? 'ADMIN' : $chat->user_name->login }}";
     window.main_title = "{{ __("messages.chat_with_the_user") }}";
     window.you = "{{ __("messages.you") }}";
 </script>

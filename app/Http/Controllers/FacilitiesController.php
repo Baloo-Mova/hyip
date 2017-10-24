@@ -21,7 +21,6 @@ class FacilitiesController extends Controller
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $item = InputOutput::where(['need_show' => 1, 'lang' => Session::get("applocale")])->first();
-        $operations = WalletProcesses::with('getType')->where(['to_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
         $settings = Settings::find(1);
 
         $data = [
@@ -37,7 +36,6 @@ class FacilitiesController extends Controller
             'type' => $type,
             'item' => $item,
             'pay_systems' => config('payment.pay_systems'),
-            'operations' => $operations,
             'settings' => $settings
         ]);
     }
@@ -45,6 +43,7 @@ class FacilitiesController extends Controller
     public function operations()
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
+        $operations = WalletProcesses::with('getType')->where(['to_id' => \Auth::user()->id])->orderBy('time', 'desc')->paginate(15);
         $data = [
             'contacts' => [
                 'social' => [
@@ -53,7 +52,8 @@ class FacilitiesController extends Controller
             ]
         ];
         return view('cabinet.facilities.operations', [
-            'data' => $data
+            'data' => $data,
+            'operations' => $operations,
         ]);
     }
 

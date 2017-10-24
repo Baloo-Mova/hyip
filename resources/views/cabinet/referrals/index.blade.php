@@ -53,6 +53,8 @@
                                     <input type="text" class="form-control btn-flat input_user_select" name="user_ref_name" value="{{ isset($search['user_ref_name']) ? $search['user_ref_name'] : "" }}">
                                 </td>
                                 <th></th>
+                                <th>
+                                </th>
                                 <td>
                                     <input type="text" class="form-control btn-flat input_user_select" name="user_ref_phone" value="{{ isset($search['user_ref_phone']) ? $search['user_ref_phone'] : "" }}">
                                 </td>
@@ -71,6 +73,7 @@
                             <th>@lang("messages.Level")</th>
                             <th>@lang("messages.user_login")</th>
                             <th>@lang("messages.who_invited")</th>
+                            <th>@lang("messages.tariff")</th>
                             <th>@lang("messages.phone")</th>
                             <th>@lang("messages.date_of_registration")</th>
                             <th>@lang("messages.brought")</th>
@@ -84,6 +87,7 @@
                                 <td>{{ $referral->level }}</td>
                                 <td>{{ $referral->user_ref_name }}</td>
                                 <td>{{ $referral->user_from == 0 ? "" : $referral->user_ref_name }}</td>
+                                <td>{{ isset($referral->refer->subscription) ? $referral->refer->subscription->name : "" }}</td>
                                 <td>{{ $referral->user_ref_phone }}</td>
                                 <td>{{ \Carbon\Carbon::parse($referral->created_at)->format('d.m.Y') }}</td>
                                 <td>{{ $referral->earned }}₽</td>

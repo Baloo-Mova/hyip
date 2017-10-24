@@ -47,7 +47,7 @@ class Referrals extends Model
     public $timestamps = true;
     public $table='referrals';
 
-    public function getUser(){
-        $this->hasOne(User::class, 'user_id', 'id');
+    public function refer(){
+        return $this->hasOne(User::class, 'id', 'user_ref');
     }
 }

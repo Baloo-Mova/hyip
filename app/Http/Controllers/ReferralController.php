@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Referrals;
+use App\Models\Subscription;
 use App\Models\User;
 use App\Models\SocialNetwork;
 
@@ -28,6 +29,7 @@ class ReferralController extends Controller
             ->where(['user_id' => Auth::id()])
             ->groupBy('level')
             ->get();
+        $r = Referrals::all();
         $sum_all = 0;
         if(!isset($ref)){
             $sum_all = 0;

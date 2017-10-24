@@ -185,5 +185,6 @@ return [
     'question_answer' => 'Question-answer',
     'feedback' => 'Feedback',
     'personal_area' => 'Personal area',
+    'history_operations' => 'Operations history'
 
 ];

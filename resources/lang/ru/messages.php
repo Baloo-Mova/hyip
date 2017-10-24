@@ -74,7 +74,7 @@ return [
     'status' => 'Статус',
     'comment' => 'Комментарий',
     'date' => 'Дата',
-    'passport_data' => 'Пасспортные данные',
+    'passport_data' => 'Паспортные данные',
 
     'name' => 'Имя',
     'surname' => 'Фамилия',
@@ -185,5 +185,6 @@ return [
     'question_answer' => 'Вопрос-ответ',
     'feedback' => 'Обратная связь',
     'personal_area' => 'Личный кабинет',
+    'history_operations' => 'История операций'
 
 ];
