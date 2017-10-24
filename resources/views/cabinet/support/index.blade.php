@@ -51,7 +51,7 @@
                         <td>{{ \Carbon\Carbon::parse($feedback->created_at)->format("d.m.Y h:i")  }}</td>
                         <td>
                             <a href="{{ route('support.show', ['id' => $feedback->id]) }}">
-                                <i class="fa phpdebugbar-fa-eye"></i>
+                                <i class="fa fa-eye"></i>
                             </a>
                         </td>
                     </tr>
