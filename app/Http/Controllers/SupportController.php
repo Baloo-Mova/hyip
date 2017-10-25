@@ -44,4 +44,28 @@ class SupportController extends Controller
             'feedback' => $feedback
         ] );
     }
+
+    public function chat()
+    {
+        $social = SocialNetwork::where(['is_active' => 1])->get();
+        $user = \Auth::user();
+        $feedbacks = Feedback::where(['user_id' => $user->id])->orderByDesc('id')->paginate(10);
+        $data = [
+            'contacts' =>[
+                'social' => [
+                    'links' => $social
+                ]
+            ]
+        ];
+        return view('cabinet.support.chat', [
+            'data' => $data,
+            'user' => $user,
+            'feedbacks' => $feedbacks
+        ] );
+    }
+
+    public function chatSend(Request $request)
+    {
+
+    }
 }

@@ -601,3 +601,104 @@ input, input:active, input:hover, input:focus {
 .h100{
     height: 100%;
 }
+
+/* support chat */
+.chat__wrap_wrapper{
+    height: 100%;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+.chat__header{
+    background-color: #F2F2F2;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 15px 10px;
+    text-align: left;
+    height: 50px;
+}
+.chat__header h4{
+    margin: 0;
+}
+.chat__body{
+    padding: 0px 10px;
+    text-align: left;
+    overflow-y: scroll;
+    height: 70%;
+}
+.chat__footer{
+    background-color: #F2F2F2;
+    border-top: 1px solid #f1f1f1;
+    padding: 20px 10px;
+    text-align: left;
+    min-height: 150px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+textarea.form-control {
+    height: 110px;
+    resize: none;
+}
+@media screen and (max-width: 760px){
+    .send__button{
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+@media screen and (min-width: 760px){
+    .send__button{
+        position: absolute;
+        right: 40px;
+        top: 50px;
+        border-radius: 50% !important;
+        width: 45px;
+        height: 45px;
+        padding-top: 8px;
+        padding-left: 6px;
+    }
+    textarea.form-control {
+        padding-right: 72px;
+    }
+}
+.from__message{
+    float: left;
+    text-align: left;
+    background-color: #A3E6A4;
+    padding: 15px;
+    margin: 20px;
+    margin-left: 0;
+    margin-bottom: 5px;
+}
+.from__message_info{
+    text-align: left;
+    float: left;
+}
+.from__message_info p,
+.to__message_info p{
+    margin-bottom: 0;
+    font-size: 12px;
+    color: #222;
+}
+.to__message{
+    float: right;
+    padding: 15px;
+    margin: 20px;
+    margin-right: 0;
+    margin-bottom: 5px;
+    background-color: #F1F1F4;
+    text-align: right;
+}
+.to__message p,
+.from__message p{
+    margin-bottom: 0;
+}
+.to__message_info{
+    text-align: right;
+    float: right;
+}
+@media screen and (max-width: 760px){
+    .chat__messages{
+        padding-bottom: 10px;
+    }
+}
+/* support chat */

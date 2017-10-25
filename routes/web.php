@@ -99,6 +99,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'support'], function () {
             Route::get('/', 'SupportController@index')->name('support');
             Route::get('/show/{id}', 'SupportController@show')->name('support.show');
+            Route::get('/support-chat', 'SupportController@chat')->name('support.chat');
+            Route::post('/support-chat', 'SupportController@chatSend')->name('support.chat.send');
         });
     });
 

@@ -6,5 +6,5 @@
     <li class="{{ \Request::is('cabinet/tariff/*') ? 'active' : ''}}"><a href="{{ route('tariff', ['id' => -1]) }}">@lang("messages.tariff")</a></li>
     <li class="{{ Request::path() == 'cabinet/dialogs' ? 'active' : ''}}"><a href="{{ route('dialogs') }}">@lang("messages.messages") <?php $messages = \Auth::user()->hasMessages; $mc = count($messages); ?> <span class="{{ $mc > 0 ? "badge alert-danger" : "" }}">{{ $mc > 0 ? $mc : "" }}</span></a></li>
     <li class="{{ \Request::is('cabinet/facilities/operations') ? 'active' : ''}}"><a href="{{ route('facilities.operations') }}">@lang("messages.history_operations")</a></li>
-    <li class="{{ \Request::is('cabinet/support/*') ? 'active' : ''}}"><a href="{{ route('support') }}">@lang("messages.support")</a></li>
+    <li class="{{ \Request::is('cabinet/support/*') ? 'active' : ''}}"><a href="{{ route('support.chat') }}">@lang("messages.support")</a></li>
 </ul>
