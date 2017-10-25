@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ $item->users['login'] }}</td>
                             <td>{{ $item->value }}₽</td>
-                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format("d.m.Y H:i") }}</td>
+                            <td>{{ isset($item->time) ? \Carbon\Carbon::parse($item->time)->format("d.m.Y H:i") : "" }}</td>
                         </tr>
                     @empty
                         <tr>

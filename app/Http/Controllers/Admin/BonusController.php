@@ -61,14 +61,17 @@ class BonusController extends Controller
         $withdraw = [];
 
         foreach ($users as $user){
+            $dt = Carbon::now();
             $withdraw[] = [
                 'type_id' => WalletProcesses::BONUS,
-                'time' => Carbon::now(),
+                'time' => $dt,
                 'value' => $amount,
                 'from_id' => 1,
                 'comment' => isset($comment) ? $comment : null,
                 'status' => WalletProcesses::STATUS_ACCEPT,
-                'to_id' => $user->id
+                'to_id' => $user->id,
+                'created_at' => $dt,
+                'updated_at' => $dt
             ];
         }
 
