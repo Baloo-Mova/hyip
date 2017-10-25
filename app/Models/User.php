@@ -333,4 +333,9 @@ class User extends Authenticatable
     {
         return $this->role_id;
     }
+
+    public function hasFeedbackAnswer()
+    {
+        return $this->hasMany(Feedback::class, 'user_id', 'id');
+    }
 }

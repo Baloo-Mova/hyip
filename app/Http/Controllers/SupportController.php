@@ -50,6 +50,7 @@ class SupportController extends Controller
         $social = SocialNetwork::where(['is_active' => 1])->get();
         $user = \Auth::user();
         $feedbacks = Feedback::where(['user_id' => $user->id])->orderByDesc('id')->paginate(10);
+        Feedback::where(['user_id' => $user->id, 'is_reply' => 1])->update(['is_reply' => 2]);
         $data = [
             'contacts' =>[
                 'social' => [

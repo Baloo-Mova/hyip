@@ -701,4 +701,7 @@ textarea.form-control {
         padding-bottom: 10px;
     }
 }
+.lower-text{
+    text-transform: lowercase;
+}
 /* support chat */

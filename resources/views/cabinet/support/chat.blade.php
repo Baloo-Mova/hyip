@@ -67,6 +67,11 @@
                                                         </p>
                                                     </div>
                                                     <div class="clearfix"></div>
+                                                    <div class="to__message_info">
+                                                        <p class="lower-text">
+                                                            @lang("messages.status") - {{ $feedback->is_reply == 0 ? __("messages.new") : __("messages.read") }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         @empty

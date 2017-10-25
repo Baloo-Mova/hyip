@@ -25,15 +25,15 @@ class FeedbackController extends BaseController
     {
         switch ($type) {
             case 'users':
-                $items = $this->_model->where('user_id', '!=', null)->paginate(15);
+                $items = $this->_model->where('user_id', '!=', null)->orderByDesc('id')->paginate(15);
 
                 break;
             case 'visitors':
-                $items = $this->_model->where('user_id', null)->paginate(15);
+                $items = $this->_model->where('user_id', null)->orderByDesc('id')->paginate(15);
 
                 break;
             default:
-                $items = $this->_model->where('user_id', '!=', null)->paginate(15);
+                $items = $this->_model->where('user_id', '!=', null)->orderByDesc('id')->paginate(15);
 
                 break;
         }

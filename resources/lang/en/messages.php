@@ -2,6 +2,9 @@
 
 return [
 
+    'new' => 'New',
+    'read' => 'Read',
+
     'days_1' => 'day',
     'days_2' => 'days',
     'days_5' => 'days',
