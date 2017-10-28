@@ -20,7 +20,7 @@ return [
      * Main page titles
      */
     'contacts' => 'Контакты',
-    'about_project' => 'О проекте',
+    'about_project' => 'НАШИ ПРЕИМУЩЕСТВА',
 
 
     /*

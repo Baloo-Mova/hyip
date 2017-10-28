@@ -21,7 +21,7 @@ return [
      * Main page titles
      */
     'contacts' => 'Contacts',
-    'about_project' => 'About project',
+    'about_project' => 'Our Advantages',
 
     /*
      * Common Phrases
