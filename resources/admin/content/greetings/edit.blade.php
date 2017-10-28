@@ -11,14 +11,15 @@
         </a>
         <h3 class="sub-header">
             @if( empty($item->id) )
-                Создать приветствие
+                Создать преимущество
             @else
-                Редактировать приветствие
+                Редактировать преимущество
             @endif
         </h3>
     </div>
 
-    <form action="{{ empty($item->id) ? route('admin.greetings.save') : route('admin.greetings.save.edit', ['id' => $item->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ empty($item->id) ? route('admin.greetings.save') : route('admin.greetings.save.edit', ['id' => $item->id]) }}"
+          method="post" enctype="multipart/form-data">
 
         {{ csrf_field() }}
 
@@ -46,10 +47,12 @@
                     <label for="image">Картинка</label>
                     <br>
                     @if(isset($item) && isset($item->image))
-                        <img src="{{ route('get.image', ['type' => 'greetings', 'name' => $item->image]) }}" alt="" style="width: 100px;">
+                        <img src="{{ route('get.image', ['type' => 'greetings', 'name' => $item->image]) }}" alt=""
+                             style="width: 100px;">
                         <input type="hidden" name="image" value="{{ $item->image }}">
                         <br>
-                        <a href="{{ route('admin.greetings.delete.img', ['id' => $item->id]) }}" class="btn btn-primary mt10">Delete</a>
+                        <a href="{{ route('admin.greetings.delete.img', ['id' => $item->id]) }}"
+                           class="btn btn-primary mt10">Delete</a>
                     @else
                         <input type="file" name="image">
                     @endif
@@ -73,7 +76,8 @@
                 </div>
                 <div class="form-group @if( is_error('description') )has-error @endif">
                     <label for="description">Текст</label>
-                    <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ !empty($item->description) ? $item->description : '' }}</textarea>
+                    <textarea name="description" id="description" cols="30" rows="10"
+                              class="form-control">{{ !empty($item->description) ? $item->description : '' }}</textarea>
                     @if( is_error('description') )
                         <span class="help-block">{{ $errors->first('description') }}</span>
                     @endif
@@ -92,7 +96,8 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-main-carousel btn-flat ">{{ empty($item->id) ? "Создать" : "Редактировать" }}</button>
+                    <button type="submit"
+                            class="btn btn-main-carousel btn-flat ">{{ empty($item->id) ? "Создать" : "Редактировать" }}</button>
                 </div>
             </div>
 

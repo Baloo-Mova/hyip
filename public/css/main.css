@@ -446,7 +446,6 @@ section h1{
     .greetings__wrap{
         background-color: #fff;
         position: relative;
-        margin-top: -180px;
         z-index: 2;
         padding: 40px 38px ;
         box-shadow: 2.5px 4.3px 24px rgba(1, 1, 1, 0.09);
