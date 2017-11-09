@@ -296,14 +296,6 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <ul class="contacts__ul">
-                                <li><h4>@lang('messages.phones'):</h4></li>
-                                @foreach($data['contacts']['phones'] as $phone)
-                                    <li>
-                                        {{ $phone->value }}
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <ul class="contacts__ul">
                                 <li><h4>Emails:</h4></li>
                                 @foreach($data['contacts']['emails'] as $email)
                                     <li>
@@ -313,7 +305,7 @@
                             </ul>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <h4>@lang('messages.share'):</h4>
+                            <h4>@lang('messages.we_in_social_networks'):</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
                                 @if($soc->need_show == 0)
                                     @continue

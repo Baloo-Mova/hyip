@@ -17,7 +17,6 @@
                 <thead>
                     <tr>
                         <th>Запись</th>
-                        <th>Тип</th>
                         <th>Дата</th>
                         <th></th>
                     </tr>
@@ -26,7 +25,6 @@
                     @foreach($items as $item)
                         <tr class="item-{{ $item->id }}">
                             <td>{{ $item->value }}</td>
-                            <td>{{ $item->type_id == 1 ? "Email" : "Телефон"}}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                             <td>
                                 <a href='{{ route('admin.contacts.get', ['id' => $item->id]) }}'><i class="fa fa-pencil" aria-hidden="true"></i></a>

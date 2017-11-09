@@ -13,21 +13,23 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <ul class="contacts__ul">
-                        <li><h4>@lang('messages.phones'):</h4></li>
-                        @foreach($data['contacts']['phones'] as $phone)
+                        <li><h4>Emails:</h4></li>
+                        @foreach($data['contacts']['emails'] as $email)
                             <li>
-                                {{ $phone->value }}
+                                {{ $email->value }}
                             </li>
                         @endforeach
                     </ul>
                 </div>
                 <div class="col-xs-12 col-md-4">
                     <ul class="contacts__ul">
-                        <li><h4>Emails:</h4></li>
-                        @foreach($data['contacts']['emails'] as $email)
-                            <li>
-                                {{ $email->value }}
-                            </li>
+                        <li>
+                            <h4>@lang('messages.we_in_social_networks'):</h4>
+                        </li>
+                        @foreach($data['contacts']['social']['share'] as $soc)
+                            <a href="{{ $soc->link }}" class="no_underline" target="_blank">
+                                <i class="{{ $soc->icon." ".$soc->color }} contacts_ico"></i>
+                            </a>
                         @endforeach
                     </ul>
                 </div>

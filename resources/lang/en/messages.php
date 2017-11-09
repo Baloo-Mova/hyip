@@ -2,6 +2,8 @@
 
 return [
 
+    'we_in_social_networks' => 'We are in social networks:',
+
     'new' => 'New',
     'read' => 'Read',
 

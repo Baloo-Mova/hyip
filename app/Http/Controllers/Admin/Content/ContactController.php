@@ -20,7 +20,7 @@ class ContactController extends BaseController
 
     public function index()
     {
-        $contacts = Contact::paginate(10);
+        $contacts = Contact::where('type_id', 1)->paginate(10);
         return view('Admin::content.contacts.list', ['items' => $contacts]);
     }
 
@@ -56,6 +56,6 @@ class ContactController extends BaseController
 
         $contact->save();
 
-        return redirect()->route('admin.contacts.get', ['id' => $contact->id])->with('messages', ['Created successful']);
+        return redirect()->route('admin.contacts.get', ['id' => $contact->id])->with('messages', ['Запись успешно добавлена']);
     }
 }

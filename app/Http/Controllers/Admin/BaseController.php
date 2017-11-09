@@ -55,6 +55,6 @@ class BaseController extends Controller
 
         $item->delete();
 
-        return redirect()->back()->with('messages', ['Delete successful']);
+        return redirect()->back()->with('messages', ['Запись успешно удалена']);
     }
 }

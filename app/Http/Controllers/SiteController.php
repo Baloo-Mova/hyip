@@ -222,7 +222,7 @@ class SiteController extends Controller
             'contacts' => [
                 'social' => [
                     'links' => $social,
-                    'share' => $shares
+                    'share' => json_decode($shares->shares)
                 ],
                 'emails' => $email,
                 'phones' => $phones

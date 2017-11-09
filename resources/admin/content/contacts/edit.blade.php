@@ -24,12 +24,7 @@
 
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('type_id') )has-error @endif">
-                    <label for="type_id">Тип контакта</label>
-                    <select name="type_id" id="type_id" class="form-control">
-                        <option disabled {{ !empty($item->type_id) ? "" : "selected" }}>Выберите тип</option>
-                        <option value="1" {{ !empty($item->type_id) && $item->type_id == 1 ? "selected" : "" }}>Email</option>
-                        <option value="2" {{ !empty($item->type_id) && $item->type_id == 2 ? "selected" : "" }}>Телефон</option>
-                    </select>
+                    <input type="hidden" name="type_id" id="type_id" value="1">
                 </div>
             </div>
             <div class="clearfix"></div>
