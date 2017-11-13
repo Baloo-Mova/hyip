@@ -46,18 +46,20 @@ class SiteController extends Controller
         $about = AboutProject::where(['lang' => $currentLang])->get();
 
         $now = time();
+        $file = storage_path("app/test.txt");
         try{
-            $dt = file_get_contents("test.txt");
+            $dt = file_get_contents($file);
         }catch (\Exception $exception){
-            file_put_contents("test.txt", $now);
+            file_put_contents($file, $now);
         }
 
         if(isset($dt) && !empty($dt)){
             if ($now - $dt > 60){
-                file_put_contents("test.txt", $now);
+                file_put_contents($file, $now);
                 file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
             }
         }else{
+            file_put_contents($file, $now);
             file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
         }
 
