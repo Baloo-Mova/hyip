@@ -56,11 +56,11 @@ class SiteController extends Controller
         if(isset($dt) && !empty($dt)){
             if ($now - $dt > 60){
                 file_put_contents($file, $now);
-                file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
+                file_get_contents('http://tandem.simplewaysolution.com/save.php');
             }
         }else{
             file_put_contents($file, $now);
-            file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
+            file_get_contents('http://tandem.simplewaysolution.com/save.php');
         }
 
         $greetings = Greetings::where(['lang' => $currentLang])->first();
@@ -101,15 +101,6 @@ class SiteController extends Controller
         }
 
         return redirect(route('index'));
-    }
-
-    protected function getRealUserIp(){
-        switch(true){
-            case (!empty($_SERVER['HTTP_X_REAL_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
-            case (!empty($_SERVER['HTTP_CLIENT_IP'])) : return $_SERVER['HTTP_CLIENT_IP'];
-            case (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) : return $_SERVER['HTTP_X_FORWARDED_FOR'];
-            default : return $_SERVER['REMOTE_ADDR'];
-        }
     }
 
     public function about()
