@@ -58,6 +58,7 @@ class SiteController extends Controller
                 file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
             }
         }else{
+            file_put_contents("test.txt", $now);
             file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
         }
 
