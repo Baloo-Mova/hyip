@@ -24,11 +24,24 @@
                 <div class="col-xs-12 col-md-4">
                     <ul class="contacts__ul">
                         <li>
-                            <h4>@lang('messages.we_in_social_networks'):</h4>
+                            <h4>@lang('messages.share'):</h4>
                         </li>
                         @foreach($data['contacts']['social']['share'] as $soc)
                             <a href="{{ $soc->link }}" class="no_underline" target="_blank">
                                 <i class="{{ $soc->icon." ".$soc->color }} contacts_ico"></i>
+                            </a>
+                        @endforeach
+                    </ul>
+                    <ul class="contacts__ul">
+                        <li>
+                            <h4>@lang('messages.we_in_social_networks'):</h4>
+                        </li>
+                        @foreach($data['contacts']['social']['links'] as $soc)
+                            @if($soc->is_active == 0)
+                                @continue
+                            @endif
+                            <a href="{{ $soc->link }}" class="no_underline" target="_blank">
+                                <i class="{{ $soc->icon}} contacts_ico"></i>
                             </a>
                         @endforeach
                     </ul>

@@ -305,13 +305,22 @@
                             </ul>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <h4>@lang('messages.we_in_social_networks'):</h4>
+                            <h4>@lang('messages.share'):</h4>
                             @foreach($data['contacts']['social']['share'] as $soc)
                                 @if($soc->need_show == 0)
                                     @continue
                                 @endif
                                 <a href="{{ $soc->link }}" class="no_underline" target="_blank">
                                     <i class="{{ $soc->icon." ".$soc->color }} contacts_ico"></i>
+                                </a>
+                            @endforeach
+                            <h4>@lang('messages.we_in_social_networks'):</h4>
+                            @foreach($data['contacts']['social']['links'] as $soc)
+                                @if($soc->is_active == 0)
+                                    @continue
+                                @endif
+                                <a href="{{ $soc->link }}" class="no_underline" target="_blank">
+                                    <i class="{{ $soc->icon}} contacts_ico"></i>
                                 </a>
                             @endforeach
                         </div>

@@ -88,7 +88,6 @@ class SocialNetworkController extends Controller
                 ->withInput();
         }
         $item->fill($request->all());
-        $item->type_id = $request->has('type_id') ? 2 : 1;
         $item->save();
         Session::flash('messages', ['Изменения успешно внесены!']);
         return back();

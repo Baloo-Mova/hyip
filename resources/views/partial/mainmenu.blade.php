@@ -17,7 +17,7 @@
                 <li>
                     @foreach($data['contacts']['social']['links'] as $soc)
                         <a href="{{ $soc->link }}" class="main-menu__social-link">
-                            <i class="{{ $soc->icon }} main-menu__social-link__icon"></i>
+                            <i class="{{ $soc->icon }} main-menu__social-link__icon white-text"></i>
                         </a>
                     @endforeach
                 </li>
@@ -61,7 +61,9 @@
                 @endif
                 <li class="text-center pb20">
                     @foreach($data['contacts']['social']['links'] as $soc)
-                        <a href="{{ $soc['link'] }}" class="main-menu__social-link"><img src="{{ asset($soc['img'].".svg") }}" alt="" class="main-menu__social-link__img"></a>
+                        <a href="{{ $soc->link }}" class="main-menu__social-link">
+                            <i class="{{ $soc->icon }} main-menu__social-link__icon white-text"></i>
+                        </a>
                     @endforeach
                 </li>
                 <li class="dropdown">

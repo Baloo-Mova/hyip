@@ -101,6 +101,29 @@
                 </div>
             </div>
 
+            <div class="col-xs-12 col-md-4">
+                <div class="help_block">
+                    <label>Класс цветов иконок (для share icons): </label>
+                    <ul class="help_block_ul">
+                        <li class="vk_color">
+                            <i class="demo-icon icon-vk"></i> - vk_color
+                        </li>
+                        <li class="fb_color">
+                            <i class="demo-icon icon-fb"></i> - fb_color
+                        </li>
+                        <li class="ok_color">
+                            <i class="demo-icon icon-ok"></i> - ok_color
+                        </li>
+                        <li class="tw_color">
+                            <i class="demo-icon icon-tw"></i> - tw_color
+                        </li>
+                        <li class="tl_color">
+                            <i class="demo-icon icon-tl"></i> - tl_color
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
 
         </div>
 
