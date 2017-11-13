@@ -215,7 +215,7 @@ class SiteController extends Controller
         return view('main.news', ['data' => $data]);
     }
 
-    public function newsList(Request $request)
+    public function newsList()
     {
         $ds = DIRECTORY_SEPARATOR;
         $host = env('DB_HOST');
