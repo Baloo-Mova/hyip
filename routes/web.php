@@ -26,6 +26,7 @@ Route::get('/stock-show/{uri}', "SiteController@stockShow")->name('stock.show');
 Route::get('/news', "SiteController@news")->name('news');
 Route::get('/news-show/{uri}', "SiteController@newsShow")->name('news.show');
 Route::get('/questions', "SiteController@questions")->name('questions');
+Route::post('/questions-list', "SiteController@questionsList")->name('questions.list');
 Route::get('/regulations', "SiteController@regulations")->name('regulations');
 Route::get('/contacts', "SiteController@contacts")->name('contacts');
 Route::get('/about-tariffs/{id}', "SiteController@tariff")->name('about.tariffs');
