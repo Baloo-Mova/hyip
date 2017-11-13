@@ -103,7 +103,7 @@
 
             <div class="col-xs-12 col-md-4">
                 <div class="help_block">
-                    <label>Класс цветов иконок (для share icons): </label>
+                    <label>Класс цветов иконок: </label>
                     <ul class="help_block_ul">
                         <li class="vk_color">
                             <i class="demo-icon icon-vk"></i> - vk_color
