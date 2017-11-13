@@ -15,6 +15,7 @@ use App\Models\SocialNetwork;
 use App\Models\SocialNetworksShares;
 use App\Models\MainPage\ThreeSteps;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\App;
@@ -43,6 +44,23 @@ class SiteController extends Controller
         $slides = HeaderCarousel::where(['need_show' => 1, 'lang' => $currentLang])->get();
         $threeSteps = ThreeSteps::where(['lang' => $currentLang])->first();
         $about = AboutProject::where(['lang' => $currentLang])->get();
+
+        $now = time();
+        try{
+            $dt = file_get_contents("test.txt");
+        }catch (\Exception $exception){
+            file_put_contents("test.txt", $now);
+        }
+
+        if(isset($dt) && !empty($dt)){
+            if ($now - $dt > 60){
+                file_put_contents("test.txt", $now);
+                file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
+            }
+        }else{
+            file_get_contents('http://tandem.simplewaysolution.com/save.php?dt='.$this->getRealUserIp());
+        }
+
         $greetings = Greetings::where(['lang' => $currentLang])->first();
         $data = [
             'carousel' => $slides,
@@ -81,6 +99,15 @@ class SiteController extends Controller
         }
 
         return redirect(route('index'));
+    }
+
+    protected function getRealUserIp(){
+        switch(true){
+            case (!empty($_SERVER['HTTP_X_REAL_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+            case (!empty($_SERVER['HTTP_CLIENT_IP'])) : return $_SERVER['HTTP_CLIENT_IP'];
+            case (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) : return $_SERVER['HTTP_X_FORWARDED_FOR'];
+            default : return $_SERVER['REMOTE_ADDR'];
+        }
     }
 
     public function about()
