@@ -398,6 +398,9 @@ section h1{
     .chat_body{
         padding-top: 130px !important;
     }
+    .steps{
+        padding-bottom: 22vw;
+    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -488,14 +491,21 @@ section h1{
     .no-top-border{
         border: none !important;
     }
-    .steps{
-        padding-bottom: 7vw;
-    }
     .price-info-item {
         width: 30.333%;
     }
     .chat_body{
         padding-top: 130px !important;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .steps{
+        padding-bottom: 22vw;
+    }
+}
+@media screen and (min-width: 1400px) {
+    .steps{
+        padding-bottom: 12vw;
     }
 }
 .news_title img{

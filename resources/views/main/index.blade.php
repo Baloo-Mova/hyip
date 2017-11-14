@@ -149,8 +149,11 @@
                     <div class="row">
                         <div class="col-md-4 cut">
                             <div class="l-steps__item">
-                                <div class="l-steps__item-number">
-                                    <span class="kostil_1">1.</span>
+                                <div class="l-steps__item-img text-center">
+                                    <img src="{{ route('get.image', ['type' => 'three_steps', 'name' => $data['threesteps']->first_img]) }}" alt="">
+                                </div>
+                                <div class="l-steps__item-number text-center">
+                                    <span class="kostil_1"> 1.</span>
                                 </div>
                                 <div class="l-steps__item-about">
                                     {!! isset($data['threesteps']) ? $data['threesteps']->first_title : "" !!}
@@ -162,8 +165,11 @@
                         </div>
                         <div class="col-md-4 cut big_p">
                             <div class="l-steps__item">
-                                <div class="l-steps__item-number">
-                                    <span>2.</span>
+                                <div class="l-steps__item-img text-center">
+                                    <img src="{{ route('get.image', ['type' => 'three_steps', 'name' => $data['threesteps']->second_img]) }}" alt="">
+                                </div>
+                                <div class="l-steps__item-number text-center">
+                                    <span> 2.</span>
                                 </div>
                                 <div class="l-steps__item-about">
                                     {!! isset($data['threesteps']) ? $data['threesteps']->second_title : "" !!}
@@ -175,8 +181,11 @@
                         </div>
                         <div class="col-md-4 cut">
                             <div class="l-steps__item">
-                                <div class="l-steps__item-number">
-                                    <span>3.</span>
+                                <div class="l-steps__item-img text-center">
+                                    <img src="{{ route('get.image', ['type' => 'three_steps', 'name' => $data['threesteps']->third_img]) }}" alt="">
+                                </div>
+                                <div class="l-steps__item-number text-center">
+                                    <span> 3.</span>
                                 </div>
                                 <div class="l-steps__item-about">
                                     {!! isset($data['threesteps']) ? $data['threesteps']->third_title : "" !!}

@@ -179,6 +179,7 @@ Route::group([
             Route::get('/edit/{id}', 'ThreeStepsController@edit')->name('admin.three-steps.edit');
             Route::get('/delete/{id}', 'ThreeStepsController@delete')->name('admin.three-steps.delete');
             Route::post('/save-edit', 'ThreeStepsController@save')->name('admin.three-steps.save.edit');
+            Route::get('/delete-img/{id}/{field}', 'ThreeStepsController@deleteImage')->name('admin.three-steps.delete.image');
         });
 
         Route::group(['prefix' => 'input-output'], function () {

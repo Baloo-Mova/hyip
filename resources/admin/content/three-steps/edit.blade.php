@@ -9,7 +9,7 @@
         </h3>
     </div>
 
-    <form action="{{ empty($item->id) ? route('admin.three-steps.save') : route('admin.three-steps.save.edit', ['id' => $item->id]) }}" method="post">
+    <form action="{{ empty($item->id) ? route('admin.three-steps.save') : route('admin.three-steps.save.edit', ['id' => $item->id]) }}" method="post" enctype="multipart/form-data">
 
         {{ csrf_field() }}
 
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="form-group @if( is_error('input_title') )has-error @endif">
-                    <label for="main_title">Заголовк</label>
+                    <label for="main_title">Заголовок</label>
                     <input type="text"
                            name="main_title"
                            value="{{ !empty($item->main_title) ? $item->main_title : '' }}"
@@ -54,6 +54,21 @@
 
         <div class="row">
             <div class="col-xs-12 col-md-4">
+                <div class="form-group @if( is_error('first_img') )has-error @endif">
+                    <label for="file">Первая картинка</label>
+                    <br>
+                    @if(isset($item) && isset($item->first_img))
+                        <img src="{{ route('get.image', ['type' => 'three_steps', 'name' => $item->first_img]) }}" alt="" style="width: 100px;">
+                        <input type="hidden" name="first_img" value="{{ $item->first_img }}">
+                        <br>
+                        <a href="{{ route('admin.three-steps.delete.image', ['id' => $item->id, 'field' => 1]) }}" class="btn btn-primary mt10">Удалить</a>
+                    @else
+                        <input type="file" name="first_img">
+                    @endif
+                    @if( is_error('first_img') )
+                        <span class="help-block">{{ $errors->first('first_img') }}</span>
+                    @endif
+                </div>
                 <div class="form-group @if( is_error('first_title') )has-error @endif">
                     <label for="first_title">Первый заголовк</label>
                     <input type="text"
@@ -76,6 +91,21 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-4">
+                <div class="form-group @if( is_error('second_img') )has-error @endif">
+                    <label for="file">Вторая картинка</label>
+                    <br>
+                    @if(isset($item) && isset($item->second_img))
+                        <img src="{{ route('get.image', ['type' => 'three_steps', 'name' => $item->second_img]) }}" alt="" style="width: 100px;">
+                        <input type="hidden" name="second_img" value="{{ $item->second_img }}">
+                        <br>
+                        <a href="{{ route('admin.three-steps.delete.image', ['id' => $item->id, 'field' => 2]) }}" class="btn btn-primary mt10">Удалить</a>
+                    @else
+                        <input type="file" name="second_img">
+                    @endif
+                    @if( is_error('second_img') )
+                        <span class="help-block">{{ $errors->first('second_img') }}</span>
+                    @endif
+                </div>
                 <div class="form-group @if( is_error('second_title') )has-error @endif">
                     <label for="second_title">Второй заголовок</label>
                     <input type="text"
@@ -98,6 +128,21 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-4">
+                <div class="form-group @if( is_error('third_img') )has-error @endif">
+                    <label for="file">Третья картинка</label>
+                    <br>
+                    @if(isset($item) && isset($item->third_img))
+                        <img src="{{ route('get.image', ['type' => 'three_steps', 'name' => $item->third_img]) }}" alt="" style="width: 100px;">
+                        <input type="hidden" name="third_img" value="{{ $item->third_img }}">
+                        <br>
+                        <a href="{{ route('admin.three-steps.delete.image', ['id' => $item->id, 'field' => 3]) }}" class="btn btn-primary mt10">Удалить</a>
+                    @else
+                        <input type="file" name="third_img">
+                    @endif
+                    @if( is_error('third_img') )
+                        <span class="help-block">{{ $errors->first('third_img') }}</span>
+                    @endif
+                </div>
                 <div class="form-group @if( is_error('third_title') )has-error @endif">
                     <label for="third_title">Третий заголовк</label>
                     <input type="text"

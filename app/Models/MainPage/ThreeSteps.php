@@ -42,6 +42,9 @@ class ThreeSteps extends Model
         'third_title',
         'third_text',
         'lang',
+        'first_img',
+        'second_img',
+        'third_img'
     ];
 
 }
