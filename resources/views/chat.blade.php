@@ -7,7 +7,7 @@
     <meta name="description" content="WhiteCoin">
     <link rel="icon" sizes="192x192" href="{{ asset('img/logo_md.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Laravel</title>
+    <title>{{env('APP_NAME')}}</title>
     @include('partial.head')
     @yield('css')
     <link rel="stylesheet" href="{{asset('css/user.css')}}">

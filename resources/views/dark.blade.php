@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="WhiteCoin">
     <link rel="icon" sizes="192x192" href="{{ asset('img/logo_md.png') }}">
-    <title>Laravel</title>
+    <title>{{env('APP_NAME')}}</title>
     @include('partial.head')
     @yield('css')
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
