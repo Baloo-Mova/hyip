@@ -765,3 +765,8 @@ textarea.form-control {
     background-repeat: no-repeat;
     background-position: center;
 }
+.site-logo__wrap a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
