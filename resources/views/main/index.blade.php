@@ -231,7 +231,7 @@
                                     @if(isset($rate['first_prices']))
                                         @for($i = 0; $i < 3; $i++)
                                             @if(!isset($rate['first_prices'][$i]))
-                                                -
+                                                <p>-</p>
                                                 <hr>
                                                 @continue
                                             @else

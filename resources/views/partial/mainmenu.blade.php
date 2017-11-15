@@ -2,9 +2,10 @@
 <nav class="navbar navbar-default navbar-green navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ route('index') }}">
-                <img alt="Brand" src="{{ asset('img/logo.png') }}">
-            </a>
+            <div class="site-logo__wrap">
+                <a class="navbar-brand" href="{{ route('index') }}">
+                </a>
+            </div>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>

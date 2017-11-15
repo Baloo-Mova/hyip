@@ -123,6 +123,14 @@ input, input:active, input:hover, input:focus {
     user-select: none;
 }
 @media screen and (max-width: 486px) {
+    .site-logo__wrap{
+        width: 200px;
+        height: 61px;
+        margin-top: 7px;
+        margin-left: 7px;
+        display: inline-block;
+        background-image: url("../img/logo_md.png");
+    }
     .navbar-nav {
         width: 100%;
         text-align: center;
@@ -179,6 +187,13 @@ input, input:active, input:hover, input:focus {
     }
 }
 @media screen and (min-width: 486px) {
+    .site-logo__wrap{
+        width: 200px;
+        height: 61px;
+        margin-top: 7px;
+        display: inline-block;
+        background-image: url("../img/logo_md.png");
+    }
     .navbar-nav {
         width: 100%;
         text-align: center;
@@ -296,7 +311,19 @@ input, input:active, input:hover, input:focus {
         width: 100% !important;
     }
 }
+
+@media screen and (max-width: 750px) {
+    .site-logo__wrap{
+        margin-left: 7px;
+    }
+    .navbar-toggle {
+        margin-top: 20px;
+    }
+}
 @media screen and (min-width: 750px) {
+    .site-logo__wrap{
+        margin-left: 0px;
+    }
     .top-main-menu__wrap{
         float: left;
     }
@@ -371,6 +398,25 @@ input, input:active, input:hover, input:focus {
         width: 32.333% !important;
     }
 }
+
+@media screen and (min-width: 1124px) {
+    .site-logo__wrap {
+        width: 300px;
+        height: 61px;
+        margin-top: 7px;
+        display: inline-block;
+        background-image: url("../img/logo.png");
+    }
+    .rate__img{
+        height: 180px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .rate__img{
+        height: 205px;
+    }
+}
+
 .navbar__black{
     background-color: #1A1A1A;
 }
@@ -466,7 +512,6 @@ input, input:active, input:hover, input:focus {
 
 .rate-carousel-item,
 .news__item{
-    border: 1px solid #ddd;
     text-align: center;
 }
 
@@ -494,6 +539,8 @@ input, input:active, input:hover, input:focus {
     padding-top: 10px;
 }
 .rate__body{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
     width: 100%;
     padding: 5px;
 }
@@ -644,6 +691,10 @@ textarea.form-control {
         width: 100%;
         margin-top: 10px;
     }
+    .owl-carousel .owl-item img {
+        width: 103.5%;
+        margin-left: -4px;
+    }
 }
 @media screen and (min-width: 760px){
     .send__button{
@@ -658,6 +709,10 @@ textarea.form-control {
     }
     textarea.form-control {
         padding-right: 72px;
+    }
+    .owl-carousel .owl-item img {
+        width: 103.5%;
+        margin-left: -7px;
     }
 }
 .from__message{
@@ -705,3 +760,8 @@ textarea.form-control {
     text-transform: lowercase;
 }
 /* support chat */
+.rate__img_wrap{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
