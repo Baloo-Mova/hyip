@@ -14,3 +14,5 @@
 <meta itemprop="name" content="{{env('APP_NAME')}}"/>
 <meta itemprop="description" content="{{ env("META_DESCRIPTION") }}"/>
 <meta itemprop="image" content="{{ asset('img/meta_logo.png') }}"/>
+
+<link rel="image_src" href="{{ asset('img/meta_logo.png') }}" />
