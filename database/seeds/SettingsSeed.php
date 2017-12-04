@@ -27,7 +27,8 @@ class SettingsSeed extends Seeder
                     'payeer_m_key' => '123',
                     'admin_ips' => '["127.0.0.1", "127.0.0.2"]',
                     'min_sum' => 10,
-                    'max_sum' => 500
+                    'max_sum' => 500,
+                    'received' => 0
                 ]
             ]);
         } catch (Exception $ex) {
