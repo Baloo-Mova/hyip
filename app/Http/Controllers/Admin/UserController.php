@@ -241,6 +241,22 @@ class UserController extends BaseController
 
     public function remove($id)
     {
+        $refs = Referrals::where('user_ref', $id)->get();
+        $refsArr = [];
+        $usersId = [];
+        foreach ($refs as $ref){
+            $usersId[] = $ref->user_id;
+            $refsArr[] = $ref->id;
+        }
+
+        Referrals::where('user_id', $id)->delete();
+        Referrals::whereIn('id', $refsArr)->delete();
+        User::where('referral_id', $id)->update([
+            'referral_id' => null,
+            'ref_name' => null
+        ]);
+        User::whereIn('id', $usersId)->decrement('ref_count');
+
         $user = User::findOrFail($id);
 
         $user->delete();
