@@ -243,8 +243,7 @@ class AuthController extends Controller
 
         $user->createPassportData();
 
-        Mail::to($user->email)
-            ->send(new SubmitEmail($user));
+        Mail::to($user->email)->send(new SubmitEmail($user));
 
         if (isset($referral_id)) {
             $user->incrementReferrers();
