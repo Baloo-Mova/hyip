@@ -23,6 +23,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
     <![endif]-->
+    <link rel="icon" sizes="64x64" href="{{ asset('img/meta_icon.jpg') }}">
     @stack('header-scripts')
     @yield('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
