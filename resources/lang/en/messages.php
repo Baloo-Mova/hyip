@@ -169,6 +169,11 @@ return [
 
     'register_long_text' => 'I confirm that I have carefully read and understood the contents of all',
 
+    'register_long_text' => 'I ACCEPT TERMS :one, :two AND :three.',
+    'one_text' => 'THE USER AGREEMENT',
+    'two_text' => 'PRIVACY POLICY',
+    'three_text' => 'RULES',
+
     /*
      * Footer
      */

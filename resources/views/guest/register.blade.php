@@ -79,8 +79,12 @@
                         <div class="form-group has-feedback {{ $errors->has('confirm_regulations') ? 'has-error' : false }}">
                             <label for="">
                                 <input type="checkbox" name="confirm_regulations" class="confirm_regulations">
-                                @lang('messages.register_long_text') <a
-                                        href="{{ route('terms.of.use') }}" target="_blank" class="red-text">@lang('messages.text')</a>
+                                <?php
+                                    $one = "<a href=".route('about', ['#documents'])." target='_blank' class='red-text'>".__('messages.one_text').'</a>';
+                                    $two = "<a href=".route('terms.of.use')." target='_blank' class='red-text'>".__('messages.two_text').'</a>';
+                                    $three = "<a href=".route('about', ['#documents'])." target='_blank' class='red-text'>".__('messages.three_text').'</a>';
+                                ?>
+                                @lang('messages.register_long_text', ['one' => $one, 'two' => $two, 'three' => $three])
                             </label>
                         </div>
                         {!! Form::submit(__('messages.register'), ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
