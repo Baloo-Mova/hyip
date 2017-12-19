@@ -65,6 +65,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User banned()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereIsConfirm($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRefName($value)
+ * @property string|null $confirmed_date Дата подачи заявки на подтверждение
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Feedback[] $hasFeedbackAnswer
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereConfirmedDate($value)
  */
 class User extends Authenticatable
 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Article;
 use App\Models\Contact;
+use App\Models\Documents;
 use App\Models\FAQ;
 use App\Models\InputOutput;
 use App\Models\MainPage\AboutProject;
@@ -325,7 +326,7 @@ class SiteController extends Controller
     public function regulations()
     {
         $social = SocialNetwork::where(['is_active' => 1])->get();
-        $regulations = Regulations::where(['id' => 1, 'is_active' => 1])->first();
+        $regulations = Regulations::where('lang', Session::get('applocale'))->first();
         $data = [
             'content' => $regulations,
             'contacts' => [
@@ -335,6 +336,21 @@ class SiteController extends Controller
             ]
         ];
         return view('main.regulations', ['data' => $data]);
+    }
+
+    public function documents()
+    {
+        $social = SocialNetwork::where(['is_active' => 1])->get();
+        $documents = Documents::where('lang', Session::get('applocale'))->first();
+        $data = [
+            'content' => $documents,
+            'contacts' => [
+                'social' => [
+                    'links' => $social
+                ]
+            ]
+        ];
+        return view('main.documents', ['data' => $data]);
     }
 
     public function termsOfUse()

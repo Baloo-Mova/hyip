@@ -35,7 +35,7 @@
                         <li><a href="{{ route('about', ['#our_targets']) }}" data-anchor="our_targets" class="about_menu_a">@lang('messages.our_goals')</a></li>
                         <li><a href="{{ route('about', ['#why_we']) }}" data-anchor="why_we" class="about_menu_a">@lang('messages.why_we')</a></li>
                         <li><a href="{{ route('about', ['#how_earn']) }}" data-anchor="how_earn" class="about_menu_a">@lang('messages.how_to_earn')</a></li>
-                        <li><a href="{{ route('about', ['#documents']) }}" data-anchor="documents" class="about_menu_a">@lang('messages.documents')</a></li>
+                        <li><a href="{{ route('documents') }}" data-anchor="documents" class="about_menu_a">@lang('messages.documents')</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('stock') }}">@lang('messages.stocks')</a></li>
@@ -139,7 +139,7 @@
                         <li><a href="{{ route('about', ['#our_targets']) }}" data-anchor="our_targets" class="about_menu_a">@lang('messages.our_goals')</a></li>
                         <li><a href="{{ route('about', ['#why_we']) }}" data-anchor="why_we" class="about_menu_a">@lang('messages.why_we')</a></li>
                         <li><a href="{{ route('about', ['#how_earn']) }}" data-anchor="how_earn" class="about_menu_a">@lang('messages.how_to_earn')</a></li>
-                        <li><a href="{{ route('about', ['#documents']) }}" data-anchor="documents" class="about_menu_a">@lang('messages.documents')</a></li>
+                        <li><a href="{{ route('documents') }}" data-anchor="documents" class="about_menu_a">@lang('messages.documents')</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('stock') }}">@lang('messages.stocks')</a></li>

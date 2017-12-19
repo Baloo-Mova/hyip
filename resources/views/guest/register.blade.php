@@ -80,9 +80,9 @@
                             <label for="">
                                 <input type="checkbox" name="confirm_regulations" class="confirm_regulations">
                                 <?php
-                                    $one = "<a href=".route('about', ['#documents'])." target='_blank' class='red-text'>".__('messages.one_text').'</a>';
-                                    $two = "<a href=".route('terms.of.use')." target='_blank' class='red-text'>".__('messages.two_text').'</a>';
-                                    $three = "<a href=".route('about', ['#documents'])." target='_blank' class='red-text'>".__('messages.three_text').'</a>';
+                                    $one = "<a href=".route('documents', ['#term_of_use'])." target='_blank' class='red-text'>".__('messages.one_text').'</a>';
+                                    $two = "<a href=".route('regulations')." target='_blank' class='red-text'>".__('messages.two_text').'</a>';
+                                    $three = "<a href=".route('documents', ['#rules'])." target='_blank' class='red-text'>".__('messages.three_text').'</a>';
                                 ?>
                                 @lang('messages.register_long_text', ['one' => $one, 'two' => $two, 'three' => $three])
                             </label>

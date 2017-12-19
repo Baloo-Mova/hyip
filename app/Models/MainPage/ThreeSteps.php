@@ -26,6 +26,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\ThreeSteps whereThirdText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\ThreeSteps whereThirdTitle($value)
  * @mixin \Eloquent
+ * @property string|null $first_img
+ * @property string|null $second_img
+ * @property string|null $third_img
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\ThreeSteps whereFirstImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\ThreeSteps whereSecondImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MainPage\ThreeSteps whereThirdImg($value)
  */
 class ThreeSteps extends Model
 {

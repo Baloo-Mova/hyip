@@ -15,13 +15,13 @@ class RegulationsSeeder extends Seeder
             \App\Models\Regulations::truncate();
             \App\Models\Regulations::insert([
                 [
-                    'title' => 'Нормативно-правовые акты',
+                    'title' => 'Политика конфиденциальности',
                     'content' => 'Описание',
                     'is_active' => 1,
                     'lang' => 'ru',
                 ],
                 [
-                    'title' => 'Regulations',
+                    'title' => 'Privacy Policy',
                     'content' => 'Descriptions',
                     'is_active' => 1,
                     'lang' => 'en',

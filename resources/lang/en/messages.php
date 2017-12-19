@@ -193,7 +193,7 @@ return [
     'our_goals' => 'Our goals',
     'why_we' => 'Why we?',
     'how_to_earn' => 'How to earn?',
-    'documents' => 'Documents',
+    'documents' => 'DocumentsController',
     'stocks' => 'Stocks',
     'partners' => 'Partners',
     'replenish_an_account' => 'Replenish an account',
