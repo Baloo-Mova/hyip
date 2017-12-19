@@ -2,6 +2,11 @@
 
 return [
 
+    'label_old_password' => 'Введите Ваш старый пароль',
+    'label_new_password' => 'Введите Ваш новый пароль',
+    'label_new_password_second' => 'Введите Ваш новый пароль еще раз',
+    'change_password' => 'Изменить пароль',
+
     'we_in_social_networks' => 'Мы в социальных сетях',
 
     'new' => 'Новый',

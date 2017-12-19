@@ -2,6 +2,11 @@
 
 return [
 
+    'label_old_password' => 'Enter your old password',
+    'label_new_password' => 'Enter your new password',
+    'label_new_password_second' => 'Enter your new password again',
+    'change_password' => 'Change password',
+
     'we_in_social_networks' => 'We are in social networks:',
 
     'new' => 'New',

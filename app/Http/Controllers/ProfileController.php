@@ -7,6 +7,8 @@ use App\Models\PassportScans;
 use App\Models\UserConfirm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Models\SocialNetwork;
@@ -111,6 +113,48 @@ class ProfileController extends Controller
         Session::flash('messages', [__("messages.changes_successfully_controller")]);
         return back();
 
+    }
+
+    public function changePassword(Request $request)
+    {
+
+        $messages = [
+            'old_password.required' => 'Поле обязательно к заполнению',
+            'new_password.required' => 'Поле обязательно к заполнению',
+            'new_password.same' => 'Значение должно совпадать с полем "Введите Ваш новый пароль еще раз"',
+            'new_password.min' => 'Пароль должен состоять минимум из 6 символов',
+            'new_password_second.required' => 'Поле обязательно к заполнению',
+            'new_password_second.same' => 'Значение должно совпадать с полем "Введите Ваш новый пароль"',
+            'new_password_second.min' => 'Пароль должен состоять минимум из 6 символов'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required|same:new_password_second|string|min:6',
+            'new_password_second' => 'required|same:new_password_second|string|min:6'
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect(route('profile'))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $old = $request->get('old_password');
+
+        $user = Auth::user();
+
+        if(Hash::check($old, $user->password) == true){
+            $user->password = Hash::make($request->get('new_password'));
+            $user->save();
+            Auth::logout();
+            Session::flush();
+            return redirect()->route('login');
+        }else{
+            return redirect(route('profile'))
+                ->withErrors(['old_password' => 'Вы ввели неправильный старый пароль'])
+                ->withInput();
+        }
     }
 
 }
