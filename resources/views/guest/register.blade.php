@@ -79,8 +79,11 @@
                         <div class="form-group has-feedback {{ $errors->has('confirm_regulations') ? 'has-error' : false }}">
                             <label for="">
                                 <input type="checkbox" name="confirm_regulations" class="confirm_regulations">
-                                @lang('messages.register_long_text') <a
-                                        href="{{ route('terms.of.use') }}" target="_blank" class="red-text">@lang('messages.text')</a>
+                                @if(Session::get('applocale') == 'ru')
+                                    Я ПРИНИМАЮ УСЛОВИЯ <a href="{{ route('about') }}" target="_blank" class="red-text">ПОЛЬЗОВАТЕЛЬСКОГО СОГЛАШЕНИЯ</a>, <a href="{{ route('terms.of.use') }}" target="_blank" class="red-text">ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ</a> И <a href="{{ route('about') }}" target="_blank" class="red-text">ПРАВИЛ.</a>
+                                @else
+
+                                @endif
                             </label>
                         </div>
                         {!! Form::submit(__('messages.register'), ['class' => 'btn btn-lg btn-main-carousel btn-block register-button']) !!}
