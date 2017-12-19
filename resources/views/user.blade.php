@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="WhiteCoin">
-    <link rel="icon" sizes="192x192" href="{{ asset('img/logo_md.png') }}">
+    <link rel="icon" sizes="64x64" href="{{ asset('img/meta_icon.jpg') }}">
 
     <meta content="{{ asset('img/logo_md.png') }}" property="og:image" />
     <meta content="{{env('APP_NAME')}}" property="og:site_name" />

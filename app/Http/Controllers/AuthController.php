@@ -212,12 +212,13 @@ class AuthController extends Controller
         }
 
         $referral_id = null;
-        if ($request->get('token')) {
+        if ($request->has('token')) {
             $ref = User::where('ref_link', $request->get('token'))->first();
             if (isset($ref)) {
                 $referral_id = $ref->id;
             }
         }
+
 
         $gen = Factory::create();
         $gen->seed(microtime(true));
@@ -230,7 +231,7 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => \Hash::make($request->get('password')),
             'role' => 1,
-            'ref_name' => $ref->login,
+            'ref_name' => isset($ref) ? $ref->login : null,
             'ref_count' => 0,
             'balance' => 0,
             'status' => 0,
@@ -242,8 +243,7 @@ class AuthController extends Controller
 
         $user->createPassportData();
 
-        Mail::to($user->email)
-            ->send(new SubmitEmail($user));
+        Mail::to($user->email)->send(new SubmitEmail($user));
 
         if (isset($referral_id)) {
             $user->incrementReferrers();
