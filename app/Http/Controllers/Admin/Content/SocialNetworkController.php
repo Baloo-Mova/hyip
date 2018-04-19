@@ -29,7 +29,7 @@ class SocialNetworkController extends Controller
 
         foreach ($request->get('name') as $name){
             $shares[$name] = [
-                'link' => str_replace(['[link]', '[text]'], [urlencode(url('/')), urlencode($text)], $request->get('link')[$name]),
+                'link' => str_replace(['[link]', '[text]'], [urlencode(env("APP_URL")), urlencode($text)], $request->get('link')[$name]),
                 'icon' => $request->get('icon')[$name],
                 'color' => $request->get('color')[$name],
                 'need_show' => !empty($request->get('need_show')[$name]) ? 1 : 0,
