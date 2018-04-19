@@ -47,7 +47,7 @@
                 <div class="register-form__inputs">
                     <div class="form-group has-feedback {{ $errors->has('login') ? 'has-error' : false }}">
                         {!! Form::label('login', __('messages.user_login'), ['class' => 'control-label']) !!}
-                        {!! Form::text('login', '', ['class' => 'form-control', 'id' => 'login', 'placeholder' => __('messages.login'), 'required', 'autofocus']) !!}
+                        {!! Form::text('login', '', ['class' => 'form-control', 'id' => 'login', 'placeholder' => __('messages.user_login'), 'required', 'autofocus']) !!}
                     </div>
                     <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : false }}">
                         {!! Form::label('email', 'E-Mail', ['class' => 'control-label']) !!}
