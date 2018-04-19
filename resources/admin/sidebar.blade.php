@@ -50,7 +50,9 @@
                 <li class="@if( Route::currentRouteName() == 'admin.about-notations.list') active @endif">
                     <a href='{{ route('admin.about-notations.list') }}'>О компании</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.regulations.get') active @endif">
-                    <a href='{{ route('admin.regulations.list') }}'>Нормативно-правовые акты</a></li>
+                    <a href='{{ route('admin.regulations.list') }}'>Политика конфиденциальности</a></li>
+                <li class="@if( Route::currentRouteName() == 'admin.regulations.get') active @endif">
+                    <a href='{{ route('admin.documents') }}'>Документы</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.input-output.index') active @endif">
                     <a href='{{ route('admin.input-output.index') }}'>Ввод/вывод</a></li>
                 <li class="@if( Route::currentRouteName() == 'admin.three-steps.index') active @endif">

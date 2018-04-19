@@ -26,6 +26,7 @@ class UsersTableSeeder extends Seeder
                     'balance' => 0,
                     'ref_link' => 'admin',
                     'last_activity' => \Carbon\Carbon::now(),
+                    'ip' => '127.0.0.1'
                 ]
             );
         }catch (Exception $ex){}

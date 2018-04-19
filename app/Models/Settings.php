@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings whereSmtpPort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings whereSmtpSecure($value)
  * @mixin \Eloquent
+ * @property float $received
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings whereReceived($value)
  */
 class Settings extends Model
 {

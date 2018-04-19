@@ -114,6 +114,42 @@
             </div>
         </div>
 
+        <div class="col-xs-12 col-md-6">
+            <div class="news__item profile__item">
+                <h4>@lang("messages.change_password")</h4>
+                <form action="{{ route('profile.change.password') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group @if( is_error('old_password') )has-error @endif">
+                        <label for="old_password">@lang("messages.label_old_password")</label>
+                        <input type="password" class="form-control btn-flat" name="old_password"
+                               id="old_password" placeholder="@lang("messages.label_old_password")">
+                        @if( is_error('old_password') )
+                            <span class="help-block">{{ $errors->first('old_password') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group @if( is_error('new_password') )has-error @endif">
+                        <label for="new_password">@lang("messages.label_new_password")</label>
+                        <input type="password" class="form-control btn-flat" name="new_password"
+                               id="new_password" placeholder="@lang("messages.label_new_password")">
+                        @if( is_error('new_password') )
+                            <span class="help-block">{{ $errors->first('new_password') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group @if( is_error('new_password_second') )has-error @endif">
+                        <label for="new_password_second">@lang("messages.label_new_password_second")</label>
+                        <input type="password" class="form-control btn-flat" name="new_password_second"
+                               id="new_password_second" placeholder="@lang("messages.label_new_password_second")">
+                        @if( is_error('new_password_second') )
+                            <span class="help-block">{{ $errors->first('new_password_second') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group @if( is_error('new_password_second') )has-error @endif">
+                        <button class="btn btn-main-carousel btn-flat" type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         @if(count($scans) > 0)
             <div class="col-xs-12 col-md-12">
                 <div class="news__item profile__item">

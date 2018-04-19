@@ -43,6 +43,7 @@ Route::get('/facilities/result/{type}', 'FacilitiesController@getResultRefill')-
 Route::post('/facilities/status', 'FacilitiesController@statusResult')->name('facilities.refill.result.post');
 Route::get('/submit/{id}/{token}', ['uses' => 'AuthController@submitEmail', 'as' => 'submit.email']);
 Route::get('/images/{type}/{name}', ['uses' => 'DownloadController@getImage', 'as' => 'get.image']);
+Route::get('/documents', ['uses' => 'SiteController@documents', 'as' => 'documents']);
 
 Route::group(['middleware' => 'guest'], function () {
     Route::group(['prefix' => 'register'], function () {
@@ -93,6 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile');
             Route::post('/edit', 'ProfileController@edit')->name('profile.edit');
+            Route::post('/change-password', 'ProfileController@changePassword')->name('profile.change.password');
         });
         Route::group(['prefix' => 'tariff'], function () {
             Route::get('/index/{id}', 'TariffController@index')->name('tariff');
@@ -257,6 +259,15 @@ Route::group([
             Route::get('{id}', 'RegulationsController@getEdit')->name('admin.regulations.get');
             Route::post('{id}', 'RegulationsController@save')->name('admin.regulations.save.edit');
             Route::get('delete/{id}', 'RegulationsController@delete')->name('admin.regulations.delete');
+        });
+
+        Route::group(['prefix' => 'documents'], function () {
+            Route::get('/', 'DocumentsController@index')->name('admin.documents');
+            Route::get('/add', 'DocumentsController@add')->name('admin.documents.add');
+            Route::post('/add', 'DocumentsController@store')->name('admin.documents.save');
+            Route::get('/edit/{id}', 'DocumentsController@edit')->name('admin.documents.edit');
+            Route::post('/edit/{id}', 'DocumentsController@store')->name('admin.documents.save.edit');
+            Route::get('/delete/{id}', 'DocumentsController@delete')->name('admin.documents.delete');
         });
     });
 

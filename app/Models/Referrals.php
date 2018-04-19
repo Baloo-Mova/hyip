@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Referrals whereUserRefName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Referrals whereUserRefPhone($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\User $refer
  */
 class Referrals extends Model
 {

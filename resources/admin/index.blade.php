@@ -44,7 +44,7 @@
             </button>
             <a class="navbar-brand" href="{{ route('index') }}">AdminTemplate</a>
         </div>
-            <a class="navbar-brand pull-right" href="{{ route('logout') }}">Logout</a>
+            <a class="navbar-brand pull-right" href="{{ route('logout') }}">Выйти</a>
     </div>
 </nav>
 <div class="container-fluid">

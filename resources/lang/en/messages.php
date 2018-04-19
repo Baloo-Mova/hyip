@@ -2,6 +2,11 @@
 
 return [
 
+    'label_old_password' => 'Enter your old password',
+    'label_new_password' => 'Enter your new password',
+    'label_new_password_second' => 'Enter your new password again',
+    'change_password' => 'Change password',
+
     'we_in_social_networks' => 'We are in social networks:',
 
     'new' => 'New',
@@ -193,7 +198,7 @@ return [
     'our_goals' => 'Our goals',
     'why_we' => 'Why we?',
     'how_to_earn' => 'How to earn?',
-    'documents' => 'Documents',
+    'documents' => 'DocumentsController',
     'stocks' => 'Stocks',
     'partners' => 'Partners',
     'replenish_an_account' => 'Replenish an account',
