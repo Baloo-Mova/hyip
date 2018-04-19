@@ -13,6 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        if (!\App::environment('local')) {
+            \URL::forceSchema('https');
+        }
+
         \View::addNamespace('Admin', resource_path('admin'));
 
         \View::share([
