@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,8 +13,14 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
+
+        if(env('REDIRECT_HTTPS'))
+        {
+            $url->forceScheme('https');
+        }
+
         \View::addNamespace('Admin', resource_path('admin'));
 
         \View::share([
