@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         if (!\App::environment('local')) {
-            \URL::forceSchema('https');
+            URL::forceScheme('https');
         }
 
         \View::addNamespace('Admin', resource_path('admin'));
